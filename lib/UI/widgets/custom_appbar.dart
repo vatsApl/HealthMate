@@ -54,14 +54,14 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                 child: SvgPicture.asset(
                   Images.ic_person,
                   color: Colors.white,
-                  height: 28.0,
+                  height: 35.0,
                 ),
               ),
               errorWidget: (context, url, error) => CircleAvatar(
                 child: SvgPicture.asset(
                   Images.ic_person,
                   color: Colors.white,
-                  height: 28.0,
+                  height: 35.0,
                 ),
               ),
             ),

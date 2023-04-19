@@ -40,29 +40,10 @@ class _HomePageState extends State<HomePage> {
   final scrollController = ScrollController();
   var uId = PreferencesHelper.getString(PreferencesHelper.KEY_USER_ID);
   var uIdInt = PreferencesHelper.getInt(PreferencesHelper.KEY_USER_ID_INT);
-  var uFirstName =
-      PreferencesHelper.getString(PreferencesHelper.KEY_FIRST_NAME);
+  var uFirstName = PreferencesHelper.getString(PreferencesHelper.KEY_FIRST_NAME);
   var uRoleName = PreferencesHelper.getString(PreferencesHelper.KEY_ROLE_NAME);
   String? netImg = PreferencesHelper.getString(PreferencesHelper.KEY_AVATAR);
 
-  // void scrollListener() {
-  //   if (scrollController.position.pixels ==
-  //       scrollController.position.maxScrollExtent) {
-  //     if (isLastPage == false) {
-  //       homePageCandidate(page);
-  //       page++;
-  //       setState(() {
-  //         isLoadingMore = true;
-  //       });
-  //     }
-  //   } else {
-  //     setState(() {
-  //       isLoadingMore = false;
-  //     });
-  //   }
-  // }
-
-  //home page api
   Future<void> homePageCandidate() async {
     final url = Uri.parse(
         '${DataURL.baseUrl}/api/job/$uId/specific/candidate/dashboard');

@@ -131,7 +131,7 @@ class _AppliedJobState extends State<AppliedJob> {
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 250.0),
                       child: Text(
-                        'No Jobs Found',
+                        'No applied Found',
                         style: TextStyle(
                           fontSize: 22.0,
                           fontWeight: FontWeight.w500,

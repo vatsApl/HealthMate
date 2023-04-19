@@ -117,17 +117,26 @@ class _ForgotVerificationState extends State<ForgotVerification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0.0,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: SvgPicture.asset(
+            Images.ic_left_arrow,
+            fit: BoxFit.scaleDown,
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(16.0, 63.0, 16.0, 16.0),
+          padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: SvgPicture.asset(Images.ic_left_arrow)),
               const SizedBox(
                 height: 23.0,
               ),
@@ -218,7 +227,8 @@ class _ForgotVerificationState extends State<ForgotVerification> {
               ),
               ElevatedBtn(
                 btnTitle: 'Verify',
-                isLoading: isVisible, //
+                isLoading: isVisible,
+                bgColor: kDefaultPurpleColor,
                 onPressed: () {
                   forgotOtpVerify();
                 },

@@ -32,6 +32,7 @@ class Data {
   String? email;
   String? phone;
   String? gender;
+  String? practiceName;
 
   Data(
       {this.avatar,
@@ -39,7 +40,8 @@ class Data {
       this.lastName,
       this.email,
       this.phone,
-      this.gender});
+      this.gender,
+      this.practiceName});
 
   Data.fromJson(Map<String, dynamic> json) {
     avatar = json['avatar'];
@@ -48,6 +50,7 @@ class Data {
     email = json['email'];
     phone = json['phone'];
     gender = json['gender'];
+    practiceName = json['practice_name'];
   }
 
   Map<String, dynamic> toJson() {
@@ -58,6 +61,7 @@ class Data {
     data['email'] = email;
     data['phone'] = phone;
     data['gender'] = gender;
+    data['practice_name'] = this.practiceName;
     return data;
   }
 }

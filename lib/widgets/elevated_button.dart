@@ -26,7 +26,7 @@ class ElevatedBtn extends StatelessWidget {
             onPressed!();
           }
         },
-        style: OutlinedButton.styleFrom(
+        style: ElevatedButton.styleFrom(
           backgroundColor: onPressed != null ? bgColor : Colors.grey,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6.0),

@@ -3,6 +3,7 @@ import 'package:clg_project/allAPIs/allAPIs.dart';
 import 'package:clg_project/bottom_navigation/profile/cv_resume.dart';
 import 'package:clg_project/bottom_navigation/profile/personal_details.dart';
 import 'package:clg_project/bottom_navigation/profile/role_skills.dart';
+import 'package:clg_project/bottom_navigation/profile/settings_page.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
@@ -21,15 +22,16 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   bool isVisible = false;
-  var uFirstName;
-  var uRoleName;
+  String? uFirstName;
+  String? uRoleName;
   String? netImg;
 
   getData() {
-    uFirstName = PreferencesHelper.getString(PreferencesHelper.KEY_FIRST_NAME);
-    uRoleName = PreferencesHelper.getString(PreferencesHelper.KEY_ROLE_NAME);
-    // var uId = PreferencesHelper.getString(PreferencesHelper.KEY_USER_ID);
-    netImg = PreferencesHelper.getString(PreferencesHelper.KEY_AVATAR);
+    setState(() {
+      uFirstName = PreferencesHelper.getString(PreferencesHelper.KEY_FIRST_NAME);
+      uRoleName = PreferencesHelper.getString(PreferencesHelper.KEY_ROLE_NAME);
+      netImg = PreferencesHelper.getString(PreferencesHelper.KEY_AVATAR);
+    });
   }
 
   @override
@@ -43,10 +45,9 @@ class _ProfilePageState extends State<ProfilePage> {
     return FocusDetector(
       onFocusGained: () {
         getData();
-        setState(() {});
       },
       child: Scaffold(
-        backgroundColor: const Color(0xffffffff),
+        backgroundColor: Colors.white,
         body: Padding(
           padding: const EdgeInsets.fromLTRB(16.0, 40.0, 16.0, 0.0),
           child: SingleChildScrollView(
@@ -65,48 +66,30 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: CircleAvatar(
                           child: CachedNetworkImage(
                             imageUrl: '${DataURL.baseUrl}/${netImg ?? ''}',
-                            imageBuilder: (context, imageProvider) =>
-                                Container(
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                      image: imageProvider,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
+                            imageBuilder: (context, imageProvider) => Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  image: imageProvider,
+                                  fit: BoxFit.cover,
                                 ),
+                              ),
+                            ),
                             placeholder: (context, url) => CircleAvatar(
                               child: SvgPicture.asset(
                                 Images.ic_person,
                                 color: Colors.white,
-                                height: 30.0,
+                                height: 35.0,
                               ),
                             ),
-                            errorWidget: (context, url, error) =>
-                                CircleAvatar(
-                                  child: SvgPicture.asset(
-                                    Images.ic_person,
-                                    color: Colors.white,
-                                    height: 30.0,
-                                  ),
-                                ),
+                            errorWidget: (context, url, error) => CircleAvatar(
+                              child: SvgPicture.asset(
+                                Images.ic_person,
+                                color: Colors.white,
+                                height: 35.0,
+                              ),
+                            ),
                           ),
-                          // child: netImg == 'null'
-                          //     ? SvgPicture.asset(
-                          //         Images.ic_person,
-                          //         color: Colors.white,
-                          //         height: 30.0,
-                          //       )
-                          //     : Container(
-                          //         decoration: BoxDecoration(
-                          //           shape: BoxShape.circle,
-                          //           image: DecorationImage(
-                          //             image: NetworkImage(
-                          //                 '${DataURL.baseUrl}/$netImg'),
-                          //             fit: BoxFit.cover,
-                          //           ),
-                          //         ),
-                          //       ),
                         ),
                       ),
                     ),
@@ -117,7 +100,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          uFirstName,
+                          uFirstName ?? '',
                           style: const TextStyle(
                             color: kDefaultPurpleColor,
                             fontSize: 18.0,
@@ -125,7 +108,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                         Text(
-                          uRoleName,
+                          uRoleName ?? '',
                           style: const TextStyle(
                               color: kDefaultBlackColor, height: 1.2),
                         ),
@@ -139,7 +122,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 Column(
                   children: [
                     Card(
-                      elevation: 1.0,
+                      elevation: 2.0,
                       shadowColor: const Color(0xff000000),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(6.0),
@@ -149,7 +132,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const PersonalDetails()));
+                                  builder: (context) =>
+                                      const PersonalDetails()));
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 4.0),
@@ -173,9 +157,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 12.0,),
+                    const SizedBox(
+                      height: 12.0,
+                    ),
                     Card(
-                      elevation: 1.0,
+                      elevation: 2.0,
                       shadowColor: const Color(0xff000000),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(6.0),
@@ -211,9 +197,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 12.0,),
+                    const SizedBox(
+                      height: 12.0,
+                    ),
                     Card(
-                      elevation: 1.0,
+                      elevation: 2.0,
                       shadowColor: const Color(0xff000000),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(6.0),
@@ -249,37 +237,51 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 12.0,),
+                    const SizedBox(
+                      height: 12.0,
+                    ),
                     Card(
-                      elevation: 1.0,
+                      elevation: 2.0,
                       shadowColor: const Color(0xff000000),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(6.0),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4.0),
-                        child: ListTile(
-                          leading: SvgPicture.asset(
-                            Images.ic_settings,
-                            color: kDefaultPurpleColor,
-                          ),
-                          title: const Text(
-                            'Settings',
-                            style: TextStyle(
-                              color: kDefaultBlackColor,
-                              fontWeight: FontWeight.w400,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SettingsPage(),
                             ),
-                          ),
-                          trailing: SvgPicture.asset(
-                            Images.ic_read_more_1,
-                            color: kreadMoreColor,
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 4.0),
+                          child: ListTile(
+                            leading: SvgPicture.asset(
+                              Images.ic_settings,
+                              color: kDefaultPurpleColor,
+                            ),
+                            title: const Text(
+                              'Settings',
+                              style: TextStyle(
+                                color: kDefaultBlackColor,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            trailing: SvgPicture.asset(
+                              Images.ic_read_more_1,
+                              color: kreadMoreColor,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(height: 12.0,),
+                    const SizedBox(
+                      height: 12.0,
+                    ),
                     Card(
-                      elevation: 1.0,
+                      elevation: 2.0,
                       shadowColor: const Color(0xff000000),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(6.0),
@@ -319,121 +321,4 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
-
-  // Future<dynamic> buildShowLogOutDialog(BuildContext context) {
-  //   return showDialog(
-  //     context: context,
-  //     barrierDismissible: false,
-  //     builder: (BuildContext context) {
-  //       return Dialog(
-  //         shape: RoundedRectangleBorder(
-  //           borderRadius: BorderRadius.circular(6.0),
-  //         ),
-  //         child: Wrap(
-  //           children: [
-  //             Container(
-  //               padding: const EdgeInsets.symmetric(
-  //                   horizontal: 10.0, vertical: 25.0),
-  //               child: Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.center,
-  //                 children: [
-  //                   const SizedBox(
-  //                     height: 12.0,
-  //                   ),
-  //                   SvgPicture.asset(
-  //                     Images.ic_personal_details,
-  //                     // fit: BoxFit.scaleDown,
-  //                     height: 40.0,
-  //                     width: 40.0,
-  //                     color: kredColor,
-  //                   ),
-  //                   const SizedBox(
-  //                     height: 20.0,
-  //                   ),
-  //                   const Text(
-  //                     'Log Out!',
-  //                     style: TextStyle(
-  //                       fontSize: 18.0,
-  //                       fontWeight: FontWeight.w700,
-  //                       color: kredColor,
-  //                     ),
-  //                   ),
-  //                   const SizedBox(
-  //                     height: 12.0,
-  //                   ),
-  //                   Text(
-  //                     'Are You Sure You Want To Log Out?',
-  //                     style: const TextStyle(color: kDefaultBlackColor)
-  //                         .copyWith(height: 1.5),
-  //                     textAlign: TextAlign.center,
-  //                   ),
-  //                   const SizedBox(
-  //                     height: 30.0,
-  //                   ),
-  //                   Row(
-  //                     mainAxisAlignment: MainAxisAlignment.center,
-  //                     children: [
-  //                       SizedBox(
-  //                         width: 110.0,
-  //                         height: 44.0,
-  //                         child: ElevatedButton(
-  //                             style: ElevatedButton.styleFrom(
-  //                               backgroundColor: kredColor,
-  //                             ),
-  //                             onPressed: () async {
-  //                               PreferencesHelper.setBool(PreferencesHelper.KEY_USER_LOGIN, false);
-  //                               Navigator.of(context).pushAndRemoveUntil(
-  //                                   MaterialPageRoute(
-  //                                     builder: (context) => const SignInPage(),
-  //                                   ),
-  //                                   (route) => false);
-  //                             },
-  //                             child: const Text(
-  //                               'Logout',
-  //                               style: TextStyle(
-  //                                 fontSize: 16.0,
-  //                                 fontWeight: FontWeight.w500,
-  //                               ),
-  //                             )),
-  //                       ),
-  //                       const SizedBox(
-  //                         width: 17.0,
-  //                       ),
-  //                       SizedBox(
-  //                         width: 110.0,
-  //                         height: 44.0,
-  //                         child: ElevatedButton(
-  //                             style: ElevatedButton.styleFrom(
-  //                               backgroundColor: klightColor,
-  //                             ),
-  //                             onPressed: () {
-  //                               Navigator.pop(context);
-  //                             },
-  //                             child: const Text(
-  //                               'Cancel',
-  //                               style: TextStyle(
-  //                                 fontSize: 16.0,
-  //                                 fontWeight: FontWeight.w500,
-  //                               ),
-  //                             )),
-  //                       ),
-  //                     ],
-  //                   )
-  //                   // Align(
-  //                   //   alignment: Alignment.center,
-  //                   //   child: ElevatedBtn(
-  //                   //       btnTitle: 'Okay !',
-  //                   //       onPressed: () {
-  //                   //         Navigator.pop(context);
-  //                   //       }),
-  //                   // ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
 }

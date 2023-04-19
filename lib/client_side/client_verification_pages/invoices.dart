@@ -195,7 +195,8 @@ class _InvoicesState extends State<Invoices> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: ListView.separated(
+      child: jobs.isNotEmpty ?
+      ListView.separated(
         physics: const BouncingScrollPhysics(),
         controller: scrollController,
         padding: EdgeInsets.zero,
@@ -218,6 +219,11 @@ class _InvoicesState extends State<Invoices> {
             height: 20.0,
           );
         },
+      ) : const Center(
+        child: Text(
+          'No Invoices',
+          style: kDefaultEmptyListStyle,
+        ),
       ),
     );
   }

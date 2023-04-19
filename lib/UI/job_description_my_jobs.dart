@@ -15,6 +15,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import '../bottom_navigation/main_page.dart';
 import '../custom_widgets/custom_widget_helper.dart';
 import '../models/candidate_models/find_job_response.dart';
 import '../resourse/shared_prefs.dart';
@@ -96,8 +98,8 @@ class _JobDescriptionMyJobsState extends State<JobDescriptionMyJobs> {
       setState(() {
         isVisible = true;
       });
+      log('desc:${response.body}');
       if (response.statusCode == 200) {
-        log('desc:${response.body}');
         var json = jsonDecode(response.body);
         print(json['message']);
         Fluttertoast.showToast(
@@ -109,9 +111,15 @@ class _JobDescriptionMyJobsState extends State<JobDescriptionMyJobs> {
           textColor: Colors.white,
           fontSize: 16.0,
         );
-        Navigator.of(context).pop(true);
-
-
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (context) =>
+              ChangeNotifierProvider<ValueNotifier<int>>.value(
+                value: ValueNotifier<int>(2),
+                child: MainPage(),
+              ),
+            ),
+                (route) => false);
       }
     } catch (e) {
       print(e.toString());

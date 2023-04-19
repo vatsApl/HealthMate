@@ -26,7 +26,6 @@ class ClientAddresses extends StatefulWidget {
 }
 
 class _ClientAddressesState extends State<ClientAddresses> {
-
   List<Address>? address = [];
   bool isVisible = false;
   var uId = PreferencesHelper.getString(PreferencesHelper.KEY_USER_ID);
@@ -45,11 +44,9 @@ class _ClientAddressesState extends State<ClientAddresses> {
         var json = jsonDecode(response.body);
         var clientAddressResponse = ClientAddressesResponse.fromJson(json);
         address = clientAddressResponse.address;
-        if (json['code'] == 200) {
-          setState(() {
-            isVisible = false;
-          });
-        }
+        setState(() {
+          isVisible = false;
+        });
       }
     } catch (e) {
       print(e);
@@ -132,139 +129,167 @@ class _ClientAddressesState extends State<ClientAddresses> {
     });
   }
 
-  @override
-  void initState() {
-    super.initState();
-    allAddresses();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   allAddresses();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return FocusDetector(
-      onFocusGained: (){
+      onFocusGained: () {
         allAddresses();
       },
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: CustomWidgetHelper.appBar(context: context),
-        body: Padding(
-          padding: const EdgeInsets.fromLTRB(16.0, 40.0, 16.0, 0.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TitleText(title: 'Addresses'),
-                  InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => AddNewAddress(),
+        body: isVisible
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : Padding(
+                padding: const EdgeInsets.fromLTRB(16.0, 40.0, 16.0, 0.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TitleText(title: 'Addresses'),
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const AddNewAddress(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50.0),
+                              border: Border.all(
+                                  width: 2.0, color: kDefaultPurpleColor),
+                            ),
+                            child: SvgPicture.asset(
+                              Images.ic_plus,
+                              height: 28.0,
+                            ),
                           ),
-                        );
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50.0),
-                          border:
-                          Border.all(width: 2.0, color: kDefaultPurpleColor),
                         ),
-                        child: SvgPicture.asset(
-                          Images.ic_plus,
-                          height: 28.0,
-                        ),
-                      ),
-                  ),
-                ],
-              ),
-              // const SizedBox(
-              //   height: 40.0,
-              // ),
-              Expanded(
-                child: ListView.separated(
-                  padding: const EdgeInsets.only(top: 48.0),
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: address?.length ?? 0,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(top: 12.0),
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(14.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '${address?[index].client?.practiceName}',
-                                style: const TextStyle(
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.w500,
-                                    color: kDefaultBlackColor),
-                              ),
-                              const SizedBox(
-                                height: 18.0,
-                              ),
-                              Text(
-                                '${address?[index].address}, ${address?[index].area}-${address?[index].postCode}',
-                                style: const TextStyle(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: kDefaultBlackColor,
-                                  height: 1.5,
+                      ],
+                    ),
+                    // const SizedBox(
+                    //   height: 40.0,
+                    // ),
+                    Expanded(
+                      child: ListView.separated(
+                        padding: const EdgeInsets.only(top: 48.0),
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: address?.length ?? 0,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 12.0),
+                            child: Card(
+                              child: Padding(
+                                padding: const EdgeInsets.all(14.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '${address?[index].client?.practiceName}',
+                                      style: const TextStyle(
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.w500,
+                                          color: kDefaultBlackColor),
+                                    ),
+                                    const SizedBox(
+                                      height: 18.0,
+                                    ),
+                                    Text(
+                                      '${address?[index].address}, ${address?[index].area}-${address?[index].postCode}',
+                                      style: const TextStyle(
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: kDefaultBlackColor,
+                                        height: 1.5,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 18.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        OutlinedBtn(
+                                          btnTitle: 'Edit',
+                                          onPressed: () {
+                                            addressId = address?[index]?.id;
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    EditAddress(
+                                                        addId: addressId),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                        if (address!.length > 1)
+                                          OutlinedBtn(
+                                            btnTitle: 'Remove',
+                                            onPressed: () {
+                                              addressId = address?[index]?.id;
+                                              removeAddress(
+                                                  addressId: addressId);
+                                              Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const ClientAddresses(),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        if (address?[index]
+                                                ?.client
+                                                ?.addressId !=
+                                            address?[index]?.id)
+                                          OutlinedBtn(
+                                            btnTitle: 'Set As Default',
+                                            onPressed: () {
+                                              addressId = address?[index]?.id;
+                                              setAsDefault(
+                                                  addressId: addressId);
+                                              Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const ClientAddresses(),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                      ],
+                                    )
+                                  ],
                                 ),
                               ),
-                              const SizedBox(
-                                height: 18.0,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  OutlinedBtn(
-                                    btnTitle: 'Edit',
-                                    onPressed: () {
-                                      addressId = address?[index]?.id;
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => EditAddress(addId: addressId),),);
-                                    },
-                                  ),
-
-                                  if(address!.length > 1)
-                                    OutlinedBtn(
-                                      btnTitle: 'Remove',
-                                      onPressed: () {
-                                        addressId = address?[index]?.id;
-                                        removeAddress(addressId: addressId);
-                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ClientAddresses(),),);
-                                      },
-                                    ),
-
-                                  if(address?[index]?.client?.addressId != address?[index]?.id)
-                                    OutlinedBtn(
-                                      btnTitle: 'Set As Default',
-                                      onPressed: () {
-                                        addressId = address?[index]?.id;
-                                        setAsDefault(addressId: addressId);
-                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ClientAddresses(),),);
-                                      },
-                                    ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
+                            ),
+                          );
+                        },
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const SizedBox(
+                            height: 4.0,
+                          );
+                        },
                       ),
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const SizedBox(
-                      height: 4.0,
-                    );
-                  },
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
       ),
     );
   }

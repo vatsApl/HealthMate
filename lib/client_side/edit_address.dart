@@ -39,7 +39,7 @@ class _EditAddressState extends State<EditAddress> {
         isVisible = true;
       });
       var response = await http.get(Uri.parse(url));
-      log('Edit address LOG:${response.body}');
+      log('Edit address log:${response.body}');
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         clientSingleAddress = ClientAddressesSingleResponse.fromJson(json);
@@ -47,12 +47,9 @@ class _EditAddressState extends State<EditAddress> {
         areaController.text = clientSingleAddress.address?.area ?? '';
         postcodeController.text =
             clientSingleAddress.address?.postCode.toString() ?? '';
-
-        if (json['code'] == 200) {
           setState(() {
             isVisible = false;
           });
-        }
       }
     } catch (e) {
       print(e);
@@ -123,7 +120,6 @@ class _EditAddressState extends State<EditAddress> {
   void initState() {
     super.initState();
     editAddress();
-    print('{widget.addId}');
   }
 
   @override

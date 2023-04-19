@@ -166,16 +166,15 @@ class Methods {
                           bgColor: kDefaultPurpleColor,
                           onPressed: () {
                             //naviate to home page:
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                ChangeNotifierProvider<ValueNotifier<int>>.value(
-                                  value: ValueNotifier<int>(0),
-                                  child: MainPage(),
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                  ChangeNotifierProvider<ValueNotifier<int>>.value(
+                                    value: ValueNotifier<int>(0),
+                                    child: MainPage(),
+                                  ),
                                 ),
-                              ),
-                            );
+                                    (route) => false);
                           },
                         ),
                       ),

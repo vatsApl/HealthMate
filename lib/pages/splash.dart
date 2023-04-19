@@ -5,7 +5,6 @@ import 'package:clg_project/constants.dart';
 import 'package:clg_project/pages/welcome_screen.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_circular_text/circular_text.dart';
 import 'package:provider/provider.dart';
 
 class Splash extends StatefulWidget {
@@ -56,7 +55,7 @@ class SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: kDefaultPurpleColor,
       body: Center(
         // child: CircularText(

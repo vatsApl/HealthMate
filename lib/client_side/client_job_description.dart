@@ -5,6 +5,7 @@ import 'package:clg_project/allAPIs/allAPIs.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/models/candidate_models/job_description_res.dart';
 import 'package:clg_project/resourse/images.dart';
+import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
@@ -69,22 +70,13 @@ class _ClientJobDescriptionState extends State<ClientJobDescription> {
               child: CustomWidgetHelper.Loader(context: context),
             )
           : SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-            child: Expanded(
-              child: Padding(
+              physics: const BouncingScrollPhysics(),
+              child: Expanded(
+                child: Padding(
                   padding: const EdgeInsets.fromLTRB(16.0, 27.0, 16.0, 0.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // InkWell(
-                      //   onTap: () {
-                      //     Navigator.pop(context);
-                      //   },
-                      //   child: SvgPicture.asset(
-                      //     Images.ic_left_arrow,
-                      //     fit: BoxFit.scaleDown,
-                      //   ),
-                      // ),
                       TitleText(title: '${jobDesc?.jobTitle.toString()}'),
                       const SizedBox(
                         height: 38.0,
@@ -92,7 +84,8 @@ class _ClientJobDescriptionState extends State<ClientJobDescription> {
                       const Text(
                         'Job Description',
                         style: TextStyle(
-                            color: kDefaultBlackColor, fontWeight: FontWeight.w500),
+                            color: kDefaultBlackColor,
+                            fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(
                         height: 10.0,
@@ -118,7 +111,8 @@ class _ClientJobDescriptionState extends State<ClientJobDescription> {
                           ),
                           Flexible(
                             child: Padding(
-                              padding: const EdgeInsets.only(top: 30.0, left: 20.0),
+                              padding:
+                                  const EdgeInsets.only(top: 30.0, left: 20.0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -140,7 +134,8 @@ class _ClientJobDescriptionState extends State<ClientJobDescription> {
                       Row(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(top: 26.0, left: 10.0),
+                            padding:
+                                const EdgeInsets.only(top: 26.0, left: 10.0),
                             child: SvgPicture.asset(
                               Images.ic_calander,
                               height: 20.0,
@@ -149,7 +144,8 @@ class _ClientJobDescriptionState extends State<ClientJobDescription> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 13.0, left: 31.0),
+                            padding:
+                                const EdgeInsets.only(top: 13.0, left: 31.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -177,7 +173,8 @@ class _ClientJobDescriptionState extends State<ClientJobDescription> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 13.0, left: 20.0),
+                            padding:
+                                const EdgeInsets.only(top: 13.0, left: 20.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -205,7 +202,8 @@ class _ClientJobDescriptionState extends State<ClientJobDescription> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 13.0, left: 20.0),
+                            padding:
+                                const EdgeInsets.only(top: 13.0, left: 20.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -226,7 +224,8 @@ class _ClientJobDescriptionState extends State<ClientJobDescription> {
                       Row(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(top: 26.0, left: 8.0),
+                            padding:
+                                const EdgeInsets.only(top: 26.0, left: 8.0),
                             child: SvgPicture.asset(
                               Images.ic_job,
                               height: 28.0,
@@ -235,7 +234,8 @@ class _ClientJobDescriptionState extends State<ClientJobDescription> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 13.0, left: 24.0),
+                            padding:
+                                const EdgeInsets.only(top: 13.0, left: 24.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -266,7 +266,6 @@ class _ClientJobDescriptionState extends State<ClientJobDescription> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
-                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             textBaseline: TextBaseline.alphabetic,
                             children: [
@@ -299,7 +298,8 @@ class _ClientJobDescriptionState extends State<ClientJobDescription> {
                                 ),
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   SvgPicture.asset(
                                     Images.ic_break,
@@ -321,11 +321,21 @@ class _ClientJobDescriptionState extends State<ClientJobDescription> {
                           ),
                         ],
                       ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 50.0),
+                        child: ElevatedBtn(
+                          btnTitle: 'Remove contract',
+                          bgColor: kredColor,
+                          onPressed: () {
+                            //remove contract
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 ),
+              ),
             ),
-          ),
     );
   }
 }

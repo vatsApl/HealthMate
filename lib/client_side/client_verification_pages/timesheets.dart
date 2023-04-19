@@ -8,6 +8,7 @@ import '../../UI/job_description_with_status.dart';
 import '../../UI/widgets/job_card.dart';
 import '../../UI/widgets/job_card_with_status.dart';
 import '../../allAPIs/allAPIs.dart';
+import '../../constants.dart';
 import '../../models/candidate_models/find_job_response.dart';
 import '../../resourse/shared_prefs.dart';
 
@@ -82,7 +83,8 @@ class _TimeSheetsState extends State<TimeSheets> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: ListView.separated(
+      child: jobs.isNotEmpty ?
+      ListView.separated(
         padding: EdgeInsets.zero,
         physics: const BouncingScrollPhysics(),
         shrinkWrap: true,
@@ -108,6 +110,11 @@ class _TimeSheetsState extends State<TimeSheets> {
             height: 20.0,
           );
         },
+      ) : const Center(
+        child: Text(
+          'No Timesheets',
+          style: kDefaultEmptyListStyle,
+        ),
       ),
     );
   }

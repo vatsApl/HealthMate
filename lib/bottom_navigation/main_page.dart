@@ -10,10 +10,8 @@ import 'package:focus_detector/focus_detector.dart';
 import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget {
-  MainPage({super.key, this.firstName, this.lastName, this.roleName,});
-  String? firstName;
-  String? lastName;
-  String? roleName;
+  MainPage({super.key,
+  });
   @override
   State<MainPage> createState() => _MainPageState();
 }
@@ -32,12 +30,6 @@ class _MainPageState extends State<MainPage> {
     Provider.of<ValueNotifier<int>>(context, listen: false).value = index;
     HomePage.tabIndexNotifier.value = 0;
   }
-
-  // void onTap(int index) {
-  //   setState(() {
-  //     currentIndex = index;
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -117,4 +109,3 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
-

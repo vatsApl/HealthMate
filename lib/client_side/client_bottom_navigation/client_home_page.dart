@@ -31,9 +31,8 @@ class _ClientHomePageState extends State<ClientHomePage> {
   var clientJobResponse2;
   bool isVisible = false;
   int page = 1;
-  var clientName =
-      PreferencesHelper.getString(PreferencesHelper.KEY_CLIENT_NAME);
-  String? netImg = PreferencesHelper.getString(PreferencesHelper.KEY_AVATAR);
+  String? clientName = PreferencesHelper.getString(PreferencesHelper.KEY_CLIENT_NAME);
+  String? netImg = PreferencesHelper.getString(PreferencesHelper.KEY_CLIENT_AVATAR);
   //client home page api
   Future<void> showContractHome(int pageValue) async {
     var uId = PreferencesHelper.getString(PreferencesHelper.KEY_USER_ID);
@@ -48,7 +47,6 @@ class _ClientHomePageState extends State<ClientHomePage> {
         var json = jsonDecode(response.body);
         clientJobResponse = ClientJobModelResponse.fromJson(json);
         clientJobResponse2 = ClientJobModelResponse.fromJson(json);
-
         print(clientJobResponse2.contractCount);
         setState(() {
           isVisible = false;
@@ -77,6 +75,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
         appBar: CustomAppBar(
           name: clientName,
           svgPictureTrailing: Images.ic_notification,
+          netImg: netImg,
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -167,7 +166,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
                             onTap: () {
                               //Navigate to Timesheet page.
                               Provider.of<ValueNotifier<int>>(context,
-                                  listen: false)
+                                      listen: false)
                                   .value = 2;
                               ClientHomePage.tabIndexNotifier.value = 1;
                             },
@@ -187,7 +186,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
                             onTap: () {
                               //Navigate to approvals page.
                               Provider.of<ValueNotifier<int>>(context,
-                                  listen: false)
+                                      listen: false)
                                   .value = 2;
                               ClientHomePage.tabIndexNotifier.value = 0;
                             },
@@ -202,7 +201,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
                             onTap: () {
                               //Navigate to Invoice page.
                               Provider.of<ValueNotifier<int>>(context,
-                                  listen: false)
+                                      listen: false)
                                   .value = 2;
                               ClientHomePage.tabIndexNotifier.value = 2;
                             },

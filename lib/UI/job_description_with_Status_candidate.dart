@@ -469,7 +469,7 @@ class _jobDescriptionWithStatusCandidateState
                           ),
                           Text(
                             '${jobDesc?.rejectReason}',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.w400,
                               color: klabelColor,
                               height: 1.3,

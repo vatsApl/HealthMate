@@ -27,8 +27,6 @@ class _RoleSkillsState extends State<RoleSkills> {
   int selectedRoleIndex = 0;
   int? selectedRoleIndexOnchangeSkills;
   int selectedIndex = 0;
-  int? _selectedValue;
-
   var uId = PreferencesHelper.getString(PreferencesHelper.KEY_USER_ID);
   List<String> allRole = [];
   List<String> skill = [];
@@ -43,15 +41,16 @@ class _RoleSkillsState extends State<RoleSkills> {
         isVisible = true;
       });
       var response = await http.get(url);
-      log('role & skills:${response.body}');
+      // log('role & skills:${response.body}');
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         roleAndSkillsResponse = RoleAndSkillsResponse.fromJson(json);
-        // print('this:${roleAndSkillsResponse.allRole}');
+        print('this:${roleAndSkillsResponse.allRole}');
         setState(() {
           allRole = roleAndSkillsResponse.allRole;
           skill = roleAndSkillsResponse.data;
           selectedRoleItem = roleAndSkillsResponse.role;
+          selectedRoleIndex = allRole.indexOf(selectedRoleItem ?? ''); ///
         });
       }
     } catch (e) {
@@ -154,6 +153,7 @@ class _RoleSkillsState extends State<RoleSkills> {
                                       fontSize: 16.0,
                                     ),
                                   ),
+                                  activeColor: kDefaultPurpleColor,
                                   value: allRole[index],
                                   groupValue: selectedRoleItem,
                                   onChanged: (value) {
@@ -166,9 +166,6 @@ class _RoleSkillsState extends State<RoleSkills> {
                                       print(selectedRoleIndexOnchangeSkills);
                                       // onchange skill api call:
                                       onchangeSkillsApi();
-                                      // print(allRoles.indexOf(selectedRoleItem!));
-                                      // selectedRoleIndex =
-                                      //     allRole.indexOf(selectedRoleItem!);
                                     });
                                     Navigator.pop(context);
                                   },

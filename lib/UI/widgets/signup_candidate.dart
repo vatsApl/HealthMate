@@ -20,7 +20,7 @@ class SignUpCandidate extends StatefulWidget {
 
 class SignUpCandidateState extends State<SignUpCandidate> {
   String? selectedRoleItem = 'Select Role';
-  int selectedRoleIndex = 0;
+  int selectedRoleIndex = -1;
   final roleList = [
     'Audiologist',
     'Cardiologists',
@@ -217,6 +217,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
                                       title: Text(
                                         roleList[index].toString(),
                                         style: TextStyle(
+                                          //TODO: condition not working on index 0 -> color & weight of font.
                                           color: selectedRoleIndex == index ? kDefaultBlackColor : klabelColor,
                                           fontWeight: selectedRoleIndex == index ? FontWeight.w500 : FontWeight.w400,
                                           fontSize: 16.0,
@@ -488,7 +489,9 @@ class SignUpCandidateState extends State<SignUpCandidate> {
             child: TextFormField(
               enabled: false,
               decoration: InputDecoration(
-                hintText: selectedRoleItem,
+                hintText: selectedRoleItem == 'null'
+                    ? 'Select Role' :
+                selectedRoleItem,
                 // hintText: selectedIndex == -1
                 //     ? 'Select Role'
                 //     : roleList[selectedIndex],

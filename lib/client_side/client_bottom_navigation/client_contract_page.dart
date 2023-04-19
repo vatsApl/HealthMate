@@ -84,110 +84,100 @@ class _ClientContractPageState extends State<ClientContractPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(16.0, 19.0, 16.0, 0.0),
-        child: Scaffold(
-          // appBar: CustomAppBar(
-          //   svgPictureLeading: Images.ic_left_arrow,
-          //   onTapLeading: () {
-          //     Navigator.push(
-          //       context,
-          //       MaterialPageRoute(
-          //         builder: (context) => const ClientMainPage(),
-          //       ),
-          //     );
-          //   },
-          // ),
-          body: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0.0,
+        automaticallyImplyLeading: false,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TitleText(title: 'Contracts'),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => CreateContract(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50.0),
-                          border:
-                              Border.all(width: 1.5, color: kDefaultPurpleColor),
-                        ),
-                        child: SvgPicture.asset(
-                          Images.ic_plus,
-                          height: 28.0,
-                        ),
+                TitleText(title: 'Contracts'),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CreateContract(),
                       ),
+                    );
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50.0),
+                      border:
+                          Border.all(width: 1.5, color: kDefaultPurpleColor),
                     ),
-                  ],
+                    child: SvgPicture.asset(
+                      Images.ic_plus,
+                      height: 28.0,
+                    ),
+                  ),
                 ),
-                Expanded(
-                  child: clientJobs.isNotEmpty
-                      ? ListView.separated(
-                          controller: scrollController,
-                          physics: const BouncingScrollPhysics(),
-                          padding: const EdgeInsets.only(top: 35.0),
-                          shrinkWrap: true,
-                          itemCount: clientJobs.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return InkWell(
-                              onTap: () {
-                                // int? jobId = jobs[index].id;
-                                int? jobId = clientJobs[index].id;
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ClientJobDescription(
-                                      jobId: jobId,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: JobCardClient(
-                                clientJobModel: clientJobs[index],
+              ],
+            ),
+            Expanded(
+              child: clientJobs.isNotEmpty
+                  ? ListView.separated(
+                      controller: scrollController,
+                      physics: const BouncingScrollPhysics(),
+                      padding: const EdgeInsets.only(top: 35.0),
+                      shrinkWrap: true,
+                      itemCount: clientJobs.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return InkWell(
+                          onTap: () {
+                            // int? jobId = jobs[index].id;
+                            int? jobId = clientJobs[index].id;
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ClientJobDescription(
+                                  jobId: jobId,
+                                ),
                               ),
                             );
                           },
-                          separatorBuilder: (BuildContext context, int index) {
-                            return const SizedBox(
-                              height: 20.0,
-                            );
-                          },
-                        )
-                      : const Center(
-                          child: Text(
-                            'No Contracts available',
-                            style: kDefaultEmptyListStyle,
+                          child: JobCardClient(
+                            clientJobModel: clientJobs[index],
                           ),
-                        ),
-                ),
-                clientJobs.isNotEmpty
-                    ? Visibility(
-                        visible: isLoadingMore,
-                        child: const Center(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 12.0),
-                            child: CupertinoActivityIndicator(
-                              color: Colors.black,
-                              radius: 15.0,
-                            ),
-                          ),
-                        ),
-                      )
-                    : Container(),
-              ],
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return const SizedBox(
+                          height: 20.0,
+                        );
+                      },
+                    )
+                  : const Center(
+                      child: Text(
+                        'No Contracts available',
+                        style: kDefaultEmptyListStyle,
+                      ),
+                    ),
             ),
-          ),
+            clientJobs.isNotEmpty
+                ? Visibility(
+                    visible: isLoadingMore,
+                    child: const Center(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 12.0),
+                        child: CupertinoActivityIndicator(
+                          color: Colors.black,
+                          radius: 15.0,
+                        ),
+                      ),
+                    ),
+                  )
+                : Container(),
+          ],
         ),
       ),
     );

@@ -80,17 +80,26 @@ class _NewPasswordState extends State<NewPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0.0,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: SvgPicture.asset(
+            Images.ic_left_arrow,
+            fit: BoxFit.scaleDown,
+          ),
+        ),
+      ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 63.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: SvgPicture.asset(Images.ic_left_arrow)),
               const SizedBox(
                 height: 23.0,
               ),
@@ -213,6 +222,7 @@ class _NewPasswordState extends State<NewPassword> {
               ),
               ElevatedBtn(
                 btnTitle: 'Verify',
+                bgColor: kDefaultPurpleColor,
                 isLoading: isVisible,
                 onPressed: () {
                   setState(() {});

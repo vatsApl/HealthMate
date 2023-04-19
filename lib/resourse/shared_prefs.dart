@@ -12,6 +12,8 @@ class PreferencesHelper {
   static const KEY_EMAIL = "email";
   static const KEY_PHONE = "phone";
   static const KEY_AVATAR = "avatar";
+  static const KEY_CLIENT_AVATAR = "clientAvatar";
+  static const KEY_CV = "cv";
 
   static Future<SharedPreferences> get _instance async =>
       _prefsInstance ??= await SharedPreferences.getInstance();

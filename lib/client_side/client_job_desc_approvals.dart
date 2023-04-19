@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/allAPIs/allAPIs.dart';
+import 'package:clg_project/client_side/client_main_page.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/models/candidate_models/job_description_res.dart';
 import 'package:clg_project/resourse/images.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import '../custom_widgets/custom_widget_helper.dart';
 import '../models/candidate_models/find_job_response.dart';
 import '../resourse/shared_prefs.dart';
@@ -79,7 +81,6 @@ class _ClientJobDescApprovalsState extends State<ClientJobDescApprovals> {
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         print(json['message']);
-
         Fluttertoast.showToast(
           msg: "${json['message']}",
           toastLength: Toast.LENGTH_SHORT,
@@ -89,6 +90,15 @@ class _ClientJobDescApprovalsState extends State<ClientJobDescApprovals> {
           textColor: Colors.white,
           fontSize: 16.0,
         );
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (context) =>
+              ChangeNotifierProvider<ValueNotifier<int>>.value(
+                value: ValueNotifier<int>(2),
+                child: const ClientMainPage(),
+              ),
+            ),
+                (route) => false);
       }
     } catch (e) {
       print(e.toString());
@@ -579,13 +589,13 @@ class _ClientJobDescApprovalsState extends State<ClientJobDescApprovals> {
                               //approve the candidate and generate timesheet:
                               approveApplicationGenerateTimesheet(applicationId: appId);
 
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ClientVerificationPage(),
-                                ),
-                              );
+                              // Navigator.pushReplacement(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) =>
+                              //         const ClientVerificationPage(),
+                              //   ),
+                              // );
                             },
                             child: const Text(
                               'Approve',

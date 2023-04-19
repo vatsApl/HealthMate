@@ -67,7 +67,7 @@ class Address {
 
 class Client {
   int? id;
-  Null? avatar;
+  String? avatar;
   String? practiceName;
   String? email;
   String? phone;

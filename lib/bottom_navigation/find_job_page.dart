@@ -7,7 +7,6 @@ import 'package:clg_project/models/candidate_models/find_job_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
 import '../UI/widgets/job_card_home_page.dart';
 import '../custom_widgets/custom_widget_helper.dart';
 import '../resourse/shared_prefs.dart';

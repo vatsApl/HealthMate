@@ -17,6 +17,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import '../custom_widgets/custom_widget_helper.dart';
 import '../models/signin_client_response.dart';
 import '../resourse/images.dart';
 
@@ -44,7 +45,7 @@ class _SignInPageState extends State<SignInPage> {
   String? email;
   String? phone;
   String? clientName;
-
+  String? avatar;
   bool? isEmailVerified;
   bool? isPasswordVeified;
   TextEditingController emailController = TextEditingController();
@@ -65,7 +66,7 @@ class _SignInPageState extends State<SignInPage> {
         'email': emailController.text,
         'password': passController.text,
       });
-      log(response.body);
+      log('sign in log${response.body}');
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         var signinResponse = SigninResponse.fromJson(json);
@@ -77,6 +78,9 @@ class _SignInPageState extends State<SignInPage> {
         lastName = signinResponse.data?[0].lastName;
         email = signinResponse.data?[0].email;
         phone = signinResponse.data?[0].phone;
+        avatar = signinResponse.data?[0].avatar;
+        PreferencesHelper.setString(PreferencesHelper.KEY_AVATAR, avatar ?? '');
+        PreferencesHelper.setString(PreferencesHelper.KEY_CLIENT_AVATAR, avatar ?? '');
         //clientSide
         var signinClientResponse = SigninClientResponse.fromJson(json);
         clientName = signinClientResponse.data?[0].practiceName;
@@ -105,8 +109,7 @@ class _SignInPageState extends State<SignInPage> {
             isVisible = false;
           });
           PreferencesHelper.setBool(PreferencesHelper.KEY_USER_LOGIN, true);
-          PreferencesHelper.setInt(
-              PreferencesHelper.KEY_USER_TYPE, json['type']);
+          PreferencesHelper.setInt(PreferencesHelper.KEY_USER_TYPE, json['type']);
           //navigate to home screen after verified according to the type Client or candidate:
           Navigator.pushReplacement(
             context,
@@ -115,9 +118,6 @@ class _SignInPageState extends State<SignInPage> {
               ChangeNotifierProvider<ValueNotifier<int>>.value(
                       value: ValueNotifier<int>(0),
                       child: json['type'] == 2 ? MainPage(
-                        firstName: firstName,
-                        lastName: lastName,
-                        roleName: roleName,
                       ) : ClientMainPage(),
                     )
             ),
@@ -153,22 +153,23 @@ class _SignInPageState extends State<SignInPage> {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0.0,
+          leading: GestureDetector(onTap: (){
+            SystemNavigator.pop();
+          }, child: SvgPicture.asset(Images.ic_left_arrow, fit: BoxFit.scaleDown,),),
+        ),
         body: SingleChildScrollView(
           child: Form(
             key: _formKey,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(16.0, 63.0, 16.0, 16.0),
+              padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  InkWell(
-                    onTap: () {
-                      SystemNavigator.pop();
-                    },
-                    child: SvgPicture.asset(Images.ic_left_arrow,
-                        fit: BoxFit.scaleDown),
-                  ),
                   const SizedBox(
                     height: 23.0,
                   ),
@@ -351,7 +352,8 @@ class _SignInPageState extends State<SignInPage> {
                         style: TextStyle(
                             color: kDefaultBlackColor,
                             fontSize: 12.0,
-                            fontWeight: FontWeight.w400),
+                            fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                   ),

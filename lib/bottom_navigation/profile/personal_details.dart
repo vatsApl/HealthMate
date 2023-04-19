@@ -15,7 +15,6 @@ import 'package:image_picker/image_picker.dart';
 import '../../allAPIs/allAPIs.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
-
 import '../../custom_widgets/custom_widget_helper.dart';
 
 class PersonalDetails extends StatefulWidget {
@@ -34,32 +33,28 @@ class _PersonalDetailsState extends State<PersonalDetails> {
 
   Future getImageFromGallary() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
-    setState(() {
       if (pickedFile != null) {
-        imageFile = File(pickedFile.path);
-        actionUpdateProfile();
+        setState(() {
+          imageFile = File(pickedFile.path);
+          actionUpdateProfile();
+        });
       } else {
         print('No image selected.');
       }
-    });
   }
 
   Future getImageFromCamera() async {
     final pickedFile = await picker.getImage(source: ImageSource.camera);
-    setState(() {
       if (pickedFile != null) {
-        imageFile = File(pickedFile.path);
-        actionUpdateProfile();
+        setState(() {
+          imageFile = File(pickedFile.path);
+          actionUpdateProfile();
+        });
       } else {
         print('No image selected.');
       }
-    });
   }
 
-  // var uFirstName = PreferencesHelper.getString(PreferencesHelper.KEY_FIRST_NAME);
-  // var uLastName = PreferencesHelper.getString(PreferencesHelper.KEY_LAST_NAME);
-  // var uEmail = PreferencesHelper.getString(PreferencesHelper.KEY_EMAIL);
-  // var uPhone = PreferencesHelper.getString(PreferencesHelper.KEY_PHONE);
   String genderValue = 'M';
   TextEditingController fnameController = TextEditingController();
   TextEditingController lnameController = TextEditingController();
@@ -76,6 +71,9 @@ class _PersonalDetailsState extends State<PersonalDetails> {
   Future<void> personalDetails() async {
     String url = '${DataURL.baseUrl}/api/candidate/$uId/index';
     try {
+      setState(() {
+        isVisible = true;
+      });
       var response = await http.get(Uri.parse(url));
       print('personal details: ${response.body}');
       if (response.statusCode == 200) {
@@ -92,9 +90,9 @@ class _PersonalDetailsState extends State<PersonalDetails> {
             personalDetailsResponse?.data?.phone.toString() ?? '';
         // imageFile = personalDetailsResponse?.data?.avatar as File?;
         netImg = personalDetailsResponse?.data?.avatar.toString();
-        PreferencesHelper.setString(PreferencesHelper.KEY_AVATAR, netImg!);
+        PreferencesHelper.setString(PreferencesHelper.KEY_AVATAR, netImg ?? '');
         setState(() {
-          isVisible = true;
+          isVisible = false;
         });
       }
     } catch (e) {
@@ -186,7 +184,6 @@ class _PersonalDetailsState extends State<PersonalDetails> {
   void initState() {
     super.initState();
     personalDetails();
-    // print('this is: $netImg');
   }
 
   void updateDetails() async {
@@ -202,7 +199,8 @@ class _PersonalDetailsState extends State<PersonalDetails> {
     if (response.statusCode == 200) {
       print('data updated successfully');
       setState(() {
-        PreferencesHelper.setString(PreferencesHelper.KEY_FIRST_NAME, fnameController.text);
+        PreferencesHelper.setString(
+            PreferencesHelper.KEY_FIRST_NAME, fnameController.text);
       });
       var json = jsonDecode(response.body);
       Fluttertoast.showToast(
@@ -229,14 +227,9 @@ class _PersonalDetailsState extends State<PersonalDetails> {
     var url = ('${DataURL.baseUrl}/api/candidate/upload/image');
     var request = http.MultipartRequest("POST", Uri.parse(url));
     request.fields['id'] = uId;
-    // request.fields['first_name'] = fnameController.text;
-    // request.fields['last_name'] = lnameController.text;
-    // request.fields['gender'] = genderValue;
-    // request.fields['email'] = emailController.text;
-    // request.fields['phone'] = phoneController.text;
     var stream = http.ByteStream(
         DelegatingStream.typed(imageFile?.openRead() as Stream));
-// get file length
+    // get file length
     var fileExtension = imageFile?.path.split('.').last;
     var length = await imageFile?.length();
     request.files.add(http.MultipartFile(
@@ -244,20 +237,23 @@ class _PersonalDetailsState extends State<PersonalDetails> {
       // contentType:  MediaType('image', 'jpg')
     ));
     request.send().then((response) {
+      if(response.statusCode == 200){
+        Fluttertoast.showToast(
+          msg: "Profile photo uploaded",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
+      }
+      PreferencesHelper.setString(PreferencesHelper.KEY_AVATAR, netImg ?? '');
       http.Response.fromStream(response).then((onValue) {
         try {
           personalDetails();
           print('success');
           print(response);
-          // Fluttertoast.showToast(
-          //   msg: "${response['message']}",
-          //   toastLength: Toast.LENGTH_SHORT,
-          //   gravity: ToastGravity.BOTTOM,
-          //   timeInSecForIosWeb: 1,
-          //   backgroundColor: json['code'] == 200 ? Colors.green : Colors.red,
-          //   textColor: Colors.white,
-          //   fontSize: 16.0,
-          // );
         } catch (e) {
           print('failed');
         }
@@ -271,7 +267,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
       backgroundColor: Colors.white,
       appBar: CustomWidgetHelper.appBar(
         context: context,
-        onActionTap: (){
+        onActionTap: () {
           updateDetails();
         },
         action: Padding(
@@ -282,9 +278,11 @@ class _PersonalDetailsState extends State<PersonalDetails> {
           ),
         ),
       ),
-      body: Stack(
-        children: [
-          Form(
+      body: isVisible
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Form(
             key: _formKey,
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
@@ -350,7 +348,8 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                                     ),
                                   ),
                                 ),
-                                placeholder: (context, url) => CircleAvatar(
+                                placeholder: (context, url) =>
+                                    CircleAvatar(
                                   child: SvgPicture.asset(
                                     Images.ic_person,
                                     color: Colors.white,
@@ -390,7 +389,8 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                                       context: context,
                                       isScrollControlled: true,
                                       shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.vertical(
+                                        borderRadius:
+                                            BorderRadius.vertical(
                                           top: Radius.circular(6.0),
                                         ),
                                       ),
@@ -398,9 +398,9 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                                           SingleChildScrollView(
                                         child: Container(
                                           padding: EdgeInsets.only(
-                                              bottom: MediaQuery.of(context)
-                                                  .viewInsets
-                                                  .bottom,
+                                            bottom: MediaQuery.of(context)
+                                                .viewInsets
+                                                .bottom,
                                           ),
                                           // height: 147.0,
                                           decoration: BoxDecoration(
@@ -412,33 +412,46 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                                           child: Column(
                                             children: [
                                               ListTile(
-                                                onTap: (){
-                                                  Navigator.of(context).pop();
+                                                onTap: () {
+                                                  Navigator.of(context)
+                                                      .pop();
                                                 },
                                                 leading: SvgPicture.asset(
-                                                    Images.ic_documents_select,
+                                                  Images
+                                                      .ic_documents_select,
                                                 ),
-                                                title: const Text('Documents', style: kSelectDocsTextStyle),
+                                                title: const Text(
+                                                    'Documents',
+                                                    style:
+                                                        kSelectDocsTextStyle),
                                               ),
                                               ListTile(
-                                                onTap: (){
+                                                onTap: () {
                                                   getImageFromCamera();
-                                                  Navigator.of(context).pop();
+                                                  Navigator.of(context)
+                                                      .pop();
                                                 },
                                                 leading: SvgPicture.asset(
                                                   Images.ic_camera_select,
                                                 ),
-                                                title: const Text('Camera', style: kSelectDocsTextStyle),
+                                                title: const Text(
+                                                    'Camera',
+                                                    style:
+                                                        kSelectDocsTextStyle),
                                               ),
                                               ListTile(
-                                                onTap: (){
+                                                onTap: () {
                                                   getImageFromGallary();
-                                                  Navigator.of(context).pop();
+                                                  Navigator.of(context)
+                                                      .pop();
                                                 },
                                                 leading: SvgPicture.asset(
                                                   Images.ic_photos_select,
                                                 ),
-                                                title: const Text('Photos', style: kSelectDocsTextStyle),
+                                                title: const Text(
+                                                    'Photos',
+                                                    style:
+                                                        kSelectDocsTextStyle),
                                               ),
                                             ],
                                           ),
@@ -565,6 +578,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                     CustomTextFormField(
                       hint: 'Enter Email Address',
                       controller: emailController,
+                      readOnly: true,
                       inputType: TextInputType.emailAddress,
                       svgPrefixIcon: SvgPicture.asset(
                         Images.ic_mail,
@@ -590,57 +604,49 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                     const SizedBox(
                       height: 26.0,
                     ),
-                    const Text(
-                      'Password',
-                      style: kTextFormFieldLabelStyle,
-                    ),
-                    CustomTextFormField(
-                      hint: 'Enter Password',
-                      controller: passController,
-                      obscureText: isShowPass ? true : false,
-                      maxLines: 1,
-                      svgPrefixIcon: SvgPicture.asset(
-                        Images.ic_password,
-                        fit: BoxFit.scaleDown,
-                      ),
-                      suffixIcon:
-                          isShowPass ? Images.ic_eye : Images.ic_eye_off,
-                      obscureTap: () {
-                        setState(() {
-                          isShowPass = !isShowPass;
-                        });
-                      },
-                    ),
-                    const SizedBox(
-                      height: 26.0,
-                    ),
-                    const Text(
-                      'Confirm Password',
-                      style: kTextFormFieldLabelStyle,
-                    ),
-                    CustomTextFormField(
-                      hint: 'Enter Confirm Password',
-                      controller: confirmPassController,
-                      obscureText: true,
-                      maxLines: 1, //obscure text can not be multiline
-                      svgPrefixIcon: SvgPicture.asset(
-                        Images.ic_password,
-                        fit: BoxFit.scaleDown,
-                      ),
-                    ),
+                    // const Text(
+                    //   'Password',
+                    //   style: kTextFormFieldLabelStyle,
+                    // ),
+                    // CustomTextFormField(
+                    //   hint: 'Enter Password',
+                    //   controller: passController,
+                    //   obscureText: isShowPass ? true : false,
+                    //   maxLines: 1,
+                    //   svgPrefixIcon: SvgPicture.asset(
+                    //     Images.ic_password,
+                    //     fit: BoxFit.scaleDown,
+                    //   ),
+                    //   suffixIcon:
+                    //       isShowPass ? Images.ic_eye : Images.ic_eye_off,
+                    //   obscureTap: () {
+                    //     setState(() {
+                    //       isShowPass = !isShowPass;
+                    //     });
+                    //   },
+                    // ),
+                    // const SizedBox(
+                    //   height: 26.0,
+                    // ),
+                    // const Text(
+                    //   'Confirm Password',
+                    //   style: kTextFormFieldLabelStyle,
+                    // ),
+                    // CustomTextFormField(
+                    //   hint: 'Enter Confirm Password',
+                    //   controller: confirmPassController,
+                    //   obscureText: true,
+                    //   maxLines: 1, //obscure text can not be multiline
+                    //   svgPrefixIcon: SvgPicture.asset(
+                    //     Images.ic_password,
+                    //     fit: BoxFit.scaleDown,
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
             ),
           ),
-          Visibility(
-            visible: isVisible,
-            child: const Center(
-              child: CircularProgressIndicator(),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

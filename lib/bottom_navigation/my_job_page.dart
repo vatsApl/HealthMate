@@ -5,6 +5,7 @@ import 'package:clg_project/bottom_navigation/find_job/booked_job.dart';
 import 'package:clg_project/bottom_navigation/find_job/worked_job.dart';
 import 'package:clg_project/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class MyJobsPage extends StatefulWidget {
@@ -82,7 +83,7 @@ class _MyJobsPageState extends State<MyJobsPage> {
               ],
             ),
           ),
-          if (currentIndex == 2)
+          if (currentIndex == 2) //payment due & paid details.
             Positioned(
               bottom: 0.0,
               child: Container(

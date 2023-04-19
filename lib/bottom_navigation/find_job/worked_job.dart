@@ -78,7 +78,6 @@ class _WorkedJobState extends State<WorkedJob> {
     super.initState();
     scrollController.addListener(scrollListener);
     workedJob(page);
-    print('init called');
   }
 
   @override

@@ -60,8 +60,9 @@ class _CreateContractState extends State<CreateContract> {
     '01:20',
     '01:30',
   ];
-  int selectedParkingIndex = -1; //
-  int selectedRoleIndex = 0;
+  int selectedParkingIndex = -1;
+  int selectedRoleIndex = -1;
+  int selectedBreaktimeIndex = -1;
   String? selectedRoleItem = 'Select Category';
   String? selectedBreakTime = 'Select Breaktime';
   // final FocusScopeNode _focusNode = FocusScopeNode();
@@ -139,12 +140,19 @@ class _CreateContractState extends State<CreateContract> {
                                             contentPadding: EdgeInsets.zero,
                                             toggleable: true,
                                             controlAffinity:
-                                                ListTileControlAffinity.trailing,
+                                                ListTileControlAffinity
+                                                    .trailing,
                                             title: Text(
                                               selectRoleList[index],
                                               style: TextStyle(
-                                                color: selectedRoleIndex == index ? kDefaultBlackColor : klabelColor,
-                                                fontWeight: selectedRoleIndex == index ? FontWeight.w500 : FontWeight.w400,
+                                                color:
+                                                    selectedRoleIndex == index
+                                                        ? kDefaultBlackColor
+                                                        : klabelColor,
+                                                fontWeight:
+                                                    selectedRoleIndex == index
+                                                        ? FontWeight.w500
+                                                        : FontWeight.w400,
                                                 fontSize: 16.0,
                                               ),
                                             ),
@@ -153,12 +161,15 @@ class _CreateContractState extends State<CreateContract> {
                                             groupValue: selectedRoleItem,
                                             onChanged: (value) {
                                               setState(() {
-                                                selectedRoleItem = value.toString();
-                                                print('current:$selectedRoleItem');
-                                                print(selectRoleList
-                                                    .indexOf(selectedRoleItem!));
-                                                selectedRoleIndex = selectRoleList
-                                                    .indexOf(selectedRoleItem!);
+                                                selectedRoleItem =
+                                                    value.toString();
+                                                print(
+                                                    'current:$selectedRoleItem');
+                                                print(selectRoleList.indexOf(
+                                                    selectedRoleItem!));
+                                                selectedRoleIndex =
+                                                    selectRoleList.indexOf(
+                                                        selectedRoleItem!);
                                               });
                                               Navigator.pop(context);
                                             },
@@ -196,70 +207,81 @@ class _CreateContractState extends State<CreateContract> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
+          insetPadding: const EdgeInsets.symmetric(horizontal: 16.0),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
-          child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
-            child: Wrap(
+          child: SizedBox(
+            height: 469.0,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Select Breaktime',
-                      style: TextStyle(fontSize: 18.0),
+                const Padding(
+                  padding: EdgeInsets.only(
+                    top: 34.0,
+                    left: 26.0,
+                  ),
+                  child: Text(
+                    'Select Breaktime',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      color: kDefaultBlackColor,
+                      fontWeight: FontWeight.w500,
                     ),
-                    const SizedBox(
-                      height: 18.0,
-                    ),
-                    ListView.builder(
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 48.5),
+                    child: ListView.builder(
                       itemCount: selectBreakTimeList.length,
                       physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
-                        return GestureDetector(
-                          // onTap: () {
-                          //   print('pressed');
-                          //   // Navigator.pop(context);
-                          // },
-                          child: Container(
-                            width: double.infinity,
-                            color: Colors.transparent,
+                        return Container(
+                          width: double.infinity,
+                          color: Colors.transparent,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 26.0,
+                            ),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: RadioListTile(
-                                        controlAffinity:
-                                            ListTileControlAffinity.trailing,
-                                        title: Text(
-                                          selectBreakTimeList[index],
-                                          style: const TextStyle(
-                                            color: kDefaultBlackColor,
-                                            fontSize: 16.0,
-                                          ),
-                                        ),
-                                        activeColor: kDefaultPurpleColor,
-                                        value: selectBreakTimeList[index],
-                                        groupValue: selectedBreakTime,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedBreakTime = value;
-                                            calculateUnitTwo(
-                                              startTimeController.text,
-                                              endTimeController.text,
-                                            );
-                                          });
-                                          breakTimeController.text =
-                                              selectedBreakTime!;
-                                          Navigator.pop(context);
-                                        },
-                                      ),
+                                RadioListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  toggleable: true,
+                                  controlAffinity:
+                                      ListTileControlAffinity.trailing,
+                                  title: Text(
+                                    selectBreakTimeList[index].toString(),
+                                    style: TextStyle(
+                                      color: selectedBreaktimeIndex == index
+                                          ? kDefaultBlackColor
+                                          : klabelColor,
+                                      fontWeight:
+                                          selectedBreaktimeIndex == index
+                                              ? FontWeight.w500
+                                              : FontWeight.w400,
+                                      fontSize: 16.0,
                                     ),
-                                  ],
+                                  ),
+                                  activeColor: kDefaultPurpleColor,
+                                  value: selectBreakTimeList[index],
+                                  groupValue: selectedBreakTime,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      selectedBreakTime = value;
+                                      breakTimeController.text =
+                                          selectedBreakTime!;
+                                      calculateUnitTwo(
+                                        startTimeController.text,
+                                        endTimeController.text,
+                                      );
+                                      selectedBreaktimeIndex =
+                                          selectBreakTimeList
+                                              .indexOf('$selectedBreakTime');
+                                    });
+                                    Navigator.pop(context);
+                                  },
                                 ),
                                 kDivider,
                               ],
@@ -268,7 +290,7 @@ class _CreateContractState extends State<CreateContract> {
                         );
                       },
                     ),
-                  ],
+                  ),
                 ),
               ],
             ),
@@ -347,12 +369,20 @@ class _CreateContractState extends State<CreateContract> {
                                             contentPadding: EdgeInsets.zero,
                                             toggleable: true,
                                             controlAffinity:
-                                                ListTileControlAffinity.trailing,
+                                                ListTileControlAffinity
+                                                    .trailing,
                                             title: Text(
                                               parkingList[index].toString(),
                                               style: TextStyle(
-                                                color: selectedParkingIndex == index ? kDefaultBlackColor : klabelColor,
-                                                fontWeight: selectedParkingIndex == index ? FontWeight.w500 : FontWeight.w400,
+                                                color: selectedParkingIndex ==
+                                                        index
+                                                    ? kDefaultBlackColor
+                                                    : klabelColor,
+                                                fontWeight:
+                                                    selectedParkingIndex ==
+                                                            index
+                                                        ? FontWeight.w500
+                                                        : FontWeight.w400,
                                                 fontSize: 16.0,
                                               ),
                                             ),
@@ -363,8 +393,9 @@ class _CreateContractState extends State<CreateContract> {
                                               setState(() {
                                                 selectedParkingItem =
                                                     value.toString();
-                                                selectedParkingIndex = parkingList
-                                                    .indexOf(selectedParkingItem!);
+                                                selectedParkingIndex =
+                                                    parkingList.indexOf(
+                                                        selectedParkingItem!);
                                               });
                                               Navigator.pop(context);
                                             },
@@ -428,15 +459,11 @@ class _CreateContractState extends State<CreateContract> {
     var start = format.parse(startTime);
     var end = format.parse(endTime);
     var selectedBreakUnit = format.parse(selectedBreakTime!);
-    // var breakTime = format.parse(breakTimeController.text.toString() ?? "");
-    // var breakTime = format.parse(selectedBreakTime ?? "");
     Duration diff = end.difference(start);
     print("unit is ${start.millisecond}");
     print("unit is ${end.millisecond}");
     print("diff is $diff");
-    // unit = ((diff.inMinutes / unitDurationInMinutes) - selectedBreakUnit.minute);
     var data = (diff.inMinutes - selectedBreakUnit.minute);
-
     Duration d = Duration(minutes: data);
     var hours = d.inHours;
     var minutes = d.inMinutes.remainder(60);
@@ -555,21 +582,8 @@ class _CreateContractState extends State<CreateContract> {
     super.initState();
     allAddresses();
     addressController.text = widget.newAddress ?? '';
+    print('this is user id:$uId');
   }
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  //   _focusNode.dispose();
-  //   jobTitleController.clear();
-  //   jobDescriptionController.clear();
-  //   dateController.clear();
-  //   startTimeController.clear();
-  //   endTimeController.clear();
-  //   salaryController.clear();
-  //   unitsController.clear();
-  //   breakTimeController.clear();
-  //   visitsController.clear();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -623,7 +637,9 @@ class _CreateContractState extends State<CreateContract> {
                       style: const TextStyle(height: 1.0),
                       enabled: false,
                       decoration: InputDecoration(
-                        hintText: selectedRoleItem,
+                        hintText: selectedRoleItem == 'null'
+                            ? 'Select category'
+                            : selectedRoleItem,
                         hintStyle: const TextStyle(
                           color: kDefaultBlackColor,
                         ),
@@ -1072,7 +1088,9 @@ class _CreateContractState extends State<CreateContract> {
                       parkingDialog();
                     },
                     child: CustomTextFormField(
-                      hint: selectedParkingItem,
+                      hint: selectedParkingItem == 'null'
+                          ? 'Choose availability'
+                          : selectedParkingItem,
                       hintStyle: const TextStyle(color: kDefaultBlackColor),
                       svgPrefixIcon: SvgPicture.asset(
                         Images.ic_parking,

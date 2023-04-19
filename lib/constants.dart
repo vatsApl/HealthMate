@@ -10,6 +10,7 @@ const kreadMoreColor = Color(0xffb0b0b0); // 176 176 176
 const kredColor = Color(0xffe02424); // 224 36 36
 const kGreenColor = Color(0xff198754);
 const kYellowColor = Color(0xffE3A008);
+const kDisabledColorBtn = Color(0xffD0D0DA);
 
 const kTitleTextStyle = TextStyle(
   fontSize: 30.0,

@@ -1,16 +1,7 @@
-import 'package:clg_project/UI/job_description.dart';
-import 'package:clg_project/client_side/client_bottom_navigation/client_verification_page.dart';
-import 'package:clg_project/client_side/client_job_desc_approvals.dart';
-import 'package:clg_project/client_side/client_job_description.dart';
-import 'package:clg_project/client_side/client_verification_pages/timesheets.dart';
 import 'package:clg_project/pages/splash.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'UI/job_description_my_jobs.dart';
-import 'UI/job_description_with_status.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +9,8 @@ void main() async {
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await PreferencesHelper.init();
-  SystemChannels.textInput.invokeMethod('TextInput.hide'); // Hide keyboard on hot restart
+  SystemChannels.textInput
+      .invokeMethod('TextInput.hide'); // Hide keyboard on hot restart
   runApp(const MyApp());
 }
 
@@ -52,4 +44,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
