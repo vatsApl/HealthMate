@@ -153,7 +153,7 @@ class Validate {
 
   //phone number validate
   static String? validatePhoneNumber(String? value) {
-    if (value!.length < 10 && value.length >= 10) {
+    if (value!.length != 10) {
       return 'Please Enter valid phone number';
     } else if (!RegExp(r'^\d+$').hasMatch(value)) {
       return 'Please enter a numeric phone number';
@@ -163,7 +163,7 @@ class Validate {
 
   static dynamic validatePhoneNumberColor(FocusNode focusNode, String value) {
     if (focusNode.hasFocus == true) {
-      if (value.length < 10 || value.length > 11) {
+      if (value.length != 10) {
         return Colors.red;
       } else if (!RegExp(r'^\d+$').hasMatch(value)) {
         return Colors.red;
@@ -178,7 +178,7 @@ class Validate {
   }
 
   static bool validatePhoneNumberBool(String? value) {
-    if (value!.length < 10 || value.length > 11) {
+    if (value!.length != 10) {
       return false;
     } else if (!RegExp(r'^\d+$').hasMatch(value)) {
       return false;
@@ -190,12 +190,12 @@ class Validate {
   //confirm pass
   static String? validateConfirmPass(
       String value, TextEditingController pass, TextEditingController cPass) {
-    if (value.length < 8) {
+    if (value.length < 8 && value!.isEmpty) {
       return 'Please enter atleast 8 character';
     } else if (pass.text != cPass.text) {
       return 'Password do not matched';
     }
-    return null;
+    return '';
   }
 
   static dynamic validateConfirmPassColor(FocusNode focusNode, String value,
@@ -281,5 +281,4 @@ class Validate {
       return null;
     }
   }
-
 }

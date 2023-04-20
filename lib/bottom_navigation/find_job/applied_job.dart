@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:clg_project/UI/widgets/job_card_home_page.dart';
+import 'package:clg_project/resourse/api_urls.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:focus_detector/focus_detector.dart';
@@ -52,14 +53,16 @@ class _AppliedJobState extends State<AppliedJob> {
       setState(() {
         isLoadingMore = true;
       });
+      String url = ApiUrl.myJobsApi;
+      var urlParsed = Uri.parse(url);
       var response = await http.post(
-          Uri.parse('${DataURL.baseUrl}/api/application/status/jobs')
+          urlParsed
               .replace(queryParameters: queryParameters),
           body: {
             'candidate_id': uId,
             'status': '1',
           });
-      log(response.body);
+      // log(response.body);
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         var appliedJobResponse = FindJobResponse.fromJson(json);

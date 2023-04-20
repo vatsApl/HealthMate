@@ -5,6 +5,7 @@ import 'package:clg_project/UI/widgets/otp_text_form_field.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/allAPIs/allAPIs.dart';
 import 'package:clg_project/constants.dart';
+import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class _VerificationState extends State<Verification> {
   bool isVisible = false;
   //otp verify api after signup candidate
   Future<void> signupOtpVerify() async {
-    String url = '${DataURL.baseUrl}/api/otpVerify';
+    String url = ApiUrl.signupOtpVerify;
     try {
       setState(() {
         isVisible = true;
@@ -79,8 +80,8 @@ class _VerificationState extends State<Verification> {
   }
 
   //Resend otp api
-  Future<void> resendOtp() async {
-    String url = '${DataURL.baseUrl}/api/resendOtp';
+  Future<void> resendOtpSignup() async {
+    String url = ApiUrl.resendOtpSignup;
     try {
       var response = await http.post(Uri.parse(url), body: {
         'id': widget.userId.toString(),
@@ -194,7 +195,7 @@ class _VerificationState extends State<Verification> {
                   GestureDetector(
                     onTap: () {
                       //Resend otp api
-                      resendOtp();
+                      resendOtpSignup();
                     },
                     child: const Text(
                       'Resend',

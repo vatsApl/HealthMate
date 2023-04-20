@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:clg_project/allAPIs/allAPIs.dart';
+import 'package:clg_project/resourse/api_urls.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
@@ -12,8 +13,10 @@ class ApiServices {
 
   //candidate apply job api:
   static Future applyJob(String uId, int jobId, BuildContext context) async {
+    String url = ApiUrl.applyJob;
+    var urlParsed = Uri.parse(url);
     var response =
-        await http.post(Uri.parse('${DataURL.baseUrl}/api/application'), body: {
+        await http.post(urlParsed, body: {
       'candidate_id': uId,
       'job_id': jobId.toString(),
     });
@@ -22,7 +25,6 @@ class ApiServices {
       var json = jsonDecode(response.body);
       debugPrint('${json['message']}');
       Methods.showDialogApplyJob(context);
-
       if(json['code'] == 400) {
         Fluttertoast.showToast(
           msg: "${json['message']}",

@@ -49,7 +49,7 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Scaffold(
         backgroundColor: Colors.white,
         body: Padding(
-          padding: const EdgeInsets.fromLTRB(16.0, 40.0, 16.0, 0.0),
+          padding: const EdgeInsets.fromLTRB(16.0, 63.0, 16.0, 0.0),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -117,7 +117,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
                 const SizedBox(
-                  height: 40.0,
+                  height: 48.0,
                 ),
                 Column(
                   children: [
@@ -158,7 +158,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     const SizedBox(
-                      height: 12.0,
+                      height: 18.0,
                     ),
                     Card(
                       elevation: 2.0,
@@ -198,7 +198,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     const SizedBox(
-                      height: 12.0,
+                        height: 18.0,
                     ),
                     Card(
                       elevation: 2.0,
@@ -238,7 +238,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     const SizedBox(
-                      height: 12.0,
+                      height: 18.0,
                     ),
                     Card(
                       elevation: 2.0,
@@ -248,12 +248,12 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       child: InkWell(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const SettingsPage(),
-                            ),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => const SettingsPage(),
+                          //   ),
+                          // );
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 4.0),
@@ -278,7 +278,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     const SizedBox(
-                      height: 12.0,
+                      height: 18.0,
                     ),
                     Card(
                       elevation: 2.0,

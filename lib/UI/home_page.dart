@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:clg_project/UI/job_description.dart';
 import 'package:clg_project/UI/widgets/candidate_card_top.dart';
+import 'package:clg_project/UI/widgets/custom_appbar.dart';
 import 'package:clg_project/UI/widgets/job_card_home_page.dart';
 import 'package:clg_project/allAPIs/allAPIs.dart';
 import 'package:clg_project/bottom_navigation/find_job/applied_job.dart';
@@ -20,6 +21,7 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 import '../custom_widgets/index_notifier.dart';
+import '../resourse/api_urls.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -44,15 +46,15 @@ class _HomePageState extends State<HomePage> {
   var uRoleName = PreferencesHelper.getString(PreferencesHelper.KEY_ROLE_NAME);
   String? netImg = PreferencesHelper.getString(PreferencesHelper.KEY_AVATAR);
 
-  Future<void> homePageCandidate() async {
-    final url = Uri.parse(
-        '${DataURL.baseUrl}/api/job/$uId/specific/candidate/dashboard');
+  Future<void> homePageCandidateApi() async {
+    String url = ApiUrl.homePageCandidateApi(uId);
+    final urlParsed = Uri.parse(url);
     try {
       setState(() {
         isVisible = true;
       });
-      var response = await http.get(url);
-      // log('home res:${response.body}');
+      var response = await http.get(urlParsed);
+      log('home res:${response.body}');
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         var homePageResponse = FindJobResponse.fromJson(json);
@@ -83,17 +85,17 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    homePageCandidate();
+    homePageCandidateApi();
     print('current:$uId');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      // appBar: CustomAppBar(name: uFirstName, role: uRoleName, svgPictureTrailing: Images.ic_notification,),
+      // backgroundColor: Colors.white,
+      // appBar: CustomAppBar(name: uFirstName, role: uRoleName, svgPictureTrailing: Images.ic_notification, netImg: netImg,),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(16.0, 40.0, 16.0, 0.0),
+        padding: const EdgeInsets.fromLTRB(16.0, 63.0, 16.0, 0.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [

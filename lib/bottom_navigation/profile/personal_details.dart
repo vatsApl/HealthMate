@@ -16,6 +16,7 @@ import '../../allAPIs/allAPIs.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import '../../custom_widgets/custom_widget_helper.dart';
+import '../../resourse/api_urls.dart';
 
 class PersonalDetails extends StatefulWidget {
   const PersonalDetails({Key? key}) : super(key: key);
@@ -68,8 +69,8 @@ class _PersonalDetailsState extends State<PersonalDetails> {
   PersonalDetailsResponse? personalDetailsResponse;
 
   //personal details api
-  Future<void> personalDetails() async {
-    String url = '${DataURL.baseUrl}/api/candidate/$uId/index';
+  Future<void> personalDetailsApi() async {
+    String url = ApiUrl.personalDetailsApi(uId);
     try {
       setState(() {
         isVisible = true;
@@ -183,11 +184,11 @@ class _PersonalDetailsState extends State<PersonalDetails> {
   @override
   void initState() {
     super.initState();
-    personalDetails();
+    personalDetailsApi();
   }
 
   void updateDetails() async {
-    var url = ('${DataURL.baseUrl}/api/candidate/editprofile');
+    String url = ApiUrl.editProfileApi;
     var response = await http.post(Uri.parse(url), body: {
       'id': uId,
       'first_name': fnameController.text,
@@ -251,7 +252,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
       PreferencesHelper.setString(PreferencesHelper.KEY_AVATAR, netImg ?? '');
       http.Response.fromStream(response).then((onValue) {
         try {
-          personalDetails();
+          personalDetailsApi();
           print('success');
           print(response);
         } catch (e) {

@@ -4,6 +4,7 @@ import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/allAPIs/allAPIs.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/models/forgot_response.dart';
+import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/validations.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
@@ -26,11 +27,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   bool? isEmailVerified;
   int? userId;
   int? userType;
-
   bool isVisible = false;
+  
   //forgot password api
-  Future<void> forgotPass() async {
-    String url = '${DataURL.baseUrl}/api/forgotPassword';
+  Future<void> forgotPassword() async {
+    String url = ApiUrl.forgotPassword;
     try {
       setState(() {
         isVisible = true;
@@ -225,7 +226,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         Validate.validateEmailBool(emailController.text);
                     //
                     if (_formKey.currentState!.validate()) {
-                      forgotPass();
+                      forgotPassword();
                       emailController.clear();
                     } else {
                       print('Unsuccessful');

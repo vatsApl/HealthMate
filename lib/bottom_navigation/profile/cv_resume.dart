@@ -10,8 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart';
-import 'package:open_filex/open_filex.dart';
 import '../../custom_widgets/custom_widget_helper.dart';
 import 'package:http/http.dart' as http;
 import '../../resourse/shared_prefs.dart';
@@ -79,15 +77,6 @@ class _CvResumeState extends State<CvResume> {
     }
   }
 
-  var _openResult = '';
-  Future<void> fileOpenWith() async {
-    print('file open called');
-    final result = await OpenFilex.open(filePath);
-    setState(() {
-      _openResult = "type=${result.type}  message=${result.message}";
-    });
-  }
-
   @override
   void initState() {
     super.initState();
@@ -137,15 +126,11 @@ class _CvResumeState extends State<CvResume> {
                     ),
                   ),
                   const SizedBox(
-                    height: 12.0,
+                    height: 10.0,
                   ),
                   Text(fileName ?? ''),
                   const SizedBox(
-                    height: 12.0,
-                  ),
-                  Text('open result: $_openResult'),
-                  const SizedBox(
-                    height: 12.0,
+                    height: 10.0,
                   ),
                   SizedBox(
                     width: 334,

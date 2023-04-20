@@ -13,6 +13,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import '../custom_widgets/custom_widget_helper.dart';
 import '../models/candidate_models/find_job_response.dart';
+import '../resourse/api_urls.dart';
 import '../resourse/shared_prefs.dart';
 
 class JobDescription extends StatefulWidget {
@@ -103,8 +104,9 @@ class _JobDescriptionState extends State<JobDescription> {
     setState(() {
       isVisible = true;
     });
-    var url = Uri.parse('${DataURL.baseUrl}/api/job/${widget.jobId}');
-    var response = await http.get(url);
+    String url = ApiUrl.jobDescriptionApi(widget.jobId);
+    var urlParsed = Uri.parse(url);
+    var response = await http.get(urlParsed);
     try {
       setState(() {
         isVisible = true;
@@ -152,16 +154,6 @@ class _JobDescriptionState extends State<JobDescription> {
                     const SizedBox(
                       height: 8.0,
                     ),
-                    // if (widget.isJobStatus !=
-                    //     null) //condition: for visibility of jobStatus
-                    //   if (widget.isJobStatus!)
-                    //     Text(
-                    //       'Assigned',
-                    //       style: TextStyle(
-                    //           fontSize: 12.0,
-                    //           fontWeight: FontWeight.w500,
-                    //           color: Colors.green),
-                    //     ),
                     const SizedBox(
                       height: 38.0,
                     ),
@@ -217,16 +209,14 @@ class _JobDescriptionState extends State<JobDescription> {
                     Row(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 26.0, left: 10.0),
+                          padding: const EdgeInsets.only(top: 26.0),
                           child: SvgPicture.asset(
-                            Images.ic_calander,
-                            height: 20.0,
-                            width: 18.0,
-                            color: kDefaultPurpleColor,
+                            Images.ic_calander_rounded,
+                            fit: BoxFit.scaleDown,
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 13.0, left: 31.0),
+                          padding: const EdgeInsets.only(top: 13.0, left: 20.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -303,16 +293,14 @@ class _JobDescriptionState extends State<JobDescription> {
                     Row(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 26.0, left: 8.0),
+                          padding: const EdgeInsets.only(top: 26.0),
                           child: SvgPicture.asset(
-                            Images.ic_job,
-                            height: 28.0,
+                            Images.ic_job_rounded,
                             fit: BoxFit.scaleDown,
-                            color: kDefaultPurpleColor,
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 13.0, left: 24.0),
+                          padding: const EdgeInsets.only(top: 13.0, left: 20.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

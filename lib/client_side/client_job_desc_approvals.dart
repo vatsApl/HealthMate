@@ -224,17 +224,15 @@ class _ClientJobDescApprovalsState extends State<ClientJobDescApprovals> {
                         children: [
                           Padding(
                             padding:
-                                const EdgeInsets.only(top: 26.0, left: 10.0),
+                                const EdgeInsets.only(top: 26.0),
                             child: SvgPicture.asset(
-                              Images.ic_calander,
-                              height: 20.0,
-                              width: 18.0,
-                              color: kDefaultPurpleColor,
+                              Images.ic_calander_rounded,
+                              fit: BoxFit.scaleDown,
                             ),
                           ),
                           Padding(
                             padding:
-                                const EdgeInsets.only(top: 13.0, left: 31.0),
+                                const EdgeInsets.only(top: 13.0, left: 20.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -314,17 +312,15 @@ class _ClientJobDescApprovalsState extends State<ClientJobDescApprovals> {
                         children: [
                           Padding(
                             padding:
-                                const EdgeInsets.only(top: 26.0, left: 8.0),
+                                const EdgeInsets.only(top: 26.0),
                             child: SvgPicture.asset(
-                              Images.ic_job,
-                              height: 28.0,
+                              Images.ic_job_rounded,
                               fit: BoxFit.scaleDown,
-                              color: kDefaultPurpleColor,
                             ),
                           ),
                           Padding(
                             padding:
-                                const EdgeInsets.only(top: 13.0, left: 24.0),
+                                const EdgeInsets.only(top: 13.0, left: 20.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -453,6 +449,7 @@ class _ClientJobDescApprovalsState extends State<ClientJobDescApprovals> {
                                         child: SvgPicture.asset(
                                           Images.ic_person,
                                           color: Colors.white,
+                                          height: 28.0,
                                         ),
                                       ),
                                     ),
@@ -461,6 +458,7 @@ class _ClientJobDescApprovalsState extends State<ClientJobDescApprovals> {
                                       child: SvgPicture.asset(
                                         Images.ic_person,
                                         color: Colors.white,
+                                        height: 28.0,
                                       ),
                                     ),
                                   ),
@@ -509,6 +507,7 @@ class _ClientJobDescApprovalsState extends State<ClientJobDescApprovals> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
+          insetPadding: const EdgeInsets.symmetric(horizontal: 16.0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6.0),
           ),
@@ -544,11 +543,14 @@ class _ClientJobDescApprovalsState extends State<ClientJobDescApprovals> {
                     const SizedBox(
                       height: 12.0,
                     ),
-                    Text(
-                      'Are You Sure You Want To Approve This Application?',
-                      style: const TextStyle(color: kDefaultBlackColor)
-                          .copyWith(height: 1.5),
-                      textAlign: TextAlign.center,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 21.0),
+                      child: Text(
+                        'Are You Sure You Want To Approve This Application?',
+                        style: const TextStyle(color: kDefaultBlackColor)
+                            .copyWith(height: 1.5),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                     const SizedBox(
                       height: 30.0,

@@ -4,6 +4,7 @@ import 'package:clg_project/UI/widgets/job_card_find_job.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/allAPIs/allAPIs.dart';
 import 'package:clg_project/models/candidate_models/find_job_response.dart';
+import 'package:clg_project/resourse/api_urls.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -30,7 +31,7 @@ class _FindJobPageState extends State<FindJobPage> {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
       if (page != 0) {
-        findJobCandidate(page);
+        findJobCandidateApi(page);
         setState(() {
           isLoadingMore = true;
         });
@@ -43,17 +44,18 @@ class _FindJobPageState extends State<FindJobPage> {
   }
 
   //find job api:
-  Future<void> findJobCandidate(int pageValue) async {
+  Future<void> findJobCandidateApi(int pageValue) async {
     final queryParameters = {
       'page': pageValue.toString(),
     };
-    final url = Uri.parse('${DataURL.baseUrl}/api/job/$uId/specific/candidate')
-        .replace(queryParameters: queryParameters);
+    String url = ApiUrl.findJobCandidateApi(uId);
+    var urlParsed = Uri.parse(url);
+    final urlName = urlParsed.replace(queryParameters: queryParameters);
     try {
       setState(() {
         isVisible = true;
       });
-      var response = await http.get(url);
+      var response = await http.get(urlName);
       // log('FIND JOB:${response.body}');
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
@@ -89,7 +91,7 @@ class _FindJobPageState extends State<FindJobPage> {
   void initState() {
     super.initState();
     scrollController.addListener(scrollListener);
-    findJobCandidate(page);
+    findJobCandidateApi(page);
   }
 
   @override
@@ -182,13 +184,6 @@ class _FindJobPageState extends State<FindJobPage> {
               ],
             ),
           ),
-          // if(page == 0)
-          //   Visibility(
-          //     visible: isLoadingMore,
-          //     child: const Center(
-          //       child: CircularProgressIndicator(),
-          //     ),
-          //   ),
         ],
       ),
     );

@@ -4,6 +4,7 @@ import 'package:clg_project/UI/signin_page.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/allAPIs/allAPIs.dart';
 import 'package:clg_project/constants.dart';
+import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/validations.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
@@ -33,7 +34,7 @@ class _NewPasswordState extends State<NewPassword> {
 
   //reset password api
   Future<void> resetPassword() async {
-    String url = '${DataURL.baseUrl}/api/resetPassword';
+    String url = ApiUrl.resetPassword;
     try {
       setState(() {
         isVisible = true;

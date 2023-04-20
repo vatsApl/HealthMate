@@ -3,6 +3,7 @@ import 'package:clg_project/UI/verification.dart';
 import 'package:clg_project/allAPIs/allAPIs.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/models/signup_response.dart';
+import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/validations.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
@@ -76,9 +77,9 @@ class SignUpCandidateState extends State<SignUpCandidate> {
   bool isShowPass = true;
   bool isShowCpass = true;
 
-  //signup api
-  Future<void> signUpCandidate() async {
-    String url = '${DataURL.baseUrl}/api/candidate/register';
+  // candidate signup api
+  Future<void> signUpCandidateApi() async {
+    String url = ApiUrl.signUpCandidate;
     try {
       setState(() {
         isVisible = true;
@@ -87,7 +88,6 @@ class SignUpCandidateState extends State<SignUpCandidate> {
         'first_name': firstNameController.text,
         'last_name': lastNameController.text,
         'gender': _genderValue,
-        // 'role': '${selectedIndex + 1}',
         'role': '${selectedRoleIndex + 1}',
         'email': emailController.text,
         'phone': phoneController.text,
@@ -105,9 +105,6 @@ class SignUpCandidateState extends State<SignUpCandidate> {
             KEYCandidateFirstName, signupResponse.data?.firstName ?? '');
         prefs.setString(
             KEYCandidateLastName, signupResponse.data?.lastName ?? '');
-
-        // print(signupResponse.data?.firstName);
-        // print(signupResponse.data?.lastName);
         Fluttertoast.showToast(
           msg: "${json['message']}",
           toastLength: Toast.LENGTH_SHORT,
@@ -753,11 +750,19 @@ class SignUpCandidateState extends State<SignUpCandidate> {
                 //     validateCpass(val);
                 //   });
                 // },
-                validator: (val) {
-                  Validate.validateConfirmPass(
-                      val!, passController, confirmPassController);
+                validator: (value) {
+                  if (value!.length < 8) {
+                    return 'Please enter at least 8 character';
+                  }
+                  if (passController.text != confirmPassController.text) {
+                    return 'Password do not matched';
+                  }
                   return null;
                 },
+                // validator: (val) {
+                //   Validate.validateConfirmPass(
+                //       val!, passController, confirmPassController);
+                // },
                 decoration: InputDecoration(
                   hintText: 'Enter Confirm Password',
                   prefixIcon: Padding(
@@ -830,7 +835,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
                   passController.text, confirmPassController.text);
               //
               if (_formKey.currentState!.validate()) {
-                signUpCandidate();
+                signUpCandidateApi();
               } else {
                 print('Unsuccessful');
               }

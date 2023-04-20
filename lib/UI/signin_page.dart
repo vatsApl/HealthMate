@@ -8,6 +8,7 @@ import 'package:clg_project/bottom_navigation/main_page.dart';
 import 'package:clg_project/client_side/client_main_page.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/models/signin_response.dart';
+import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
 import 'package:clg_project/validations.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
@@ -21,11 +22,11 @@ import '../custom_widgets/custom_widget_helper.dart';
 import '../models/signin_client_response.dart';
 import '../resourse/images.dart';
 
-enum colorChange {
-  defaultColor,
-  errorColor,
-  sucessColor
-} //change field color on validation
+// enum colorChange {
+//   defaultColor,
+//   errorColor,
+//   sucessColor
+// } //change field color on validation
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -57,7 +58,7 @@ class _SignInPageState extends State<SignInPage> {
 
   //signin api:
   Future<void> signIn() async {
-    String url = '${DataURL.baseUrl}/api/login';
+    String url = ApiUrl.signIn;
     try {
       setState(() {
         isVisible = true;

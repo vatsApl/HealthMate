@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/constants.dart';
+import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -35,12 +36,12 @@ class _RoleSkillsState extends State<RoleSkills> {
 
   //role & skills api:
   Future<void> roleAndSkillsApi() async {
-    final url = Uri.parse('${DataURL.baseUrl}/api/edit/candidate/$uId/role');
     try {
       setState(() {
         isVisible = true;
       });
-      var response = await http.get(url);
+      String url = ApiUrl.roleAndSkillsApi(uId);
+      var response = await http.get(Uri.parse(url));
       // log('role & skills:${response.body}');
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
@@ -66,13 +67,12 @@ class _RoleSkillsState extends State<RoleSkills> {
 
   // onchange skills api:
   Future<void> onchangeSkillsApi() async {
-    final url = Uri.parse(
-        '${DataURL.baseUrl}/api/onchange/get/skills/$selectedRoleIndexOnchangeSkills');
+    final url = ApiUrl.onchangeSkillsApi(selectedRoleIndexOnchangeSkills);
     try {
       setState(() {
         isVisible = true;
       });
-      var response = await http.get(url);
+      var response = await http.get(Uri.parse(url));
       log('ONCHANGE skills:${response.body}');
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
@@ -193,12 +193,12 @@ class _RoleSkillsState extends State<RoleSkills> {
 
   //update role api:
   Future<void> updateRoleApi() async {
-    final url = Uri.parse('${DataURL.baseUrl}/api/update/candidate/$uId/role');
+    final url = ApiUrl.updateRoleApi(uId);
     try {
       setState(() {
         isVisible = true;
       });
-      var response = await http.post(url, body: {
+      var response = await http.post(Uri.parse(url), body: {
         'role': selectedRoleIndexOnchangeSkills.toString(),
       });
       log('update Role:${response.body}');

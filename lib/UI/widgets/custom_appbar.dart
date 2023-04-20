@@ -25,77 +25,79 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      leading: svgPictureLeading != null
-          ? GestureDetector(
-        onTap: (){
-          onTapLeading!();
-        },
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: SvgPicture.asset(
-                svgPictureLeading ?? '',
-                fit: BoxFit.scaleDown,
-            ),
-              ),)
-          : CachedNetworkImage(
-              imageUrl: '${DataURL.baseUrl}/$netImg',
-              // imageUrl: '$netImg',
-              imageBuilder: (context, imageProvider) => Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
+      child: AppBar(
+        leading: svgPictureLeading != null
+            ? GestureDetector(
+          onTap: (){
+            onTapLeading!();
+          },
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: SvgPicture.asset(
+                  svgPictureLeading ?? '',
+                  fit: BoxFit.scaleDown,
+              ),
+                ),)
+            : CachedNetworkImage(
+                imageUrl: '${DataURL.baseUrl}/$netImg',
+                imageBuilder: (context, imageProvider) => Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                placeholder: (context, url) => CircleAvatar(
+                  child: SvgPicture.asset(
+                    Images.ic_person,
+                    color: Colors.white,
+                    height: 35.0,
+                  ),
+                ),
+                errorWidget: (context, url, error) => CircleAvatar(
+                  child: SvgPicture.asset(
+                    Images.ic_person,
+                    color: Colors.white,
+                    height: 35.0,
                   ),
                 ),
               ),
-              placeholder: (context, url) => CircleAvatar(
-                child: SvgPicture.asset(
-                  Images.ic_person,
-                  color: Colors.white,
-                  height: 35.0,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: role == null ? 16.0 : 0.0),
+              child: Text(
+                name ?? '',
+                style: const TextStyle(
+                    color: kDefaultPurpleColor,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w700),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 5.0),
+              child: Text(
+                role ?? '',
+                style: const TextStyle(
+                  color: Color(0xff030837),
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w300,
                 ),
               ),
-              errorWidget: (context, url, error) => CircleAvatar(
-                child: SvgPicture.asset(
-                  Images.ic_person,
-                  color: Colors.white,
-                  height: 35.0,
-                ),
-              ),
             ),
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.only(top: role == null ? 16.0 : 0.0),
-            child: Text(
-              name ?? '',
-              style: const TextStyle(
-                  color: kDefaultPurpleColor,
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w700),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 5.0),
-            child: Text(
-              role ?? '',
-              style: const TextStyle(
-                color: Color(0xff030837),
-                fontSize: 14.0,
-                fontWeight: FontWeight.w300,
-              ),
-            ),
-          ),
+          ],
+        ),
+        backgroundColor: Colors.transparent,
+        actions: [
+          SvgPicture.asset(svgPictureTrailing ?? ''),
         ],
+        elevation: 0.0,
       ),
-      backgroundColor: Colors.transparent,
-      actions: [
-        SvgPicture.asset(svgPictureTrailing ?? ''),
-      ],
-      elevation: 0.0,
     );
   }
 

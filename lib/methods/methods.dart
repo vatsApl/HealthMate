@@ -27,6 +27,7 @@ class Methods {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return Dialog(
+          insetPadding: const EdgeInsets.symmetric(horizontal: 16.0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6.0),
           ),
@@ -34,7 +35,8 @@ class Methods {
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0, vertical: 25.0),
+                    horizontal: 10.0, vertical: 25.0,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -60,11 +62,14 @@ class Methods {
                     const SizedBox(
                       height: 12.0,
                     ),
-                    Text(
-                      'Are You Sure You Want To Apply For This App?',
-                      style: const TextStyle(color: kDefaultBlackColor)
-                          .copyWith(height: 1.5),
-                      textAlign: TextAlign.center,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 21.0),
+                      child: Text(
+                        'Are You Sure You Want To Apply For This Job?',
+                        style: const TextStyle(color: kDefaultBlackColor)
+                            .copyWith(height: 1.5),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                     const SizedBox(
                       height: 30.0,
@@ -115,6 +120,7 @@ class Methods {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return Dialog(
+          insetPadding: const EdgeInsets.symmetric(horizontal: 16.0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6.0),
           ),
@@ -147,11 +153,14 @@ class Methods {
                     const SizedBox(
                       height: 12.0,
                     ),
-                    Text(
-                      'Your Job Application is Successfully Done!',
-                      style: const TextStyle(color: kDefaultBlackColor)
-                          .copyWith(height: 1.5),
-                      textAlign: TextAlign.center,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 21.0),
+                      child: Text(
+                        'Your Job Application is Successfully Done!',
+                        style: const TextStyle(color: kDefaultBlackColor)
+                            .copyWith(height: 1.5),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                     const SizedBox(
                       height: 30.0,
@@ -196,104 +205,107 @@ class Methods {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
+          insetPadding: const EdgeInsets.symmetric(horizontal: 16.0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6.0),
           ),
-          child: Wrap(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0, vertical: 25.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      height: 12.0,
-                    ),
-                    SvgPicture.asset(
-                      Images.ic_personal_details,
-                      // fit: BoxFit.scaleDown,
-                      height: 40.0,
-                      width: 40.0,
-                      color: kredColor,
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    const Text(
-                      'Log Out!',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.w700,
+          child: SizedBox(
+            // height: 233.0,
+            child: Wrap(
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0, vertical: 25.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        height: 12.0,
+                      ),
+                      SvgPicture.asset(
+                        Images.ic_personal_details,
+                        height: 40.0,
+                        width: 40.0,
                         color: kredColor,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 12.0,
-                    ),
-                    Text(
-                      'Are You Sure You Want To Log Out?',
-                      style: const TextStyle(color: kDefaultBlackColor)
-                          .copyWith(height: 1.5),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(
-                      height: 30.0,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: 110.0,
-                          height: 44.0,
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: kredColor,
-                              ),
-                              onPressed: () async {
-                                PreferencesHelper.setBool(
-                                    PreferencesHelper.KEY_USER_LOGIN, false);
-                                Navigator.of(context).pushAndRemoveUntil(
-                                    MaterialPageRoute(
-                                      builder: (context) => const SignInPage(),
-                                    ),
-                                    (route) => false);
-                              },
-                              child: const Text(
-                                'Logout',
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w500,
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      const Text(
+                        'Log Out!',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w700,
+                          color: kredColor,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 12.0,
+                      ),
+                      Text(
+                        'Are You Sure You Want To Log Out?',
+                        style: const TextStyle(color: kDefaultBlackColor)
+                            .copyWith(height: 1.5),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        height: 30.0,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 110.0,
+                            height: 44.0,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: kredColor,
                                 ),
-                              )),
-                        ),
-                        const SizedBox(
-                          width: 17.0,
-                        ),
-                        SizedBox(
-                          width: 110.0,
-                          height: 44.0,
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: klightColor,
-                              ),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Text(
-                                'Cancel',
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w500,
+                                onPressed: () async {
+                                  PreferencesHelper.setBool(
+                                      PreferencesHelper.KEY_USER_LOGIN, false);
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                      MaterialPageRoute(
+                                        builder: (context) => const SignInPage(),
+                                      ),
+                                      (route) => false);
+                                },
+                                child: const Text(
+                                  'Logout',
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                )),
+                          ),
+                          const SizedBox(
+                            width: 17.0,
+                          ),
+                          SizedBox(
+                            width: 110.0,
+                            height: 44.0,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: klightColor,
                                 ),
-                              )),
-                        ),
-                      ],
-                    ),
-                  ],
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text(
+                                  'Cancel',
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                )),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },

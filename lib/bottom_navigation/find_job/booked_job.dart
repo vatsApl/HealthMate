@@ -9,6 +9,7 @@ import '../../UI/widgets/job_card.dart';
 import '../../allAPIs/allAPIs.dart';
 import '../../constants.dart';
 import '../../models/candidate_models/find_job_response.dart';
+import '../../resourse/api_urls.dart';
 import '../../resourse/shared_prefs.dart';
 
 class BookedJob extends StatefulWidget {
@@ -34,7 +35,7 @@ class _BookedJobState extends State<BookedJob> {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
       if (page != 0) {
-        BookedJob(page);
+        bookedJobApi(page);
         setState(() {
           isLoadingMore = true;
         });
@@ -47,7 +48,7 @@ class _BookedJobState extends State<BookedJob> {
   }
 
   // booked job api
-  Future<void> BookedJob(int pageValue) async {
+  Future<void> bookedJobApi(int pageValue) async {
     final queryParameters = {
       'page': pageValue.toString(),
     };
@@ -55,9 +56,10 @@ class _BookedJobState extends State<BookedJob> {
       setState(() {
         isLoadingMore = true;
       });
+      String url = ApiUrl.myJobsApi;
+      var urlParsed = Uri.parse(url);
       var response = await http.post(
-          Uri.parse('${DataURL.baseUrl}/api/application/status/jobs')
-              .replace(queryParameters: queryParameters),
+          urlParsed.replace(queryParameters: queryParameters),
           body: {
             'candidate_id': uId,
             'status': '2',
@@ -82,7 +84,7 @@ class _BookedJobState extends State<BookedJob> {
   void initState() {
     super.initState();
     scrollController.addListener(scrollListener);
-    BookedJob(page);
+    bookedJobApi(page);
   }
 
   @override

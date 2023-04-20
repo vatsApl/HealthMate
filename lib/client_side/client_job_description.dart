@@ -2,13 +2,16 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/allAPIs/allAPIs.dart';
+import 'package:clg_project/client_side/client_main_page.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/models/candidate_models/job_description_res.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import '../custom_widgets/custom_widget_helper.dart';
 import '../models/candidate_models/find_job_response.dart';
 
@@ -54,6 +57,63 @@ class _ClientJobDescriptionState extends State<ClientJobDescription> {
     });
   }
 
+  // remove contract api:
+  Future<void> removeContractApi() async {
+    setState(() {
+      isVisible = true;
+    });
+    var url = Uri.parse('${DataURL.baseUrl}/api/job/${widget.jobId}');
+    var response = await http.delete(url);
+    try {
+      setState(() {
+        isVisible = true;
+      });
+      log('delete log:${response.body}');
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+        Fluttertoast.showToast(
+          msg: "${json['message']}",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: json['code'] == 200 ? Colors.green : Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (context) =>
+              ChangeNotifierProvider<ValueNotifier<int>>.value(
+                value: ValueNotifier<int>(0),
+                child: ClientMainPage(),
+              ),
+            ),
+                (route) => false);
+        setState(() {
+          isVisible = false;
+        });
+      } else {
+        var json = jsonDecode(response.body);
+        Fluttertoast.showToast(
+          msg: "${json['message']}",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: json['code'] == 200 ? Colors.green : Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
+      }
+    } catch (e) {
+      print(e.toString());
+      setState(() {
+        isVisible = false;
+      });
+    }
+    setState(() {
+      isVisible = false;
+    });
+  }
   @override
   void initState() {
     super.initState();
@@ -135,17 +195,15 @@ class _ClientJobDescriptionState extends State<ClientJobDescription> {
                         children: [
                           Padding(
                             padding:
-                                const EdgeInsets.only(top: 26.0, left: 10.0),
+                                const EdgeInsets.only(top: 26.0),
                             child: SvgPicture.asset(
-                              Images.ic_calander,
-                              height: 20.0,
-                              width: 18.0,
-                              color: kDefaultPurpleColor,
+                              Images.ic_calander_rounded,
+                              fit: BoxFit.scaleDown,
                             ),
                           ),
                           Padding(
                             padding:
-                                const EdgeInsets.only(top: 13.0, left: 31.0),
+                                const EdgeInsets.only(top: 13.0, left: 20.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -225,17 +283,15 @@ class _ClientJobDescriptionState extends State<ClientJobDescription> {
                         children: [
                           Padding(
                             padding:
-                                const EdgeInsets.only(top: 26.0, left: 8.0),
+                                const EdgeInsets.only(top: 26.0),
                             child: SvgPicture.asset(
-                              Images.ic_job,
-                              height: 28.0,
+                              Images.ic_job_rounded,
                               fit: BoxFit.scaleDown,
-                              color: kDefaultPurpleColor,
                             ),
                           ),
                           Padding(
                             padding:
-                                const EdgeInsets.only(top: 13.0, left: 24.0),
+                                const EdgeInsets.only(top: 13.0, left: 20.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -325,9 +381,11 @@ class _ClientJobDescriptionState extends State<ClientJobDescription> {
                         padding: const EdgeInsets.symmetric(vertical: 50.0),
                         child: ElevatedBtn(
                           btnTitle: 'Remove contract',
-                          bgColor: kredColor,
+                          bgColor: kDefaultPurpleColor,
+                          isLoading: isVisible,
                           onPressed: () {
-                            //remove contract
+                            //remove contract api
+                            removeContractApi();
                           },
                         ),
                       ),

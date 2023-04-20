@@ -209,16 +209,14 @@ class _JobDescriptionWithStatusState extends State<JobDescriptionWithStatus> {
                     Row(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 26.0, left: 10.0),
+                          padding: const EdgeInsets.only(top: 26.0),
                           child: SvgPicture.asset(
-                            Images.ic_calander,
-                            height: 20.0,
-                            width: 18.0,
-                            color: kDefaultPurpleColor,
+                            Images.ic_calander_rounded,
+                            fit: BoxFit.scaleDown,
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 13.0, left: 31.0),
+                          padding: const EdgeInsets.only(top: 13.0, left: 20.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -295,16 +293,14 @@ class _JobDescriptionWithStatusState extends State<JobDescriptionWithStatus> {
                     Row(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 26.0, left: 8.0),
+                          padding: const EdgeInsets.only(top: 26.0),
                           child: SvgPicture.asset(
-                            Images.ic_job,
-                            height: 28.0,
+                            Images.ic_job_rounded,
                             fit: BoxFit.scaleDown,
-                            color: kDefaultPurpleColor,
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 13.0, left: 24.0),
+                          padding: const EdgeInsets.only(top: 13.0, left: 20.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

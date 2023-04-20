@@ -5,6 +5,7 @@ import 'package:clg_project/UI/widgets/otp_text_form_field.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/allAPIs/allAPIs.dart';
 import 'package:clg_project/constants.dart';
+import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
@@ -26,11 +27,11 @@ class _ForgotVerificationState extends State<ForgotVerification> {
   TextEditingController otp2Controller = TextEditingController();
   TextEditingController otp3Controller = TextEditingController();
   TextEditingController otp4Controller = TextEditingController();
-
   bool isVisible = false;
+
   //otp verify api after signup candidate
-  Future<void> forgotOtpVerify() async {
-    String url = '${DataURL.baseUrl}/api/verifyforgototp';
+  Future<void> verifyOtpForgotPassword() async {
+    String url = ApiUrl.verifyOtpForgotPassword;
     try {
       setState(() {
         isVisible = true;
@@ -65,13 +66,15 @@ class _ForgotVerificationState extends State<ForgotVerification> {
         setState(() {
           isVisible = false;
         });
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => NewPassword(
-                      userId: newUserId,
-                      userType: newUserType,
-                    )));
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => NewPassword(
+              userId: newUserId,
+              userType: newUserType,
+            ),
+          ),
+        );
       }
     } catch (e) {
       print('HP: $e');
@@ -85,8 +88,8 @@ class _ForgotVerificationState extends State<ForgotVerification> {
   }
 
   //Resend otp api
-  Future<void> forgotresendOtp() async {
-    String url = '${DataURL.baseUrl}/api/resendforgotpasswordotp';
+  Future<void> forgotPasswordResendOtp() async {
+    String url = ApiUrl.forgotPasswordResendOtp;
     try {
       var response = await http.post(Uri.parse(url), body: {
         'id': widget.userId.toString(),
@@ -209,7 +212,7 @@ class _ForgotVerificationState extends State<ForgotVerification> {
                   GestureDetector(
                     onTap: () {
                       //Resend otp api
-                      forgotresendOtp();
+                      forgotPasswordResendOtp();
                     },
                     child: const Text(
                       'Resend',
@@ -230,7 +233,7 @@ class _ForgotVerificationState extends State<ForgotVerification> {
                 isLoading: isVisible,
                 bgColor: kDefaultPurpleColor,
                 onPressed: () {
-                  forgotOtpVerify();
+                  verifyOtpForgotPassword();
                 },
               ),
             ],

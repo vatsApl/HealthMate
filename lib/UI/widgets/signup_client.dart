@@ -12,6 +12,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
+import '../../resourse/api_urls.dart';
+
 
 class SignUpClient extends StatefulWidget {
   const SignUpClient({Key? key}) : super(key: key);
@@ -51,13 +53,13 @@ class _SignUpClientState extends State<SignUpClient> {
   FocusNode postcodeFocusNode = FocusNode();
   FocusNode passFocusNode = FocusNode();
   FocusNode confirmPassFocusNode = FocusNode();
-
   bool isShowPass = true;
   bool isShowCpass = true;
   bool isEmailCorrect = false;
+  
   //signup client api:
-  Future<void> signUpClient() async {
-    String url = '${DataURL.baseUrl}/api/client/register';
+  Future<void> signUpClientApi() async {
+    String url = ApiUrl.signUpClient;
     try {
       setState(() {
         isVisible = true;
@@ -737,7 +739,7 @@ class _SignUpClientState extends State<SignUpClient> {
                 //
                 if (_formKey.currentState!.validate()) {
                   print('Successful');
-                  signUpClient();
+                  signUpClientApi();
                 } else {
                   print('Unsuccessful');
                 }
