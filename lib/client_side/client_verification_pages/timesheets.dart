@@ -1,11 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:clg_project/resourse/api_urls.dart';
 import 'package:http/http.dart' as http;
-import 'package:clg_project/UI/job_description.dart';
-import 'package:clg_project/client_side/job_card_client.dart';
 import 'package:flutter/material.dart';
 import '../../UI/job_description_with_status.dart';
-import '../../UI/widgets/job_card.dart';
 import '../../UI/widgets/job_card_with_status.dart';
 import '../../allAPIs/allAPIs.dart';
 import '../../constants.dart';
@@ -13,8 +11,6 @@ import '../../models/candidate_models/find_job_response.dart';
 import '../../resourse/shared_prefs.dart';
 
 class TimeSheets extends StatefulWidget {
-  const TimeSheets({Key? key}) : super(key: key);
-
   @override
   State<TimeSheets> createState() => _TimeSheetsState();
 }
@@ -51,9 +47,9 @@ class _TimeSheetsState extends State<TimeSheets> {
       setState(() {
         isLoadingMore = true;
       });
+      String url = ApiUrl.clientVerificationsPageApi;
       var response = await http.post(
-          Uri.parse('${DataURL.baseUrl}/api/application/client/index')
-              .replace(queryParameters: queryParameters),
+          Uri.parse(url).replace(queryParameters: queryParameters),
           body: {
             'id': uId,
             'status': '2',
@@ -83,39 +79,41 @@ class _TimeSheetsState extends State<TimeSheets> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: jobs.isNotEmpty ?
-      ListView.separated(
-        padding: EdgeInsets.zero,
-        physics: const BouncingScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: jobs.length,
-        itemBuilder: (BuildContext context, int index) {
-          return InkWell(
-            onTap: () {
-              int? jobId = jobs[index].id;
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => JobDescriptionWithStatus(jobId: jobId),
-                ),
-              );
-            },
-            child: JobCardWithStatus(
-              jobModel: jobs[index],
+      child: jobs.isNotEmpty
+          ? ListView.separated(
+              padding: EdgeInsets.zero,
+              physics: const BouncingScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: jobs.length,
+              itemBuilder: (BuildContext context, int index) {
+                return InkWell(
+                  onTap: () {
+                    int? jobId = jobs[index].id;
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            JobDescriptionWithStatus(jobId: jobId),
+                      ),
+                    );
+                  },
+                  child: JobCardWithStatus(
+                    jobModel: jobs[index],
+                  ),
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return const SizedBox(
+                  height: 20.0,
+                );
+              },
+            )
+          : const Center(
+              child: Text(
+                'No Timesheets',
+                style: kDefaultEmptyListStyle,
+              ),
             ),
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return const SizedBox(
-            height: 20.0,
-          );
-        },
-      ) : const Center(
-        child: Text(
-          'No Timesheets',
-          style: kDefaultEmptyListStyle,
-        ),
-      ),
     );
   }
 }

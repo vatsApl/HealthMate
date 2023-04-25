@@ -3,18 +3,15 @@ import 'package:clg_project/allAPIs/allAPIs.dart';
 import 'package:clg_project/bottom_navigation/profile/cv_resume.dart';
 import 'package:clg_project/bottom_navigation/profile/personal_details.dart';
 import 'package:clg_project/bottom_navigation/profile/role_skills.dart';
-import 'package:clg_project/bottom_navigation/profile/settings_page.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:focus_detector/focus_detector.dart';
-
 import '../methods/methods.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -28,7 +25,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
   getData() {
     setState(() {
-      uFirstName = PreferencesHelper.getString(PreferencesHelper.KEY_FIRST_NAME);
+      uFirstName =
+          PreferencesHelper.getString(PreferencesHelper.KEY_FIRST_NAME);
       uRoleName = PreferencesHelper.getString(PreferencesHelper.KEY_ROLE_NAME);
       netImg = PreferencesHelper.getString(PreferencesHelper.KEY_AVATAR);
     });
@@ -130,10 +128,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: InkWell(
                         onTap: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const PersonalDetails()));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PersonalDetails(),
+                            ),
+                          );
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 4.0),
@@ -171,7 +170,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const RoleSkills(),
+                              builder: (context) => RoleSkills(),
                             ),
                           );
                         },
@@ -198,7 +197,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     const SizedBox(
-                        height: 18.0,
+                      height: 18.0,
                     ),
                     Card(
                       elevation: 2.0,
@@ -211,7 +210,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const CvResume(),
+                              builder: (context) => CvResume(),
                             ),
                           );
                         },
@@ -248,6 +247,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       child: InkWell(
                         onTap: () {
+                          // this navigation will start when next screen created:
                           // Navigator.push(
                           //   context,
                           //   MaterialPageRoute(

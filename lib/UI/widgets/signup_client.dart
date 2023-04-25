@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:clg_project/UI/verification.dart';
-import 'package:clg_project/allAPIs/allAPIs.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/models/signup_client_response.dart';
 import 'package:clg_project/resourse/images.dart';
@@ -11,12 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-
 import '../../resourse/api_urls.dart';
 
-
 class SignUpClient extends StatefulWidget {
-  const SignUpClient({Key? key}) : super(key: key);
   @override
   State<SignUpClient> createState() => _SignUpClientState();
 }
@@ -56,7 +52,7 @@ class _SignUpClientState extends State<SignUpClient> {
   bool isShowPass = true;
   bool isShowCpass = true;
   bool isEmailCorrect = false;
-  
+
   //signup client api:
   Future<void> signUpClientApi() async {
     String url = ApiUrl.signUpClient;
@@ -430,8 +426,8 @@ class _SignUpClientState extends State<SignUpClient> {
                 color: isAreaVerified == null
                     ? klabelColor
                     : isAreaVerified == true
-                    ? Colors.green
-                    : Colors.red,
+                        ? Colors.green
+                        : Colors.red,
               ),
               textCapitalization: TextCapitalization.words,
               controller: areaController,
@@ -452,41 +448,43 @@ class _SignUpClientState extends State<SignUpClient> {
                     color: isAreaVerified == null
                         ? klabelColor
                         : isAreaVerified == true
-                        ? Colors.green
-                        : Colors.red,
+                            ? Colors.green
+                            : Colors.red,
                   ),
                 ),
                 suffixIcon: isAreaVerified == null
                     ? null
                     : isAreaVerified == true
-                    ? Padding(
-                  padding: const EdgeInsets.only(bottom: 30.0),
-                  child: SvgPicture.asset(
-                    Images.ic_true,
-                    fit: BoxFit.scaleDown,
-                    color: Colors.green,
-                  ),
-                )
-                    : Padding(
-                  padding: const EdgeInsets.only(bottom: 30.0),
-                  child: SvgPicture.asset(
-                    Images.ic_error,
-                    fit: BoxFit.scaleDown,
-                    color: Colors.red,
-                  ),
-                ),
+                        ? Padding(
+                            padding: const EdgeInsets.only(bottom: 30.0),
+                            child: SvgPicture.asset(
+                              Images.ic_true,
+                              fit: BoxFit.scaleDown,
+                              color: Colors.green,
+                            ),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.only(bottom: 30.0),
+                            child: SvgPicture.asset(
+                              Images.ic_error,
+                              fit: BoxFit.scaleDown,
+                              color: Colors.red,
+                            ),
+                          ),
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
                     color: isAreaVerified == null
                         ? kDefaultPurpleColor
                         : isAreaVerified == true
-                        ? Colors.green
-                        : Colors.red,
+                            ? Colors.green
+                            : Colors.red,
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 26.0,),
+            const SizedBox(
+              height: 26.0,
+            ),
             const Text(
               'Postcode',
               style: kTextFormFieldLabelStyle,
@@ -499,8 +497,8 @@ class _SignUpClientState extends State<SignUpClient> {
                 color: isPostcodeVerified == null
                     ? klabelColor
                     : isPostcodeVerified == true
-                    ? Colors.green
-                    : Colors.red,
+                        ? Colors.green
+                        : Colors.red,
               ),
               textCapitalization: TextCapitalization.words,
               controller: postcodeController,
@@ -521,41 +519,43 @@ class _SignUpClientState extends State<SignUpClient> {
                     color: isPostcodeVerified == null
                         ? klabelColor
                         : isPostcodeVerified == true
-                        ? Colors.green
-                        : Colors.red,
+                            ? Colors.green
+                            : Colors.red,
                   ),
                 ),
                 suffixIcon: isPostcodeVerified == null
                     ? null
                     : isPostcodeVerified == true
-                    ? Padding(
-                  padding: const EdgeInsets.only(bottom: 30.0),
-                  child: SvgPicture.asset(
-                    Images.ic_true,
-                    fit: BoxFit.scaleDown,
-                    color: Colors.green,
-                  ),
-                )
-                    : Padding(
-                  padding: const EdgeInsets.only(bottom: 30.0),
-                  child: SvgPicture.asset(
-                    Images.ic_error,
-                    fit: BoxFit.scaleDown,
-                    color: Colors.red,
-                  ),
-                ),
+                        ? Padding(
+                            padding: const EdgeInsets.only(bottom: 30.0),
+                            child: SvgPicture.asset(
+                              Images.ic_true,
+                              fit: BoxFit.scaleDown,
+                              color: Colors.green,
+                            ),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.only(bottom: 30.0),
+                            child: SvgPicture.asset(
+                              Images.ic_error,
+                              fit: BoxFit.scaleDown,
+                              color: Colors.red,
+                            ),
+                          ),
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
                     color: isPostcodeVerified == null
                         ? kDefaultPurpleColor
                         : isPostcodeVerified == true
-                        ? Colors.green
-                        : Colors.red,
+                            ? Colors.green
+                            : Colors.red,
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 26.0,),
+            const SizedBox(
+              height: 26.0,
+            ),
             const Text(
               'Password',
               style: kTextFormFieldLabelStyle,

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:clg_project/UI/signin_page.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/allAPIs/allAPIs.dart';
+import 'package:clg_project/base_Screen_working/base_screen.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/resourse/images.dart';
@@ -13,8 +14,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
-class NewPassword extends StatefulWidget {
-  NewPassword({super.key, this.userId, this.userType});
+class NewPassword extends BasePageScreen {
+  NewPassword({this.userId, this.userType});
 
   int? userId;
   int? userType;
@@ -22,7 +23,7 @@ class NewPassword extends StatefulWidget {
   State<NewPassword> createState() => _NewPasswordState();
 }
 
-class _NewPasswordState extends State<NewPassword> {
+class _NewPasswordState extends BasePageScreenState<NewPassword> with BaseScreen {
   bool? isNewPasswordVerified;
   bool? isConfirmPasswordVerified;
   TextEditingController newPassController = TextEditingController();
@@ -63,7 +64,7 @@ class _NewPasswordState extends State<NewPassword> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const SignInPage(),
+            builder: (context) => SignInPage(),
           ),
         );
       }
@@ -79,165 +80,149 @@ class _NewPasswordState extends State<NewPassword> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: SvgPicture.asset(
-            Images.ic_left_arrow,
-            fit: BoxFit.scaleDown,
-          ),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 23.0,
-              ),
-              TitleText(title: 'New Password'),
-              const SizedBox(
-                height: 53.0,
-              ),
-              const Text('New Password', style: kTextFormFieldLabelStyle),
-              Stack(
-                children: [
-                  TextFormField(
-                    textAlignVertical: TextAlignVertical.bottom,
-                    style: const TextStyle(height: 1.0),
-                    textCapitalization: TextCapitalization.words,
-                    obscureText: isShowPass ? true : false,
-                    controller: newPassController,
-                    focusNode: newPassFocusNode,
-                    // onChanged: (val){
-                    //   setState(() {
-                    //     Validate.validatePassword(val);
-                    //   });
-                    // },
-                    decoration: InputDecoration(
-                      hintText: 'Enter Password',
-                      prefixIcon: Padding(
-                        padding: kPrefixIconPadding,
-                        child: SvgPicture.asset(
-                          Images.ic_password,
-                          fit: BoxFit.scaleDown,
-                          color: isNewPasswordVerified == null
-                              ? klabelColor
-                              : isNewPasswordVerified == true
-                                  ? Colors.green
-                                  : Colors.red,
-                        ),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
+  Widget body() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: 23.0,
+            ),
+            TitleText(title: 'New Password'),
+            const SizedBox(
+              height: 53.0,
+            ),
+            const Text('New Password', style: kTextFormFieldLabelStyle),
+            Stack(
+              children: [
+                TextFormField(
+                  textAlignVertical: TextAlignVertical.bottom,
+                  style: const TextStyle(height: 1.0),
+                  textCapitalization: TextCapitalization.words,
+                  obscureText: isShowPass ? true : false,
+                  controller: newPassController,
+                  focusNode: newPassFocusNode,
+                  // onChanged: (val){
+                  //   setState(() {
+                  //     Validate.validatePassword(val);
+                  //   });
+                  // },
+                  decoration: InputDecoration(
+                    hintText: 'Enter Password',
+                    prefixIcon: Padding(
+                      padding: kPrefixIconPadding,
+                      child: SvgPicture.asset(
+                        Images.ic_password,
+                        fit: BoxFit.scaleDown,
                         color: isNewPasswordVerified == null
-                            ? kDefaultPurpleColor
+                            ? klabelColor
                             : isNewPasswordVerified == true
-                                ? Colors.green
-                                : Colors.red,
-                      )),
-                    ),
-                  ),
-                  Positioned(
-                    right: 0.0,
-                    child: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            isShowPass = !isShowPass;
-                          });
-                        },
-                        icon: isShowPass
-                            ? Padding(
-                                padding: kSuffixIconPadding,
-                                child: SvgPicture.asset(Images.ic_eye,
-                                    fit: BoxFit.scaleDown),
-                              )
-                            : Padding(
-                                padding: kSuffixIconPadding,
-                                child: SvgPicture.asset(Images.ic_eye_off,
-                                    fit: BoxFit.scaleDown),
-                              )),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 19.0,
-              ),
-              const Text(
-                'Confirm Password',
-                style: kTextFormFieldLabelStyle,
-              ),
-              const SizedBox(
-                height: 6.0,
-              ),
-              Stack(
-                children: [
-                  TextFormField(
-                    textAlignVertical: TextAlignVertical.bottom,
-                    controller: confirmPassController,
-                    style: const TextStyle(height: 1.0),
-                    obscureText: isShowCpass,
-                    decoration: InputDecoration(
-                      hintText: 'Enter Confirm Password',
-                      prefixIcon: Padding(
-                        padding: kPrefixIconPadding,
-                        child: SvgPicture.asset(Images.ic_password,
-                            fit: BoxFit.scaleDown),
+                            ? Colors.green
+                            : Colors.red,
                       ),
                     ),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: isNewPasswordVerified == null
+                              ? kDefaultPurpleColor
+                              : isNewPasswordVerified == true
+                              ? Colors.green
+                              : Colors.red,
+                        )),
                   ),
-                  Positioned(
-                    right: 0.0,
-                    child: IconButton(
+                ),
+                Positioned(
+                  right: 0.0,
+                  child: IconButton(
                       onPressed: () {
                         setState(() {
-                          isShowCpass = !isShowCpass;
+                          isShowPass = !isShowPass;
                         });
                       },
-                      icon: isShowCpass
+                      icon: isShowPass
                           ? Padding(
-                              padding: kSuffixIconPadding,
-                              child: SvgPicture.asset(Images.ic_eye,
-                                  fit: BoxFit.scaleDown),
-                            )
+                        padding: kSuffixIconPadding,
+                        child: SvgPicture.asset(Images.ic_eye,
+                            fit: BoxFit.scaleDown),
+                      )
                           : Padding(
-                              padding: kSuffixIconPadding,
-                              child: SvgPicture.asset(Images.ic_eye_off,
-                                  fit: BoxFit.scaleDown),
-                            ),
+                        padding: kSuffixIconPadding,
+                        child: SvgPicture.asset(Images.ic_eye_off,
+                            fit: BoxFit.scaleDown),
+                      )),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 19.0,
+            ),
+            const Text(
+              'Confirm Password',
+              style: kTextFormFieldLabelStyle,
+            ),
+            const SizedBox(
+              height: 6.0,
+            ),
+            Stack(
+              children: [
+                TextFormField(
+                  textAlignVertical: TextAlignVertical.bottom,
+                  controller: confirmPassController,
+                  style: const TextStyle(height: 1.0),
+                  obscureText: isShowCpass,
+                  decoration: InputDecoration(
+                    hintText: 'Enter Confirm Password',
+                    prefixIcon: Padding(
+                      padding: kPrefixIconPadding,
+                      child: SvgPicture.asset(Images.ic_password,
+                          fit: BoxFit.scaleDown),
                     ),
                   ),
-                ],
-              ),
-              const SizedBox(
-                height: 58.0,
-              ),
-              ElevatedBtn(
-                btnTitle: 'Verify',
-                bgColor: kDefaultPurpleColor,
-                isLoading: isVisible,
-                onPressed: () {
-                  setState(() {});
-                  // validate color:
-                  isNewPasswordVerified =
-                      Validate.validatePasswordBool(newPassController.text);
-                  isConfirmPasswordVerified =
-                      Validate.validatePasswordBool(newPassController.text);
-                  //
-                  resetPassword();
-                },
-              ),
-            ],
-          ),
+                ),
+                Positioned(
+                  right: 0.0,
+                  child: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isShowCpass = !isShowCpass;
+                      });
+                    },
+                    icon: isShowCpass
+                        ? Padding(
+                      padding: kSuffixIconPadding,
+                      child: SvgPicture.asset(Images.ic_eye,
+                          fit: BoxFit.scaleDown),
+                    )
+                        : Padding(
+                      padding: kSuffixIconPadding,
+                      child: SvgPicture.asset(Images.ic_eye_off,
+                          fit: BoxFit.scaleDown),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 58.0,
+            ),
+            ElevatedBtn(
+              btnTitle: 'Verify',
+              bgColor: kDefaultPurpleColor,
+              isLoading: isVisible,
+              onPressed: () {
+                setState(() {});
+                // validate color:
+                isNewPasswordVerified =
+                    Validate.validatePasswordBool(newPassController.text);
+                isConfirmPasswordVerified =
+                    Validate.validatePasswordBool(newPassController.text);
+                //
+                resetPassword();
+              },
+            ),
+          ],
         ),
       ),
     );

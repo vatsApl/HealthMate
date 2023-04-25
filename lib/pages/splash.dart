@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Splash extends StatefulWidget {
-  const Splash({Key? key}) : super(key: key);
   @override
   State<Splash> createState() => SplashState();
 }
@@ -32,21 +31,21 @@ class SplashState extends State<Splash> {
                 builder: (context) =>
                     ChangeNotifierProvider<ValueNotifier<int>>.value(
                   value: ValueNotifier<int>(0),
-                  child: userType == 2 ? MainPage() : const ClientMainPage(),
+                  child: userType == 2 ? MainPage() : ClientMainPage(),
                 ),
               ),
               (route) => false);
         } else {
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
-                builder: (context) => const WelcomeScreen(),
+                builder: (context) =>  WelcomeScreen(),
               ),
               (route) => false);
         }
       } else {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
-              builder: (context) => const WelcomeScreen(),
+              builder: (context) =>  WelcomeScreen(),
             ),
             (route) => false);
       }
@@ -58,18 +57,6 @@ class SplashState extends State<Splash> {
     return const Scaffold(
       backgroundColor: kDefaultPurpleColor,
       body: Center(
-        // child: CircularText(
-        //   position: CircularTextPosition.inside,
-        //   direction: CircularTextDirection.clockwise,
-        //   text: Text(
-        //     'Health Mate',
-        //     style: TextStyle(
-        //       fontSize: 25.0,
-        //       letterSpacing: 1.0,
-        //       fontWeight: FontWeight.w500,
-        //     ),
-        //   ),
-        // ),
         child: Text(
           'Health Mate',
           style: TextStyle(

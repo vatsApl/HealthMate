@@ -1,21 +1,23 @@
 import 'package:clg_project/UI/widgets/signup_candidate.dart';
 import 'package:clg_project/UI/widgets/signup_client.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
+import 'package:clg_project/base_Screen_working/base_screen.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+class SignUpPage extends BasePageScreen {
+
   @override
   State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
+class _SignUpPageState extends BasePageScreenState<SignUpPage> with TickerProviderStateMixin, BaseScreen {
   int currentIndex = 0;
 
+  // previously tried but not done, used instead of toggle switch library:
   // static const List<Tab> _tabs = [
   //   const Tab(child: Text('Candidate')),
   //   const Tab(text: 'Client'),
@@ -34,38 +36,25 @@ class _SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
   //   super.initState();
   //   _tabController = TabController(length: _tabs.length, vsync: this);
   // }
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: SvgPicture.asset(
-            Images.ic_left_arrow,
-            fit: BoxFit.scaleDown,
-          ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 23.0,
-              ),
-              TitleText(title: 'Sign Up!'),
-              const SizedBox(
-                height: 55.0,
-              ),
-              /* TabBar(
+  Widget body() {
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: 23.0,
+            ),
+            TitleText(title: 'Sign Up!'),
+            const SizedBox(
+              height: 55.0,
+            ),
+            // previously tried but not done, used instead of toggle switch library:
+            /* TabBar(
                   controller: _tabController,
                   tabs: _tabs,
                   labelColor: Color(0xffffffff),
@@ -83,48 +72,38 @@ class _SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
               TabBarView(children: _views, controller: _tabController,),
 */
 
-              // previous perfact toggle switch:
-              Center(
-                child: ToggleSwitch(
-                  initialLabelIndex: currentIndex,
-                  labels: const [
-                    'Candidate',
-                    'Client',
-                  ],
-                  // customTextStyles: [
-                  //   TextStyle(
-                  //     fontSize: 16.0,
-                  //     // fontWeight: FontWeight.w500,
-                  //     // color: ,
-                  //   )
-                  // ],
-                  minWidth: 162.0,
-                  activeBgColor: const [
-                    kDefaultPurpleColor,
-                  ],
-                  inactiveBgColor: const Color(0xffFFFFFF),
-                  inactiveFgColor: klabelColor,
-                  activeFgColor: const Color(0xffFFFFFF),
-                  cornerRadius: 6.0,
-                  borderColor: const [
-                    Color(0xffE1E1E1),
-                  ],
-                  borderWidth: 1.0,
-                  onToggle: (index) {
-                    setState(() {
-                      currentIndex = index!;
-                    });
-                  },
-                ),
+            // previous perfact toggle switch:
+            Center(
+              child: ToggleSwitch(
+                initialLabelIndex: currentIndex,
+                labels: const [
+                  'Candidate',
+                  'Client',
+                ],
+                minWidth: 162.0,
+                activeBgColor: const [
+                  kDefaultPurpleColor,
+                ],
+                inactiveBgColor: const Color(0xffFFFFFF),
+                inactiveFgColor: klabelColor,
+                activeFgColor: const Color(0xffFFFFFF),
+                cornerRadius: 6.0,
+                borderColor: const [
+                  Color(0xffE1E1E1),
+                ],
+                borderWidth: 1.0,
+                onToggle: (index) {
+                  setState(() {
+                    currentIndex = index!;
+                  });
+                },
               ),
-              const SizedBox(
-                height: 30.0,
-              ),
-              currentIndex == 0
-                  ? const SignUpCandidate()
-                  : const SignUpClient(),
-            ],
-          ),
+            ),
+            const SizedBox(
+              height: 30.0,
+            ),
+            currentIndex == 0 ? SignUpCandidate() : SignUpClient(),
+          ],
         ),
       ),
     );

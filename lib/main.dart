@@ -1,7 +1,11 @@
+import 'package:clg_project/UI/signin_page.dart';
+import 'package:clg_project/client_side/client_bottom_navigation/client_home_page.dart';
 import 'package:clg_project/pages/splash.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'UI/sign_off_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,9 +41,9 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo),
           fontFamily: 'Gotham',
         ),
-        home: const Splash(), //<= root page!
+        home: Splash(), //<= root page!
 
-        // home: JobDescriptionMyJobs(),
+        // home: ClientHomePage(), //remove custom appbar
       ),
     );
   }

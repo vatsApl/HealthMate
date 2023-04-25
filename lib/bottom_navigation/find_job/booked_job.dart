@@ -5,8 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import '../../UI/job_description_my_jobs.dart';
-import '../../UI/widgets/job_card.dart';
-import '../../allAPIs/allAPIs.dart';
 import '../../constants.dart';
 import '../../models/candidate_models/find_job_response.dart';
 import '../../resourse/api_urls.dart';
@@ -30,6 +28,7 @@ class _BookedJobState extends State<BookedJob> {
   bool isLoadingMore = false;
   bool isVisible = false;
   final scrollController = ScrollController();
+
 
   void scrollListener() {
     if (scrollController.position.pixels ==
@@ -117,7 +116,6 @@ class _BookedJobState extends State<BookedJob> {
                   child: JobCardCandidate(
                     homePageModel: jobs[index],
                   ),
-                  // child: JobCard(jobModel: jobs[index],), //filename: job_card.dart
                 );
               },
               separatorBuilder: (BuildContext context, int index) {

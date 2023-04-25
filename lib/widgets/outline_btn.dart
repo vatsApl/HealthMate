@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 
 class OutlinedBtn extends StatelessWidget {
   OutlinedBtn(
-      {super.key, this.isLoading = false,
+      {super.key,
+      this.isLoading = false,
       required this.btnTitle,
       required this.onPressed,
       this.bgColor,

@@ -6,24 +6,19 @@ import 'package:clg_project/constants.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:focus_detector/focus_detector.dart';
 import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget {
-  MainPage({super.key,
-  });
   @override
   State<MainPage> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-
-
   List pages = [
     const HomePage(),
     const FindJobPage(),
     MyJobsPage(),
-    const ProfilePage(),
+    ProfilePage(),
   ];
 
   void onTappedBar(int index) {
@@ -56,17 +51,17 @@ class _MainPageState extends State<MainPage> {
           iconSize: 28.0,
           items: [
             BottomNavigationBarItem(
-                icon: Padding(
-                  padding: const EdgeInsets.only(bottom: 6.0),
-                  child: SvgPicture.asset(
-                    Images.ic_home_big,
-                    fit: BoxFit.scaleDown,
-                    color: currentIndex == 0
-                        ? kDefaultPurpleColor
-                        : kdisabledColor,
-                  ),
+              icon: Padding(
+                padding: const EdgeInsets.only(bottom: 6.0),
+                child: SvgPicture.asset(
+                  Images.ic_home_big,
+                  fit: BoxFit.scaleDown,
+                  color:
+                      currentIndex == 0 ? kDefaultPurpleColor : kdisabledColor,
                 ),
-                label: 'Home'),
+              ),
+              label: 'Home',
+            ),
             BottomNavigationBarItem(
                 icon: Padding(
                   padding: const EdgeInsets.only(bottom: 6.0),
@@ -78,7 +73,7 @@ class _MainPageState extends State<MainPage> {
                         : kdisabledColor,
                   ),
                 ),
-                label: 'Find Job'), //
+                label: 'Find Job'),
             BottomNavigationBarItem(
                 icon: Padding(
                   padding: const EdgeInsets.only(bottom: 6.0),
@@ -109,5 +104,3 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
-
-//

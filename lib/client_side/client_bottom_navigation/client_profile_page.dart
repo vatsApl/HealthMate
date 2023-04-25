@@ -4,16 +4,12 @@ import 'package:clg_project/resourse/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:focus_detector/focus_detector.dart';
-
-import '../../bottom_navigation/profile/personal_details.dart';
 import '../../constants.dart';
 import '../../methods/methods.dart';
 import '../../resourse/images.dart';
 import '../client_personal_details.dart';
 
 class ClientProfilePage extends StatefulWidget {
-  const ClientProfilePage({Key? key}) : super(key: key);
-
   @override
   State<ClientProfilePage> createState() => _ClientProfilePageState();
 }
@@ -21,11 +17,11 @@ class ClientProfilePage extends StatefulWidget {
 class _ClientProfilePageState extends State<ClientProfilePage> {
   var clientName;
   String? netImg;
-  //     = PreferencesHelper.getString(PreferencesHelper.KEY_CLIENT_NAME);
 
   void getData() {
     setState(() {
-      clientName = PreferencesHelper.getString(PreferencesHelper.KEY_CLIENT_NAME);
+      clientName =
+          PreferencesHelper.getString(PreferencesHelper.KEY_CLIENT_NAME);
       netImg = PreferencesHelper.getString(PreferencesHelper.KEY_CLIENT_AVATAR);
     });
   }
@@ -35,6 +31,7 @@ class _ClientProfilePageState extends State<ClientProfilePage> {
     super.initState();
     getData();
   }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -64,7 +61,7 @@ class _ClientProfilePageState extends State<ClientProfilePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ClientPersonalDetails(),
+                            builder: (context) => ClientPersonalDetails(),
                           ),
                         );
                       },
@@ -104,7 +101,7 @@ class _ClientProfilePageState extends State<ClientProfilePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ClientAddresses(),
+                            builder: (context) => ClientAddresses(),
                           ),
                         );
                       },

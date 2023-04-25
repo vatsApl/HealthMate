@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:clg_project/UI/signin_page.dart';
 import 'package:clg_project/UI/widgets/otp_text_form_field.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
-import 'package:clg_project/allAPIs/allAPIs.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/resourse/images.dart';
@@ -64,7 +63,7 @@ class _VerificationState extends State<Verification> {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => const SignInPage(),
+              builder: (context) => SignInPage(),
             ),
             (route) => false);
       }

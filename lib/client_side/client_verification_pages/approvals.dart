@@ -7,11 +7,10 @@ import 'package:http/http.dart' as http;
 import '../../UI/widgets/job_card_verifications.dart';
 import '../../allAPIs/allAPIs.dart';
 import '../../models/candidate_models/find_job_response.dart';
+import '../../resourse/api_urls.dart';
 import '../../resourse/shared_prefs.dart';
 
 class Approvals extends StatefulWidget {
-  const Approvals({Key? key}) : super(key: key);
-
   @override
   State<Approvals> createState() => _ApprovalsState();
 }
@@ -27,7 +26,7 @@ class _ApprovalsState extends State<Approvals> {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
       if (page != 0) {
-        approvalsJob(page);
+        approvalsJobApi(page);
         setState(() {
           isLoadingMore = true;
         });
@@ -40,7 +39,7 @@ class _ApprovalsState extends State<Approvals> {
   }
 
   //approvals api:
-  Future<void> approvalsJob(int pageValue) async {
+  Future<void> approvalsJobApi(int pageValue) async {
     final queryParameters = {
       'page': pageValue.toString(),
     };
@@ -48,9 +47,9 @@ class _ApprovalsState extends State<Approvals> {
       setState(() {
         isLoadingMore = true;
       });
+      String url = ApiUrl.clientVerificationsPageApi;
       var response = await http.post(
-          Uri.parse('${DataURL.baseUrl}/api/application/client/index')
-              .replace(queryParameters: queryParameters),
+          Uri.parse(url).replace(queryParameters: queryParameters),
           body: {
             'id': uId,
             'status': '1',
@@ -64,7 +63,6 @@ class _ApprovalsState extends State<Approvals> {
           isLoadingMore = false;
           page = approvalsJobResponse.lastPage!;
           jobs.addAll(approvalsJobResponse.data ?? []);
-          // appliedJobResponse.data?[index].
         });
       }
     } catch (e) {
@@ -75,7 +73,7 @@ class _ApprovalsState extends State<Approvals> {
   @override
   void initState() {
     super.initState();
-    approvalsJob(page);
+    approvalsJobApi(page);
   }
 
   @override

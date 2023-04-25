@@ -1,20 +1,15 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:clg_project/UI/widgets/job_card_home_page.dart';
 import 'package:clg_project/resourse/api_urls.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:focus_detector/focus_detector.dart';
 import '../../UI/job_description_my_jobs.dart';
-import '../../UI/widgets/job_card.dart';
-import '../../allAPIs/allAPIs.dart';
 import '../../constants.dart';
 import '../../models/candidate_models/find_job_response.dart';
 import '../../resourse/shared_prefs.dart';
 import 'package:http/http.dart' as http;
 
 class AppliedJob extends StatefulWidget {
-  const AppliedJob({super.key});
 
   @override
   State<AppliedJob> createState() => _AppliedJobState();
@@ -71,11 +66,7 @@ class _AppliedJobState extends State<AppliedJob> {
           isLoadingMore = false;
           page = appliedJobResponse.lastPage!;
           jobs.addAll(appliedJobResponse.data ?? []);
-          // appliedJobResponse.data?[index].
         });
-        // print(appliedJobResponse.lastPage);
-        // jobs = appliedJobResponse.data ?? [];
-        // jobs.addAll(appliedJobResponse.data ?? []);
       }
     } catch (e) {
       throw Exception(e.toString());

@@ -1,15 +1,12 @@
 import 'dart:convert';
 import 'package:clg_project/UI/job_description.dart';
-import 'package:clg_project/UI/widgets/job_card_find_job.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
-import 'package:clg_project/allAPIs/allAPIs.dart';
 import 'package:clg_project/models/candidate_models/find_job_response.dart';
 import 'package:clg_project/resourse/api_urls.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../UI/widgets/job_card_home_page.dart';
-import '../custom_widgets/custom_widget_helper.dart';
 import '../resourse/shared_prefs.dart';
 
 class FindJobPage extends StatefulWidget {
@@ -43,7 +40,7 @@ class _FindJobPageState extends State<FindJobPage> {
     }
   }
 
-  //find job api:
+  // Candidate find job api:
   Future<void> findJobCandidateApi(int pageValue) async {
     final queryParameters = {
       'page': pageValue.toString(),
@@ -56,13 +53,14 @@ class _FindJobPageState extends State<FindJobPage> {
         isVisible = true;
       });
       var response = await http.get(urlName);
-      // log('FIND JOB:${response.body}');
+      // log('find job log:${response.body}');
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         var findJobResponse = FindJobResponse.fromJson(json);
         setState(() {
           page = findJobResponse.lastPage!;
         });
+        // pagination with url
         // var headerPagination = HeaderPagination.fromJson(headerDecoded);
         // page = headerPagination.nextPage ?? 1;
         // var headerDecoded =
@@ -71,7 +69,6 @@ class _FindJobPageState extends State<FindJobPage> {
         setState(() {
           isVisible = false;
           isLoadingMore = false;
-          // jobs = findJobResponse.data ?? [];
           jobs.addAll(findJobResponse.data ?? []);
         });
       }
@@ -138,9 +135,6 @@ class _FindJobPageState extends State<FindJobPage> {
                                   child: JobCardCandidate(
                                     homePageModel: jobs[index],
                                   ),
-                                  // JobCardFindJob(
-                                  //   jobModel: jobs[index],
-                                  // ),
                                 );
                               },
                               separatorBuilder:

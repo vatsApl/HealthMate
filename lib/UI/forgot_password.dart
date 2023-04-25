@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:clg_project/UI/forgot_verification.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
-import 'package:clg_project/allAPIs/allAPIs.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/models/forgot_response.dart';
 import 'package:clg_project/resourse/api_urls.dart';
@@ -13,17 +12,18 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
-class ForgotPassword extends StatefulWidget {
-  const ForgotPassword({Key? key}) : super(key: key);
+import '../base_Screen_working/base_screen.dart';
+
+class ForgotPassword extends BasePageScreen {
+
   @override
   State<ForgotPassword> createState() => _ForgotPasswordState();
 }
 
-class _ForgotPasswordState extends State<ForgotPassword> {
+class _ForgotPasswordState extends BasePageScreenState<ForgotPassword> with BaseScreen {
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   final emailFocusNode = FocusNode();
-  // bool isEmailCorrect = false;
   bool? isEmailVerified;
   int? userId;
   int? userType;
@@ -93,26 +93,18 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void onClickSaveButton() {
+    return null;
+  }
+
+  @override
+  Widget body() {
     return GestureDetector(
       onTap: () {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0.0,
-          leading: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: SvgPicture.asset(
-              Images.ic_left_arrow,
-              fit: BoxFit.scaleDown,
-            ),
-          ),
-        ),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
           child: Form(
@@ -120,11 +112,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // InkWell(
-                //     onTap: () {
-                //       Navigator.pop(context);
-                //     },
-                //     child: SvgPicture.asset(Images.ic_left_arrow)),
                 const SizedBox(
                   height: 23.0,
                 ),
@@ -135,10 +122,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 const Text(
                   'We Will Sent You An Email With Verification Code To Reset Your Password',
                   style: TextStyle(
-                      fontSize: 12.0,
-                      color: kDefaultBlackColor,
-                      fontWeight: FontWeight.w400,
-                      height: 1.5,
+                    fontSize: 12.0,
+                    color: kDefaultBlackColor,
+                    fontWeight: FontWeight.w400,
+                    height: 1.5,
                   ),
                 ),
                 const SizedBox(
@@ -152,8 +139,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     color: isEmailVerified == null
                         ? klabelColor
                         : isEmailVerified == true
-                            ? Colors.green
-                            : Colors.red,
+                        ? Colors.green
+                        : Colors.red,
                   ),
                   textCapitalization: TextCapitalization.words,
                   controller: emailController,
@@ -178,36 +165,36 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         color: isEmailVerified == null
                             ? klabelColor
                             : isEmailVerified == true
-                                ? Colors.green
-                                : Colors.red,
+                            ? Colors.green
+                            : Colors.red,
                       ),
                     ),
                     suffixIcon: isEmailVerified == null
                         ? null
                         : isEmailVerified == true
-                            ? Padding(
-                                padding: kSuffixIconPadding,
-                                child: SvgPicture.asset(
-                                  Images.ic_true,
-                                  fit: BoxFit.scaleDown,
-                                  color: Colors.green,
-                                ),
-                              )
-                            : Padding(
-                                padding: kSuffixIconPadding,
-                                child: SvgPicture.asset(
-                                  Images.ic_error,
-                                  fit: BoxFit.scaleDown,
-                                  color: Colors.red,
-                                ),
-                              ),
+                        ? Padding(
+                      padding: kSuffixIconPadding,
+                      child: SvgPicture.asset(
+                        Images.ic_true,
+                        fit: BoxFit.scaleDown,
+                        color: Colors.green,
+                      ),
+                    )
+                        : Padding(
+                      padding: kSuffixIconPadding,
+                      child: SvgPicture.asset(
+                        Images.ic_error,
+                        fit: BoxFit.scaleDown,
+                        color: Colors.red,
+                      ),
+                    ),
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: isEmailVerified == null
                             ? kDefaultPurpleColor
                             : isEmailVerified == true
-                                ? Colors.green
-                                : Colors.red,
+                            ? Colors.green
+                            : Colors.red,
                       ),
                     ),
                   ),
@@ -241,4 +228,3 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     );
   }
 }
-

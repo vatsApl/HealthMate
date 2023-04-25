@@ -3,9 +3,11 @@ import 'dart:developer';
 import 'package:clg_project/UI/widgets/custom_textfield.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/allAPIs/allAPIs.dart';
+import 'package:clg_project/base_Screen_working/base_screen.dart';
 import 'package:clg_project/client_side/add_new_address_two.dart';
 import 'package:clg_project/client_side/client_main_page.dart';
 import 'package:clg_project/constants.dart';
+import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
 import 'package:clg_project/validations.dart';
@@ -13,15 +15,13 @@ import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:focus_detector/focus_detector.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../custom_widgets/custom_widget_helper.dart';
 import '../models/client_model/client_Address_model.dart';
-import 'add_new_address.dart';
 
-class CreateContract extends StatefulWidget {
+class CreateContract extends BasePageScreen {
   CreateContract({this.newAddress});
   String? newAddress;
 
@@ -29,7 +29,7 @@ class CreateContract extends StatefulWidget {
   State<CreateContract> createState() => _CreateContractState();
 }
 
-class _CreateContractState extends State<CreateContract> {
+class _CreateContractState extends BasePageScreenState<CreateContract> with BaseScreen {
   final selectRoleList = [
     'Audiologist',
     'Cardiologists',
@@ -65,7 +65,6 @@ class _CreateContractState extends State<CreateContract> {
   int selectedBreaktimeIndex = -1;
   String? selectedRoleItem = 'Select Category';
   String? selectedBreakTime = 'Select Breaktime';
-  // final FocusScopeNode _focusNode = FocusScopeNode();
   final _formKey = GlobalKey<FormState>();
   bool isVisible = false;
 
@@ -79,6 +78,12 @@ class _CreateContractState extends State<CreateContract> {
   TextEditingController unitsController = TextEditingController();
   TextEditingController breakTimeController = TextEditingController();
   TextEditingController visitsController = TextEditingController();
+  var addressId;
+  final parkingList = [
+    'Not Available',
+    'Available',
+  ];
+  String? selectedParkingItem = 'Choose availability';
 
   Future<void> createContractDropdownDialog() async {
     return showDialog<void>(
@@ -300,12 +305,6 @@ class _CreateContractState extends State<CreateContract> {
     );
   }
 
-  var addressId;
-  final parkingList = [
-    'Not Available',
-    'Available',
-  ];
-  String? selectedParkingItem = 'Choose availability';
   Future<void> parkingDialog() async {
     return showDialog<void>(
       context: context,
@@ -473,9 +472,9 @@ class _CreateContractState extends State<CreateContract> {
   }
 
   // create contract api:
-  Future<void> createContract() async {
+  Future<void> createContractApi() async {
     var uId = PreferencesHelper.getString(PreferencesHelper.KEY_USER_ID);
-    String url = '${DataURL.baseUrl}/api/job';
+    String url = ApiUrl.createContractApi;
     var json;
     try {
       setState(() {
@@ -514,7 +513,7 @@ class _CreateContractState extends State<CreateContract> {
             builder: (context) =>
                 ChangeNotifierProvider<ValueNotifier<int>>.value(
               value: ValueNotifier<int>(1),
-              child: const ClientMainPage(),
+              child: ClientMainPage(),
             ),
           ),
         );
@@ -576,561 +575,12 @@ class _CreateContractState extends State<CreateContract> {
     });
   }
 
-  // void addAddress()
   @override
   void initState() {
     super.initState();
     allAddresses();
     addressController.text = widget.newAddress ?? '';
-    print('this is user id:$uId');
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: CustomWidgetHelper.appBar(context: context),
-        body: Form(
-          key: _formKey,
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16.0, 26.0, 16.0, 16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TitleText(title: 'Create Contract'),
-                  const SizedBox(
-                    height: 48.0,
-                  ),
-                  const Text(
-                    'Title',
-                    style: kTextFormFieldLabelStyle,
-                  ),
-                  CustomTextFormField(
-                    // prefixIcon: Images.ic_job,
-                    svgPrefixIcon: SvgPicture.asset(
-                      Images.ic_job,
-                      fit: BoxFit.scaleDown,
-                    ),
-                    hint: 'Enter title of the job',
-                    controller: jobTitleController,
-                    validator: Validate.validateName,
-                  ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
-                  const Text(
-                    'Category',
-                    style: kTextFormFieldLabelStyle,
-                  ),
-                  const SizedBox(
-                    height: 12.0,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      createContractDropdownDialog();
-                    },
-                    child: TextFormField(
-                      style: const TextStyle(height: 1.0),
-                      enabled: false,
-                      decoration: InputDecoration(
-                        hintText: selectedRoleItem == 'null'
-                            ? 'Select category'
-                            : selectedRoleItem,
-                        hintStyle: const TextStyle(
-                          color: kDefaultBlackColor,
-                        ),
-                        labelStyle: const TextStyle(
-                          color: kDefaultBlackColor,
-                        ),
-                        suffixIcon:
-                            const Icon(Icons.keyboard_arrow_down_outlined),
-                        disabledBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.grey, // Set the border color to grey
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
-                  const Text(
-                    'Description',
-                    style: kTextFormFieldLabelStyle,
-                  ),
-                  const SizedBox(
-                    height: 12.0,
-                  ),
-                  TextFormField(
-                    maxLines: null,
-                    controller: jobDescriptionController,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please fill this field';
-                      }
-                      return null;
-                    },
-                    decoration: const InputDecoration(
-                      hintText: 'Describe Your Job',
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
-                  const Text(
-                    'Address',
-                    style: kTextFormFieldLabelStyle,
-                  ),
-                  const SizedBox(
-                    height: 12.0,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      _showAddresses(context);
-                      allAddresses();
-                    },
-                    child: TextFormField(
-                      style: const TextStyle(height: 1.0),
-                      enabled: false,
-                      controller: addressController,
-                      maxLines: null,
-                      // textAlignVertical: TextAlignVertical.bottom,
-                      decoration: const InputDecoration(
-                        hintText: 'Select Address',
-                        hintStyle: TextStyle(
-                          color: klabelColor,
-                        ),
-                        labelStyle: TextStyle(
-                          color: klabelColor,
-                        ),
-                        suffixIcon: Icon(Icons.keyboard_arrow_down_outlined),
-                        disabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.grey, // Set the border color to grey
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
-                  const Text(
-                    'Date',
-                    style: kTextFormFieldLabelStyle,
-                  ),
-                  const SizedBox(
-                    height: 12.0,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      _pickDateDialog();
-                    },
-                    child: CustomTextFormField(
-                        svgPrefixIcon: SvgPicture.asset(
-                          Images.ic_calander,
-                          fit: BoxFit.scaleDown,
-                          color: klabelColor,
-                        ),
-                        icColor: klabelColor,
-                        hint: 'Select date',
-                        hintStyle:
-                            TextStyle(color: klabelColor.withOpacity(0.8)),
-                        enabled: false,
-                        controller: dateController,
-                        validator: (value) {
-                          if (dateController == null) {
-                            return 'Please select the date';
-                          }
-                        }),
-                  ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Start Time',
-                              style: kTextFormFieldLabelStyle,
-                            ),
-                            const SizedBox(
-                              height: 10.0,
-                            ),
-                            TextFormField(
-                              textAlignVertical: TextAlignVertical.bottom,
-                              style: const TextStyle(height: 1.0),
-                              controller: startTimeController,
-                              readOnly: true,
-                              onTap: () async {
-                                TimeOfDay? pickedTime = await showTimePicker(
-                                  initialTime: TimeOfDay.now(),
-                                  context: context,
-                                );
-                                if (pickedTime != null) {
-                                  // print('PickedTime:${pickedTime.format(context)}');
-                                  DateTime parsedTime = DateFormat.jm().parse(
-                                      pickedTime.format(context).toString());
-                                  // print('ParsedTime:$parsedTime');
-                                  String formattedStartTime =
-                                      DateFormat('HH:mm').format(parsedTime);
-                                  // print('FormattedTime:$formattedTime');
-                                  setState(() {
-                                    startTimeController.text =
-                                        formattedStartTime;
-                                  });
-                                }
-                              },
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please fill this field';
-                                }
-                                return null;
-                              },
-                              decoration: const InputDecoration(
-                                hintText: '00:00',
-                                hintStyle: TextStyle(
-                                  color: klabelColor,
-                                ),
-                                labelStyle: TextStyle(
-                                  color: klabelColor,
-                                ),
-                                border: OutlineInputBorder(),
-                                disabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: klabelColor,
-                                  ),
-                                ),
-                                suffixIcon:
-                                    Icon(Icons.keyboard_arrow_down_outlined),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 15.0,
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'End Time',
-                              style: kTextFormFieldLabelStyle,
-                            ),
-                            const SizedBox(
-                              height: 10.0,
-                            ),
-                            TextFormField(
-                              textAlignVertical: TextAlignVertical.bottom,
-                              style: const TextStyle(height: 1.0),
-                              keyboardType: TextInputType.number,
-                              controller: endTimeController,
-                              readOnly: true,
-                              onTap: () async {
-                                TimeOfDay? pickedTime = await showTimePicker(
-                                  initialTime: TimeOfDay.now(),
-                                  // initialTime: formattedStartTime,
-                                  context: context,
-                                );
-                                if (pickedTime != null) {
-                                  // print('PickedTime:${pickedTime.format(context)}');
-                                  DateTime parsedTime = DateFormat.jm().parse(
-                                      pickedTime.format(context).toString());
-                                  // print('ParsedTime:$parsedTime');
-                                  String formattedEndTime =
-                                      DateFormat('HH:mm').format(parsedTime);
-                                  // print('FormattedTime:$formattedTime');
-                                  setState(() {
-                                    endTimeController.text = formattedEndTime;
-                                    // calculateUnit( //previous calculate unit
-                                    //     startTimeController.text,
-                                    //     endTimeController.text,
-                                    //     breakController.text as double);
-                                  });
-                                }
-                              },
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please fill this field';
-                                }
-                                return null;
-                              },
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: '00:00',
-                                hintStyle: TextStyle(
-                                  color: klabelColor,
-                                ),
-                                labelStyle: TextStyle(
-                                  color: klabelColor,
-                                ),
-                                disabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        klabelColor, // Set the border color to grey
-                                  ),
-                                ),
-                                suffixIcon:
-                                    Icon(Icons.keyboard_arrow_down_outlined),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
-                  const Text(
-                    'Break',
-                    style: kTextFormFieldLabelStyle,
-                  ),
-                  const SizedBox(
-                    height: 12.0,
-                  ),
-                  Stack(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          selectBreakTimeDialog();
-                        },
-                        child: TextFormField(
-                          style: const TextStyle(height: 1.0),
-                          textAlignVertical: TextAlignVertical.bottom,
-                          enabled: false,
-                          controller: breakTimeController,
-                          decoration: InputDecoration(
-                            hintText: selectedBreakTime,
-                            hintStyle: const TextStyle(
-                              color: klabelColor,
-                            ),
-                            labelStyle: const TextStyle(
-                              color: klabelColor,
-                            ),
-                            prefixIcon: Padding(
-                              padding: kPrefixIconPadding,
-                              child: SvgPicture.asset(
-                                Images.ic_break,
-                                fit: BoxFit.scaleDown,
-                              ),
-                            ),
-                            // suffixIcon:
-                            // const Icon(Icons.keyboard_arrow_down_outlined),
-                            disabledBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color:
-                                    Colors.grey, // Set the border color to grey
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      // CustomTextFormField(
-                      //   onTap: (){
-                      //     selectBreakTimeDialog();
-                      //   },
-                      //   controller: breakTimeController,
-                      //   inputType: TextInputType.number,
-                      //   hint: '1.5',
-                      //   hintStyle: TextStyle(
-                      //     color: klabelColor.withOpacity(0.5),
-                      //   ),
-                      //   svgPrefixIcon: SvgPicture.asset(
-                      //     Images.ic_break,
-                      //     fit: BoxFit.scaleDown,
-                      //   ),
-                      //   // validator: (value) {
-                      //   //   if (value.isEmpty) {
-                      //   //     return 'Please fill this field';
-                      //   //   }
-                      //   //   return null;
-                      //   // },
-                      // ),
-                      const Align(
-                        alignment: Alignment.bottomRight,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            top: 22.0,
-                            right: 8.0,
-                          ),
-                          child: Text(
-                            'Minutes',
-                            style: TextStyle(fontWeight: FontWeight.w400),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
-                  const Text(
-                    'Units',
-                    style: kTextFormFieldLabelStyle,
-                  ),
-                  const SizedBox(
-                    height: 12.0,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      calculateUnitTwo(
-                        startTimeController.text,
-                        endTimeController.text,
-                      );
-                      setState(() {});
-                    },
-                    child: CustomTextFormField(
-                      svgPrefixIcon: SvgPicture.asset(
-                        Images.ic_job,
-                        fit: BoxFit.scaleDown,
-                      ),
-                      // hint: unit.toStringAsFixed(2),
-                      hint: '${unit ?? ''}',
-                      hintStyle: const TextStyle(color: klabelColor),
-                      readOnly: true,
-                      enabled: false,
-                      borderColor: Colors.grey,
-                      // controller: unitsController,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
-                  const Text(
-                    'Salary',
-                    style: kTextFormFieldLabelStyle,
-                  ),
-                  const SizedBox(
-                    height: 12.0,
-                  ),
-                  Stack(
-                    children: [
-                      CustomTextFormField(
-                        hint: 'Enter salary',
-                        svgPrefixIcon: SvgPicture.asset(
-                          Images.ic_salary,
-                          fit: BoxFit.scaleDown,
-                        ),
-                        controller: salaryController,
-                        inputType: TextInputType.number,
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please enter a number';
-                          }
-                          final n = num.tryParse(value);
-                          if (n == null) {
-                            return 'Please enter a valid number';
-                          }
-                        },
-                      ),
-                      const Align(
-                        alignment: Alignment.bottomRight,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            top: 22.0,
-                            right: 8.0,
-                          ),
-                          child: Text(
-                            '/ Day',
-                            style: TextStyle(fontWeight: FontWeight.w400),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
-
-                  // const Text(
-                  //   'Visits',
-                  //   style: kTextFormFieldLabelStyle,
-                  // ),
-                  // const SizedBox(
-                  //   height: 12.0,
-                  // ),
-                  // CustomTextFormField(
-                  //   hint: '2',
-                  //   prefixIcon: Images.ic_visit,
-                  //   inputType: TextInputType.number,
-                  //   controller: visitsController,
-                  //   validator: (value) {
-                  //     if (value.isEmpty) {
-                  //       return 'Please fill this field';
-                  //     }
-                  //     return null;
-                  //   },
-                  // ),
-                  // const SizedBox(
-                  //   height: 30.0,
-                  // ),
-                  const Text(
-                    'Parking',
-                    style: kTextFormFieldLabelStyle,
-                  ),
-                  const SizedBox(
-                    height: 12.0,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      parkingDialog();
-                    },
-                    child: CustomTextFormField(
-                      hint: selectedParkingItem == 'null'
-                          ? 'Choose availability'
-                          : selectedParkingItem,
-                      hintStyle: const TextStyle(color: kDefaultBlackColor),
-                      svgPrefixIcon: SvgPicture.asset(
-                        Images.ic_parking,
-                        fit: BoxFit.scaleDown,
-                      ),
-                      enabled: false,
-                      // borderColor: klabelColor,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 48.0,
-                  ),
-                  ElevatedBtn(
-                    btnTitle: 'Submit',
-                    isLoading: isVisible,
-                    bgColor: kDefaultPurpleColor,
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        createContract(); //api
-                      } else {
-                        debugPrint('failed');
-                        Fluttertoast.showToast(
-                          msg: "Please fill an empty fields",
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.BOTTOM,
-                          timeInSecForIosWeb: 1,
-                          backgroundColor: Colors.red,
-                          textColor: Colors.white,
-                          fontSize: 16.0,
-                        );
-                      }
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
+    print('user id:$uId');
   }
 
   void _showAddresses(BuildContext context) {
@@ -1162,7 +612,7 @@ class _CreateContractState extends State<CreateContract> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const AddNewAddressTwo(),
+                      builder: (context) => AddNewAddressTwo(),
                     ),
                   ).then((value) {
                     setState(() {
@@ -1231,6 +681,504 @@ class _CreateContractState extends State<CreateContract> {
           ),
         );
       },
+    );
+  }
+
+  @override
+  Widget body() {
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16.0, 26.0, 16.0, 16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TitleText(title: 'Create Contract'),
+                const SizedBox(
+                  height: 48.0,
+                ),
+                const Text(
+                  'Title',
+                  style: kTextFormFieldLabelStyle,
+                ),
+                CustomTextFormField(
+                  svgPrefixIcon: SvgPicture.asset(
+                    Images.ic_job,
+                    fit: BoxFit.scaleDown,
+                  ),
+                  hint: 'Enter title of the job',
+                  controller: jobTitleController,
+                  validator: Validate.validateName,
+                ),
+                const SizedBox(
+                  height: 30.0,
+                ),
+                const Text(
+                  'Category',
+                  style: kTextFormFieldLabelStyle,
+                ),
+                const SizedBox(
+                  height: 12.0,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    createContractDropdownDialog();
+                  },
+                  child: TextFormField(
+                    style: const TextStyle(height: 1.0),
+                    enabled: false,
+                    decoration: InputDecoration(
+                      hintText: selectedRoleItem == 'null'
+                          ? 'Select category'
+                          : selectedRoleItem,
+                      hintStyle: const TextStyle(
+                        color: kDefaultBlackColor,
+                      ),
+                      labelStyle: const TextStyle(
+                        color: kDefaultBlackColor,
+                      ),
+                      suffixIcon:
+                      const Icon(Icons.keyboard_arrow_down_outlined),
+                      disabledBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.grey, // Set the border color to grey
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 30.0,
+                ),
+                const Text(
+                  'Description',
+                  style: kTextFormFieldLabelStyle,
+                ),
+                const SizedBox(
+                  height: 12.0,
+                ),
+                TextFormField(
+                  maxLines: null,
+                  controller: jobDescriptionController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please fill this field';
+                    }
+                    return null;
+                  },
+                  decoration: const InputDecoration(
+                    hintText: 'Describe Your Job',
+                  ),
+                ),
+                const SizedBox(
+                  height: 30.0,
+                ),
+                const Text(
+                  'Address',
+                  style: kTextFormFieldLabelStyle,
+                ),
+                const SizedBox(
+                  height: 12.0,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    _showAddresses(context);
+                    allAddresses();
+                  },
+                  child: TextFormField(
+                    style: const TextStyle(height: 1.0),
+                    enabled: false,
+                    controller: addressController,
+                    maxLines: null,
+                    // textAlignVertical: TextAlignVertical.bottom,
+                    decoration: const InputDecoration(
+                      hintText: 'Select Address',
+                      hintStyle: TextStyle(
+                        color: klabelColor,
+                      ),
+                      labelStyle: TextStyle(
+                        color: klabelColor,
+                      ),
+                      suffixIcon: Icon(Icons.keyboard_arrow_down_outlined),
+                      disabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.grey, // Set the border color to grey
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 30.0,
+                ),
+                const Text(
+                  'Date',
+                  style: kTextFormFieldLabelStyle,
+                ),
+                const SizedBox(
+                  height: 12.0,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    _pickDateDialog();
+                  },
+                  child: CustomTextFormField(
+                      svgPrefixIcon: SvgPicture.asset(
+                        Images.ic_calander,
+                        fit: BoxFit.scaleDown,
+                        color: klabelColor,
+                      ),
+                      icColor: klabelColor,
+                      hint: 'Select date',
+                      hintStyle:
+                      TextStyle(color: klabelColor.withOpacity(0.8)),
+                      enabled: false,
+                      controller: dateController,
+                      validator: (value) {
+                        if (dateController == null) {
+                          return 'Please select the date';
+                        }
+                      }),
+                ),
+                const SizedBox(
+                  height: 30.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Start Time',
+                            style: kTextFormFieldLabelStyle,
+                          ),
+                          const SizedBox(
+                            height: 10.0,
+                          ),
+                          TextFormField(
+                            textAlignVertical: TextAlignVertical.bottom,
+                            style: const TextStyle(height: 1.0),
+                            controller: startTimeController,
+                            readOnly: true,
+                            onTap: () async {
+                              TimeOfDay? pickedTime = await showTimePicker(
+                                initialTime: TimeOfDay.now(),
+                                context: context,
+                              );
+                              if (pickedTime != null) {
+                                // print('PickedTime:${pickedTime.format(context)}');
+                                DateTime parsedTime = DateFormat.jm().parse(
+                                    pickedTime.format(context).toString());
+                                // print('ParsedTime:$parsedTime');
+                                String formattedStartTime =
+                                DateFormat('HH:mm').format(parsedTime);
+                                setState(() {
+                                  startTimeController.text =
+                                      formattedStartTime;
+                                });
+                              }
+                            },
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please fill this field';
+                              }
+                              return null;
+                            },
+                            decoration: const InputDecoration(
+                              hintText: '00:00',
+                              hintStyle: TextStyle(
+                                color: klabelColor,
+                              ),
+                              labelStyle: TextStyle(
+                                color: klabelColor,
+                              ),
+                              border: OutlineInputBorder(),
+                              disabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: klabelColor,
+                                ),
+                              ),
+                              suffixIcon:
+                              Icon(Icons.keyboard_arrow_down_outlined),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 15.0,
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'End Time',
+                            style: kTextFormFieldLabelStyle,
+                          ),
+                          const SizedBox(
+                            height: 10.0,
+                          ),
+                          TextFormField(
+                            textAlignVertical: TextAlignVertical.bottom,
+                            style: const TextStyle(height: 1.0),
+                            keyboardType: TextInputType.number,
+                            controller: endTimeController,
+                            readOnly: true,
+                            onTap: () async {
+                              TimeOfDay? pickedTime = await showTimePicker(
+                                initialTime: TimeOfDay.now(),
+                                // initialTime: formattedStartTime,
+                                context: context,
+                              );
+                              if (pickedTime != null) {
+                                // print('PickedTime:${pickedTime.format(context)}');
+                                DateTime parsedTime = DateFormat.jm().parse(
+                                    pickedTime.format(context).toString());
+                                // print('ParsedTime:$parsedTime');
+                                String formattedEndTime =
+                                DateFormat('HH:mm').format(parsedTime);
+                                // print('FormattedTime:$formattedTime');
+                                setState(() {
+                                  endTimeController.text = formattedEndTime;
+                                  // calculateUnit( //previous calculate unit
+                                  //     startTimeController.text,
+                                  //     endTimeController.text,
+                                  //     breakController.text as double);
+                                });
+                              }
+                            },
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please fill this field';
+                              }
+                              return null;
+                            },
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: '00:00',
+                              hintStyle: TextStyle(
+                                color: klabelColor,
+                              ),
+                              labelStyle: TextStyle(
+                                color: klabelColor,
+                              ),
+                              disabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color:
+                                  klabelColor, // Set the border color to grey
+                                ),
+                              ),
+                              suffixIcon:
+                              Icon(Icons.keyboard_arrow_down_outlined),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 30.0,
+                ),
+                const Text(
+                  'Break',
+                  style: kTextFormFieldLabelStyle,
+                ),
+                const SizedBox(
+                  height: 12.0,
+                ),
+                Stack(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        selectBreakTimeDialog();
+                      },
+                      child: TextFormField(
+                        style: const TextStyle(height: 1.0),
+                        textAlignVertical: TextAlignVertical.bottom,
+                        enabled: false,
+                        controller: breakTimeController,
+                        decoration: InputDecoration(
+                          hintText: selectedBreakTime,
+                          hintStyle: const TextStyle(
+                            color: klabelColor,
+                          ),
+                          labelStyle: const TextStyle(
+                            color: klabelColor,
+                          ),
+                          prefixIcon: Padding(
+                            padding: kPrefixIconPadding,
+                            child: SvgPicture.asset(
+                              Images.ic_break,
+                              fit: BoxFit.scaleDown,
+                            ),
+                          ),
+                          // suffixIcon:
+                          // const Icon(Icons.keyboard_arrow_down_outlined),
+                          disabledBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color:
+                              Colors.grey, // Set the border color to grey
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const Align(
+                      alignment: Alignment.bottomRight,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          top: 22.0,
+                          right: 8.0,
+                        ),
+                        child: Text(
+                          'Minutes',
+                          style: TextStyle(fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 30.0,
+                ),
+                const Text(
+                  'Units',
+                  style: kTextFormFieldLabelStyle,
+                ),
+                const SizedBox(
+                  height: 12.0,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    calculateUnitTwo(
+                      startTimeController.text,
+                      endTimeController.text,
+                    );
+                    setState(() {});
+                  },
+                  child: CustomTextFormField(
+                    svgPrefixIcon: SvgPicture.asset(
+                      Images.ic_job,
+                      fit: BoxFit.scaleDown,
+                    ),
+                    // hint: unit.toStringAsFixed(2),
+                    hint: '${unit ?? ''}',
+                    hintStyle: const TextStyle(color: klabelColor),
+                    readOnly: true,
+                    enabled: false,
+                    borderColor: Colors.grey,
+                    // controller: unitsController,
+                  ),
+                ),
+                const SizedBox(
+                  height: 30.0,
+                ),
+                const Text(
+                  'Salary',
+                  style: kTextFormFieldLabelStyle,
+                ),
+                const SizedBox(
+                  height: 12.0,
+                ),
+                Stack(
+                  children: [
+                    CustomTextFormField(
+                      hint: 'Enter salary',
+                      svgPrefixIcon: SvgPicture.asset(
+                        Images.ic_salary,
+                        fit: BoxFit.scaleDown,
+                      ),
+                      controller: salaryController,
+                      inputType: TextInputType.number,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter a number';
+                        }
+                        final n = num.tryParse(value);
+                        if (n == null) {
+                          return 'Please enter a valid number';
+                        }
+                      },
+                    ),
+                    const Align(
+                      alignment: Alignment.bottomRight,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          top: 22.0,
+                          right: 8.0,
+                        ),
+                        child: Text(
+                          '/ Day',
+                          style: TextStyle(fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 30.0,
+                ),
+                const Text(
+                  'Parking',
+                  style: kTextFormFieldLabelStyle,
+                ),
+                const SizedBox(
+                  height: 12.0,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    parkingDialog();
+                  },
+                  child: CustomTextFormField(
+                    hint: selectedParkingItem == 'null'
+                        ? 'Choose availability'
+                        : selectedParkingItem,
+                    hintStyle: const TextStyle(color: kDefaultBlackColor),
+                    svgPrefixIcon: SvgPicture.asset(
+                      Images.ic_parking,
+                      fit: BoxFit.scaleDown,
+                    ),
+                    enabled: false,
+                    // borderColor: klabelColor,
+                  ),
+                ),
+                const SizedBox(
+                  height: 48.0,
+                ),
+                ElevatedBtn(
+                  btnTitle: 'Submit',
+                  isLoading: isVisible,
+                  bgColor: kDefaultPurpleColor,
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      createContractApi(); //api
+                    } else {
+                      debugPrint('failed');
+                      Fluttertoast.showToast(
+                        msg: "Please fill an empty fields",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.red,
+                        textColor: Colors.white,
+                        fontSize: 16.0,
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

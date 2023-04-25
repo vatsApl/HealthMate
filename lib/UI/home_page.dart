@@ -3,15 +3,10 @@ import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:clg_project/UI/job_description.dart';
 import 'package:clg_project/UI/widgets/candidate_card_top.dart';
-import 'package:clg_project/UI/widgets/custom_appbar.dart';
 import 'package:clg_project/UI/widgets/job_card_home_page.dart';
 import 'package:clg_project/allAPIs/allAPIs.dart';
-import 'package:clg_project/bottom_navigation/find_job/applied_job.dart';
-import 'package:clg_project/bottom_navigation/main_page.dart';
-import 'package:clg_project/bottom_navigation/my_job_page.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/models/candidate_models/find_job_response.dart';
-import 'package:clg_project/models/candidate_models/home_page_job.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,7 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-
 import '../custom_widgets/index_notifier.dart';
 import '../resourse/api_urls.dart';
 
@@ -42,7 +36,8 @@ class _HomePageState extends State<HomePage> {
   final scrollController = ScrollController();
   var uId = PreferencesHelper.getString(PreferencesHelper.KEY_USER_ID);
   var uIdInt = PreferencesHelper.getInt(PreferencesHelper.KEY_USER_ID_INT);
-  var uFirstName = PreferencesHelper.getString(PreferencesHelper.KEY_FIRST_NAME);
+  var uFirstName =
+      PreferencesHelper.getString(PreferencesHelper.KEY_FIRST_NAME);
   var uRoleName = PreferencesHelper.getString(PreferencesHelper.KEY_ROLE_NAME);
   String? netImg = PreferencesHelper.getString(PreferencesHelper.KEY_AVATAR);
 
@@ -65,7 +60,7 @@ class _HomePageState extends State<HomePage> {
           isLoadingMore = false;
           jobsHome.addAll(homePageResponse.data ?? []);
         });
-      } else if(response.statusCode == 400) {
+      } else if (response.statusCode == 400) {
         var json = jsonDecode(response.body);
         var homePageResponse = FindJobResponse.fromJson(json);
         homePageResponse3 = FindJobResponse.fromJson(json);
@@ -110,19 +105,17 @@ class _HomePageState extends State<HomePage> {
                       shape: BoxShape.circle,
                       color: kDefaultPurpleColor,
                     ),
-
                     child: CachedNetworkImage(
                       imageUrl: '${DataURL.baseUrl}/$netImg',
-                      imageBuilder: (context, imageProvider) =>
-                          Container(
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                image: imageProvider,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
                           ),
+                        ),
+                      ),
                       placeholder: (context, url) => CircleAvatar(
                         child: SvgPicture.asset(
                           Images.ic_person,
@@ -130,14 +123,13 @@ class _HomePageState extends State<HomePage> {
                           height: 35.0,
                         ),
                       ),
-                      errorWidget: (context, url, error) =>
-                          CircleAvatar(
-                            child: SvgPicture.asset(
-                              Images.ic_person,
-                              color: Colors.white,
-                              height: 35.0,
-                            ),
-                          ),
+                      errorWidget: (context, url, error) => CircleAvatar(
+                        child: SvgPicture.asset(
+                          Images.ic_person,
+                          color: Colors.white,
+                          height: 35.0,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -152,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            uFirstName,
+                            uFirstName ?? '',
                             style: const TextStyle(
                                 color: kDefaultPurpleColor,
                                 fontSize: 18.0,
@@ -186,38 +178,39 @@ class _HomePageState extends State<HomePage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CardTopCandidate(
-                            onTap: () {
-                              Provider.of<ValueNotifier<int>>(context, listen: false)
-                                  .value = 2;
-                              HomePage
-                                  .tabIndexNotifier
-                                  .value = 0;
-                            },
-                            icon: Images.ic_applied,
-                            number: homePageResponse2?.appliedCount ?? homePageResponse3?.appliedCount ?? 0,
-                            label: 'Applied',
+                          Expanded(
+                            child: CardTopCandidate(
+                              onTap: () {
+                                Provider.of<ValueNotifier<int>>(context,
+                                        listen: false)
+                                    .value = 2;
+                                HomePage.tabIndexNotifier.value = 0;
+                              },
+                              icon: Images.ic_applied,
+                              number: homePageResponse2?.appliedCount ??
+                                  homePageResponse3?.appliedCount ??
+                                  0,
+                              label: 'Applied',
+                            ),
                           ),
                           const SizedBox(
                             width: 22.0,
                           ),
-                          CardTopCandidate(
-                            onTap: () {
-                              //Navigate to worked page.
-                              Provider.of<
-                                  ValueNotifier<
-                                      int>>(
-                                  context,
-                                  listen: false)
-                                  .value = 2;
-
-                              HomePage
-                                  .tabIndexNotifier
-                                  .value = 2;
-                            },
-                            icon: Images.ic_worked,
-                            number: homePageResponse2?.workedCount ?? homePageResponse3?.workedCount ?? 0,
-                            label: 'Worked',
+                          Expanded(
+                            child: CardTopCandidate(
+                              onTap: () {
+                                //Navigate to worked page.
+                                Provider.of<ValueNotifier<int>>(context,
+                                        listen: false)
+                                    .value = 2;
+                                HomePage.tabIndexNotifier.value = 2;
+                              },
+                              icon: Images.ic_worked,
+                              number: homePageResponse2?.workedCount ??
+                                  homePageResponse3?.workedCount ??
+                                  0,
+                              label: 'Worked',
+                            ),
                           ),
                         ],
                       ),
@@ -227,32 +220,32 @@ class _HomePageState extends State<HomePage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CardTopCandidate(
-                            onTap: () {
-                              // Navigate to Booked page.
-                              Provider.of<
-                                  ValueNotifier<
-                                      int>>(
-                                  context,
-                                  listen: false)
-                                  .value = 2;
-
-                              HomePage
-                                  .tabIndexNotifier
-                                  .value = 1;
-                            },
-                            icon: Images.ic_booked,
-                            number: homePageResponse2?.bookedCount ?? homePageResponse3?.bookedCount ?? 0,
-                            label: 'Booked',
+                          Expanded(
+                            child: CardTopCandidate(
+                              onTap: () {
+                                // Navigate to Booked page.
+                                Provider.of<ValueNotifier<int>>(context, listen: false).value = 2;
+                                HomePage.tabIndexNotifier.value = 1;
+                              },
+                              icon: Images.ic_booked,
+                              number: homePageResponse2?.bookedCount ??
+                                  homePageResponse3?.bookedCount ??
+                                  0,
+                              label: 'Booked',
+                            ),
                           ),
                           const SizedBox(
                             width: 22.0,
                           ),
-                          CardTopCandidate(
-                            icon: Images.ic_payment,
-                            amountSymbol: '₹ ',
-                            number: homePageResponse2?.totalPayment ?? homePageResponse3?.totalPayment ?? 0,
-                            label: 'Payment',
+                          Expanded(
+                            child: CardTopCandidate(
+                              icon: Images.ic_payment,
+                              amountSymbol: '₹ ',
+                              number: homePageResponse2?.totalPayment ??
+                                  homePageResponse3?.totalPayment ??
+                                  0,
+                              label: 'Payment',
+                            ),
                           ),
                         ],
                       ),

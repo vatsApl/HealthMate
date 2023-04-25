@@ -42,8 +42,8 @@ const kDivider = Divider(
 
 const kDescText1 = TextStyle(fontWeight: FontWeight.w400, color: klabelColor);
 
-const kDescText2 =
-    TextStyle(fontWeight: FontWeight.w400, color: kDefaultBlackColor, height: 1.2);
+const kDescText2 = TextStyle(
+    fontWeight: FontWeight.w400, color: kDefaultBlackColor, height: 1.2);
 
 const kSuffixIconPadding = EdgeInsets.only(top: 4.0);
 
@@ -57,6 +57,10 @@ const kDefaultEmptyListStyle = TextStyle(
   fontWeight: FontWeight.w500,
 );
 
-const kSignOffLabelTextStyle = TextStyle(fontWeight: FontWeight.w300, color: kDefaultBlackColor,);
+const kSignOffLabelTextStyle = TextStyle(
+  fontWeight: FontWeight.w300,
+  color: kDefaultBlackColor,
+);
 
-const kSignOffTimeTextStyle = TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: kDefaultBlackColor);
+const kSignOffTimeTextStyle = TextStyle(
+    fontSize: 18.0, fontWeight: FontWeight.w500, color: kDefaultBlackColor);

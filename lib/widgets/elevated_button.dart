@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 class ElevatedBtn extends StatelessWidget {
   ElevatedBtn(
-      {super.key, this.isLoading = false,
+      {super.key,
+      this.isLoading = false,
       required this.btnTitle,
       required this.onPressed,
       this.bgColor,
@@ -22,7 +23,7 @@ class ElevatedBtn extends StatelessWidget {
       height: 44.0,
       child: ElevatedButton(
         onPressed: () {
-          if(onPressed != null){
+          if (onPressed != null) {
             onPressed!();
           }
         },

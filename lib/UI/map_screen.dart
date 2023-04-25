@@ -1,10 +1,7 @@
-import 'dart:ffi';
-
 import 'package:clg_project/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
 import '../resourse/images.dart';
 
 class MapScreen extends StatefulWidget {
@@ -17,29 +14,9 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  // final _initialCameraPosition = CameraPosition(
-  //   // target: LatLng(37.773972, -122.431297),
-  //   target: LatLng(widget.lat, widget.long),
-  //   zoom: 11.5,
-  // );
-
   late GoogleMapController _googleMapController;
   Marker? _origin;
   Marker? _destination;
-
-  // Future<Directions> getDirections({
-  // required LatLng origin,
-  // required LatLng destination,
-  // }) async {
-  //   final response = await http.get(Uri.parse('https://maps.googleapis.com/maps/api/directions/json?').replace(queryParameters: {
-  //     'origin': '${origin.latitude}, ${origin.longitude}',
-  //   'destination': '${destination.latitude}, ${destination.longitude}',
-  //     'key': 'AIzaSyCmMp5I7jFb2F-QJ5sO0ZxQibVilmSx208',
-  //   }),);
-  //   if(response.statusCode == 200){
-  //     // return Directions.fromMap(response.data);
-  //   }
-  // }
 
   @override
   void dispose() {
@@ -61,15 +38,11 @@ class _MapScreenState extends State<MapScreen> {
             ),
             onMapCreated: (controller) => _googleMapController = controller,
             markers: <Marker>{
-                Marker(
-                    markerId: MarkerId('marker_1'),
-                  position: LatLng(widget.lat ?? 0, widget.long ?? 0),
-                )
-              },
-            // markers: {
-            //   if (_origin != null) _origin!, //null check used here!
-            //   if (_destination != null) _destination!,
-            // },
+              Marker(
+                markerId: MarkerId('marker_1'),
+                position: LatLng(widget.lat ?? 0, widget.long ?? 0),
+              )
+            },
             onLongPress: _addMarker,
           ),
           Positioned(
@@ -88,6 +61,8 @@ class _MapScreenState extends State<MapScreen> {
               ),
             ),
           ),
+
+          // address was show on map screen:
           // Positioned(
           //   bottom: 0.0,
           //   right: 0.0,

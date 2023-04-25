@@ -1,20 +1,18 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:clg_project/UI/widgets/job_card_with_status.dart';
-import 'package:clg_project/methods/methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../allAPIs/allAPIs.dart';
 import '../../constants.dart';
 import '../../models/candidate_models/find_job_response.dart';
+import '../../resourse/api_urls.dart';
 import '../../resourse/images.dart';
 import '../../resourse/shared_prefs.dart';
 import 'package:http/http.dart' as http;
-
 import '../../widgets/elevated_button.dart';
 
 class Invoices extends StatefulWidget {
-  const Invoices({Key? key}) : super(key: key);
 
   @override
   State<Invoices> createState() => _InvoicesState();
@@ -50,11 +48,12 @@ class _InvoicesState extends State<Invoices> {
       'page': pageValue.toString(),
     };
     try {
-      // setState(() {
-      //   isLoadingMore = true;
-      // });
+      setState(() {
+        isLoadingMore = true;
+      });
+      String url = ApiUrl.clientVerificationsPageApi;
       var response = await http.post(
-          Uri.parse('${DataURL.baseUrl}/api/application/client/index')
+          Uri.parse(url)
               .replace(queryParameters: queryParameters),
           body: {
             'id': uId,
@@ -83,6 +82,7 @@ class _InvoicesState extends State<Invoices> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return Dialog(
+          insetPadding: const EdgeInsets.symmetric(horizontal: 16.0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6.0),
           ),

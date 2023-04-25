@@ -14,8 +14,6 @@ import '../../resourse/api_urls.dart';
 import '../../resourse/shared_prefs.dart';
 
 class WorkedJob extends StatefulWidget {
-  const WorkedJob({super.key});
-
   @override
   State<WorkedJob> createState() => _WorkedJobState();
 }
@@ -30,7 +28,7 @@ class _WorkedJobState extends State<WorkedJob> {
   String? amountStatusMsg;
   int? amount;
   bool isVisibleAmountStatus = true;
-  showAmountStatus(){
+  showAmountStatus() {
     Future.delayed(Duration(seconds: 3)).then((value) {
       setState(() {
         isVisibleAmountStatus = false;
@@ -65,12 +63,11 @@ class _WorkedJobState extends State<WorkedJob> {
       });
       String url = ApiUrl.myJobsApi;
       var urlParsed = Uri.parse(url);
-      var response = await http.post(
-          urlParsed.replace(queryParameters: queryParameters),
-          body: {
-            'candidate_id': uId,
-            'status': '3',
-          });
+      var response = await http
+          .post(urlParsed.replace(queryParameters: queryParameters), body: {
+        'candidate_id': uId,
+        'status': '3',
+      });
       log('worked log:${response.body}');
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
@@ -87,18 +84,19 @@ class _WorkedJobState extends State<WorkedJob> {
     }
   }
 
-  //show status amount of worked job api
+  //show status(paid or due) amount of worked job api:
   Future<void> showStatusAmountWorkedJobApi() async {
     try {
       setState(() {
         isVisible = true;
       });
-      var response = await http.get(
-          Uri.parse('${DataURL.baseUrl}/api/label/count/$uId/candidate'));
+      var response = await http
+          .get(Uri.parse('${DataURL.baseUrl}/api/label/count/$uId/candidate'));
       log('show amount status log:${response.body}');
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
-        var showAmountStatusWorkedJobResponse = ShowAmountStatusRes.fromJson(json);
+        var showAmountStatusWorkedJobResponse =
+            ShowAmountStatusRes.fromJson(json);
         print('${json['message']}');
         amountStatusMsg = showAmountStatusWorkedJobResponse.message;
         amount = showAmountStatusWorkedJobResponse.data;
@@ -116,27 +114,26 @@ class _WorkedJobState extends State<WorkedJob> {
     super.initState();
     scrollController.addListener(scrollListener);
     workedJob(page);
-    print('worked job called');
     showStatusAmountWorkedJobApi();
   }
 
   @override
   Widget build(BuildContext context) {
-
     final snackBarAmountStatus = SnackBar(
-      backgroundColor: amountStatusMsg == 'Total Paid' ? kGreenColor : kredColor,
+      backgroundColor:
+          amountStatusMsg == 'Total Paid' ? kGreenColor : amountStatusMsg == 'Payment Due' ? kredColor : Colors.grey,
       content: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            '$amountStatusMsg',
+            amountStatusMsg ?? 'Payment status',
             style: TextStyle(
               fontWeight: FontWeight.w500,
               color: Color(0xffffffff),
             ),
           ),
           Text(
-            '₹ $amount',
+            '₹ ${amount ?? ''}',
             style: TextStyle(
               fontWeight: FontWeight.w500,
               color: Color(0xffffffff),
@@ -166,8 +163,10 @@ class _WorkedJobState extends State<WorkedJob> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => jobDescriptionWithStatusCandidate(
-                                appId: appId, jobId: jobId,
+                            builder: (context) =>
+                                jobDescriptionWithStatusCandidate(
+                              appId: appId,
+                              jobId: jobId,
                             ),
                           ),
                         );
@@ -176,7 +175,6 @@ class _WorkedJobState extends State<WorkedJob> {
                         homePageModel: jobs[index],
                         currentIndex: 2,
                       ),
-                      // child: JobCardFindJob(),
                     );
                   },
                   separatorBuilder: (BuildContext context, int index) {
@@ -213,19 +211,20 @@ class _WorkedJobState extends State<WorkedJob> {
             ],
           ),
           Positioned(
-              child: FocusDetector(
-                onFocusGained: (){
-                  showAmountStatus();
-                  ScaffoldMessenger.of(context).showSnackBar(snackBarAmountStatus);
-                },
-                child: Visibility(
-                  visible: isVisibleAmountStatus,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 42.0,
-                  ),
+            child: FocusDetector(
+              onFocusGained: () {
+                showAmountStatus();
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(snackBarAmountStatus);
+              },
+              child: Visibility(
+                visible: isVisibleAmountStatus,
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 42.0,
                 ),
               ),
+            ),
           ),
         ],
       ),

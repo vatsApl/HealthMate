@@ -1,11 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:ffi';
 import 'package:clg_project/UI/map_screen.dart';
 import 'package:clg_project/UI/sign_off_page.dart';
-import 'package:clg_project/UI/widgets/custom_loader.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
-import 'package:clg_project/allAPIs/allAPIs.dart';
+import 'package:clg_project/base_Screen_working/base_screen.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/models/candidate_models/job_description_res.dart';
 import 'package:clg_project/resourse/images.dart';
@@ -22,16 +20,17 @@ import '../models/candidate_models/find_job_response.dart';
 import '../resourse/api_urls.dart';
 import '../resourse/shared_prefs.dart';
 
-class JobDescriptionMyJobs extends StatefulWidget {
+class JobDescriptionMyJobs extends BasePageScreen {
   int? jobId;
   int? appId;
   int? currentIndex;
-  JobDescriptionMyJobs({super.key, this.jobId, this.appId, this.currentIndex});
+  JobDescriptionMyJobs({this.jobId, this.appId, this.currentIndex});
   @override
   State<JobDescriptionMyJobs> createState() => _JobDescriptionMyJobsState();
 }
 
-class _JobDescriptionMyJobsState extends State<JobDescriptionMyJobs> {
+class _JobDescriptionMyJobsState
+    extends BasePageScreenState<JobDescriptionMyJobs> with BaseScreen {
   JobModel? jobDesc;
   int? timeSheetId;
   double? lat;
@@ -61,7 +60,6 @@ class _JobDescriptionMyJobsState extends State<JobDescriptionMyJobs> {
       log('desc:${response.body}');
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
-        // log('desc:---${json}'); //jsonDecode(jsonEncode(response.body))
         setState(() {
           var joDetailResponse = JobDescriptionResponse.fromJson(json);
           jobDesc = joDetailResponse.data;
@@ -89,7 +87,7 @@ class _JobDescriptionMyJobsState extends State<JobDescriptionMyJobs> {
     });
   }
 
-  //withdraw api:
+  // job application withdraw api:
   Future<void> jobWithdrawApi() async {
     setState(() {
       isVisible = true;
@@ -117,12 +115,12 @@ class _JobDescriptionMyJobsState extends State<JobDescriptionMyJobs> {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
               builder: (context) =>
-              ChangeNotifierProvider<ValueNotifier<int>>.value(
+                  ChangeNotifierProvider<ValueNotifier<int>>.value(
                 value: ValueNotifier<int>(2),
                 child: MainPage(),
               ),
             ),
-                (route) => false);
+            (route) => false);
       }
     } catch (e) {
       print(e.toString());
@@ -177,325 +175,7 @@ class _JobDescriptionMyJobsState extends State<JobDescriptionMyJobs> {
     jobDescriptionApi();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: CustomWidgetHelper.appBar(context: context),
-      body: isVisible
-          ? Center(
-              child: CustomWidgetHelper.Loader(context: context),
-            )
-          : SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(16.0, 27.67, 16.0, 0.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TitleText(title: '${jobDesc?.jobTitle.toString()}'),
-                    const SizedBox(
-                      height: 38.0,
-                    ),
-                    const Text(
-                      'Job Description',
-                      style: TextStyle(
-                          color: kDefaultBlackColor,
-                          fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10.0,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 24.0),
-                      child: Text(
-                        '${jobDesc?.jobDescription}',
-                        style: const TextStyle(
-                            color: klabelColor,
-                            fontWeight: FontWeight.w400,
-                            height: 1.2),
-                      ),
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 33.0),
-                          child: SvgPicture.asset(
-                            alignment: Alignment.topCenter,
-                            Images.ic_location_circle,
-                            fit: BoxFit.scaleDown,
-                          ),
-                        ),
-                        Flexible(
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.only(top: 30.0, left: 20.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  'Location',
-                                  style: kDescText1,
-                                ),
-                                const SizedBox(height: 10.0),
-                                Text(
-                                  '${jobDesc?.jobLocation.toString()}',
-                                  // '206, Shivalik 2, Between Shyamal to Shivranjni, near IOC Petrol Pump, Satellite, Ahmedabad, Gujarat 380015',
-                                  style: kDescText2,
-                                  softWrap: true,
-                                ),
-                                const SizedBox(height: 10.0),
-                                if (widget.currentIndex == 1)
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              MapScreen(lat: lat, long: long),
-                                        ),
-                                      );
-                                    },
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      child: Stack(
-                                        children: [
-                                          Image.asset(
-                                            'images/map2.jpg',
-                                            height: 130.0,
-                                            width: double.infinity,
-                                          ),
-                                          Positioned(
-                                            right: 30.0,
-                                            top: 10.0,
-                                            child: SvgPicture.asset(
-                                              Images.ic_map_loc,
-                                              height: 28.0,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 26.0),
-                          child: SvgPicture.asset(
-                            Images.ic_calander_rounded,
-                            fit: BoxFit.scaleDown,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 13.0, left: 20.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'Date',
-                                style: kDescText1,
-                              ),
-                              const SizedBox(height: 10.0),
-                              Text(
-                                '${jobDesc?.jobDate}',
-                                style: kDescText2,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 19.0),
-                          child: SvgPicture.asset(
-                            Images.ic_time,
-                            fit: BoxFit.scaleDown,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 13.0, left: 20.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'Time',
-                                style: kDescText1,
-                              ),
-                              const SizedBox(height: 10.0),
-                              Text(
-                                '${jobDesc?.jobStartTime.toString()} - ${jobDesc?.jobEndTime.toString()}',
-                                style: kDescText2,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20.0),
-                          child: SvgPicture.asset(
-                            Images.ic_income,
-                            fit: BoxFit.scaleDown,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 13.0, left: 20.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'Pay',
-                                style: kDescText1,
-                              ),
-                              const SizedBox(height: 10.0),
-                              Text(
-                                '${jobDesc?.jobSalary.toString()} /day',
-                                style: kDescText2,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 26.0),
-                          child: SvgPicture.asset(
-                            Images.ic_job_rounded,
-                            fit: BoxFit.scaleDown,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 13.0, left: 20.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'Units',
-                                style: kDescText1,
-                              ),
-                              const SizedBox(height: 10.0),
-                              Text(
-                                jobDesc?.jobUnit == null
-                                    ? '0.0'
-                                    : '${jobDesc?.jobUnit?.toStringAsFixed(2)}',
-                                style: kDescText2,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 28.8,
-                    ),
-                    kDivider,
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          textBaseline: TextBaseline.alphabetic,
-                          children: [
-                            Row(
-                              children: [
-                                SvgPicture.asset(
-                                  Images.ic_parking,
-                                  fit: BoxFit.scaleDown,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 6.0),
-                                  child: Text(
-                                    '${jobDesc?.jobParking.toString()}',
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 12.0,
-                                        color: klabelColor),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 15.0),
-                              child: Text(
-                                '.',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                SvgPicture.asset(
-                                  Images.ic_break,
-                                  fit: BoxFit.scaleDown,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 6.0),
-                                  child: Text(
-                                    '${jobDesc?.breakTime} Minutes',
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 12.0,
-                                        color: klabelColor),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(bottom: 40.0, top: 40.0,),
-                          child: widget.currentIndex == 1
-                              ? ElevatedBtn(
-                                btnTitle: 'Sign Off',
-                                bgColor: kDefaultPurpleColor,
-                                onPressed: isVisibleSignoff == true
-                                    ? () {
-                                        editTimesheetApi();
-                                      }
-                                    : null,
-                              )
-                              : Padding(
-                                  padding: const EdgeInsets.only(
-                                      bottom: 40.0, top: 30.0),
-                                  child: ElevatedBtn(
-                                    btnTitle: 'Withdraw',
-                                    bgColor: kDefaultPurpleColor,
-                                    onPressed: () {
-                                      jobWithdrawApi();
-                                    },
-                                  ),
-                                ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-    );
-  }
-
+  // sign off button condition (active button when current date & time matched)
   void signOffbuttonCon() {
     DateTime currentTime = DateTime.now();
     String formattedTime = DateFormat('HH:mm').format(currentTime);
@@ -526,5 +206,320 @@ class _JobDescriptionMyJobsState extends State<JobDescriptionMyJobs> {
         isVisibleSignoff = false;
       });
     }
+  }
+
+  @override
+  Widget body() {
+    return isVisible
+        ? Center(
+            child: CustomWidgetHelper.Loader(context: context),
+          )
+        : SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16.0, 27.67, 16.0, 0.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TitleText(title: '${jobDesc?.jobTitle.toString()}'),
+                  const SizedBox(
+                    height: 38.0,
+                  ),
+                  const Text(
+                    'Job Description',
+                    style: TextStyle(
+                      color: kDefaultBlackColor,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 24.0),
+                    child: Text(
+                      '${jobDesc?.jobDescription}',
+                      style: const TextStyle(
+                          color: klabelColor,
+                          fontWeight: FontWeight.w400,
+                          height: 1.2),
+                    ),
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 33.0),
+                        child: SvgPicture.asset(
+                          alignment: Alignment.topCenter,
+                          Images.ic_location_circle,
+                          fit: BoxFit.scaleDown,
+                        ),
+                      ),
+                      Flexible(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 30.0, left: 20.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Location',
+                                style: kDescText1,
+                              ),
+                              const SizedBox(height: 10.0),
+                              Text(
+                                '${jobDesc?.jobLocation.toString()}',
+                                style: kDescText2,
+                                softWrap: true,
+                              ),
+                              const SizedBox(height: 10.0),
+                              if (widget.currentIndex == 1)
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            MapScreen(lat: lat, long: long),
+                                      ),
+                                    );
+                                  },
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: Stack(
+                                      children: [
+                                        Image.asset(
+                                          'images/map2.jpg',
+                                          height: 130.0,
+                                          width: double.infinity,
+                                        ),
+                                        Positioned(
+                                          right: 30.0,
+                                          top: 10.0,
+                                          child: SvgPicture.asset(
+                                            Images.ic_map_loc,
+                                            height: 28.0,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 26.0),
+                        child: SvgPicture.asset(
+                          Images.ic_calander_rounded,
+                          fit: BoxFit.scaleDown,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 13.0, left: 20.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Date',
+                              style: kDescText1,
+                            ),
+                            const SizedBox(height: 10.0),
+                            Text(
+                              '${jobDesc?.jobDate}',
+                              style: kDescText2,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 19.0),
+                        child: SvgPicture.asset(
+                          Images.ic_time,
+                          fit: BoxFit.scaleDown,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 13.0, left: 20.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Time',
+                              style: kDescText1,
+                            ),
+                            const SizedBox(height: 10.0),
+                            Text(
+                              '${jobDesc?.jobStartTime.toString()} - ${jobDesc?.jobEndTime.toString()}',
+                              style: kDescText2,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20.0),
+                        child: SvgPicture.asset(
+                          Images.ic_income,
+                          fit: BoxFit.scaleDown,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 13.0, left: 20.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Pay',
+                              style: kDescText1,
+                            ),
+                            const SizedBox(height: 10.0),
+                            Text(
+                              '${jobDesc?.jobSalary.toString()} /day',
+                              style: kDescText2,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 26.0),
+                        child: SvgPicture.asset(
+                          Images.ic_job_rounded,
+                          fit: BoxFit.scaleDown,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 13.0, left: 20.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Units',
+                              style: kDescText1,
+                            ),
+                            const SizedBox(height: 10.0),
+                            Text(
+                              jobDesc?.jobUnit == null
+                                  ? '0.0'
+                                  : '${jobDesc?.jobUnit?.toStringAsFixed(2)}',
+                              style: kDescText2,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 28.8,
+                  ),
+                  kDivider,
+                  const SizedBox(
+                    height: 20.0,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        textBaseline: TextBaseline.alphabetic,
+                        children: [
+                          Row(
+                            children: [
+                              SvgPicture.asset(
+                                Images.ic_parking,
+                                fit: BoxFit.scaleDown,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 6.0),
+                                child: Text(
+                                  '${jobDesc?.jobParking.toString()}',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12.0,
+                                      color: klabelColor),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 15.0),
+                            child: Text(
+                              '.',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SvgPicture.asset(
+                                Images.ic_break,
+                                fit: BoxFit.scaleDown,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 6.0),
+                                child: Text(
+                                  '${jobDesc?.breakTime} Minutes',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12.0,
+                                      color: klabelColor),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          bottom: 40.0,
+                          top: 40.0,
+                        ),
+                        child: widget.currentIndex == 1
+                            ? ElevatedBtn(
+                                btnTitle: 'Sign Off',
+                                bgColor: kDefaultPurpleColor,
+                                onPressed: isVisibleSignoff == true
+                                    ? () {
+                                        editTimesheetApi();
+                                      }
+                                    : null,
+                              )
+                            : Padding(
+                                padding: const EdgeInsets.only(
+                                    bottom: 40.0, top: 30.0),
+                                child: ElevatedBtn(
+                                  btnTitle: 'Withdraw',
+                                  bgColor: kDefaultPurpleColor,
+                                  onPressed: () {
+                                    jobWithdrawApi();
+                                  },
+                                ),
+                              ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          );
   }
 }

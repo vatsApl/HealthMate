@@ -1,27 +1,25 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:clg_project/UI/widgets/title_text.dart';
+import 'package:clg_project/base_Screen_working/base_screen.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../../allAPIs/allAPIs.dart';
 import '../../custom_widgets/custom_widget_helper.dart';
-import '../../models/candidate_models/find_job_response.dart';
 import '../../models/onchange_skills_res.dart';
 import '../../models/roles_skills_res.dart';
 import '../../resourse/shared_prefs.dart';
 import 'package:http/http.dart' as http;
 
-class RoleSkills extends StatefulWidget {
-  const RoleSkills({Key? key}) : super(key: key);
+class RoleSkills extends BasePageScreen {
   @override
   State<RoleSkills> createState() => _RoleSkillsState();
 }
 
-class _RoleSkillsState extends State<RoleSkills> {
+class _RoleSkillsState extends BasePageScreenState<RoleSkills> with BaseScreen {
   String dropdownValue = 'Dentist';
   bool isVisible = false;
   String? selectedRoleItem = 'Select Role';
@@ -31,10 +29,9 @@ class _RoleSkillsState extends State<RoleSkills> {
   var uId = PreferencesHelper.getString(PreferencesHelper.KEY_USER_ID);
   List<String> allRole = [];
   List<String> skill = [];
-
   var roleAndSkillsResponse;
 
-  //role & skills api:
+  // candidate role & skills api:
   Future<void> roleAndSkillsApi() async {
     try {
       setState(() {
@@ -51,7 +48,7 @@ class _RoleSkillsState extends State<RoleSkills> {
           allRole = roleAndSkillsResponse.allRole;
           skill = roleAndSkillsResponse.data;
           selectedRoleItem = roleAndSkillsResponse.role;
-          selectedRoleIndex = allRole.indexOf(selectedRoleItem ?? ''); ///
+          selectedRoleIndex = allRole.indexOf(selectedRoleItem ?? '');
         });
       }
     } catch (e) {
@@ -148,8 +145,12 @@ class _RoleSkillsState extends State<RoleSkills> {
                                   title: Text(
                                     allRole[index].toString(),
                                     style: TextStyle(
-                                      color: selectedRoleIndex == index ? kDefaultBlackColor : klabelColor,
-                                      fontWeight: selectedRoleIndex == index ? FontWeight.w500 : FontWeight.w400,
+                                      color: selectedRoleIndex == index
+                                          ? kDefaultBlackColor
+                                          : klabelColor,
+                                      fontWeight: selectedRoleIndex == index
+                                          ? FontWeight.w500
+                                          : FontWeight.w400,
                                       fontSize: 16.0,
                                     ),
                                   ),
@@ -233,121 +234,11 @@ class _RoleSkillsState extends State<RoleSkills> {
   @override
   void initState() {
     super.initState();
+    isSaveButton(true);
     roleAndSkillsApi();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: CustomWidgetHelper.appBar(
-        context: context,
-        onActionTap: () {
-          //updateRole api:
-          updateRoleApi();
-        },
-        action: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SvgPicture.asset(
-            Images.ic_true,
-            height: 28.0,
-          ),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     InkWell(
-            //       onTap: () {
-            //         Navigator.pop(context);
-            //       },
-            //       child: SvgPicture.asset(Images.ic_left_arrow),
-            //     ),
-            //     GestureDetector(
-            //       onTap: () {},
-            //       child: SvgPicture.asset(
-            //         Images.ic_true,
-            //         height: 28.0,
-            //       ),
-            //     ),
-            //   ],
-            // ),
-            const SizedBox(
-              height: 23.0,
-            ),
-            TitleText(title: 'Role & Skills'),
-            const SizedBox(
-              height: 48.0,
-            ),
-            const Text(
-              'Role',
-              style: TextStyle(
-                  color: kDefaultBlackColor, fontWeight: FontWeight.w500),
-            ),
-            const SizedBox(
-              height: 15.5,
-            ),
-            GestureDetector(
-              onTap: () {
-                dropdownDialog();
-              },
-              child: TextFormField(
-                textAlignVertical: TextAlignVertical.bottom,
-                enabled: false,
-                decoration: InputDecoration(
-                  hintText: selectedRoleItem == 'null'
-                      ? 'Select Role'
-                      : selectedRoleItem,
-                  hintStyle: const TextStyle(
-                    color: klabelColor,
-                  ),
-                  labelStyle: const TextStyle(
-                    color: klabelColor,
-                  ),
-                  suffixIcon: const Padding(
-                    padding: kSuffixIconPadding,
-                    child: Icon(Icons.keyboard_arrow_down_outlined),
-                  ),
-                  disabledBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 50.0,
-            ),
-            const Text(
-              'Skills',
-              style: TextStyle(
-                color: kDefaultBlackColor,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            const SizedBox(
-              height: 24.0,
-            ),
-            SingleChildScrollView(
-              child: Wrap(
-                alignment: WrapAlignment.start,
-                direction: Axis.horizontal,
-                children: returnList(),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  returnList() {
+  returnListOfSkills() {
     List<Widget> tag = [];
     for (int i = 0; i < skill.length; i++) {
       tag.add(
@@ -368,5 +259,87 @@ class _RoleSkillsState extends State<RoleSkills> {
       );
     }
     return tag;
+  }
+
+  @override
+  void onClickSaveButton() {
+    // updateRole api call:
+    updateRoleApi();
+  }
+
+  @override
+  Widget body() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(
+            height: 23.0,
+          ),
+          TitleText(title: 'Role & Skills'),
+          const SizedBox(
+            height: 48.0,
+          ),
+          const Text(
+            'Role',
+            style: TextStyle(
+                color: kDefaultBlackColor, fontWeight: FontWeight.w500),
+          ),
+          const SizedBox(
+            height: 15.5,
+          ),
+          GestureDetector(
+            onTap: () {
+              dropdownDialog();
+            },
+            child: TextFormField(
+              textAlignVertical: TextAlignVertical.bottom,
+              enabled: false,
+              decoration: InputDecoration(
+                hintText: selectedRoleItem == 'null'
+                    ? 'Select Role'
+                    : selectedRoleItem,
+                hintStyle: const TextStyle(
+                  color: klabelColor,
+                ),
+                labelStyle: const TextStyle(
+                  color: klabelColor,
+                ),
+                suffixIcon: const Padding(
+                  padding: kSuffixIconPadding,
+                  child: Icon(Icons.keyboard_arrow_down_outlined),
+                ),
+                disabledBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 50.0,
+          ),
+          const Text(
+            'Skills',
+            style: TextStyle(
+              color: kDefaultBlackColor,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          const SizedBox(
+            height: 24.0,
+          ),
+          SingleChildScrollView(
+            child: Wrap(
+              alignment: WrapAlignment.start,
+              direction: Axis.horizontal,
+              children: returnListOfSkills(),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

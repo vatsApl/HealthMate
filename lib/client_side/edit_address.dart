@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:clg_project/UI/widgets/custom_textfield.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
-import 'package:clg_project/client_side/client_addresses.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/models/client_model/single_address_response.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
@@ -11,7 +10,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '../allAPIs/allAPIs.dart';
 import '../custom_widgets/custom_widget_helper.dart';
 import 'package:http/http.dart' as http;
-import '../models/client_model/client_Address_model.dart';
 import '../resourse/shared_prefs.dart';
 
 class EditAddress extends StatefulWidget {
@@ -105,17 +103,6 @@ class _EditAddressState extends State<EditAddress> {
     });
   }
 
-  // bool? isDefault({bool? isDefaultVal}) {
-  //   if(clientSingleAddress?.client?.addressId == clientSingleAddress?.id){
-  //    setState(() {
-  //      isDefaultAddress = true;
-  //    });
-  //   } else {
-  //     setState(() {
-  //       isDefaultAddress = false;
-  //     });
-  //   }
-  // }
   @override
   void initState() {
     super.initState();
@@ -143,9 +130,6 @@ class _EditAddressState extends State<EditAddress> {
                       'Address',
                       style: kTextFormFieldLabelStyle,
                     ),
-                    // TextFormField(
-                    //   controller: addressController,
-                    // ),
                     CustomTextFormField(
                       hint: 'Enter Here',
                       controller: addressController,
@@ -173,48 +157,7 @@ class _EditAddressState extends State<EditAddress> {
                       controller: postcodeController,
                     ),
                     const SizedBox(
-                      height: 30.0,
-                    ),
-
-                    //check box of default address pending functionality
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.start,
-                    //   children: [
-                    //     SizedBox(
-                    //       height: 24.0,
-                    //       width: 24.0,
-                    //       child: Checkbox(
-                    //         activeColor: kDefaultPurpleColor,
-                    //         value: isDefaultAddress,
-                    //         onChanged: (value) {
-                    //           setState(() {
-                    //             isDefaultAddress = value;
-                    //           });
-                    //         },
-                    //       ),
-                    //     ),
-                    //     const SizedBox(
-                    //       width: 10.0,
-                    //     ),
-                    //     GestureDetector(
-                    //       onTap: () {
-                    //         setState(() {
-                    //           isDefaultAddress = !isDefaultAddress!;
-                    //           print(isDefaultAddress);
-                    //         });
-                    //       },
-                    //       child: const Text(
-                    //         'Set this as a default address',
-                    //         style: TextStyle(
-                    //             fontSize: 14.0,
-                    //             fontWeight: FontWeight.w400,
-                    //             color: kDefaultBlackColor),
-                    //       ),
-                    //     )
-                    //   ],
-                    // ),
-                    const SizedBox(
-                      height: 250.0,
+                      height: 280.0,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 30.0),

@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:clg_project/UI/new_password.dart';
 import 'package:clg_project/UI/widgets/otp_text_form_field.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
-import 'package:clg_project/allAPIs/allAPIs.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/resourse/images.dart';
@@ -13,8 +12,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
-class ForgotVerification extends StatefulWidget {
-  ForgotVerification({super.key, this.userId, this.userType});
+import '../base_Screen_working/base_screen.dart';
+
+class ForgotVerification extends BasePageScreen {
+  ForgotVerification({this.userId, this.userType});
   int? userId;
   int? userType;
 
@@ -22,7 +23,7 @@ class ForgotVerification extends StatefulWidget {
   State<ForgotVerification> createState() => _ForgotVerificationState();
 }
 
-class _ForgotVerificationState extends State<ForgotVerification> {
+class _ForgotVerificationState extends BasePageScreenState<ForgotVerification> with BaseScreen {
   TextEditingController otp1Controller = TextEditingController();
   TextEditingController otp2Controller = TextEditingController();
   TextEditingController otp3Controller = TextEditingController();
@@ -57,7 +58,7 @@ class _ForgotVerificationState extends State<ForgotVerification> {
       log('HP: ${response.body}');
       print(widget.userId);
       print(widget.userType);
-      //
+
       var newUserId = widget.userId;
       var newUserType = widget.userType;
       print('new one: $newUserId');
@@ -99,9 +100,6 @@ class _ForgotVerificationState extends State<ForgotVerification> {
       print('USERID: ${widget.userType}');
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
-        // var signupResponse = SignupResponse.fromJson(json);
-        // userId = signupResponse.data?.id;
-        // userType = signupResponse.type;
         print('this: ${json['code']}');
         Fluttertoast.showToast(
             msg: "${json['message']}",
@@ -115,132 +113,6 @@ class _ForgotVerificationState extends State<ForgotVerification> {
     } catch (e) {
       print(e);
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: SvgPicture.asset(
-            Images.ic_left_arrow,
-            fit: BoxFit.scaleDown,
-          ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 23.0,
-              ),
-              TitleText(title: 'Verification'),
-              const SizedBox(
-                height: 38.0,
-              ),
-              Row(
-                children: const [
-                  Text(
-                    'Enter Verification Code',
-                    style: TextStyle(
-                        fontSize: 16.0,
-                        color: kDefaultBlackColor,
-                        fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 28.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  OtpTextFormField(
-                    otpController: otp1Controller,
-                    first: true,
-                    last: false,
-                  ),
-                  const SizedBox(
-                    width: 19.0,
-                  ),
-                  OtpTextFormField(
-                    otpController: otp2Controller,
-                    first: false,
-                    last: false,
-                  ),
-                  const SizedBox(
-                    width: 19.0,
-                  ),
-                  OtpTextFormField(
-                    otpController: otp3Controller,
-                    first: false,
-                    last: false,
-                  ),
-                  const SizedBox(
-                    width: 19.0,
-                  ),
-                  OtpTextFormField(
-                    otpController: otp4Controller,
-                    first: false,
-                    last: true,
-                  ),
-                  const SizedBox(
-                    width: 2.0,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 26.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    'If you did\'t receive a code! ',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400, color: kDefaultBlackColor),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      //Resend otp api
-                      forgotPasswordResendOtp();
-                    },
-                    child: const Text(
-                      'Resend',
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: kDefaultPurpleColor,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 42.0,
-              ),
-              ElevatedBtn(
-                btnTitle: 'Verify',
-                isLoading: isVisible,
-                bgColor: kDefaultPurpleColor,
-                onPressed: () {
-                  verifyOtpForgotPassword();
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
   }
 
   Widget buildOtpTextFormField() {
@@ -271,4 +143,115 @@ class _ForgotVerificationState extends State<ForgotVerification> {
       ),
     );
   }
+
+  @override
+  Widget body() {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: 23.0,
+            ),
+            TitleText(title: 'Verification'),
+            const SizedBox(
+              height: 38.0,
+            ),
+            Row(
+              children: const [
+                Text(
+                  'Enter Verification Code',
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      color: kDefaultBlackColor,
+                      fontWeight: FontWeight.w500),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 28.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                OtpTextFormField(
+                  otpController: otp1Controller,
+                  first: true,
+                  last: false,
+                ),
+                const SizedBox(
+                  width: 19.0,
+                ),
+                OtpTextFormField(
+                  otpController: otp2Controller,
+                  first: false,
+                  last: false,
+                ),
+                const SizedBox(
+                  width: 19.0,
+                ),
+                OtpTextFormField(
+                  otpController: otp3Controller,
+                  first: false,
+                  last: false,
+                ),
+                const SizedBox(
+                  width: 19.0,
+                ),
+                OtpTextFormField(
+                  otpController: otp4Controller,
+                  first: false,
+                  last: true,
+                ),
+                const SizedBox(
+                  width: 2.0,
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 26.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'If you did\'t receive a code! ',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w400, color: kDefaultBlackColor),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    //Resend otp api
+                    forgotPasswordResendOtp();
+                  },
+                  child: const Text(
+                    'Resend',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color: kDefaultPurpleColor,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 42.0,
+            ),
+            ElevatedBtn(
+              btnTitle: 'Verify',
+              isLoading: isVisible,
+              bgColor: kDefaultPurpleColor,
+              onPressed: () {
+                verifyOtpForgotPassword();
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
 }

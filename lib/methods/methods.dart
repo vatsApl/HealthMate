@@ -266,7 +266,7 @@ class Methods {
                                       PreferencesHelper.KEY_USER_LOGIN, false);
                                   Navigator.of(context).pushAndRemoveUntil(
                                       MaterialPageRoute(
-                                        builder: (context) => const SignInPage(),
+                                        builder: (context) => SignInPage(),
                                       ),
                                       (route) => false);
                                 },
@@ -432,5 +432,7 @@ class Methods {
     //   isVisible = false;
     // });
   }
+
+  static SvgPicture svgIcon = SvgPicture.asset(Images.ic_home);
 
 }

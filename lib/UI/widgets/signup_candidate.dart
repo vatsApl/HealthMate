@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:clg_project/UI/verification.dart';
-import 'package:clg_project/allAPIs/allAPIs.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/models/signup_response.dart';
 import 'package:clg_project/resourse/api_urls.dart';
@@ -14,7 +13,6 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpCandidate extends StatefulWidget {
-  const SignUpCandidate({Key? key}) : super(key: key);
   @override
   State<SignUpCandidate> createState() => SignUpCandidateState();
 }
@@ -214,9 +212,12 @@ class SignUpCandidateState extends State<SignUpCandidate> {
                                       title: Text(
                                         roleList[index].toString(),
                                         style: TextStyle(
-                                          //TODO: condition not working on index 0 -> color & weight of font.
-                                          color: selectedRoleIndex == index ? kDefaultBlackColor : klabelColor,
-                                          fontWeight: selectedRoleIndex == index ? FontWeight.w500 : FontWeight.w400,
+                                          color: selectedRoleIndex == index
+                                              ? kDefaultBlackColor
+                                              : klabelColor,
+                                          fontWeight: selectedRoleIndex == index
+                                              ? FontWeight.w500
+                                              : FontWeight.w400,
                                           fontSize: 16.0,
                                         ),
                                       ),
@@ -227,10 +228,10 @@ class SignUpCandidateState extends State<SignUpCandidate> {
                                         setState(() {
                                           selectedRoleItem = value.toString();
                                           print('current:$selectedRoleItem');
-                                          print(
-                                              roleList.indexOf(selectedRoleItem!));
-                                          selectedRoleIndex =
-                                              roleList.indexOf(selectedRoleItem!);
+                                          print(roleList
+                                              .indexOf(selectedRoleItem!));
+                                          selectedRoleIndex = roleList
+                                              .indexOf(selectedRoleItem!);
                                         });
                                         Navigator.pop(context);
                                       },
@@ -487,8 +488,8 @@ class SignUpCandidateState extends State<SignUpCandidate> {
               enabled: false,
               decoration: InputDecoration(
                 hintText: selectedRoleItem == 'null'
-                    ? 'Select Role' :
-                selectedRoleItem,
+                    ? 'Select Role'
+                    : selectedRoleItem,
                 // hintText: selectedIndex == -1
                 //     ? 'Select Role'
                 //     : roleList[selectedIndex],
@@ -854,28 +855,4 @@ class SignUpCandidateState extends State<SignUpCandidate> {
     }
     return null;
   }
-
-  // dynamic validateCPassColor(FocusNode focusNode, String value) {
-  //   if (focusNode.hasFocus == true) {
-  //     if (value!.isEmpty) {
-  //       return Colors.red;
-  //     } else if (validateCPassBool(value!) != null) {
-  //       return Colors.green;
-  //     } else {
-  //       return klabelColor;
-  //     }
-  //   } else {
-  //     return klabelColor;
-  //   }
-  // }
-
-  // bool validateCPassBool(String? value) {
-  //   if (value!.isEmpty) {
-  //     return false;
-  //   } else if (validateCpass == null) {
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // }
 }

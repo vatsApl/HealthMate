@@ -1,14 +1,12 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:clg_project/UI/widgets/title_text.dart';
-import 'package:clg_project/bottom_navigation/find_job/booked_job.dart';
 import 'package:clg_project/bottom_navigation/my_job_page.dart';
 import 'package:clg_project/models/candidate_models/find_job_response.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import '../allAPIs/allAPIs.dart';
 import '../constants.dart';
@@ -481,13 +479,10 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
     var start = format.parse(startTime);
     var end = format.parse(endTime);
     var selectedBreakUnit = format.parse(selectedBreakTime!);
-    // var breakTime = format.parse(breakTimeController.text.toString() ?? "");
-    // var breakTime = format.parse(selectedBreakTime ?? "");
     Duration diff = end.difference(start);
     print("unit is ${start.millisecond}");
     print("unit is ${end.millisecond}");
     print("diff is $diff");
-    // unit = ((diff.inMinutes / unitDurationInMinutes) - selectedBreakUnit.minute);
     var data = (diff.inMinutes - selectedBreakUnit.minute);
 
     Duration d = Duration(minutes: data);

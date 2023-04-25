@@ -9,20 +9,20 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class ClientMainPage extends StatefulWidget {
-  const ClientMainPage({Key? key}) : super(key: key);
+
   @override
   State<ClientMainPage> createState() => _ClientMainPageState();
 }
 
 class _ClientMainPageState extends State<ClientMainPage> {
-  // int currentIndex = 0;
   List pages = [
-    const ClientHomePage(),
-    const ClientContractPage(),
-    const ClientVerificationPage(),
-    const ClientProfilePage(),
+    ClientHomePage(),
+    ClientContractPage(),
+    ClientVerificationPage(),
+    ClientProfilePage(),
   ];
 
+  int? currentIndex;
   void onTappedBar(int index) {
     Provider.of<ValueNotifier<int>>(context, listen: false).value = index;
     ClientHomePage.tabIndexNotifier.value = 0;
@@ -30,8 +30,7 @@ class _ClientMainPageState extends State<ClientMainPage> {
 
   @override
   Widget build(BuildContext context) {
-    int currentIndex = Provider.of<ValueNotifier<int>>(context).value;
-
+    currentIndex = Provider.of<ValueNotifier<int>>(context).value;
     return Scaffold(
       body: pages[Provider.of<ValueNotifier<int>>(context).value],
       bottomNavigationBar: Container(
@@ -75,14 +74,13 @@ class _ClientMainPageState extends State<ClientMainPage> {
                         : kdisabledColor,
                   ),
                 ),
-                label: 'Contracts'), //
+                label: 'Contracts'),
             BottomNavigationBarItem(
                 icon: Padding(
                   padding: const EdgeInsets.only(bottom: 6.0),
                   child: SvgPicture.asset(
                     Images.ic_true,
                     height: 28.0,
-                    // fit: BoxFit.scaleDown,
                     color: currentIndex == 2
                         ? kDefaultPurpleColor
                         : kdisabledColor,

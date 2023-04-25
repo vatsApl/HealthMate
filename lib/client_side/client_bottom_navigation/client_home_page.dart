@@ -6,20 +6,18 @@ import 'package:clg_project/client_side/create_contract_page.dart';
 import 'package:clg_project/client_side/job_card_client.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/models/client_model/client_job_res.dart';
+import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:focus_detector/focus_detector.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-import '../../allAPIs/allAPIs.dart';
 import '../../custom_widgets/index_notifier.dart';
 import '../client_job_description.dart';
 
 class ClientHomePage extends StatefulWidget {
-  const ClientHomePage({Key? key}) : super(key: key);
   static ValueNotifier tabIndexNotifier = TabIndexNotifier();
 
   @override
@@ -32,17 +30,20 @@ class _ClientHomePageState extends State<ClientHomePage> {
   var clientJobResponse2;
   bool isVisible = false;
   int page = 1;
-  String? clientName = PreferencesHelper.getString(PreferencesHelper.KEY_CLIENT_NAME);
-  String? netImg = PreferencesHelper.getString(PreferencesHelper.KEY_CLIENT_AVATAR);
+  String? clientName =
+      PreferencesHelper.getString(PreferencesHelper.KEY_CLIENT_NAME);
+  String? netImg =
+      PreferencesHelper.getString(PreferencesHelper.KEY_CLIENT_AVATAR);
+
   //client home page api
-  Future<void> showContractHome(int pageValue) async {
+  Future<void> showContractHomeApi(int pageValue) async {
     var uId = PreferencesHelper.getString(PreferencesHelper.KEY_USER_ID);
-    var url = Uri.parse('${DataURL.baseUrl}/api/job/index/$uId/client');
+    String url = ApiUrl.showContractHomeApi(uId);
     try {
       setState(() {
         isVisible = true;
       });
-      var response = await http.get(url);
+      var response = await http.get(Uri.parse(url));
       log('client home res:${response.body}');
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
@@ -65,7 +66,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
   @override
   void initState() {
     super.initState();
-    showContractHome(page);
+    showContractHomeApi(page);
   }
 
   @override
@@ -81,63 +82,6 @@ class _ClientHomePageState extends State<ClientHomePage> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Row(
-            //   children: [
-            //     SizedBox(
-            //       width: 55.0,
-            //       height: 55.0,
-            //       child: CircleAvatar(
-            //         child: netImg == 'null'
-            //             ? SvgPicture.asset(
-            //                 Images.ic_person,
-            //                 color: Colors.white,
-            //                 height: 30.0,
-            //               )
-            //             : Container(
-            //                 decoration: BoxDecoration(
-            //                   shape: BoxShape.circle,
-            //                   image: DecorationImage(
-            //                     image:
-            //                         NetworkImage('${DataURL.baseUrl}/$netImg'),
-            //                     fit: BoxFit.cover,
-            //                   ),
-            //                 ),
-            //               ),
-            //       ),
-            //     ),
-            //     const SizedBox(
-            //       width: 14.0,
-            //     ),
-            //     Expanded(
-            //       child: Row(
-            //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //         children: [
-            //           Column(
-            //             crossAxisAlignment: CrossAxisAlignment.start,
-            //             children: [
-            //               Text(
-            //                 clientName,
-            //                 style: const TextStyle(
-            //                     color: kDefaultPurpleColor,
-            //                     fontSize: 18.0,
-            //                     fontWeight: FontWeight.w700),
-            //               ),
-            //               // const Text(
-            //               //   'role',
-            //               //   style: TextStyle(
-            //               //       color: kDefaultBlackColor, height: 1.2),
-            //               // ),
-            //             ],
-            //           ),
-            //           SvgPicture.asset(
-            //             Images.ic_notification,
-            //             fit: BoxFit.scaleDown,
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //   ],
-            // ),
             Expanded(
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
@@ -148,32 +92,37 @@ class _ClientHomePageState extends State<ClientHomePage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CardTopClient(
-                            onTap: () {
-                              //Navigate to contracts page.
-                              Provider.of<ValueNotifier<int>>(context,
-                                      listen: false)
-                                  .value = 1;
-                              // ClientHomePage.tabIndexNotifier.value = 0;
-                            },
-                            icon: Images.ic_contracts_circle,
-                            number: clientJobResponse2?.contractCount ?? 0,
-                            label: 'Contracts',
+                          Expanded(
+                            flex:1,
+                            child: CardTopClient(
+                              onTap: () {
+                                // Navigate to contracts page.
+                                Provider.of<ValueNotifier<int>>(context,
+                                        listen: false)
+                                    .value = 1;
+                              },
+                              icon: Images.ic_contracts_circle,
+                              number: clientJobResponse2?.contractCount ?? 0,
+                              label: 'Contracts',
+                            ),
                           ),
                           const SizedBox(
                             width: 22.0,
                           ),
-                          CardTopClient(
-                            onTap: () {
-                              //Navigate to Timesheet page.
-                              Provider.of<ValueNotifier<int>>(context,
-                                      listen: false)
-                                  .value = 2;
-                              ClientHomePage.tabIndexNotifier.value = 1;
-                            },
-                            icon: Images.ic_timesheet,
-                            number: clientJobResponse2?.timesheetCount ?? 0,
-                            label: 'Timesheets',
+                          Expanded(
+                            flex:1,
+                            child: CardTopClient(
+                              onTap: () {
+                                //Navigate to Timesheet page.
+                                Provider.of<ValueNotifier<int>>(context,
+                                        listen: false)
+                                    .value = 2;
+                                ClientHomePage.tabIndexNotifier.value = 1;
+                              },
+                              icon: Images.ic_timesheet,
+                              number: clientJobResponse2?.timesheetCount ?? 0,
+                              label: 'Timesheets',
+                            ),
                           ),
                         ],
                       ),
@@ -183,94 +132,119 @@ class _ClientHomePageState extends State<ClientHomePage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CardTopClient(
-                            onTap: () {
-                              //Navigate to approvals page.
-                              Provider.of<ValueNotifier<int>>(context,
-                                      listen: false)
-                                  .value = 2;
-                              ClientHomePage.tabIndexNotifier.value = 0;
-                            },
-                            icon: Images.ic_approvals_2,
-                            number: clientJobResponse2?.invoiceCount ?? 0,
-                            label: 'Approvals',
+                          Expanded(
+                            child: CardTopClient(
+                              onTap: () {
+                                //Navigate to approvals page.
+                                Provider.of<ValueNotifier<int>>(context,
+                                        listen: false)
+                                    .value = 2;
+                                ClientHomePage.tabIndexNotifier.value = 0;
+                              },
+                              icon: Images.ic_approvals_2,
+                              number: clientJobResponse2?.invoiceCount ?? 0,
+                              label: 'Approvals',
+                            ),
                           ),
                           const SizedBox(
                             width: 22.0,
                           ),
-                          CardTopClient(
-                            onTap: () {
-                              //Navigate to Invoice page.
-                              Provider.of<ValueNotifier<int>>(context,
-                                      listen: false)
-                                  .value = 2;
-                              ClientHomePage.tabIndexNotifier.value = 2;
-                            },
-                            icon: Images.ic_payment,
-                            number: clientJobResponse2?.allPayment ?? 0,
-                            label: 'Invoices',
-                            amountSymbol: '₹ ',
+                          Expanded(
+                            child: CardTopClient(
+                              onTap: () {
+                                //Navigate to Invoice page.
+                                Provider.of<ValueNotifier<int>>(context,
+                                        listen: false)
+                                    .value = 2;
+                                ClientHomePage.tabIndexNotifier.value = 2;
+                              },
+                              icon: Images.ic_payment,
+                              number: clientJobResponse2?.allPayment ?? 0,
+                              label: 'Invoices',
+                              amountSymbol: '₹ ',
+                            ),
                           ),
                         ],
                       ),
                       const SizedBox(
                         height: 34.0,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 3.0),
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child: SizedBox(
-                            width: 130.0,
-                            height: 30.0,
-                            child: ElevatedButton.icon(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => CreateContract(),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                          padding: EdgeInsets.fromLTRB(14.0, 10.0, 10.0, 10.0),
+                          decoration: BoxDecoration(color: kDefaultPurpleColor, borderRadius: BorderRadius.circular(6.0),),
+                          child: FittedBox(
+                            fit: BoxFit.fill,
+                            child: Row(
+                              // mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                SvgPicture.asset(
+                                  Images.ic_plus,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                Text(
+                                  'Create Contract',
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white,
                                   ),
-                                );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: kDefaultPurpleColor),
-                              icon: SvgPicture.asset(
-                                Images.ic_plus,
-                                color: Colors.white,
-                              ),
-                              label: Row(
-                                children: const [
-                                  Text(
-                                    'Create',
-                                    style: TextStyle(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  SizedBox(
-                                    width: 2.0,
-                                  ),
-                                  Text(
-                                    'Contract',
-                                    style: TextStyle(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
                       ),
-                      // const SizedBox(
-                      //   height: 20.0,
+                      // Align(
+                      //   alignment: Alignment.centerRight,
+                      //   child: Padding(
+                      //     padding: const EdgeInsets.only(right: 3.0),
+                      //     child: SizedBox(
+                      //       width: 200.0,
+                      //       height: 30.0,
+                      //       child: ElevatedButton.icon(
+                      //         onPressed: () {
+                      //           Navigator.push(
+                      //             context,
+                      //             MaterialPageRoute(
+                      //               builder: (context) => CreateContract(),
+                      //             ),
+                      //           );
+                      //         },
+                      //         style: ElevatedButton.styleFrom(
+                      //             backgroundColor: kDefaultPurpleColor),
+                      //         icon: SvgPicture.asset(
+                      //           Images.ic_plus,
+                      //           color: Colors.white,
+                      //         ),
+                      //         label: Row(
+                      //           children: const [
+                      //             Expanded(
+                      //               child: Text(
+                      //                 'Create Contract',
+                      //                 maxLines: 1,
+                      //                 style: TextStyle(
+                      //                     fontSize: 10.0,
+                      //                     fontWeight: FontWeight.w500),
+                      //               ),
+                      //             ),
+                      //           ],
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
                       // ),
                       clientJobs.isEmpty
                           ? Container()
                           : ListView.separated(
-                              physics: const BouncingScrollPhysics(),
+                              physics: const NeverScrollableScrollPhysics(),
                               padding: const EdgeInsets.only(top: 30.0),
                               shrinkWrap: true,
-                              // itemCount: 10,
                               itemCount: clientJobs.length,
                               itemBuilder: (BuildContext context, int index) {
                                 return InkWell(
