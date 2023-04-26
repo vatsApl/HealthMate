@@ -13,6 +13,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
 import '../base_Screen_working/base_screen.dart';
+import '../resourse/strings.dart';
 
 class ForgotPassword extends BasePageScreen {
 
@@ -66,7 +67,9 @@ class _ForgotPasswordState extends BasePageScreenState<ForgotPassword> with Base
                   builder: (context) => ForgotVerification(
                         userId: userId,
                         userType: userType,
-                      )));
+                      ),
+              ),
+          );
         }
       } else {
         print(response.statusCode);
@@ -93,11 +96,6 @@ class _ForgotPasswordState extends BasePageScreenState<ForgotPassword> with Base
   }
 
   @override
-  void onClickSaveButton() {
-    return null;
-  }
-
-  @override
   Widget body() {
     return GestureDetector(
       onTap: () {
@@ -115,12 +113,12 @@ class _ForgotPasswordState extends BasePageScreenState<ForgotPassword> with Base
                 const SizedBox(
                   height: 23.0,
                 ),
-                TitleText(title: 'Forgot Password'),
+                TitleText(title: Strings.text_title_forgot_password),
                 const SizedBox(
                   height: 48.0,
                 ),
                 const Text(
-                  'We Will Sent You An Email With Verification Code To Reset Your Password',
+                  Strings.text_notice_forgot_password,
                   style: TextStyle(
                     fontSize: 12.0,
                     color: kDefaultBlackColor,
@@ -131,7 +129,7 @@ class _ForgotPasswordState extends BasePageScreenState<ForgotPassword> with Base
                 const SizedBox(
                   height: 26.0,
                 ),
-                const Text('Email'),
+                const Text(Strings.sign_in_email_label),
                 TextFormField(
                   textAlignVertical: TextAlignVertical.bottom,
                   style: TextStyle(
@@ -153,7 +151,7 @@ class _ForgotPasswordState extends BasePageScreenState<ForgotPassword> with Base
                   validator: Validate.validateEmail,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
-                    hintText: 'Enter Email Address',
+                    hintText: Strings.sign_in_hint_enter_email_address,
                     hintStyle: const TextStyle(
                       color: Color.fromRGBO(3, 8, 55, 1),
                     ),
@@ -203,7 +201,7 @@ class _ForgotPasswordState extends BasePageScreenState<ForgotPassword> with Base
                   height: 50.0,
                 ),
                 ElevatedBtn(
-                  btnTitle: 'Submit',
+                  btnTitle: Strings.text_submit,
                   isLoading: isVisible,
                   bgColor: kDefaultPurpleColor,
                   onPressed: () {
@@ -216,7 +214,7 @@ class _ForgotPasswordState extends BasePageScreenState<ForgotPassword> with Base
                       forgotPassword();
                       emailController.clear();
                     } else {
-                      print('Unsuccessful');
+                      debugPrint('Unsuccessful');
                     }
                   },
                 ),

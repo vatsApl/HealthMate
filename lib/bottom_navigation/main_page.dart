@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
+import '../resourse/strings.dart';
+
 class MainPage extends StatefulWidget {
   @override
   State<MainPage> createState() => _MainPageState();
@@ -15,8 +17,8 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   List pages = [
-    const HomePage(),
-    const FindJobPage(),
+    HomePage(),
+    FindJobPage(),
     MyJobsPage(),
     ProfilePage(),
   ];
@@ -60,7 +62,7 @@ class _MainPageState extends State<MainPage> {
                       currentIndex == 0 ? kDefaultPurpleColor : kdisabledColor,
                 ),
               ),
-              label: 'Home',
+              label: Strings.candidate_bottom_text_home,
             ),
             BottomNavigationBarItem(
                 icon: Padding(
@@ -73,7 +75,8 @@ class _MainPageState extends State<MainPage> {
                         : kdisabledColor,
                   ),
                 ),
-                label: 'Find Job'),
+                label: Strings.candidate_bottom_text_find_job,
+            ),
             BottomNavigationBarItem(
                 icon: Padding(
                   padding: const EdgeInsets.only(bottom: 6.0),
@@ -85,7 +88,8 @@ class _MainPageState extends State<MainPage> {
                         : kdisabledColor,
                   ),
                 ),
-                label: 'My Jobs'),
+                label: Strings.candidate_bottom_text_my_jobs,
+            ),
             BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.only(bottom: 6.0),
@@ -96,7 +100,7 @@ class _MainPageState extends State<MainPage> {
                       currentIndex == 3 ? kDefaultPurpleColor : kdisabledColor,
                 ),
               ),
-              label: 'Profile',
+              label: Strings.candidate_bottom_text_profile,
             ),
           ],
         ),

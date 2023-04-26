@@ -3,6 +3,7 @@ import 'package:clg_project/UI/job_description.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/models/candidate_models/find_job_response.dart';
 import 'package:clg_project/resourse/api_urls.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -10,7 +11,7 @@ import '../UI/widgets/job_card_home_page.dart';
 import '../resourse/shared_prefs.dart';
 
 class FindJobPage extends StatefulWidget {
-  const FindJobPage({Key? key}) : super(key: key);
+
   @override
   State<FindJobPage> createState() => _FindJobPageState();
 }
@@ -83,7 +84,6 @@ class _FindJobPageState extends State<FindJobPage> {
     });
   }
 
-  //
   @override
   void initState() {
     super.initState();
@@ -109,7 +109,7 @@ class _FindJobPageState extends State<FindJobPage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TitleText(title: 'Find Jobs'),
+                    TitleText(title: Strings.text_title_find_jobs),
                     Expanded(
                       child: jobs.isNotEmpty
                           ? ListView.separated(
@@ -164,7 +164,7 @@ class _FindJobPageState extends State<FindJobPage> {
                               padding: EdgeInsets.only(bottom: 280.0),
                               child: Center(
                                 child: Text(
-                                  'No Jobs Found',
+                                  Strings.candidate_text_no_jobs_found,
                                   style: TextStyle(
                                     fontSize: 22.0,
                                     fontWeight: FontWeight.w500,

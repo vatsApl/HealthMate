@@ -8,6 +8,7 @@ import 'package:clg_project/models/client_model/client_job_res.dart';
 import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -87,7 +88,7 @@ class _ClientContractPageState extends BasePageScreenState<ClientContractPage> w
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TitleText(title: 'Contracts'),
+              TitleText(title: Strings.text_contracts),
               GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -145,7 +146,7 @@ class _ClientContractPageState extends BasePageScreenState<ClientContractPage> w
             )
                 : const Center(
               child: Text(
-                'No Contracts available',
+                Strings.text_no_contracts_available,
                 style: kDefaultEmptyListStyle,
               ),
             ),

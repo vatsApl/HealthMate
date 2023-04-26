@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:clg_project/UI/widgets/job_card_with_status.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../allAPIs/allAPIs.dart';
@@ -106,7 +107,7 @@ class _InvoicesState extends State<Invoices> {
                       height: 20.0,
                     ),
                     const Text(
-                      'Mark As Paid',
+                      Strings.text_mark_As_paid,
                       style: TextStyle(
                         fontSize: 18.0,
                         fontWeight: FontWeight.w700,
@@ -117,7 +118,7 @@ class _InvoicesState extends State<Invoices> {
                       height: 12.0,
                     ),
                     Text(
-                      'Are You Sure You Want To Mark As Paid',
+                      Strings.text_confirmation_of_mark_As_paid,
                       style: const TextStyle(color: kDefaultBlackColor)
                           .copyWith(height: 1.5),
                       textAlign: TextAlign.center,
@@ -132,7 +133,7 @@ class _InvoicesState extends State<Invoices> {
                           height: 38.0,
                           width: 120.0,
                           child: ElevatedBtn(
-                            btnTitle: 'No',
+                            btnTitle: Strings.text_no,
                             textColor: klabelColor,
                             bgColor: const Color(0xffE1E1E1),
                             onPressed: () {
@@ -145,7 +146,7 @@ class _InvoicesState extends State<Invoices> {
                           height: 38.0,
                           width: 120.0,
                           child: ElevatedBtn(
-                            btnTitle: 'Yes',
+                            btnTitle: Strings.text_yes,
                             bgColor: kDefaultPurpleColor,
                             onPressed: () {
                               markAsPaidApi();
@@ -221,7 +222,7 @@ class _InvoicesState extends State<Invoices> {
         },
       ) : const Center(
         child: Text(
-          'No Invoices',
+          Strings.text_no_invoices,
           style: kDefaultEmptyListStyle,
         ),
       ),

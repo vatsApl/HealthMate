@@ -14,6 +14,7 @@ import '../custom_widgets/custom_widget_helper.dart';
 import '../models/candidate_models/find_job_response.dart';
 import '../resourse/api_urls.dart';
 import '../resourse/shared_prefs.dart';
+import '../resourse/strings.dart';
 
 class JobDescription extends BasePageScreen {
   int? jobId;
@@ -84,10 +85,11 @@ class _JobDescriptionState extends BasePageScreenState<JobDescription> with Base
               height: 38.0,
             ),
             const Text(
-              'Job Description',
+              Strings.text_job_description,
               style: TextStyle(
                   color: kDefaultBlackColor,
-                  fontWeight: FontWeight.w500),
+                  fontWeight: FontWeight.w500,
+              ),
             ),
             const SizedBox(
               height: 10.0,
@@ -118,7 +120,7 @@ class _JobDescriptionState extends BasePageScreenState<JobDescription> with Base
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          'Location',
+                          Strings.text_location,
                           style: kDescText1,
                         ),
                         const SizedBox(height: 10.0),
@@ -147,7 +149,7 @@ class _JobDescriptionState extends BasePageScreenState<JobDescription> with Base
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Date',
+                        Strings.text_date,
                         style: kDescText1,
                       ),
                       const SizedBox(height: 10.0),
@@ -175,7 +177,7 @@ class _JobDescriptionState extends BasePageScreenState<JobDescription> with Base
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Time',
+                        Strings.text_time,
                         style: kDescText1,
                       ),
                       const SizedBox(height: 10.0),
@@ -203,12 +205,12 @@ class _JobDescriptionState extends BasePageScreenState<JobDescription> with Base
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Pay',
+                        Strings.text_pay,
                         style: kDescText1,
                       ),
                       const SizedBox(height: 10.0),
                       Text(
-                        '${jobDesc?.jobSalary.toString()} /day',
+                        '${jobDesc?.jobSalary.toString()} ${Strings.text_per_day}',
                         style: kDescText2,
                       ),
                     ],
@@ -231,13 +233,13 @@ class _JobDescriptionState extends BasePageScreenState<JobDescription> with Base
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Units',
+                        Strings.text_units,
                         style: kDescText1,
                       ),
                       const SizedBox(height: 10.0),
                       Text(
                         jobDesc?.jobUnit == null
-                            ? '0.0'
+                            ? Strings.default_job_unit
                             : '${jobDesc?.jobUnit?.toStringAsFixed(2)}',
                         style: kDescText2,
                       ),
@@ -299,7 +301,7 @@ class _JobDescriptionState extends BasePageScreenState<JobDescription> with Base
                         Padding(
                           padding: const EdgeInsets.only(left: 6.0),
                           child: Text(
-                            '${jobDesc?.breakTime} Minutes',
+                            '${jobDesc?.breakTime} ${Strings.text_minutes}',
                             style: const TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 12.0,
@@ -313,12 +315,13 @@ class _JobDescriptionState extends BasePageScreenState<JobDescription> with Base
                 Padding(
                   padding: const EdgeInsets.only(bottom: 65.0, top: 65.0),
                   child: ElevatedBtn(
-                    btnTitle: 'Apply Now',
+                    btnTitle: Strings.text_apply_now,
                     bgColor: kDefaultPurpleColor,
                     onPressed: () {
                       // ApiServices.applyJob(uId, widget.jobId!, context); //api call of apply job
                       Methods.showDialogApplyJobConfirmation(
-                          context, uId, widget.jobId);
+                          context, uId, widget.jobId,
+                      );
                     },
                   ),
                 ),

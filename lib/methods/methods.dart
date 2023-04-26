@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:http/http.dart' as http;
 import 'package:clg_project/bottom_navigation/main_page.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,7 @@ class Methods {
                       height: 20.0,
                     ),
                     const Text(
-                      'Job Application!',
+                      Strings.text_job_application,
                       style: TextStyle(
                         fontSize: 18.0,
                         fontWeight: FontWeight.w700,
@@ -65,7 +66,7 @@ class Methods {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 21.0),
                       child: Text(
-                        'Are You Sure You Want To Apply For This Job?',
+                        Strings.apply_job_confirmation_text,
                         style: const TextStyle(color: kDefaultBlackColor)
                             .copyWith(height: 1.5),
                         textAlign: TextAlign.center,
@@ -81,7 +82,7 @@ class Methods {
                           height: 38.0,
                           width: 120.0,
                           child: ElevatedBtn(
-                            btnTitle: 'Cancel',
+                            btnTitle: Strings.text_cancel,
                             textColor: klabelColor,
                             bgColor: const Color(0xffE1E1E1),
                             onPressed: () {
@@ -94,7 +95,7 @@ class Methods {
                           height: 38.0,
                           width: 120.0,
                           child: ElevatedBtn(
-                            btnTitle: 'Send',
+                            btnTitle: Strings.text_send,
                             bgColor: kDefaultPurpleColor,
                             onPressed: () {
                               ApiServices.applyJob(uId, jobId ?? 0, context);
@@ -143,7 +144,7 @@ class Methods {
                       height: 20.0,
                     ),
                     const Text(
-                      'Thank You!',
+                      Strings.text_thank_you,
                       style: TextStyle(
                         fontSize: 18.0,
                         fontWeight: FontWeight.w700,
@@ -156,7 +157,7 @@ class Methods {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 21.0),
                       child: Text(
-                        'Your Job Application is Successfully Done!',
+                        Strings.text_applied_job_message,
                         style: const TextStyle(color: kDefaultBlackColor)
                             .copyWith(height: 1.5),
                         textAlign: TextAlign.center,
@@ -171,7 +172,7 @@ class Methods {
                         height: 44.0,
                         width: 160.0,
                         child: ElevatedBtn(
-                          btnTitle: 'Okay !',
+                          btnTitle: Strings.text_okay,
                           bgColor: kDefaultPurpleColor,
                           onPressed: () {
                             //naviate to home page:
@@ -232,7 +233,7 @@ class Methods {
                         height: 20.0,
                       ),
                       const Text(
-                        'Log Out!',
+                        Strings.text_log_out,
                         style: TextStyle(
                           fontSize: 18.0,
                           fontWeight: FontWeight.w700,
@@ -243,7 +244,7 @@ class Methods {
                         height: 12.0,
                       ),
                       Text(
-                        'Are You Sure You Want To Log Out?',
+                        Strings.text_log_out_confirmation,
                         style: const TextStyle(color: kDefaultBlackColor)
                             .copyWith(height: 1.5),
                         textAlign: TextAlign.center,
@@ -271,7 +272,7 @@ class Methods {
                                       (route) => false);
                                 },
                                 child: const Text(
-                                  'Logout',
+                                  Strings.text_log_out,
                                   style: TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.w500,
@@ -292,7 +293,7 @@ class Methods {
                                   Navigator.pop(context);
                                 },
                                 child: const Text(
-                                  'Cancel',
+                                  Strings.text_cancel,
                                   style: TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.w500,
@@ -335,13 +336,13 @@ class Methods {
                     Row(
                       children: [
                         Text(
-                          'Reason',
+                          Strings.text_reason,
                           style: const TextStyle(color: kDefaultBlackColor, fontWeight: FontWeight.w400,)
                               .copyWith(height: 1.5),
                           textAlign: TextAlign.center,
                         ),
                         const Text(
-                          '*',
+                          Strings.text_field_required_symbol,
                           style: TextStyle(color: kredColor,),
                         ),
                       ],
@@ -352,7 +353,7 @@ class Methods {
                     Form(
                       key: _formKey,
                       child: CustomTextFormField(
-                        hint: 'Enter the reason',
+                        hint: Strings.hint_enter_the_reason,
                         inputType: TextInputType.multiline,
                         controller: rejectReasonController,
                         validator: Validate.validateRejectReason,
@@ -370,7 +371,7 @@ class Methods {
                           height: 38.0,
                           width: 120.0,
                           child: ElevatedBtn(
-                            btnTitle: 'Send',
+                            btnTitle: Strings.text_send,
                             bgColor: kDefaultPurpleColor,
                             onPressed: () {
                               if(_formKey.currentState!.validate()){
@@ -384,7 +385,7 @@ class Methods {
                           height: 38.0,
                           width: 120.0,
                           child: ElevatedBtn(
-                            btnTitle: 'Cancel',
+                            btnTitle: Strings.text_cancel,
                             textColor: klabelColor,
                             bgColor: const Color(0xffE1E1E1),
                             onPressed: () {
@@ -433,6 +434,6 @@ class Methods {
     // });
   }
 
-  static SvgPicture svgIcon = SvgPicture.asset(Images.ic_home);
+  // static SvgPicture svgIcon = SvgPicture.asset(Images.ic_home);
 
 }

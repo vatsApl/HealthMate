@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:clg_project/UI/widgets/job_card_home_page.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -132,7 +133,7 @@ class _BookedJobState extends State<BookedJob> {
                       padding: EdgeInsets.symmetric(vertical: 250.0),
                       child: Center(
                         child: Text(
-                          'No Booked Found',
+                          Strings.text_no_booked_found,
                           style: TextStyle(
                             fontSize: 22.0,
                             fontWeight: FontWeight.w500,

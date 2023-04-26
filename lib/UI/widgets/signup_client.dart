@@ -11,6 +11,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import '../../resourse/api_urls.dart';
+import '../../resourse/strings.dart';
 
 class SignUpClient extends StatefulWidget {
   @override
@@ -135,7 +136,7 @@ class _SignUpClientState extends State<SignUpClient> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'First Name',
+              Strings.sign_up_label_first_name,
               style: kTextFormFieldLabelStyle,
             ),
             TextFormField(
@@ -158,7 +159,7 @@ class _SignUpClientState extends State<SignUpClient> {
               //   });
               // },
               decoration: InputDecoration(
-                hintText: 'First Name',
+                hintText: Strings.sign_up_hint_first_name,
                 prefixIcon: Padding(
                   padding: kPrefixIconPadding,
                   child: SvgPicture.asset(
@@ -205,7 +206,7 @@ class _SignUpClientState extends State<SignUpClient> {
               height: 26.0,
             ),
             const Text(
-              'Email',
+              Strings.label_email,
               style: kTextFormFieldLabelStyle,
             ),
             TextFormField(
@@ -229,7 +230,7 @@ class _SignUpClientState extends State<SignUpClient> {
               validator: Validate.validateEmail,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
-                hintText: 'Enter Email',
+                hintText: Strings.hint_email,
                 prefixIcon: Padding(
                   padding: kPrefixIconPadding,
                   child: SvgPicture.asset(
@@ -276,7 +277,7 @@ class _SignUpClientState extends State<SignUpClient> {
               height: 26.0,
             ),
             const Text(
-              'Phone Number',
+              Strings.label_phone_number,
               style: kTextFormFieldLabelStyle,
             ),
             TextFormField(
@@ -299,7 +300,7 @@ class _SignUpClientState extends State<SignUpClient> {
               // },
               validator: Validate.validatePhoneNumber,
               decoration: InputDecoration(
-                hintText: 'Enter Phone Number',
+                hintText: Strings.hint_phone_number,
                 prefixIcon: Padding(
                   padding: kPrefixIconPadding,
                   child: SvgPicture.asset(
@@ -346,7 +347,7 @@ class _SignUpClientState extends State<SignUpClient> {
               height: 26.0,
             ),
             const Text(
-              'Address',
+              Strings.sign_up_label_address,
               style: kTextFormFieldLabelStyle,
             ),
             TextFormField(
@@ -369,7 +370,7 @@ class _SignUpClientState extends State<SignUpClient> {
               // },
               validator: Validate.validateAddress,
               decoration: InputDecoration(
-                hintText: 'Enter Address',
+                hintText: Strings.hint_address,
                 prefixIcon: Padding(
                   padding: kPrefixIconPadding,
                   child: SvgPicture.asset(
@@ -416,7 +417,7 @@ class _SignUpClientState extends State<SignUpClient> {
               height: 26.0,
             ),
             const Text(
-              'Area',
+              Strings.label_area,
               style: kTextFormFieldLabelStyle,
             ),
             TextFormField(
@@ -439,7 +440,7 @@ class _SignUpClientState extends State<SignUpClient> {
               // },
               validator: Validate.validateAddress,
               decoration: InputDecoration(
-                hintText: 'Enter Area',
+                hintText: Strings.hint_area,
                 prefixIcon: Padding(
                   padding: kPrefixIconPadding,
                   child: SvgPicture.asset(
@@ -486,7 +487,7 @@ class _SignUpClientState extends State<SignUpClient> {
               height: 26.0,
             ),
             const Text(
-              'Postcode',
+              Strings.label_postcode,
               style: kTextFormFieldLabelStyle,
             ),
             TextFormField(
@@ -510,7 +511,7 @@ class _SignUpClientState extends State<SignUpClient> {
               // },
               validator: Validate.validatePostcode,
               decoration: InputDecoration(
-                hintText: 'Enter Postcode',
+                hintText: Strings.hint_postcode,
                 prefixIcon: Padding(
                   padding: kPrefixIconPadding,
                   child: SvgPicture.asset(
@@ -557,7 +558,7 @@ class _SignUpClientState extends State<SignUpClient> {
               height: 26.0,
             ),
             const Text(
-              'Password',
+              Strings.sign_up_label_password,
               style: kTextFormFieldLabelStyle,
             ),
             const SizedBox(
@@ -584,7 +585,7 @@ class _SignUpClientState extends State<SignUpClient> {
                   // },
                   validator: Validate.validatePassword,
                   decoration: InputDecoration(
-                    hintText: 'Enter Password',
+                    hintText: Strings.sign_up_hint_password,
                     prefixIcon: Padding(
                       padding: const EdgeInsets.only(right: 5.0, bottom: 10.0),
                       child: SvgPicture.asset(
@@ -626,7 +627,8 @@ class _SignUpClientState extends State<SignUpClient> {
                               padding: kSuffixIconPadding,
                               child: SvgPicture.asset(Images.ic_eye_off,
                                   fit: BoxFit.scaleDown),
-                            )),
+                            ),
+                  ),
                 ),
               ],
             ),
@@ -634,7 +636,7 @@ class _SignUpClientState extends State<SignUpClient> {
               height: 26.0,
             ),
             const Text(
-              'Confirm Password',
+              Strings.sign_up_label_confirm_password,
               style: kTextFormFieldLabelStyle,
             ),
             const SizedBox(
@@ -664,7 +666,7 @@ class _SignUpClientState extends State<SignUpClient> {
                     return null;
                   },
                   decoration: InputDecoration(
-                    hintText: 'Enter Confirm Password',
+                    hintText: Strings.sign_up_hint_confirm_password,
                     prefixIcon: Padding(
                       padding: const EdgeInsets.only(right: 5.0, bottom: 10.0),
                       child: SvgPicture.asset(
@@ -715,7 +717,7 @@ class _SignUpClientState extends State<SignUpClient> {
             ),
             ElevatedBtn(
               isLoading: isVisible,
-              btnTitle: 'Submit',
+              btnTitle: Strings.text_submit,
               bgColor: kDefaultPurpleColor,
               onPressed: () {
                 // for validate color textfield

@@ -4,6 +4,7 @@ import 'package:clg_project/bottom_navigation/find_job/applied_job.dart';
 import 'package:clg_project/bottom_navigation/find_job/booked_job.dart';
 import 'package:clg_project/bottom_navigation/find_job/worked_job.dart';
 import 'package:clg_project/constants.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../resourse/shared_prefs.dart';
@@ -43,7 +44,7 @@ class _MyJobsPageState extends State<MyJobsPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TitleText(title: 'My Jobs'),
+                TitleText(title: Strings.text_title_my_jobs),
                 const SizedBox(
                   height: 30.0,
                 ),
@@ -53,9 +54,9 @@ class _MyJobsPageState extends State<MyJobsPage> {
                     dividerColor: const Color(0xffE1E1E1),
                     dividerMargin: 0.0,
                     labels: const [
-                      'Applied',
-                      'Booked',
-                      'Worked',
+                      Strings.candidate_text_applied,
+                      Strings.candidate_text_booked,
+                      Strings.candidate_text_worked,
                     ],
                     minWidth: 108.0,
                     // minWidth: MediaQuery.of(context).size.width,

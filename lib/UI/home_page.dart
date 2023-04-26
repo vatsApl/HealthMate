@@ -16,9 +16,10 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import '../custom_widgets/index_notifier.dart';
 import '../resourse/api_urls.dart';
+import '../resourse/strings.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+
   static ValueNotifier tabIndexNotifier = TabIndexNotifier();
 
   @override
@@ -190,7 +191,7 @@ class _HomePageState extends State<HomePage> {
                               number: homePageResponse2?.appliedCount ??
                                   homePageResponse3?.appliedCount ??
                                   0,
-                              label: 'Applied',
+                              label: Strings.candidate_text_applied,
                             ),
                           ),
                           const SizedBox(
@@ -209,7 +210,7 @@ class _HomePageState extends State<HomePage> {
                               number: homePageResponse2?.workedCount ??
                                   homePageResponse3?.workedCount ??
                                   0,
-                              label: 'Worked',
+                              label: Strings.candidate_text_worked,
                             ),
                           ),
                         ],
@@ -231,7 +232,7 @@ class _HomePageState extends State<HomePage> {
                               number: homePageResponse2?.bookedCount ??
                                   homePageResponse3?.bookedCount ??
                                   0,
-                              label: 'Booked',
+                              label: Strings.candidate_text_booked,
                             ),
                           ),
                           const SizedBox(
@@ -240,11 +241,11 @@ class _HomePageState extends State<HomePage> {
                           Expanded(
                             child: CardTopCandidate(
                               icon: Images.ic_payment,
-                              amountSymbol: '₹ ',
+                              amountSymbol: Strings.amount_symbol_rupee,
                               number: homePageResponse2?.totalPayment ??
                                   homePageResponse3?.totalPayment ??
                                   0,
-                              label: 'Payment',
+                              label: Strings.candidate_home_text_payment,
                             ),
                           ),
                         ],
@@ -297,7 +298,7 @@ class _HomePageState extends State<HomePage> {
                                   padding:
                                       EdgeInsets.symmetric(vertical: 130.0),
                                   child: Text(
-                                    'No Jobs Found',
+                                    Strings.candidate_text_no_jobs_found,
                                     style: TextStyle(
                                       fontSize: 22.0,
                                       fontWeight: FontWeight.w500,

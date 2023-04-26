@@ -57,7 +57,7 @@ class CardTopClient extends StatelessWidget {
                               child: Text(
                                 '$number',
                                 overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
+                                maxLines: 1,
                                 style: const TextStyle(
                                     fontSize: 16.0,
                                     color: kDefaultBlackColor,
@@ -73,9 +73,11 @@ class CardTopClient extends StatelessWidget {
                       Flexible(
                         child: Text(
                           label,
+                          overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           style: const TextStyle(
-                              color: klightColor, fontSize: 12.0),
+                              color: klightColor, fontSize: 12.0,
+                          ),
                         ),
                       ),
                     ],

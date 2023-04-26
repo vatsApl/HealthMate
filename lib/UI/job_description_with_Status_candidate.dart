@@ -8,6 +8,7 @@ import 'package:clg_project/base_Screen_working/base_screen.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/models/candidate_models/job_description_res.dart';
 import 'package:clg_project/resourse/images.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -151,13 +152,13 @@ class _jobDescriptionWithStatusCandidateState
                 fontSize: 12.0,
                 fontWeight: FontWeight.w500,
                 color: candidateWorkingStatus ==
-                    'Payment Due' //color change with candidate Working Status
+                    Strings.text_payment_due //color change with candidate Working Status
                     ? kredColor
-                    : candidateWorkingStatus == 'Processing'
+                    : candidateWorkingStatus == Strings.text_processing
                     ? kYellowColor
-                    : candidateWorkingStatus == 'Paid'
+                    : candidateWorkingStatus == Strings.text_paid
                     ? kGreenColor
-                    : candidateWorkingStatus == 'Dispute'
+                    : candidateWorkingStatus == Strings.text_dispute
                     ? kredColor
                     : null,
               ),
@@ -166,7 +167,7 @@ class _jobDescriptionWithStatusCandidateState
               height: 38.0,
             ),
             const Text(
-              'Job Description',
+              Strings.text_job_description,
               style: TextStyle(
                 color: kDefaultBlackColor,
                 fontWeight: FontWeight.w500,
@@ -204,7 +205,7 @@ class _jobDescriptionWithStatusCandidateState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          'Location',
+                          Strings.text_location,
                           style: kDescText1,
                         ),
                         const SizedBox(height: 10.0),
@@ -267,7 +268,7 @@ class _jobDescriptionWithStatusCandidateState
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Date',
+                        Strings.text_date,
                         style: kDescText1,
                       ),
                       const SizedBox(height: 10.0),
@@ -295,7 +296,7 @@ class _jobDescriptionWithStatusCandidateState
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Time',
+                        Strings.text_time,
                         style: kDescText1,
                       ),
                       const SizedBox(height: 10.0),
@@ -323,12 +324,12 @@ class _jobDescriptionWithStatusCandidateState
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Pay',
+                        Strings.text_pay,
                         style: kDescText1,
                       ),
                       const SizedBox(height: 10.0),
                       Text(
-                        '${jobDesc?.jobSalary.toString()} /day',
+                        '${jobDesc?.jobSalary.toString()} ${Strings.text_per_day}',
                         style: kDescText2,
                       ),
                     ],
@@ -343,14 +344,14 @@ class _jobDescriptionWithStatusCandidateState
                       style: TextStyle(
                         fontSize: 12.0,
                         fontWeight: FontWeight.w500,
-                        color: candidateWorkingStatus == 'Payment Due'
+                        color: candidateWorkingStatus == Strings.text_payment_due
                             ? kredColor
-                            : candidateWorkingStatus == 'Processing'
+                            : candidateWorkingStatus == Strings.text_processing
                             ? kYellowColor
-                            : candidateWorkingStatus == 'Paid'
+                            : candidateWorkingStatus == Strings.text_paid
                             ? kGreenColor
                             : candidateWorkingStatus ==
-                            'Dispute'
+                            Strings.text_dispute
                             ? kredColor
                             : null,
                       ),
@@ -408,7 +409,7 @@ class _jobDescriptionWithStatusCandidateState
                     Padding(
                       padding: const EdgeInsets.only(left: 6.0),
                       child: Text(
-                        '${jobDesc?.breakTime} Minutes',
+                        '${jobDesc?.breakTime} ${Strings.text_minutes}',
                         style: const TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 12.0,
@@ -419,7 +420,7 @@ class _jobDescriptionWithStatusCandidateState
                 ),
               ],
             ),
-            if (candidateWorkingStatus == 'Dispute')
+            if (candidateWorkingStatus == Strings.text_dispute)
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -427,7 +428,7 @@ class _jobDescriptionWithStatusCandidateState
                     height: 32.5,
                   ),
                   const Text(
-                    'Reason',
+                    Strings.text_reason,
                     style: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: kDefaultBlackColor),
@@ -447,7 +448,7 @@ class _jobDescriptionWithStatusCandidateState
                     height: 38.0,
                   ),
                   ElevatedBtn(
-                    btnTitle: 'Sign Off',
+                    btnTitle: Strings.text_sign_off,
                     bgColor: kDefaultPurpleColor,
                     onPressed: () {
                       //api call

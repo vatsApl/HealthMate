@@ -4,6 +4,7 @@ import 'package:clg_project/client_side/client_bottom_navigation/client_profile_
 import 'package:clg_project/client_side/client_bottom_navigation/client_verification_page.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/resourse/images.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -62,7 +63,8 @@ class _ClientMainPageState extends State<ClientMainPage> {
                         : kdisabledColor,
                   ),
                 ),
-                label: 'Home'),
+                label: Strings.client_bottom_text_home,
+            ),
             BottomNavigationBarItem(
                 icon: Padding(
                   padding: const EdgeInsets.only(bottom: 6.0),
@@ -74,7 +76,8 @@ class _ClientMainPageState extends State<ClientMainPage> {
                         : kdisabledColor,
                   ),
                 ),
-                label: 'Contracts'),
+                label: Strings.client_bottom_text_contracts,
+            ),
             BottomNavigationBarItem(
                 icon: Padding(
                   padding: const EdgeInsets.only(bottom: 6.0),
@@ -86,7 +89,8 @@ class _ClientMainPageState extends State<ClientMainPage> {
                         : kdisabledColor,
                   ),
                 ),
-                label: 'Verification'),
+                label: Strings.client_bottom_text_verification,
+            ),
             BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.only(bottom: 6.0),
@@ -97,7 +101,7 @@ class _ClientMainPageState extends State<ClientMainPage> {
                       currentIndex == 3 ? kDefaultPurpleColor : kdisabledColor,
                 ),
               ),
-              label: 'Profile',
+              label: Strings.client_bottom_text_profile,
             ),
           ],
         ),

@@ -14,15 +14,16 @@ import '../../models/roles_skills_res.dart';
 import '../../resourse/shared_prefs.dart';
 import 'package:http/http.dart' as http;
 
+import '../../resourse/strings.dart';
+
 class RoleSkills extends BasePageScreen {
   @override
   State<RoleSkills> createState() => _RoleSkillsState();
 }
 
 class _RoleSkillsState extends BasePageScreenState<RoleSkills> with BaseScreen {
-  String dropdownValue = 'Dentist';
   bool isVisible = false;
-  String? selectedRoleItem = 'Select Role';
+  String? selectedRoleItem = Strings.default_selected_role_item;
   int selectedRoleIndex = 0;
   int? selectedRoleIndexOnchangeSkills;
   int selectedIndex = 0;
@@ -112,7 +113,7 @@ class _RoleSkillsState extends BasePageScreenState<RoleSkills> with BaseScreen {
                     left: 26.0,
                   ),
                   child: Text(
-                    'Select Role',
+                    Strings.text_select_role,
                     style: TextStyle(
                       fontSize: 20.0,
                       color: kDefaultBlackColor,
@@ -277,12 +278,12 @@ class _RoleSkillsState extends BasePageScreenState<RoleSkills> with BaseScreen {
           const SizedBox(
             height: 23.0,
           ),
-          TitleText(title: 'Role & Skills'),
+          TitleText(title: Strings.text_role_and_skills),
           const SizedBox(
             height: 48.0,
           ),
           const Text(
-            'Role',
+            Strings.text_role,
             style: TextStyle(
                 color: kDefaultBlackColor, fontWeight: FontWeight.w500),
           ),
@@ -298,7 +299,7 @@ class _RoleSkillsState extends BasePageScreenState<RoleSkills> with BaseScreen {
               enabled: false,
               decoration: InputDecoration(
                 hintText: selectedRoleItem == 'null'
-                    ? 'Select Role'
+                    ? Strings.text_select_role
                     : selectedRoleItem,
                 hintStyle: const TextStyle(
                   color: klabelColor,
@@ -322,7 +323,7 @@ class _RoleSkillsState extends BasePageScreenState<RoleSkills> with BaseScreen {
             height: 50.0,
           ),
           const Text(
-            'Skills',
+            Strings.text_skills,
             style: TextStyle(
               color: kDefaultBlackColor,
               fontWeight: FontWeight.w500,

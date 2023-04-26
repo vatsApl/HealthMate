@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:clg_project/UI/widgets/job_card_home_page.dart';
 import 'package:clg_project/resourse/api_urls.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../UI/job_description_my_jobs.dart';
@@ -125,7 +126,7 @@ class _AppliedJobState extends State<AppliedJob> {
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 250.0),
                       child: Text(
-                        'No applied Found',
+                        Strings.text_no_applied_found,
                         style: TextStyle(
                           fontSize: 22.0,
                           fontWeight: FontWeight.w500,

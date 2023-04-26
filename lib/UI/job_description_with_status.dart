@@ -8,6 +8,7 @@ import 'package:clg_project/constants.dart';
 import 'package:clg_project/methods/methods.dart';
 import 'package:clg_project/models/candidate_models/job_description_res.dart';
 import 'package:clg_project/resourse/images.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -130,11 +131,11 @@ class _JobDescriptionWithStatusState extends BasePageScreenState<JobDescriptionW
                 fontSize: 12.0,
                 fontWeight: FontWeight.w500,
                 color: timeSheetStatusType ==
-                    'Assigned' //color change with timeSheetstatusType
+                    Strings.text_assigned //color change with timeSheetstatusType
                     ? kGreenColor
-                    : timeSheetStatusType == 'Pending'
+                    : timeSheetStatusType == Strings.text_pending
                     ? kYellowColor
-                    : timeSheetStatusType == 'Dispute'
+                    : timeSheetStatusType == Strings.text_dispute
                     ? kredColor
                     : null,
               ),
@@ -143,10 +144,11 @@ class _JobDescriptionWithStatusState extends BasePageScreenState<JobDescriptionW
               height: 38.0,
             ),
             const Text(
-              'Job Description',
+              Strings.text_job_description,
               style: TextStyle(
                   color: kDefaultBlackColor,
-                  fontWeight: FontWeight.w500),
+                  fontWeight: FontWeight.w500,
+              ),
             ),
             const SizedBox(
               height: 10.0,
@@ -179,7 +181,7 @@ class _JobDescriptionWithStatusState extends BasePageScreenState<JobDescriptionW
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          'Location',
+                          Strings.text_location,
                           style: kDescText1,
                         ),
                         const SizedBox(height: 10.0),
@@ -208,7 +210,7 @@ class _JobDescriptionWithStatusState extends BasePageScreenState<JobDescriptionW
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Date',
+                        Strings.text_date,
                         style: kDescText1,
                       ),
                       const SizedBox(height: 10.0),
@@ -236,7 +238,7 @@ class _JobDescriptionWithStatusState extends BasePageScreenState<JobDescriptionW
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Time',
+                        Strings.text_time,
                         style: kDescText1,
                       ),
                       const SizedBox(height: 10.0),
@@ -264,12 +266,12 @@ class _JobDescriptionWithStatusState extends BasePageScreenState<JobDescriptionW
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Pay',
+                        Strings.text_pay,
                         style: kDescText1,
                       ),
                       const SizedBox(height: 10.0),
                       Text(
-                        '${jobDesc?.jobSalary.toString()} /day',
+                        '${jobDesc?.jobSalary.toString()} ${Strings.text_per_day}',
                         style: kDescText2,
                       ),
                     ],
@@ -292,13 +294,13 @@ class _JobDescriptionWithStatusState extends BasePageScreenState<JobDescriptionW
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Units',
+                        Strings.text_units,
                         style: kDescText1,
                       ),
                       const SizedBox(height: 10.0),
                       Text(
                         jobDesc?.jobUnit == null
-                            ? '0.0'
+                            ? Strings.default_job_unit
                             : '${jobDesc?.jobUnit?.toStringAsFixed(2)}',
                         style: kDescText2,
                       ),
@@ -312,9 +314,9 @@ class _JobDescriptionWithStatusState extends BasePageScreenState<JobDescriptionW
             ),
             kDivider,
 
-            // pending status start:
-            if (timeSheetStatusType == 'Pending' ||
-                timeSheetStatusType == 'Dispute')
+            // code of pending status start:
+            if (timeSheetStatusType == Strings.text_pending ||
+                timeSheetStatusType == Strings.text_dispute)
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -322,10 +324,11 @@ class _JobDescriptionWithStatusState extends BasePageScreenState<JobDescriptionW
                     height: 30.0,
                   ),
                   const Text(
-                    'Sign Off Details',
+                    Strings.text_sign_off_details,
                     style: TextStyle(
                         fontWeight: FontWeight.w500,
-                        color: kDefaultBlackColor),
+                        color: kDefaultBlackColor,
+                    ),
                   ),
                   const SizedBox(
                     height: 30.0,
@@ -337,7 +340,7 @@ class _JobDescriptionWithStatusState extends BasePageScreenState<JobDescriptionW
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            'Start Time',
+                            Strings.label_start_time,
                             style: kSignOffLabelTextStyle,
                           ),
                           const SizedBox(
@@ -356,7 +359,7 @@ class _JobDescriptionWithStatusState extends BasePageScreenState<JobDescriptionW
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            'End Time',
+                            Strings.label_end_time,
                             style: kSignOffLabelTextStyle,
                           ),
                           const SizedBox(
@@ -374,7 +377,7 @@ class _JobDescriptionWithStatusState extends BasePageScreenState<JobDescriptionW
                     height: 20.0,
                   ),
                   const Text(
-                    'Break',
+                    Strings.label_break,
                     style: kSignOffLabelTextStyle,
                   ),
                   const SizedBox(
@@ -384,11 +387,11 @@ class _JobDescriptionWithStatusState extends BasePageScreenState<JobDescriptionW
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '${jobDesc?.timesheetBreakTime} Hr',
+                        '${jobDesc?.timesheetBreakTime} ${Strings.text_hr}',
                         style: kSignOffTimeTextStyle,
                       ),
                       if (timeSheetStatusType ==
-                          'Dispute') // visible only when status will be DISPUTE.
+                          Strings.text_dispute) // visible only when status will be DISPUTE.
                         Padding(
                           padding: const EdgeInsets.only(right: 19.0),
                           child: Container(
@@ -412,13 +415,13 @@ class _JobDescriptionWithStatusState extends BasePageScreenState<JobDescriptionW
                     height: 40.0,
                   ),
                   const Text(
-                    'Candidate',
+                    Strings.text_candidate,
                     style: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.w500,
                         color: kDefaultPurpleColor),
                   ),
-                  timeSheetStatusType == 'Dispute'
+                  timeSheetStatusType == Strings.text_dispute
                       ? const SizedBox(
                     height: 24.0,
                   )
@@ -427,13 +430,13 @@ class _JobDescriptionWithStatusState extends BasePageScreenState<JobDescriptionW
                   ),
                   Padding(
                     padding: EdgeInsets.only(
-                        bottom: timeSheetStatusType == 'Pending'
+                        bottom: timeSheetStatusType == Strings.text_pending
                             ? 81.0
                             : 0.0),
                     child: Card(
                       elevation: 1.5,
                       child: Padding(
-                        padding: timeSheetStatusType == 'Dispute'
+                        padding: timeSheetStatusType == Strings.text_dispute
                             ? const EdgeInsets.all(0.0)
                             : const EdgeInsets.symmetric(
                           horizontal: 16.0,
@@ -492,7 +495,7 @@ class _JobDescriptionWithStatusState extends BasePageScreenState<JobDescriptionW
                               ),
                             ),
                             if (timeSheetStatusType ==
-                                'Pending') //only visible when status will be Pending.
+                                Strings.text_pending) //only visible when status will be Pending.
                               Padding(
                                 padding:
                                 const EdgeInsets.only(top: 30.0),
@@ -504,12 +507,12 @@ class _JobDescriptionWithStatusState extends BasePageScreenState<JobDescriptionW
                                       height: 38.0,
                                       width: 140.0,
                                       child: ElevatedBtn(
-                                        btnTitle: 'Accept',
+                                        btnTitle: Strings.text_accept,
                                         bgColor: kDefaultPurpleColor,
                                         onPressed: () {
                                           // api call approve timesheet
                                           approveTimeSheetApi();
-                                          print('button pressed');
+                                          debugPrint('button pressed');
                                         },
                                       ),
                                     ),
@@ -517,7 +520,7 @@ class _JobDescriptionWithStatusState extends BasePageScreenState<JobDescriptionW
                                       height: 38.0,
                                       width: 140.0,
                                       child: ElevatedBtn(
-                                        btnTitle: 'Reject',
+                                        btnTitle: Strings.text_reject,
                                         textColor: klabelColor,
                                         bgColor:
                                         const Color(0xffE1E1E1),
@@ -541,10 +544,10 @@ class _JobDescriptionWithStatusState extends BasePageScreenState<JobDescriptionW
                   ),
                 ],
               ),
-            // pending status end
+            // code of pending status end
 
-            //Assigned status start:
-            if (timeSheetStatusType == 'Assigned')
+            //code of Assigned status start:
+            if (timeSheetStatusType == Strings.text_assigned)
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -552,7 +555,7 @@ class _JobDescriptionWithStatusState extends BasePageScreenState<JobDescriptionW
                     height: 20.0,
                   ),
                   const Text(
-                    'Candidate',
+                    Strings.text_candidate,
                     style: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: kDefaultPurpleColor),
@@ -605,9 +608,9 @@ class _JobDescriptionWithStatusState extends BasePageScreenState<JobDescriptionW
                   //
                 ],
               ),
-            //Assigned status end.
+            // Code of Assigned status end
             if (timeSheetStatusType ==
-                'Dispute') // only visible when status will be DISPUTE.
+                Strings.text_dispute) // only visible when status will be DISPUTE.
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -615,7 +618,7 @@ class _JobDescriptionWithStatusState extends BasePageScreenState<JobDescriptionW
                     height: 24.0,
                   ),
                   const Text(
-                    'Reason',
+                    Strings.text_reason,
                     style: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: kDefaultBlackColor),

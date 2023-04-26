@@ -6,6 +6,7 @@ import 'package:clg_project/bottom_navigation/profile/role_skills.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:focus_detector/focus_detector.dart';
@@ -142,7 +143,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               color: kDefaultPurpleColor,
                             ),
                             title: const Text(
-                              'Personal details',
+                              Strings.text_personal_details,
                               style: TextStyle(
                                 color: kDefaultBlackColor,
                                 fontWeight: FontWeight.w400,
@@ -182,7 +183,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               color: kDefaultPurpleColor,
                             ),
                             title: const Text(
-                              'Role & Skills',
+                              Strings.text_role_and_skills,
                               style: TextStyle(
                                 color: kDefaultBlackColor,
                                 fontWeight: FontWeight.w400,
@@ -222,7 +223,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               color: kDefaultPurpleColor,
                             ),
                             title: const Text(
-                              'CV & Resume',
+                              Strings.text_cv_and_resume,
                               style: TextStyle(
                                 color: kDefaultBlackColor,
                                 fontWeight: FontWeight.w400,
@@ -298,7 +299,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               color: kDefaultPurpleColor,
                             ),
                             title: const Text(
-                              'Log Out',
+                              Strings.text_log_out,
                               style: TextStyle(
                                 color: kDefaultBlackColor,
                                 fontWeight: FontWeight.w400,

@@ -5,6 +5,7 @@ import 'package:clg_project/base_Screen_working/base_screen.dart';
 import 'package:clg_project/client_side/add_new_address.dart';
 import 'package:clg_project/models/client_model/client_Address_model.dart';
 import 'package:clg_project/resourse/api_urls.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -125,20 +126,6 @@ class _ClientAddressesState extends BasePageScreenState<ClientAddresses> with Ba
     });
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return FocusDetector(
-  //     onFocusGained: () {
-  //       allAddressesApi();
-  //     },
-  //     child: Scaffold(
-  //       backgroundColor: Colors.white,
-  //       appBar: CustomWidgetHelper.appBar(context: context),
-  //       body: ,
-  //     ),
-  //   );
-  // }
-
   @override
   void initState() {
     allAddressesApi();
@@ -159,7 +146,7 @@ class _ClientAddressesState extends BasePageScreenState<ClientAddresses> with Ba
          Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: [
-             TitleText(title: 'Addresses'),
+             TitleText(title: Strings.text_addresses),
              InkWell(
                onTap: () {
                  Navigator.push(
@@ -224,7 +211,7 @@ class _ClientAddressesState extends BasePageScreenState<ClientAddresses> with Ba
                            MainAxisAlignment.spaceBetween,
                            children: [
                              OutlinedBtn(
-                               btnTitle: 'Edit',
+                               btnTitle: Strings.text_edit,
                                onPressed: () {
                                  addressId = address?[index]?.id;
                                  Navigator.push(
@@ -238,7 +225,7 @@ class _ClientAddressesState extends BasePageScreenState<ClientAddresses> with Ba
                              ),
                              if (address!.length > 1)
                                OutlinedBtn(
-                                 btnTitle: 'Remove',
+                                 btnTitle: Strings.text_remove,
                                  onPressed: () {
                                    addressId = address?[index]?.id;
                                    removeAddressApi(
@@ -257,7 +244,7 @@ class _ClientAddressesState extends BasePageScreenState<ClientAddresses> with Ba
                                  ?.addressId !=
                                  address?[index]?.id)
                                OutlinedBtn(
-                                 btnTitle: 'Set As Default',
+                                 btnTitle: Strings.text_set_as_default,
                                  onPressed: () {
                                    addressId = address?[index]?.id;
                                    setAsDefaultAddressApi(

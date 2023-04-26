@@ -8,6 +8,7 @@ import 'package:clg_project/client_side/client_main_page.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/models/candidate_models/job_description_res.dart';
 import 'package:clg_project/resourse/images.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -181,7 +182,7 @@ class _ClientJobDescApprovalsState
                       height: 20.0,
                     ),
                     const Text(
-                      'Approvals!',
+                      Strings.text_approvals_popup,
                       style: TextStyle(
                         fontSize: 18.0,
                         fontWeight: FontWeight.w700,
@@ -194,7 +195,7 @@ class _ClientJobDescApprovalsState
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 21.0),
                       child: Text(
-                        'Are You Sure You Want To Approve This Application?',
+                        Strings.text_approvals_confirmation,
                         style: const TextStyle(color: kDefaultBlackColor)
                             .copyWith(height: 1.5),
                         textAlign: TextAlign.center,
@@ -217,7 +218,7 @@ class _ClientJobDescApprovalsState
                               Navigator.pop(context);
                             },
                             child: const Text(
-                              'Cancel',
+                              Strings.text_cancel,
                               style: TextStyle(
                                 fontSize: 16.0,
                                 fontWeight: FontWeight.w500,
@@ -241,7 +242,7 @@ class _ClientJobDescApprovalsState
                                   applicationId: appId);
                             },
                             child: const Text(
-                              'Approve',
+                              Strings.text_approve,
                               style: TextStyle(
                                 fontSize: 16.0,
                                 fontWeight: FontWeight.w500,
@@ -280,7 +281,7 @@ class _ClientJobDescApprovalsState
                       height: 38.0,
                     ),
                     const Text(
-                      'Job Description',
+                      Strings.text_job_description,
                       style: TextStyle(
                           color: kDefaultBlackColor,
                           fontWeight: FontWeight.w500),
@@ -316,7 +317,7 @@ class _ClientJobDescApprovalsState
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Text(
-                                  'Location',
+                                  Strings.text_location,
                                   style: kDescText1,
                                 ),
                                 const SizedBox(height: 10.0),
@@ -345,7 +346,7 @@ class _ClientJobDescApprovalsState
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
-                                'Date',
+                                Strings.text_date,
                                 style: kDescText1,
                               ),
                               const SizedBox(height: 10.0),
@@ -373,7 +374,7 @@ class _ClientJobDescApprovalsState
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
-                                'Time',
+                                Strings.text_time,
                                 style: kDescText1,
                               ),
                               const SizedBox(height: 10.0),
@@ -401,12 +402,12 @@ class _ClientJobDescApprovalsState
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
-                                'Pay',
+                                Strings.text_pay,
                                 style: kDescText1,
                               ),
                               const SizedBox(height: 10.0),
                               Text(
-                                '${jobDesc?.jobSalary.toString()} /day',
+                                '${jobDesc?.jobSalary.toString()} ${Strings.text_per_day}',
                                 style: kDescText2,
                               ),
                             ],
@@ -429,13 +430,13 @@ class _ClientJobDescApprovalsState
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
-                                'Units',
+                                Strings.text_units,
                                 style: kDescText1,
                               ),
                               const SizedBox(height: 10.0),
                               Text(
                                 jobDesc?.jobUnit == null
-                                    ? '0.0'
+                                    ? Strings.default_job_unit
                                     : '${jobDesc?.jobUnit?.toStringAsFixed(2)}',
                                 style: kDescText2,
                               ),
@@ -496,7 +497,7 @@ class _ClientJobDescApprovalsState
                                 Padding(
                                   padding: const EdgeInsets.only(left: 6.0),
                                   child: Text(
-                                    '${jobDesc?.breakTime} Minutes',
+                                    '${jobDesc?.breakTime} ${Strings.text_minutes}',
                                     style: const TextStyle(
                                         fontWeight: FontWeight.w400,
                                         fontSize: 12.0,
@@ -511,11 +512,12 @@ class _ClientJobDescApprovalsState
                           height: 32.5,
                         ),
                         const Text(
-                          'Candidates',
+                          Strings.text_candidates,
                           style: TextStyle(
                               fontSize: 16.0,
                               color: kDefaultPurpleColor,
-                              fontWeight: FontWeight.w500),
+                              fontWeight: FontWeight.w500,
+                          ),
                         ),
                         const SizedBox(
                           height: 30.0,

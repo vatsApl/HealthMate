@@ -4,6 +4,7 @@ import 'package:clg_project/base_Screen_working/base_screen.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/resourse/images.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
@@ -97,7 +98,7 @@ class _CvResumeState extends BasePageScreenState<CvResume> with BaseScreen {
             const SizedBox(
               height: 23.0,
             ),
-            TitleText(title: 'CV & Resume'),
+            TitleText(title: Strings.text_title_cv_and_resume),
             const SizedBox(
               height: 48.0,
             ),
@@ -105,7 +106,7 @@ class _CvResumeState extends BasePageScreenState<CvResume> with BaseScreen {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'Selected file:',
+                  Strings.text_selected_file,
                   style: TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.w400,
@@ -144,13 +145,14 @@ class _CvResumeState extends BasePageScreenState<CvResume> with BaseScreen {
                     style: TextButton.styleFrom(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(6.0),
-                          side: const BorderSide(color: kDefaultPurpleColor)),
+                          side: const BorderSide(color: kDefaultPurpleColor),
+                      ),
                     ),
                     onPressed: () async {
                       pickFile();
                     },
                     child: const Text(
-                      'Add New Resume',
+                      Strings.text_add_new_resume,
                       style: TextStyle(
                           fontSize: 16.0,
                           color: kDefaultPurpleColor,

@@ -12,13 +12,15 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../resourse/strings.dart';
+
 class SignUpCandidate extends StatefulWidget {
   @override
   State<SignUpCandidate> createState() => SignUpCandidateState();
 }
 
 class SignUpCandidateState extends State<SignUpCandidate> {
-  String? selectedRoleItem = 'Select Role';
+  String? selectedRoleItem = Strings.sign_up_default_hint_role;
   int selectedRoleIndex = -1;
   final roleList = [
     'Audiologist',
@@ -267,7 +269,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'First Name',
+            Strings.sign_up_label_first_name,
             style: kTextFormFieldLabelStyle,
           ),
           TextFormField(
@@ -290,7 +292,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
             //   });
             // },
             decoration: InputDecoration(
-              hintText: 'Enter First Name',
+              hintText: Strings.sign_up_hint_first_name,
               prefixIcon: Padding(
                 padding: kPrefixIconPadding,
                 child: SvgPicture.asset(
@@ -337,7 +339,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
             height: 26.0,
           ),
           const Text(
-            'Last Name',
+            Strings.sign_up_label_last_name,
             style: kTextFormFieldLabelStyle,
           ),
           TextFormField(
@@ -360,7 +362,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
             // },
             validator: Validate.validateName,
             decoration: InputDecoration(
-              hintText: 'Enter Last Name',
+              hintText: Strings.sign_up_hint_last_name,
               prefixIcon: Padding(
                 padding: kPrefixIconPadding,
                 child: SvgPicture.asset(
@@ -409,7 +411,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
           const Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              'Gender',
+              Strings.sign_up_label_gender,
               style: TextStyle(
                 color: kDefaultBlackColor,
               ),
@@ -422,7 +424,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
             children: [
               Radio(
                 activeColor: kDefaultPurpleColor,
-                value: 'M',
+                value: Strings.sign_up_gender_radio_male_value,
                 groupValue: _genderValue,
                 onChanged: (String? value) {
                   setState(() {
@@ -431,14 +433,14 @@ class SignUpCandidateState extends State<SignUpCandidate> {
                 },
               ),
               const Text(
-                'Male',
+                Strings.sign_up_gender_label_male,
                 style: TextStyle(
                   color: klabelColor,
                 ),
               ),
               Radio(
                 activeColor: kDefaultPurpleColor,
-                value: 'F',
+                value: Strings.sign_up_gender_radio_female_value,
                 groupValue: _genderValue,
                 onChanged: (String? value) {
                   setState(() {
@@ -447,12 +449,12 @@ class SignUpCandidateState extends State<SignUpCandidate> {
                 },
               ),
               const Text(
-                'Female',
+                Strings.sign_up_gender_label_female,
                 style: TextStyle(color: klabelColor),
               ),
               Radio(
                 activeColor: kDefaultPurpleColor,
-                value: 'O',
+                value: Strings.sign_up_gender_radio_other_value,
                 groupValue: _genderValue,
                 onChanged: (String? value) {
                   setState(() {
@@ -461,7 +463,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
                 },
               ),
               const Text(
-                'Others',
+                Strings.sign_up_gender_label_other,
                 style: TextStyle(color: klabelColor),
               ),
             ],
@@ -473,7 +475,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
           const Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              'Role',
+              Strings.sign_up_label_role,
               style: TextStyle(color: kDefaultBlackColor),
             ),
           ),
@@ -488,7 +490,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
               enabled: false,
               decoration: InputDecoration(
                 hintText: selectedRoleItem == 'null'
-                    ? 'Select Role'
+                    ? Strings.sign_up_default_hint_role
                     : selectedRoleItem,
                 // hintText: selectedIndex == -1
                 //     ? 'Select Role'
@@ -512,7 +514,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
             height: 26.0,
           ),
           const Text(
-            'Email',
+            Strings.label_email,
             style: kTextFormFieldLabelStyle,
           ),
           TextFormField(
@@ -536,7 +538,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
                       : Colors.red,
             ),
             decoration: InputDecoration(
-              hintText: 'Enter Email Address',
+              hintText: Strings.hint_email,
               prefixIcon: Padding(
                 padding: kPrefixIconPadding,
                 child: SvgPicture.asset(
@@ -583,7 +585,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
             height: 26.0,
           ),
           const Text(
-            'Phone Number',
+            Strings.label_phone_number,
             style: kTextFormFieldLabelStyle,
           ),
           TextFormField(
@@ -606,7 +608,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
             // },
             validator: Validate.validatePhoneNumber,
             decoration: InputDecoration(
-              hintText: 'Enter Phone Number',
+              hintText: Strings.hint_phone_number,
               prefixIcon: Padding(
                 padding: kPrefixIconPadding,
                 child: SvgPicture.asset(
@@ -653,7 +655,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
             height: 26.0,
           ),
           const Text(
-            'Password',
+            Strings.sign_up_label_password,
             style: kTextFormFieldLabelStyle,
           ),
           Stack(
@@ -678,7 +680,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
                 // },
                 validator: Validate.validatePassword,
                 decoration: InputDecoration(
-                  hintText: 'Enter Password',
+                  hintText: Strings.sign_up_hint_password,
                   prefixIcon: Padding(
                     padding: kPrefixIconPadding,
                     child: SvgPicture.asset(
@@ -728,7 +730,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
             height: 26.0,
           ),
           const Text(
-            'Confirm Password',
+            Strings.sign_up_label_confirm_password,
             style: kTextFormFieldLabelStyle,
           ),
           Stack(
@@ -765,7 +767,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
                 //       val!, passController, confirmPassController);
                 // },
                 decoration: InputDecoration(
-                  hintText: 'Enter Confirm Password',
+                  hintText: Strings.sign_up_hint_confirm_password,
                   prefixIcon: Padding(
                     padding: kPrefixIconPadding,
                     child: SvgPicture.asset(
@@ -817,7 +819,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
 
           ElevatedBtn(
             isLoading: isVisible,
-            btnTitle: 'Submit',
+            btnTitle: Strings.text_submit,
             bgColor: kDefaultPurpleColor,
             onPressed: () {
               // for validate color textfield

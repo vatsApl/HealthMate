@@ -9,6 +9,7 @@ import 'package:clg_project/constants.dart';
 import 'package:clg_project/models/personal_details_res.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -211,7 +212,7 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
               const SizedBox(
                 height: 23.0,
               ),
-              TitleText(title: 'Personal Details'),
+              TitleText(title: Strings.text_personal_details),
               const SizedBox(
                 height: 48.0,
               ),
@@ -307,7 +308,8 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
                                               leading: SvgPicture.asset(
                                                 Images.ic_documents_select,
                                               ),
-                                              title: const Text('Documents',
+                                              title: const Text(
+                                                  Strings.text_documents,
                                                   style:
                                                   kSelectDocsTextStyle),
                                             ),
@@ -319,9 +321,11 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
                                               leading: SvgPicture.asset(
                                                 Images.ic_camera_select,
                                               ),
-                                              title: const Text('Camera',
+                                              title: const Text(
+                                                  Strings.text_camera,
                                                   style:
-                                                  kSelectDocsTextStyle),
+                                                  kSelectDocsTextStyle,
+                                              ),
                                             ),
                                             ListTile(
                                               onTap: () {
@@ -331,9 +335,11 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
                                               leading: SvgPicture.asset(
                                                 Images.ic_photos_select,
                                               ),
-                                              title: const Text('Photos',
+                                              title: const Text(
+                                                  Strings.text_photos,
                                                   style:
-                                                  kSelectDocsTextStyle),
+                                                  kSelectDocsTextStyle,
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -363,11 +369,11 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
                 height: 50.0,
               ),
               const Text(
-                'First Name',
+                Strings.personal_details_label_first_name,
                 style: kTextFormFieldLabelStyle,
               ),
               CustomTextFormField(
-                hint: 'First Name',
+                hint: Strings.personal_details_hint_first_name,
                 // validator: Validate.validateName,
                 svgPrefixIcon: SvgPicture.asset(
                   Images.ic_person,
@@ -379,11 +385,11 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
                 height: 26.0,
               ),
               const Text(
-                'Last Name',
+                Strings.candidate_details_label_last_name,
                 style: kTextFormFieldLabelStyle,
               ),
               CustomTextFormField(
-                hint: 'Last Name',
+                hint: Strings.candidate_details_hint_last_name,
                 svgPrefixIcon: SvgPicture.asset(
                   Images.ic_person,
                   fit: BoxFit.scaleDown,
@@ -394,7 +400,7 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
                 height: 26.0,
               ),
               Text(
-                'Gender',
+                Strings.candidate_details_label_gender,
                 style: kTextFormFieldLabelStyle.copyWith(
                     fontSize: 14.0, color: kDefaultBlackColor),
               ),
@@ -404,7 +410,7 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
               Row(
                 children: [
                   Radio(
-                    value: 'M',
+                    value: Strings.sign_up_gender_radio_male_value,
                     groupValue: genderValue,
                     onChanged: (String? value) {
                       setState(() {
@@ -413,13 +419,13 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
                     },
                   ),
                   const Text(
-                    'Male',
+                    Strings.sign_up_gender_label_male,
                     style: TextStyle(
                       color: klabelColor,
                     ),
                   ),
                   Radio(
-                    value: 'F',
+                    value: Strings.sign_up_gender_radio_female_value,
                     groupValue: genderValue,
                     onChanged: (String? value) {
                       setState(() {
@@ -428,11 +434,11 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
                     },
                   ),
                   const Text(
-                    'Female',
+                    Strings.sign_up_gender_label_female,
                     style: TextStyle(color: klabelColor),
                   ),
                   Radio(
-                    value: 'O',
+                    value: Strings.sign_up_gender_radio_other_value,
                     groupValue: genderValue,
                     onChanged: (String? value) {
                       setState(() {
@@ -441,7 +447,7 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
                     },
                   ),
                   const Text(
-                    'Others',
+                    Strings.sign_up_gender_label_other,
                     style: TextStyle(color: klabelColor),
                   ),
                 ],
@@ -450,11 +456,11 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
                 height: 26.0,
               ),
               const Text(
-                'Email',
+                Strings.label_email,
                 style: kTextFormFieldLabelStyle,
               ),
               CustomTextFormField(
-                hint: 'Enter Email Address',
+                hint: Strings.hint_email,
                 controller: emailController,
                 readOnly: true,
                 inputType: TextInputType.emailAddress,
@@ -467,11 +473,11 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
                 height: 26.0,
               ),
               const Text(
-                'Phone Number',
+                Strings.label_phone_number,
                 style: kTextFormFieldLabelStyle,
               ),
               CustomTextFormField(
-                hint: 'Enter Phone Number',
+                hint: Strings.hint_phone_number,
                 controller: phoneController,
                 inputType: TextInputType.number,
                 svgPrefixIcon: SvgPicture.asset(

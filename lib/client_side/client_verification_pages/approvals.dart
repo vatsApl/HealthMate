@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:clg_project/client_side/client_job_desc_approvals.dart';
 import 'package:clg_project/constants.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../../UI/widgets/job_card_verifications.dart';
@@ -109,7 +110,7 @@ class _ApprovalsState extends State<Approvals> {
             )
           : const Center(
               child: Text(
-                'No Approvals',
+                Strings.text_no_approvals,
                 style: kDefaultEmptyListStyle,
               ),
             ),

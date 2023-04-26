@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:clg_project/resourse/api_urls.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import '../../UI/job_description_with_status.dart';
@@ -110,7 +111,7 @@ class _TimeSheetsState extends State<TimeSheets> {
             )
           : const Center(
               child: Text(
-                'No Timesheets',
+                Strings.text_no_timesheets,
                 style: kDefaultEmptyListStyle,
               ),
             ),

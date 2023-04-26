@@ -1,4 +1,6 @@
+import 'package:clg_project/resourse/images.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 //color code:
 const kDefaultBlackColor = Color(0xff030837); //// 3 8 55

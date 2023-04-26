@@ -20,6 +20,7 @@ import 'package:provider/provider.dart';
 import '../base_Screen_working/base_screen.dart';
 import '../models/signin_client_response.dart';
 import '../resourse/images.dart';
+import '../resourse/strings.dart';
 
 class SignInPage extends BasePageScreen {
   @override
@@ -143,291 +144,10 @@ class _SignInPageState extends BasePageScreenState<SignInPage> with BaseScreen {
     });
   }
 
-  // before base screen
-  // @override
-  // Widget build(BuildContext context) {
-  //   // return GestureDetector(
-  //   //   onTap: () {
-  //   //     FocusManager.instance.primaryFocus?.unfocus();
-  //   //   },
-  //   //   child: Scaffold(
-  //   //     backgroundColor: Colors.white,
-  //   //     appBar: AppBar(
-  //   //       backgroundColor: Colors.white,
-  //   //       elevation: 0.0,
-  //   //       leading: GestureDetector(
-  //   //         onTap: () {
-  //   //           SystemNavigator.pop();
-  //   //         },
-  //   //         child: SvgPicture.asset(
-  //   //           Images.ic_left_arrow,
-  //   //           fit: BoxFit.scaleDown,
-  //   //         ),
-  //   //       ),
-  //   //     ),
-  //   //     body: SingleChildScrollView(
-  //   //       child: Form(
-  //   //         key: _formKey,
-  //   //         child: Padding(
-  //   //           padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
-  //   //           child: Column(
-  //   //             mainAxisSize: MainAxisSize.min,
-  //   //             crossAxisAlignment: CrossAxisAlignment.start,
-  //   //             children: [
-  //   //               const SizedBox(
-  //   //                 height: 23.0,
-  //   //               ),
-  //   //               TitleText(
-  //   //                 title: 'Welcome Back !',
-  //   //               ),
-  //   //               const SizedBox(
-  //   //                 height: 48.0,
-  //   //               ),
-  //   //               const Text(
-  //   //                 'Email',
-  //   //                 style: kTextFormFieldLabelStyle,
-  //   //               ),
-  //   //               Theme(
-  //   //                 data: Theme.of(context).copyWith(
-  //   //                     colorScheme: ColorScheme.fromSwatch()
-  //   //                         .copyWith(secondary: kDefaultPurpleColor)),
-  //   //                 child: TextFormField(
-  //   //                   textAlignVertical: TextAlignVertical.bottom,
-  //   //                   controller: emailController,
-  //   //                   keyboardType: TextInputType.emailAddress,
-  //   //                   focusNode: emailFocusNode,
-  //   //                   validator: Validate.validateEmail,
-  //   //                   style: TextStyle(
-  //   //                     color: isEmailVerified == null
-  //   //                         ? null
-  //   //                         : isEmailVerified == true
-  //   //                             ? Colors.green
-  //   //                             : Colors.red,
-  //   //                     height: 1.0,
-  //   //                   ),
-  //   //                   // onChanged: (val) {
-  //   //                   //   setState(() {
-  //   //                   //     Validate.validateEmail(val);
-  //   //                   //   });
-  //   //                   // },
-  //   //                   // textCapitalization: TextCapitalization.words,
-  //   //                   decoration: InputDecoration(
-  //   //                     hintText: 'Enter Email Address',
-  //   //                     prefixIcon: Padding(
-  //   //                       padding: kPrefixIconPadding,
-  //   //                       child: SvgPicture.asset(
-  //   //                         Images.ic_mail,
-  //   //                         fit: BoxFit.scaleDown,
-  //   //                         color: isEmailVerified == null
-  //   //                             ? klabelColor
-  //   //                             : isEmailVerified == true
-  //   //                                 ? Colors.green
-  //   //                                 : Colors.red,
-  //   //                       ),
-  //   //                     ),
-  //   //                     suffixIcon: isEmailVerified == null
-  //   //                         ? null
-  //   //                         : isEmailVerified == true
-  //   //                             ? Padding(
-  //   //                                 padding: kSuffixIconPadding,
-  //   //                                 child: SvgPicture.asset(
-  //   //                                   Images.ic_true,
-  //   //                                   fit: BoxFit.scaleDown,
-  //   //                                   color: Colors.green,
-  //   //                                 ),
-  //   //                               )
-  //   //                             : Padding(
-  //   //                                 padding: kSuffixIconPadding,
-  //   //                                 child: SvgPicture.asset(
-  //   //                                   Images.ic_error,
-  //   //                                   fit: BoxFit.scaleDown,
-  //   //                                   color: Colors.red,
-  //   //                                 ),
-  //   //                               ),
-  //   //                     focusedBorder: UnderlineInputBorder(
-  //   //                       borderSide: BorderSide(
-  //   //                         color: isEmailVerified == null
-  //   //                             ? kDefaultPurpleColor
-  //   //                             : isEmailVerified == true
-  //   //                                 ? Colors.green
-  //   //                                 : Colors.red,
-  //   //                       ),
-  //   //                     ),
-  //   //                   ),
-  //   //                 ),
-  //   //               ),
-  //   //               const SizedBox(
-  //   //                 height: 26.0,
-  //   //               ),
-  //   //               const Text(
-  //   //                 'Password',
-  //   //                 style: kTextFormFieldLabelStyle,
-  //   //               ),
-  //   //               Stack(
-  //   //                 children: [
-  //   //                   TextFormField(
-  //   //                     // onChanged: (val) {
-  //   //                     //   setState(() {
-  //   //                     //     Validate.validatePasswordBool(val);
-  //   //                     //   });
-  //   //                     // },
-  //   //                     style: TextStyle(
-  //   //                       height: 1.0,
-  //   //                       color: isPasswordVeified == null
-  //   //                           ? klabelColor
-  //   //                           : isPasswordVeified == true
-  //   //                               ? Colors.green
-  //   //                               : Colors.red,
-  //   //                     ),
-  //   //                     textAlignVertical: TextAlignVertical.bottom,
-  //   //                     controller: passController,
-  //   //                     validator: Validate.validatePassword,
-  //   //                     focusNode: passwordFocusNode,
-  //   //                     obscureText: isShow ? true : false,
-  //   //                     decoration: InputDecoration(
-  //   //                       hintText: 'Enter Password',
-  //   //                       prefixIcon: Padding(
-  //   //                         padding: kPrefixIconPadding,
-  //   //                         child: SvgPicture.asset(
-  //   //                           Images.ic_password,
-  //   //                           fit: BoxFit.scaleDown,
-  //   //                           color: isPasswordVeified == null
-  //   //                               ? null
-  //   //                               : isPasswordVeified == true
-  //   //                                   ? Colors.green
-  //   //                                   : Colors.red,
-  //   //                         ),
-  //   //                       ),
-  //   //                       focusedBorder: UnderlineInputBorder(
-  //   //                         borderSide: BorderSide(
-  //   //                           color: isPasswordVeified == null
-  //   //                               ? kDefaultPurpleColor
-  //   //                               : isPasswordVeified == true
-  //   //                                   ? Colors.green
-  //   //                                   : Colors.red,
-  //   //                         ),
-  //   //                       ),
-  //   //                     ),
-  //   //                   ),
-  //   //                   Positioned(
-  //   //                     right: 0.0,
-  //   //                     child: IconButton(
-  //   //                         onPressed: () {
-  //   //                           setState(() {
-  //   //                             isShow = !isShow;
-  //   //                           });
-  //   //                         },
-  //   //                         icon: isShow
-  //   //                             ? Padding(
-  //   //                                 padding: kSuffixIconPadding,
-  //   //                                 child: SvgPicture.asset(Images.ic_eye,
-  //   //                                     fit: BoxFit.scaleDown),
-  //   //                               )
-  //   //                             : Padding(
-  //   //                                 padding: kSuffixIconPadding,
-  //   //                                 child: SvgPicture.asset(Images.ic_eye_off,
-  //   //                                     fit: BoxFit.scaleDown),
-  //   //                               )),
-  //   //                   ),
-  //   //                 ],
-  //   //               ),
-  //   //               const SizedBox(
-  //   //                 height: 8.0,
-  //   //               ),
-  //   //               Align(
-  //   //                 alignment: Alignment.centerRight,
-  //   //                 child: InkWell(
-  //   //                   onTap: () {
-  //   //                     Navigator.push(
-  //   //                       context,
-  //   //                       MaterialPageRoute(
-  //   //                         builder: (context) => ForgotPassword(),
-  //   //                       ),
-  //   //                     );
-  //   //                   },
-  //   //                   child: const Text(
-  //   //                     'Forgot Password?',
-  //   //                     style: TextStyle(
-  //   //                       color: kDefaultBlackColor,
-  //   //                       fontSize: 12.0,
-  //   //                       fontWeight: FontWeight.w400,
-  //   //                     ),
-  //   //                   ),
-  //   //                 ),
-  //   //               ),
-  //   //               const SizedBox(
-  //   //                 height: 30.0,
-  //   //               ),
-  //   //               ElevatedBtn(
-  //   //                 btnTitle: 'Submit',
-  //   //                 isLoading: isVisible,
-  //   //                 bgColor: kDefaultPurpleColor,
-  //   //                 onPressed: () {
-  //   //                   setState(() {});
-  //   //                   isEmailVerified =
-  //   //                       Validate.validateEmailBool(emailController.text);
-  //   //                   isPasswordVeified =
-  //   //                       Validate.validatePasswordBool(passController.text);
-  //   //                   if (_formKey.currentState!.validate() &&
-  //   //                       isEmailVerified == true &&
-  //   //                       isPasswordVeified == true) {
-  //   //                     signIn();
-  //   //                   }
-  //   //                 },
-  //   //               ),
-  //   //               const SizedBox(
-  //   //                 height: 30.0, //30.0
-  //   //               ),
-  //   //               Row(
-  //   //                 mainAxisAlignment: MainAxisAlignment.center,
-  //   //                 children: [
-  //   //                   const Text(
-  //   //                     'Don\'t Have An Account?',
-  //   //                     style: TextStyle(
-  //   //                         color: kDefaultBlackColor,
-  //   //                         fontWeight: FontWeight.w400),
-  //   //                   ),
-  //   //                   const SizedBox(
-  //   //                     width: 2.0,
-  //   //                   ),
-  //   //                   InkWell(
-  //   //                     onTap: () {
-  //   //                       Navigator.push(
-  //   //                         context,
-  //   //                         MaterialPageRoute(
-  //   //                           builder: (context) => SignUpPage(),
-  //   //                         ),
-  //   //                       );
-  //   //                     },
-  //   //                     child: const Text(
-  //   //                       'SIGN UP',
-  //   //                       style: TextStyle(
-  //   //                         fontSize: 16.0,
-  //   //                         fontWeight: FontWeight.w500,
-  //   //                         color: kDefaultPurpleColor,
-  //   //                       ),
-  //   //                     ),
-  //   //                   ),
-  //   //                 ],
-  //   //               ),
-  //   //             ],
-  //   //           ),
-  //   //         ),
-  //   //       ),
-  //   //     ),
-  //   //   ),
-  //   // );
-  // }
-
   @override
   void initState() {
     isSystemPop(true);
     super.initState();
-  }
-
-  @override
-  void onClickSaveButton() {
-    return null;
   }
 
   @override
@@ -451,13 +171,13 @@ class _SignInPageState extends BasePageScreenState<SignInPage> with BaseScreen {
                     height: 23.0,
                   ),
                   TitleText(
-                    title: 'Welcome Back !',
+                    title: Strings.sign_in_welcome_back,
                   ),
                   const SizedBox(
                     height: 48.0,
                   ),
-                  const Text(
-                    'Email',
+                  Text(
+                    Strings.sign_in_email_label,
                     style: kTextFormFieldLabelStyle,
                   ),
                   Theme(
@@ -485,7 +205,7 @@ class _SignInPageState extends BasePageScreenState<SignInPage> with BaseScreen {
                       // },
                       // textCapitalization: TextCapitalization.words,
                       decoration: InputDecoration(
-                        hintText: 'Enter Email Address',
+                        hintText: Strings.sign_in_hint_enter_email_address,
                         prefixIcon: Padding(
                           padding: kPrefixIconPadding,
                           child: SvgPicture.asset(
@@ -533,7 +253,7 @@ class _SignInPageState extends BasePageScreenState<SignInPage> with BaseScreen {
                     height: 26.0,
                   ),
                   const Text(
-                    'Password',
+                    Strings.sign_in_password_label,
                     style: kTextFormFieldLabelStyle,
                   ),
                   Stack(
@@ -558,7 +278,7 @@ class _SignInPageState extends BasePageScreenState<SignInPage> with BaseScreen {
                         focusNode: passwordFocusNode,
                         obscureText: isShow ? true : false,
                         decoration: InputDecoration(
-                          hintText: 'Enter Password',
+                          hintText: Strings.sign_in_hint_enter_password,
                           prefixIcon: Padding(
                             padding: kPrefixIconPadding,
                             child: SvgPicture.asset(
@@ -619,7 +339,7 @@ class _SignInPageState extends BasePageScreenState<SignInPage> with BaseScreen {
                         );
                       },
                       child: const Text(
-                        'Forgot Password?',
+                        Strings.text_forgot_password,
                         style: TextStyle(
                           color: kDefaultBlackColor,
                           fontSize: 12.0,
@@ -632,7 +352,7 @@ class _SignInPageState extends BasePageScreenState<SignInPage> with BaseScreen {
                     height: 30.0,
                   ),
                   ElevatedBtn(
-                    btnTitle: 'Submit',
+                    btnTitle: Strings.text_submit,
                     isLoading: isVisible,
                     bgColor: kDefaultPurpleColor,
                     onPressed: () {
@@ -655,7 +375,7 @@ class _SignInPageState extends BasePageScreenState<SignInPage> with BaseScreen {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        'Don\'t Have An Account?',
+                        Strings.text_dont_have_an_account,
                         style: TextStyle(
                             color: kDefaultBlackColor,
                             fontWeight: FontWeight.w400),
@@ -673,7 +393,7 @@ class _SignInPageState extends BasePageScreenState<SignInPage> with BaseScreen {
                           );
                         },
                         child: const Text(
-                          'SIGN UP',
+                          Strings.text_sign_up,
                           style: TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.w500,

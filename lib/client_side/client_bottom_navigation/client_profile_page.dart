@@ -1,6 +1,7 @@
 import 'package:clg_project/UI/widgets/custom_appbar.dart';
 import 'package:clg_project/client_side/client_addresses.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:focus_detector/focus_detector.dart';
@@ -73,7 +74,7 @@ class _ClientProfilePageState extends State<ClientProfilePage> {
                             color: kDefaultPurpleColor,
                           ),
                           title: const Text(
-                            'Personal details',
+                            Strings.text_personal_details,
                             style: TextStyle(
                               color: kDefaultBlackColor,
                               fontWeight: FontWeight.w400,
@@ -113,7 +114,7 @@ class _ClientProfilePageState extends State<ClientProfilePage> {
                             color: kDefaultPurpleColor,
                           ),
                           title: const Text(
-                            'Addresses',
+                            Strings.text_addresses,
                             style: TextStyle(
                               color: kDefaultBlackColor,
                               fontWeight: FontWeight.w400,
@@ -144,7 +145,7 @@ class _ClientProfilePageState extends State<ClientProfilePage> {
                           color: kDefaultPurpleColor,
                         ),
                         title: const Text(
-                          'Settings',
+                          Strings.text_settings,
                           style: TextStyle(
                             color: kDefaultBlackColor,
                             fontWeight: FontWeight.w400,
@@ -178,7 +179,7 @@ class _ClientProfilePageState extends State<ClientProfilePage> {
                             color: kDefaultPurpleColor,
                           ),
                           title: const Text(
-                            'Log Out',
+                            Strings.text_log_out,
                             style: TextStyle(
                               color: kDefaultBlackColor,
                               fontWeight: FontWeight.w400,

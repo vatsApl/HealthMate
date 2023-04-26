@@ -9,6 +9,7 @@ import 'package:clg_project/models/client_model/client_job_res.dart';
 import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -93,7 +94,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
-                            flex:1,
+                            flex: 1,
                             child: CardTopClient(
                               onTap: () {
                                 // Navigate to contracts page.
@@ -103,14 +104,14 @@ class _ClientHomePageState extends State<ClientHomePage> {
                               },
                               icon: Images.ic_contracts_circle,
                               number: clientJobResponse2?.contractCount ?? 0,
-                              label: 'Contracts',
+                              label: Strings.text_contracts,
                             ),
                           ),
                           const SizedBox(
                             width: 22.0,
                           ),
                           Expanded(
-                            flex:1,
+                            flex: 1,
                             child: CardTopClient(
                               onTap: () {
                                 //Navigate to Timesheet page.
@@ -121,7 +122,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
                               },
                               icon: Images.ic_timesheet,
                               number: clientJobResponse2?.timesheetCount ?? 0,
-                              label: 'Timesheets',
+                              label: Strings.text_timesheets,
                             ),
                           ),
                         ],
@@ -143,7 +144,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
                               },
                               icon: Images.ic_approvals_2,
                               number: clientJobResponse2?.invoiceCount ?? 0,
-                              label: 'Approvals',
+                              label: Strings.text_approvals,
                             ),
                           ),
                           const SizedBox(
@@ -160,8 +161,8 @@ class _ClientHomePageState extends State<ClientHomePage> {
                               },
                               icon: Images.ic_payment,
                               number: clientJobResponse2?.allPayment ?? 0,
-                              label: 'Invoices',
-                              amountSymbol: '₹ ',
+                              label: Strings.text_invoices,
+                              amountSymbol: Strings.amount_symbol_rupee,
                             ),
                           ),
                         ],
@@ -171,74 +172,48 @@ class _ClientHomePageState extends State<ClientHomePage> {
                       ),
                       Align(
                         alignment: Alignment.centerRight,
-                        child: Container(
-                          padding: EdgeInsets.fromLTRB(14.0, 10.0, 10.0, 10.0),
-                          decoration: BoxDecoration(color: kDefaultPurpleColor, borderRadius: BorderRadius.circular(6.0),),
-                          child: FittedBox(
-                            fit: BoxFit.fill,
-                            child: Row(
-                              // mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                SvgPicture.asset(
-                                  Images.ic_plus,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(
-                                  width: 10.0,
-                                ),
-                                Text(
-                                  'Create Contract',
-                                  maxLines: 1,
-                                  style: TextStyle(
-                                    fontSize: 10.0,
-                                    fontWeight: FontWeight.w500,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CreateContract(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            padding:
+                                EdgeInsets.fromLTRB(14.0, 10.0, 10.0, 10.0),
+                            decoration: BoxDecoration(
+                              color: kDefaultPurpleColor,
+                              borderRadius: BorderRadius.circular(6.0),
+                            ),
+                            child: FittedBox(
+                              fit: BoxFit.fill,
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset(
+                                    Images.ic_plus,
                                     color: Colors.white,
                                   ),
-                                ),
-                              ],
+                                  SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  Text(
+                                    Strings.text_create_contract,
+                                    maxLines: 1,
+                                    style: TextStyle(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ),
-                      // Align(
-                      //   alignment: Alignment.centerRight,
-                      //   child: Padding(
-                      //     padding: const EdgeInsets.only(right: 3.0),
-                      //     child: SizedBox(
-                      //       width: 200.0,
-                      //       height: 30.0,
-                      //       child: ElevatedButton.icon(
-                      //         onPressed: () {
-                      //           Navigator.push(
-                      //             context,
-                      //             MaterialPageRoute(
-                      //               builder: (context) => CreateContract(),
-                      //             ),
-                      //           );
-                      //         },
-                      //         style: ElevatedButton.styleFrom(
-                      //             backgroundColor: kDefaultPurpleColor),
-                      //         icon: SvgPicture.asset(
-                      //           Images.ic_plus,
-                      //           color: Colors.white,
-                      //         ),
-                      //         label: Row(
-                      //           children: const [
-                      //             Expanded(
-                      //               child: Text(
-                      //                 'Create Contract',
-                      //                 maxLines: 1,
-                      //                 style: TextStyle(
-                      //                     fontSize: 10.0,
-                      //                     fontWeight: FontWeight.w500),
-                      //               ),
-                      //             ),
-                      //           ],
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
                       clientJobs.isEmpty
                           ? Container()
                           : ListView.separated(
@@ -284,7 +259,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
                                   padding:
                                       EdgeInsets.symmetric(vertical: 130.0),
                                   child: Text(
-                                    'No Contracts available',
+                                    Strings.text_no_contracts_available,
                                     style: TextStyle(
                                       fontSize: 22.0,
                                       fontWeight: FontWeight.w500,

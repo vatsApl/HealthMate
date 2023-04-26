@@ -1,6 +1,7 @@
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/models/candidate_models/find_job_response.dart';
 import 'package:clg_project/resourse/images.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -40,7 +41,7 @@ class JobCardCandidate extends StatelessWidget {
                       ),
                       children: <TextSpan>[
                         const TextSpan(
-                          text: '₹ ',
+                          text: Strings.amount_symbol_rupee,
                           style: TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.w500,
@@ -56,7 +57,7 @@ class JobCardCandidate extends StatelessWidget {
                           ),
                         ),
                         const TextSpan(
-                          text: '/day',
+                          text: Strings.text_per_day,
                           style: TextStyle(
                             fontSize: 12.0,
                             fontWeight: FontWeight.w400,
@@ -75,7 +76,8 @@ class JobCardCandidate extends StatelessWidget {
               style: const TextStyle(
                   color: kDefaultBlackColor,
                   fontSize: 16.0,
-                  fontWeight: FontWeight.w500),
+                  fontWeight: FontWeight.w500,
+              ),
             ),
             const SizedBox(
               height: 10.0,
@@ -109,13 +111,13 @@ class JobCardCandidate extends StatelessWidget {
                   ),
                   decoration: BoxDecoration(
                     color: homePageModel?.workingStatus ==
-                        'Payment Due' //color change with timeSheetstatusType
+                        Strings.text_payment_due //color change with timeSheetstatusType
                         ? kYellowColor.withOpacity(0.1)
-                        : homePageModel?.workingStatus == 'Processing'
+                        : homePageModel?.workingStatus == Strings.text_processing
                         ? kYellowColor.withOpacity(0.1)
-                        : homePageModel?.workingStatus == 'Paid'
+                        : homePageModel?.workingStatus == Strings.text_paid
                         ? kGreenColor.withOpacity(0.1)
-                        : homePageModel?.workingStatus == 'Dispute'
+                        : homePageModel?.workingStatus == Strings.text_dispute
                         ? kredColor.withOpacity(0.1)
                         : null,
                     borderRadius: BorderRadius.circular(4.0),
@@ -125,13 +127,13 @@ class JobCardCandidate extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 10.0,
                       color: homePageModel?.workingStatus ==
-                          'Payment Due' //color change with timeSheetstatusType
+                          Strings.text_payment_due //color change with timeSheetstatusType
                           ? kredColor
-                          : homePageModel?.workingStatus == 'Processing'
+                          : homePageModel?.workingStatus == Strings.text_processing
                           ? kYellowColor
-                          : homePageModel?.workingStatus == 'Paid'
+                          : homePageModel?.workingStatus == Strings.text_paid
                           ? kGreenColor
-                          : homePageModel?.workingStatus == 'Dispute'
+                          : homePageModel?.workingStatus == Strings.text_dispute
                           ? kredColor
                           : null,
                     ),

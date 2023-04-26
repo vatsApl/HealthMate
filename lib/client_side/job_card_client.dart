@@ -1,6 +1,7 @@
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/models/client_model/client_job_res.dart';
 import 'package:clg_project/resourse/images.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -39,7 +40,7 @@ class JobCardClient extends StatelessWidget {
                     ),
                     children: <TextSpan>[
                       const TextSpan(
-                        text: '₹ ',
+                        text: Strings.amount_symbol_rupee,
                         style: TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.w500,
@@ -55,7 +56,7 @@ class JobCardClient extends StatelessWidget {
                         ),
                       ),
                       const TextSpan(
-                        text: '/day',
+                        text: Strings.text_per_day,
                         style: TextStyle(
                           fontSize: 12.0,
                           fontWeight: FontWeight.w400,

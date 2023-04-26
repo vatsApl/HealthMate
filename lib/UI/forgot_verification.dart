@@ -13,6 +13,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
 import '../base_Screen_working/base_screen.dart';
+import '../resourse/strings.dart';
 
 class ForgotVerification extends BasePageScreen {
   ForgotVerification({this.userId, this.userType});
@@ -155,14 +156,14 @@ class _ForgotVerificationState extends BasePageScreenState<ForgotVerification> w
             const SizedBox(
               height: 23.0,
             ),
-            TitleText(title: 'Verification'),
+            TitleText(title: Strings.text_title_otp_verification),
             const SizedBox(
               height: 38.0,
             ),
             Row(
               children: const [
                 Text(
-                  'Enter Verification Code',
+                  Strings.text_enter_verification_code,
                   style: TextStyle(
                       fontSize: 16.0,
                       color: kDefaultBlackColor,
@@ -217,7 +218,7 @@ class _ForgotVerificationState extends BasePageScreenState<ForgotVerification> w
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  'If you did\'t receive a code! ',
+                  Strings.text_if_you_didt_receive_a_code,
                   style: TextStyle(
                       fontWeight: FontWeight.w400, color: kDefaultBlackColor),
                 ),
@@ -227,7 +228,7 @@ class _ForgotVerificationState extends BasePageScreenState<ForgotVerification> w
                     forgotPasswordResendOtp();
                   },
                   child: const Text(
-                    'Resend',
+                    Strings.text_resend,
                     style: TextStyle(
                       fontSize: 16.0,
                       color: kDefaultPurpleColor,
@@ -241,7 +242,7 @@ class _ForgotVerificationState extends BasePageScreenState<ForgotVerification> w
               height: 42.0,
             ),
             ElevatedBtn(
-              btnTitle: 'Verify',
+              btnTitle: Strings.text_verify,
               isLoading: isVisible,
               bgColor: kDefaultPurpleColor,
               onPressed: () {

@@ -5,6 +5,7 @@ import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/base_Screen_working/base_screen.dart';
 import 'package:clg_project/client_side/client_addresses.dart';
 import 'package:clg_project/constants.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -88,18 +89,18 @@ class _AddNewAddressState extends BasePageScreenState<AddNewAddress> with BaseSc
          child: Column(
            crossAxisAlignment: CrossAxisAlignment.start,
            children: [
-             TitleText(title: 'Add New Address'),
+             TitleText(title: Strings.text_add_new_address),
              Padding(
                padding: const EdgeInsets.only(top: 48.0),
                child: Column(
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
                    const Text(
-                     'Address',
+                     Strings.label_address,
                      style: kTextFormFieldLabelStyle,
                    ),
                    CustomTextFormField(
-                     hint: 'Enter Address',
+                     hint: Strings.hint_address,
                      controller: addressController,
                      validator: Validate.validateAddress,
                    ),
@@ -107,11 +108,11 @@ class _AddNewAddressState extends BasePageScreenState<AddNewAddress> with BaseSc
                      height: 30.0,
                    ),
                    const Text(
-                     'Area',
+                     Strings.label_area,
                      style: kTextFormFieldLabelStyle,
                    ),
                    CustomTextFormField(
-                     hint: 'Enter Area',
+                     hint: Strings.hint_area,
                      controller: areaController,
                      validator: Validate.validateAddress,
                    ),
@@ -119,11 +120,11 @@ class _AddNewAddressState extends BasePageScreenState<AddNewAddress> with BaseSc
                      height: 30.0,
                    ),
                    const Text(
-                     'Postcode',
+                     Strings.label_postcode,
                      style: kTextFormFieldLabelStyle,
                    ),
                    CustomTextFormField(
-                     hint: 'Enter Postcode',
+                     hint: Strings.hint_postcode,
                      controller: postcodeController,
                      validator: Validate.validatePostcode,
                    ),
@@ -157,7 +158,7 @@ class _AddNewAddressState extends BasePageScreenState<AddNewAddress> with BaseSc
                            });
                          },
                          child: const Text(
-                           'Set this as a default address',
+                           Strings.text_set_this_as_a_default_address,
                            style: TextStyle(
                                fontSize: 14.0,
                                fontWeight: FontWeight.w400,
@@ -172,7 +173,7 @@ class _AddNewAddressState extends BasePageScreenState<AddNewAddress> with BaseSc
                    Padding(
                      padding: const EdgeInsets.only(bottom: 30.0),
                      child: ElevatedBtn(
-                       btnTitle: 'Submit',
+                       btnTitle: Strings.text_submit,
                        bgColor: kDefaultPurpleColor,
                        onPressed: () {
                          //add new address

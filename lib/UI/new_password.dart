@@ -14,6 +14,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
+import '../resourse/strings.dart';
+
 class NewPassword extends BasePageScreen {
   NewPassword({this.userId, this.userType});
 
@@ -90,11 +92,11 @@ class _NewPasswordState extends BasePageScreenState<NewPassword> with BaseScreen
             const SizedBox(
               height: 23.0,
             ),
-            TitleText(title: 'New Password'),
+            TitleText(title: Strings.text_title_new_password),
             const SizedBox(
               height: 53.0,
             ),
-            const Text('New Password', style: kTextFormFieldLabelStyle),
+            const Text(Strings.label_new_password, style: kTextFormFieldLabelStyle,),
             Stack(
               children: [
                 TextFormField(
@@ -110,7 +112,7 @@ class _NewPasswordState extends BasePageScreenState<NewPassword> with BaseScreen
                   //   });
                   // },
                   decoration: InputDecoration(
-                    hintText: 'Enter Password',
+                    hintText: Strings.sign_in_hint_enter_password,
                     prefixIcon: Padding(
                       padding: kPrefixIconPadding,
                       child: SvgPicture.asset(
@@ -159,7 +161,7 @@ class _NewPasswordState extends BasePageScreenState<NewPassword> with BaseScreen
               height: 19.0,
             ),
             const Text(
-              'Confirm Password',
+              Strings.label_confirm_password,
               style: kTextFormFieldLabelStyle,
             ),
             const SizedBox(
@@ -173,7 +175,7 @@ class _NewPasswordState extends BasePageScreenState<NewPassword> with BaseScreen
                   style: const TextStyle(height: 1.0),
                   obscureText: isShowCpass,
                   decoration: InputDecoration(
-                    hintText: 'Enter Confirm Password',
+                    hintText: Strings.hint_enter_confirm_password,
                     prefixIcon: Padding(
                       padding: kPrefixIconPadding,
                       child: SvgPicture.asset(Images.ic_password,
@@ -208,7 +210,7 @@ class _NewPasswordState extends BasePageScreenState<NewPassword> with BaseScreen
               height: 58.0,
             ),
             ElevatedBtn(
-              btnTitle: 'Verify',
+              btnTitle: Strings.text_verify,
               bgColor: kDefaultPurpleColor,
               isLoading: isVisible,
               onPressed: () {

@@ -5,6 +5,7 @@ import 'package:clg_project/client_side/client_verification_pages/approvals.dart
 import 'package:clg_project/client_side/client_verification_pages/invoices.dart';
 import 'package:clg_project/client_side/client_verification_pages/timesheets.dart';
 import 'package:clg_project/constants.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
@@ -30,7 +31,7 @@ class _ClientVerificationPageState extends BasePageScreenState<ClientVerificatio
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TitleText(title: 'Verifications'),
+          TitleText(title: Strings.text_title_verifications),
           const SizedBox(
             height: 48.0,
           ),
@@ -40,9 +41,9 @@ class _ClientVerificationPageState extends BasePageScreenState<ClientVerificatio
               dividerColor: const Color(0xffE1E1E1),
               dividerMargin: 0.0,
               labels: const [
-                'Approvals',
-                'Timesheets',
-                'Invoices',
+                Strings.text_approvals,
+                Strings.text_timesheets,
+                Strings.text_invoices,
               ],
               minWidth: 108.0,
               activeBgColor: const [

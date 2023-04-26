@@ -8,6 +8,7 @@ import 'package:clg_project/constants.dart';
 import 'package:clg_project/models/candidate_models/job_description_res.dart';
 import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/resourse/images.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -140,7 +141,7 @@ class _ClientJobDescriptionState
                     height: 38.0,
                   ),
                   const Text(
-                    'Job Description',
+                    Strings.text_job_description,
                     style: TextStyle(
                         color: kDefaultBlackColor, fontWeight: FontWeight.w500),
                   ),
@@ -173,7 +174,7 @@ class _ClientJobDescriptionState
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
-                                'Location',
+                                Strings.text_location,
                                 style: kDescText1,
                               ),
                               const SizedBox(height: 10.0),
@@ -202,7 +203,7 @@ class _ClientJobDescriptionState
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'Date',
+                              Strings.text_date,
                               style: kDescText1,
                             ),
                             const SizedBox(height: 10.0),
@@ -230,7 +231,7 @@ class _ClientJobDescriptionState
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'Time',
+                              Strings.text_time,
                               style: kDescText1,
                             ),
                             const SizedBox(height: 10.0),
@@ -258,12 +259,12 @@ class _ClientJobDescriptionState
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'Pay',
+                              Strings.text_pay,
                               style: kDescText1,
                             ),
                             const SizedBox(height: 10.0),
                             Text(
-                              '${jobDesc?.jobSalary.toString()} /day',
+                              '${jobDesc?.jobSalary.toString()} ${Strings.text_per_day}',
                               style: kDescText2,
                             ),
                           ],
@@ -286,13 +287,13 @@ class _ClientJobDescriptionState
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'Units',
+                              Strings.text_units,
                               style: kDescText1,
                             ),
                             const SizedBox(height: 10.0),
                             Text(
                               jobDesc?.jobUnit == null
-                                  ? '0.0'
+                                  ? Strings.default_job_unit
                                   : '${jobDesc?.jobUnit?.toStringAsFixed(2)}',
                               style: kDescText2,
                             ),
@@ -328,7 +329,8 @@ class _ClientJobDescriptionState
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 12.0,
-                                      color: klabelColor),
+                                      color: klabelColor,
+                                  ),
                                 ),
                               ),
                             ],
@@ -353,7 +355,7 @@ class _ClientJobDescriptionState
                               Padding(
                                 padding: const EdgeInsets.only(left: 6.0),
                                 child: Text(
-                                  '${jobDesc?.breakTime} Minutes',
+                                  '${jobDesc?.breakTime} ${Strings.text_minutes}',
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 12.0,
@@ -369,7 +371,7 @@ class _ClientJobDescriptionState
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 50.0),
                     child: ElevatedBtn(
-                      btnTitle: 'Remove contract',
+                      btnTitle: Strings.text_remove_contract,
                       bgColor: kDefaultPurpleColor,
                       isLoading: isVisible,
                       onPressed: () {

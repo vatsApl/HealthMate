@@ -51,12 +51,17 @@ class CardTopCandidate extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(amountSymbol ?? ''),
-                            Text(
-                              '$number',
-                              style: const TextStyle(
-                                  fontSize: 16.0,
-                                  color: kDefaultBlackColor,
-                                  fontWeight: FontWeight.w500),
+                            Flexible(
+                              child: Text(
+                                '$number',
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: const TextStyle(
+                                    fontSize: 16.0,
+                                    color: kDefaultBlackColor,
+                                    fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -67,6 +72,8 @@ class CardTopCandidate extends StatelessWidget {
                       Flexible(
                         child: Text(
                           label,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
                           style: const TextStyle(
                             color: klightColor,
                             fontSize: 12.0,
@@ -89,28 +96,5 @@ class CardTopCandidate extends StatelessWidget {
         ),
       ),
     );
-    // return SizedBox(
-    //   width: 80.0,
-    //   height: 100.0,
-    //   child: Card(
-    //     elevation: 2.0,
-    //     child: Column(
-    //       children: [
-    //         const SizedBox(height: 10.0,),
-    //         SvgPicture.asset(icon),
-    //         const SizedBox(height: 15.0,),
-    //         Row(
-    //           mainAxisAlignment: MainAxisAlignment.center,
-    //           children: [
-    //             Text(amountSymbol ?? ''),
-    //             Text('$number', style: const TextStyle(fontSize: 16.0, color: kDefaultBlackColor),),
-    //           ],
-    //         ),
-    //         const SizedBox(height: 4.0,),
-    //         Text(label, style: const TextStyle(color: klightColor),),
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 }

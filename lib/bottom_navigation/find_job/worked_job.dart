@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:clg_project/UI/widgets/job_card_home_page.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:focus_detector/focus_detector.dart';
@@ -121,12 +122,12 @@ class _WorkedJobState extends State<WorkedJob> {
   Widget build(BuildContext context) {
     final snackBarAmountStatus = SnackBar(
       backgroundColor:
-          amountStatusMsg == 'Total Paid' ? kGreenColor : amountStatusMsg == 'Payment Due' ? kredColor : Colors.grey,
+          amountStatusMsg == Strings.text_total_paid ? kGreenColor : amountStatusMsg == Strings.text_payment_due ? kredColor : Colors.grey,
       content: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            amountStatusMsg ?? 'Payment status',
+            amountStatusMsg ?? Strings.text_payment_status,
             style: TextStyle(
               fontWeight: FontWeight.w500,
               color: Color(0xffffffff),
@@ -191,7 +192,7 @@ class _WorkedJobState extends State<WorkedJob> {
                           padding: EdgeInsets.symmetric(vertical: 250.0),
                           child: Center(
                             child: Text(
-                              'No Worked Found',
+                              Strings.text_no_worked_Found,
                               style: TextStyle(
                                 fontSize: 22.0,
                                 fontWeight: FontWeight.w500,

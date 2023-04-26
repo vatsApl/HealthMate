@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
+import '../resourse/strings.dart';
+
 class SignUpPage extends BasePageScreen {
 
   @override
@@ -49,7 +51,7 @@ class _SignUpPageState extends BasePageScreenState<SignUpPage> with TickerProvid
             const SizedBox(
               height: 23.0,
             ),
-            TitleText(title: 'Sign Up!'),
+            TitleText(title: Strings.sign_up_text_title),
             const SizedBox(
               height: 55.0,
             ),
@@ -77,8 +79,8 @@ class _SignUpPageState extends BasePageScreenState<SignUpPage> with TickerProvid
               child: ToggleSwitch(
                 initialLabelIndex: currentIndex,
                 labels: const [
-                  'Candidate',
-                  'Client',
+                  Strings.sign_up_text_candidate,
+                  Strings.sign_up_text_client,
                 ],
                 minWidth: 162.0,
                 activeBgColor: const [

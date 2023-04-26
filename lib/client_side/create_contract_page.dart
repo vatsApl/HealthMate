@@ -20,6 +20,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../custom_widgets/custom_widget_helper.dart';
 import '../models/client_model/client_Address_model.dart';
+import '../resourse/strings.dart';
 
 class CreateContract extends BasePageScreen {
   CreateContract({this.newAddress});
@@ -63,8 +64,8 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
   int selectedParkingIndex = -1;
   int selectedRoleIndex = -1;
   int selectedBreaktimeIndex = -1;
-  String? selectedRoleItem = 'Select Category';
-  String? selectedBreakTime = 'Select Breaktime';
+  String? selectedRoleItem = Strings.text_select_category;
+  String? selectedBreakTime = Strings.text_select_breaktime;
   final _formKey = GlobalKey<FormState>();
   bool isVisible = false;
 
@@ -80,10 +81,10 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
   TextEditingController visitsController = TextEditingController();
   var addressId;
   final parkingList = [
-    'Not Available',
-    'Available',
+    Strings.text_not_available,
+    Strings.text_available,
   ];
-  String? selectedParkingItem = 'Choose availability';
+  String? selectedParkingItem = Strings.text_choose_availability;
 
   Future<void> createContractDropdownDialog() async {
     return showDialog<void>(
@@ -601,7 +602,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Select An Address',
+                Strings.text_select_an_address,
                 style: kSelectDocsTextStyle.copyWith(fontSize: 24.0),
               ),
               const SizedBox(
@@ -625,7 +626,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                   fit: BoxFit.scaleDown,
                 ),
                 title: const Text(
-                  'Add New Address',
+                  Strings.text_add_new_address,
                   style: TextStyle(
                     color: kDefaultBlackColor,
                     fontWeight: FontWeight.w400,
@@ -697,12 +698,12 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TitleText(title: 'Create Contract'),
+                TitleText(title: Strings.text_create_contract),
                 const SizedBox(
                   height: 48.0,
                 ),
                 const Text(
-                  'Title',
+                  Strings.create_contract_label_title,
                   style: kTextFormFieldLabelStyle,
                 ),
                 CustomTextFormField(
@@ -710,7 +711,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                     Images.ic_job,
                     fit: BoxFit.scaleDown,
                   ),
-                  hint: 'Enter title of the job',
+                  hint: Strings.create_contract_hint_title,
                   controller: jobTitleController,
                   validator: Validate.validateName,
                 ),
@@ -718,7 +719,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                   height: 30.0,
                 ),
                 const Text(
-                  'Category',
+                  Strings.create_contract_label_category,
                   style: kTextFormFieldLabelStyle,
                 ),
                 const SizedBox(
@@ -733,7 +734,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                     enabled: false,
                     decoration: InputDecoration(
                       hintText: selectedRoleItem == 'null'
-                          ? 'Select category'
+                          ? Strings.text_select_category
                           : selectedRoleItem,
                       hintStyle: const TextStyle(
                         color: kDefaultBlackColor,
@@ -755,7 +756,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                   height: 30.0,
                 ),
                 const Text(
-                  'Description',
+                  Strings.create_contract_label_description,
                   style: kTextFormFieldLabelStyle,
                 ),
                 const SizedBox(
@@ -771,14 +772,14 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                     return null;
                   },
                   decoration: const InputDecoration(
-                    hintText: 'Describe Your Job',
+                    hintText: Strings.create_contract_hint_description,
                   ),
                 ),
                 const SizedBox(
                   height: 30.0,
                 ),
                 const Text(
-                  'Address',
+                  Strings.label_address,
                   style: kTextFormFieldLabelStyle,
                 ),
                 const SizedBox(
@@ -796,7 +797,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                     maxLines: null,
                     // textAlignVertical: TextAlignVertical.bottom,
                     decoration: const InputDecoration(
-                      hintText: 'Select Address',
+                      hintText: Strings.create_contract_hint_address,
                       hintStyle: TextStyle(
                         color: klabelColor,
                       ),
@@ -816,7 +817,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                   height: 30.0,
                 ),
                 const Text(
-                  'Date',
+                  Strings.text_date,
                   style: kTextFormFieldLabelStyle,
                 ),
                 const SizedBox(
@@ -833,7 +834,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                         color: klabelColor,
                       ),
                       icColor: klabelColor,
-                      hint: 'Select date',
+                      hint: Strings.create_contract_select_date,
                       hintStyle:
                       TextStyle(color: klabelColor.withOpacity(0.8)),
                       enabled: false,
@@ -855,7 +856,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            'Start Time',
+                            Strings.label_start_time,
                             style: kTextFormFieldLabelStyle,
                           ),
                           const SizedBox(
@@ -891,7 +892,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                               return null;
                             },
                             decoration: const InputDecoration(
-                              hintText: '00:00',
+                              hintText: Strings.create_contract_hint_time,
                               hintStyle: TextStyle(
                                 color: klabelColor,
                               ),
@@ -919,7 +920,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            'End Time',
+                            Strings.label_end_time,
                             style: kTextFormFieldLabelStyle,
                           ),
                           const SizedBox(
@@ -962,7 +963,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                             },
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
-                              hintText: '00:00',
+                              hintText: Strings.create_contract_hint_time,
                               hintStyle: TextStyle(
                                 color: klabelColor,
                               ),
@@ -988,7 +989,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                   height: 30.0,
                 ),
                 const Text(
-                  'Break',
+                  Strings.label_break,
                   style: kTextFormFieldLabelStyle,
                 ),
                 const SizedBox(
@@ -1039,7 +1040,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                           right: 8.0,
                         ),
                         child: Text(
-                          'Minutes',
+                          Strings.text_minutes,
                           style: TextStyle(fontWeight: FontWeight.w400),
                         ),
                       ),
@@ -1050,7 +1051,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                   height: 30.0,
                 ),
                 const Text(
-                  'Units',
+                  Strings.text_units,
                   style: kTextFormFieldLabelStyle,
                 ),
                 const SizedBox(
@@ -1082,7 +1083,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                   height: 30.0,
                 ),
                 const Text(
-                  'Salary',
+                  Strings.create_contract_label_salary,
                   style: kTextFormFieldLabelStyle,
                 ),
                 const SizedBox(
@@ -1091,7 +1092,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                 Stack(
                   children: [
                     CustomTextFormField(
-                      hint: 'Enter salary',
+                      hint: Strings.create_contract_hint_salary,
                       svgPrefixIcon: SvgPicture.asset(
                         Images.ic_salary,
                         fit: BoxFit.scaleDown,
@@ -1116,7 +1117,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                           right: 8.0,
                         ),
                         child: Text(
-                          '/ Day',
+                          Strings.text_per_day,
                           style: TextStyle(fontWeight: FontWeight.w400),
                         ),
                       ),
@@ -1127,7 +1128,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                   height: 30.0,
                 ),
                 const Text(
-                  'Parking',
+                  Strings.create_contract_label_parking,
                   style: kTextFormFieldLabelStyle,
                 ),
                 const SizedBox(
@@ -1139,7 +1140,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                   },
                   child: CustomTextFormField(
                     hint: selectedParkingItem == 'null'
-                        ? 'Choose availability'
+                        ? Strings.text_choose_availability
                         : selectedParkingItem,
                     hintStyle: const TextStyle(color: kDefaultBlackColor),
                     svgPrefixIcon: SvgPicture.asset(
@@ -1154,7 +1155,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                   height: 48.0,
                 ),
                 ElevatedBtn(
-                  btnTitle: 'Submit',
+                  btnTitle: Strings.text_submit,
                   isLoading: isVisible,
                   bgColor: kDefaultPurpleColor,
                   onPressed: () {
