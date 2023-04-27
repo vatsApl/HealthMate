@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/models/candidate_models/find_job_response.dart';
+import 'package:clg_project/resourse/dimens.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
@@ -21,9 +22,14 @@ class _JobCardVerificationState extends State<JobCardVerification> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 2.0,
+      elevation: Dimens.pixel_2,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 18.0),
+        padding: const EdgeInsets.fromLTRB(
+          Dimens.pixel_16,
+          Dimens.pixel_16,
+          Dimens.pixel_16,
+          Dimens.pixel_18,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -31,11 +37,13 @@ class _JobCardVerificationState extends State<JobCardVerification> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: Dimens.pixel_8,
+                  ),
                   child: Text(
                     '${widget.jobModel?.jobCategory}'.toUpperCase(),
                     style: const TextStyle(
-                      fontSize: 10.0,
+                      fontSize: Dimens.pixel_10,
                       fontWeight: FontWeight.w500,
                       color: kDefaultPurpleColor,
                     ),
@@ -44,31 +52,33 @@ class _JobCardVerificationState extends State<JobCardVerification> {
                 RichText(
                   text: TextSpan(
                     style: const TextStyle(
-                        fontSize: 16.0, color: kDefaultPurpleColor),
+                      fontSize: Dimens.pixel_16,
+                      color: kDefaultPurpleColor,
+                    ),
                     children: <TextSpan>[
                       const TextSpan(
                         text: Strings.amount_symbol_rupee,
                         style: TextStyle(
-                          fontSize: 16.0,
+                          fontSize: Dimens.pixel_16,
                           fontWeight: FontWeight.w500,
                           color: kDefaultBlackColor,
                         ),
                       ),
                       TextSpan(
-                          text: '${widget.jobModel?.jobSalary}',
-                          style: const TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w500,
-                            color: kDefaultBlackColor,
-                          ),
+                        text: '${widget.jobModel?.jobSalary}',
+                        style: const TextStyle(
+                          fontSize: Dimens.pixel_16,
+                          fontWeight: FontWeight.w500,
+                          color: kDefaultBlackColor,
+                        ),
                       ),
                       const TextSpan(
-                          text: Strings.text_per_day,
-                          style: TextStyle(
-                              fontSize: 12.0,
-                              fontWeight: FontWeight.w400,
-                              color: klightColor,
-                          ),
+                        text: Strings.text_per_day,
+                        style: TextStyle(
+                          fontSize: Dimens.pixel_12,
+                          fontWeight: FontWeight.w400,
+                          color: klightColor,
+                        ),
                       ),
                     ],
                   ),
@@ -76,7 +86,7 @@ class _JobCardVerificationState extends State<JobCardVerification> {
               ],
             ),
             const SizedBox(
-              height: 10.0,
+              height: Dimens.pixel_10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,9 +94,10 @@ class _JobCardVerificationState extends State<JobCardVerification> {
                 Text(
                   "${widget.jobModel?.jobTitle}",
                   style: const TextStyle(
-                      color: kDefaultBlackColor,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w500),
+                    color: kDefaultBlackColor,
+                    fontSize: Dimens.pixel_16,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
                 SvgPicture.asset(
                   Images.ic_read_more,
@@ -95,7 +106,7 @@ class _JobCardVerificationState extends State<JobCardVerification> {
               ],
             ),
             const SizedBox(
-              height: 10.0,
+              height: Dimens.pixel_10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -107,12 +118,12 @@ class _JobCardVerificationState extends State<JobCardVerification> {
                       fit: BoxFit.scaleDown,
                     ),
                     const SizedBox(
-                      width: 8.0,
+                      width: Dimens.pixel_8,
                     ),
                     Text(
                       '${widget.jobModel?.jobLocation}',
                       style: const TextStyle(
-                        fontSize: 12.0,
+                        fontSize: Dimens.pixel_12,
                         color: Color(0xff656565),
                       ),
                     ),
@@ -121,7 +132,7 @@ class _JobCardVerificationState extends State<JobCardVerification> {
               ],
             ),
             const SizedBox(
-              height: 12.67,
+              height: Dimens.pixel_12_point_67,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -138,14 +149,14 @@ class _JobCardVerificationState extends State<JobCardVerification> {
                             fit: BoxFit.scaleDown,
                           ),
                           const SizedBox(
-                            width: 8.0,
+                            width: Dimens.pixel_8,
                           ),
                           Text(
                             widget.jobModel?.jobDate ?? '',
                             style: const TextStyle(
                               color: kDefaultPurpleColor,
                               fontWeight: FontWeight.w500,
-                              fontSize: 13.0,
+                              fontSize: Dimens.pixel_13,
                             ),
                           ),
                         ],
@@ -157,12 +168,12 @@ class _JobCardVerificationState extends State<JobCardVerification> {
                             fit: BoxFit.scaleDown,
                           ),
                           const SizedBox(
-                            width: 8.0,
+                            width: Dimens.pixel_8,
                           ),
                           Text(
                             '${widget.jobModel?.jobStartTime} - ${widget.jobModel?.jobEndTime}',
                             style: const TextStyle(
-                              fontSize: 12.0,
+                              fontSize: Dimens.pixel_12,
                               color: Color(0xff656565),
                             ),
                           ),
@@ -171,28 +182,17 @@ class _JobCardVerificationState extends State<JobCardVerification> {
                     ],
                   ),
                 ),
-                // const Text('', style: TextStyle(fontSize: 10.0, color: Colors.red),),
               ],
             ),
             const SizedBox(
-              height: 12.5,
+              height: Dimens.pixel_12_and_half,
             ),
-            // const Text(
-            //   'Candidates',
-            //   style: TextStyle(
-            //       color: kDefaultPurpleColor,
-            //       fontWeight: FontWeight.w400,
-            //       fontSize: 10.0),
-            // ),
-            // const SizedBox(
-            //   height: 5.0,
-            // ),
             Row(
               // mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 SizedBox(
-                  height: 20.0,
+                  height: Dimens.pixel_20,
                   child: Stack(
                     children: [
                       ListView.builder(
@@ -204,10 +204,10 @@ class _JobCardVerificationState extends State<JobCardVerification> {
                           String? netImg =
                               widget.jobModel?.candidates?[index].avatar;
                           return Align(
-                            widthFactor: 0.6,
+                            widthFactor: Dimens.pixel_0_point_6,
                             child: SizedBox(
-                              height: 20.0,
-                              width: 20.0,
+                              height: Dimens.pixel_20,
+                              width: Dimens.pixel_20,
                               child: CachedNetworkImage(
                                 imageUrl: '${DataURL.baseUrl}/$netImg',
                                 imageBuilder: (context, imageProvider) =>
@@ -243,11 +243,13 @@ class _JobCardVerificationState extends State<JobCardVerification> {
                 ),
                 if (widget.jobModel?.extraCount != 0)
                   Padding(
-                    padding: const EdgeInsets.only(left: 6.0),
+                    padding: const EdgeInsets.only(
+                      left: Dimens.pixel_6,
+                    ),
                     child: Text(
                       '+${widget.jobModel?.extraCount}',
                       style: const TextStyle(
-                        fontSize: 10.0,
+                        fontSize: Dimens.pixel_10,
                         fontWeight: FontWeight.w400,
                         color: kDefaultBlackColor,
                       ),

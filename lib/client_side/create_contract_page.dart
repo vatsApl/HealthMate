@@ -20,6 +20,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../custom_widgets/custom_widget_helper.dart';
 import '../models/client_model/client_Address_model.dart';
+import '../resourse/dimens.dart';
 import '../resourse/strings.dart';
 
 class CreateContract extends BasePageScreen {
@@ -30,7 +31,8 @@ class CreateContract extends BasePageScreen {
   State<CreateContract> createState() => _CreateContractState();
 }
 
-class _CreateContractState extends BasePageScreenState<CreateContract> with BaseScreen {
+class _CreateContractState extends BasePageScreenState<CreateContract>
+    with BaseScreen {
   final selectRoleList = [
     'Audiologist',
     'Cardiologists',
@@ -92,26 +94,29 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
       barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
-          insetPadding: const EdgeInsets.symmetric(horizontal: 16.0),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
+          insetPadding: const EdgeInsets.symmetric(horizontal: Dimens.pixel_16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(Dimens.pixel_6),
+          ),
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: Dimens.pixel_10,
+              vertical: Dimens.pixel_15,
+            ),
             child: SizedBox(
-              height: 469.0,
+              height: Dimens.pixel_469,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Padding(
                     padding: EdgeInsets.only(
-                      top: 34.0,
-                      left: 26.0,
+                      top: Dimens.pixel_34,
+                      left: Dimens.pixel_26,
                     ),
                     child: Text(
                       'Select Category',
                       style: TextStyle(
-                        fontSize: 20.0,
+                        fontSize: Dimens.pixel_20,
                         color: kDefaultBlackColor,
                         fontWeight: FontWeight.w500,
                       ),
@@ -119,7 +124,9 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                   ),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 48.5),
+                      padding: const EdgeInsets.only(
+                        top: Dimens.pixel_48_and_half,
+                      ),
                       child: ListView.builder(
                         physics: const BouncingScrollPhysics(),
                         itemCount: selectRoleList.length,
@@ -134,7 +141,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                               color: Colors.transparent,
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
-                                  horizontal: 26.0,
+                                  horizontal: Dimens.pixel_26,
                                 ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -159,7 +166,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                                                     selectedRoleIndex == index
                                                         ? FontWeight.w500
                                                         : FontWeight.w400,
-                                                fontSize: 16.0,
+                                                fontSize: Dimens.pixel_16,
                                               ),
                                             ),
                                             activeColor: kDefaultPurpleColor,
@@ -185,8 +192,8 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                                     ),
                                     const Divider(
                                       color: Color(0xffF4F2F2),
-                                      height: 1.0,
-                                      thickness: 1.0,
+                                      height: Dimens.pixel_1,
+                                      thickness: Dimens.pixel_1,
                                     ),
                                   ],
                                 ),
@@ -213,23 +220,24 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
       barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
-          insetPadding: const EdgeInsets.symmetric(horizontal: 16.0),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
+          insetPadding: const EdgeInsets.symmetric(horizontal: Dimens.pixel_16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(Dimens.pixel_6),
+          ),
           child: SizedBox(
-            height: 469.0,
+            height: Dimens.pixel_469,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Padding(
                   padding: EdgeInsets.only(
-                    top: 34.0,
-                    left: 26.0,
+                    top: Dimens.pixel_34,
+                    left: Dimens.pixel_26,
                   ),
                   child: Text(
                     'Select Breaktime',
                     style: TextStyle(
-                      fontSize: 20.0,
+                      fontSize: Dimens.pixel_20,
                       color: kDefaultBlackColor,
                       fontWeight: FontWeight.w500,
                     ),
@@ -237,7 +245,8 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 48.5),
+                    padding:
+                        const EdgeInsets.only(top: Dimens.pixel_48_and_half),
                     child: ListView.builder(
                       itemCount: selectBreakTimeList.length,
                       physics: const BouncingScrollPhysics(),
@@ -248,7 +257,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                           color: Colors.transparent,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 26.0,
+                              horizontal: Dimens.pixel_26,
                             ),
                             child: Column(
                               children: [
@@ -267,7 +276,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                                           selectedBreaktimeIndex == index
                                               ? FontWeight.w500
                                               : FontWeight.w400,
-                                      fontSize: 16.0,
+                                      fontSize: Dimens.pixel_16,
                                     ),
                                   ),
                                   activeColor: kDefaultPurpleColor,
@@ -312,12 +321,15 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
       barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
-          insetPadding: const EdgeInsets.symmetric(horizontal: 16.0),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
+          insetPadding: const EdgeInsets.symmetric(horizontal: Dimens.pixel_16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(Dimens.pixel_6),
+          ),
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: Dimens.pixel_10,
+              vertical: Dimens.pixel_15,
+            ),
             child: Wrap(
               children: [
                 Column(
@@ -325,20 +337,21 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                   children: [
                     const Padding(
                       padding: EdgeInsets.only(
-                        top: 34.0,
-                        left: 26.0,
+                        top: Dimens.pixel_34,
+                        left: Dimens.pixel_26,
                       ),
                       child: Text(
                         'Choose availability',
                         style: TextStyle(
-                          fontSize: 20.0,
+                          fontSize: Dimens.pixel_20,
                           color: kDefaultBlackColor,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 48.5),
+                      padding:
+                          const EdgeInsets.only(top: Dimens.pixel_48_and_half),
                       child: ListView.builder(
                         physics: const BouncingScrollPhysics(),
                         itemCount: parkingList.length,
@@ -355,7 +368,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                               color: Colors.transparent,
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
-                                  horizontal: 26.0,
+                                  horizontal: Dimens.pixel_26,
                                 ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -383,7 +396,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                                                             index
                                                         ? FontWeight.w500
                                                         : FontWeight.w400,
-                                                fontSize: 16.0,
+                                                fontSize: Dimens.pixel_16,
                                               ),
                                             ),
                                             activeColor: kDefaultPurpleColor,
@@ -405,8 +418,8 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                                     ),
                                     const Divider(
                                       color: Color(0xffF4F2F2),
-                                      height: 1.0,
-                                      thickness: 1.0,
+                                      height: Dimens.pixel_1,
+                                      thickness: Dimens.pixel_1,
                                     ),
                                   ],
                                 ),
@@ -589,24 +602,24 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
       context: context,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
-          top: Radius.circular(24.0),
+          top: Radius.circular(Dimens.pixel_24),
         ),
       ),
       builder: (BuildContext context) {
         return Padding(
           padding: const EdgeInsets.symmetric(
-            vertical: 15.0,
-            horizontal: 12.0,
+            vertical: Dimens.pixel_15,
+            horizontal: Dimens.pixel_12,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 Strings.text_select_an_address,
-                style: kSelectDocsTextStyle.copyWith(fontSize: 24.0),
+                style: kSelectDocsTextStyle.copyWith(fontSize: Dimens.pixel_24),
               ),
               const SizedBox(
-                height: 40.0,
+                height: Dimens.pixel_40,
               ),
               ListTile(
                 onTap: () {
@@ -639,7 +652,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                   physics: const BouncingScrollPhysics(),
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
-                      padding: const EdgeInsets.only(top: 12.0),
+                      padding: const EdgeInsets.only(top: Dimens.pixel_12),
                       child: GestureDetector(
                         onTap: () {
                           addressId = '${address?[index].id}';
@@ -649,7 +662,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                         },
                         child: Card(
                           child: Padding(
-                            padding: const EdgeInsets.all(14.0),
+                            padding: const EdgeInsets.all(Dimens.pixel_14),
                             child: Column(
                               children: [
                                 Text(
@@ -658,10 +671,10 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
-                                    fontSize: 16.0,
+                                    fontSize: Dimens.pixel_16,
                                     fontWeight: FontWeight.w400,
                                     color: kDefaultBlackColor,
-                                    height: 1.5,
+                                    height: Dimens.pixel_1_and_half,
                                   ),
                                 ),
                               ],
@@ -673,7 +686,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                   },
                   separatorBuilder: (BuildContext context, int index) {
                     return const SizedBox(
-                      height: 0.0,
+                      height: Dimens.pixel_0,
                     );
                   },
                 ),
@@ -694,13 +707,18 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(16.0, 26.0, 16.0, 16.0),
+            padding: const EdgeInsets.fromLTRB(
+              Dimens.pixel_16,
+              Dimens.pixel_26,
+              Dimens.pixel_16,
+              Dimens.pixel_16,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TitleText(title: Strings.text_create_contract),
                 const SizedBox(
-                  height: 48.0,
+                  height: Dimens.pixel_48,
                 ),
                 const Text(
                   Strings.create_contract_label_title,
@@ -716,24 +734,24 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                   validator: Validate.validateName,
                 ),
                 const SizedBox(
-                  height: 30.0,
+                  height: Dimens.pixel_30,
                 ),
                 const Text(
                   Strings.create_contract_label_category,
                   style: kTextFormFieldLabelStyle,
                 ),
                 const SizedBox(
-                  height: 12.0,
+                  height: Dimens.pixel_12,
                 ),
                 GestureDetector(
                   onTap: () {
                     createContractDropdownDialog();
                   },
                   child: TextFormField(
-                    style: const TextStyle(height: 1.0),
+                    style: const TextStyle(height: Dimens.pixel_1),
                     enabled: false,
                     decoration: InputDecoration(
-                      hintText: selectedRoleItem == 'null'
+                      hintText: selectedRoleItem == Strings.text_null
                           ? Strings.text_select_category
                           : selectedRoleItem,
                       hintStyle: const TextStyle(
@@ -743,7 +761,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                         color: kDefaultBlackColor,
                       ),
                       suffixIcon:
-                      const Icon(Icons.keyboard_arrow_down_outlined),
+                          const Icon(Icons.keyboard_arrow_down_outlined),
                       disabledBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(
                           color: Colors.grey, // Set the border color to grey
@@ -753,14 +771,14 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                   ),
                 ),
                 const SizedBox(
-                  height: 30.0,
+                  height: Dimens.pixel_30,
                 ),
                 const Text(
                   Strings.create_contract_label_description,
                   style: kTextFormFieldLabelStyle,
                 ),
                 const SizedBox(
-                  height: 12.0,
+                  height: Dimens.pixel_12,
                 ),
                 TextFormField(
                   maxLines: null,
@@ -776,14 +794,14 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                   ),
                 ),
                 const SizedBox(
-                  height: 30.0,
+                  height: Dimens.pixel_30,
                 ),
                 const Text(
                   Strings.label_address,
                   style: kTextFormFieldLabelStyle,
                 ),
                 const SizedBox(
-                  height: 12.0,
+                  height: Dimens.pixel_12,
                 ),
                 GestureDetector(
                   onTap: () {
@@ -791,7 +809,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                     allAddresses();
                   },
                   child: TextFormField(
-                    style: const TextStyle(height: 1.0),
+                    style: const TextStyle(height: Dimens.pixel_1),
                     enabled: false,
                     controller: addressController,
                     maxLines: null,
@@ -814,14 +832,14 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                   ),
                 ),
                 const SizedBox(
-                  height: 30.0,
+                  height: Dimens.pixel_30,
                 ),
                 const Text(
                   Strings.text_date,
                   style: kTextFormFieldLabelStyle,
                 ),
                 const SizedBox(
-                  height: 12.0,
+                  height: Dimens.pixel_12,
                 ),
                 GestureDetector(
                   onTap: () {
@@ -835,8 +853,9 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                       ),
                       icColor: klabelColor,
                       hint: Strings.create_contract_select_date,
-                      hintStyle:
-                      TextStyle(color: klabelColor.withOpacity(0.8)),
+                      hintStyle: TextStyle(
+                        color: klabelColor.withOpacity(Dimens.pixel_0_point_8),
+                      ),
                       enabled: false,
                       controller: dateController,
                       validator: (value) {
@@ -846,7 +865,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                       }),
                 ),
                 const SizedBox(
-                  height: 30.0,
+                  height: Dimens.pixel_30,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -860,11 +879,11 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                             style: kTextFormFieldLabelStyle,
                           ),
                           const SizedBox(
-                            height: 10.0,
+                            height: Dimens.pixel_10,
                           ),
                           TextFormField(
                             textAlignVertical: TextAlignVertical.bottom,
-                            style: const TextStyle(height: 1.0),
+                            style: const TextStyle(height: Dimens.pixel_1),
                             controller: startTimeController,
                             readOnly: true,
                             onTap: () async {
@@ -873,15 +892,12 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                                 context: context,
                               );
                               if (pickedTime != null) {
-                                // print('PickedTime:${pickedTime.format(context)}');
                                 DateTime parsedTime = DateFormat.jm().parse(
                                     pickedTime.format(context).toString());
-                                // print('ParsedTime:$parsedTime');
                                 String formattedStartTime =
-                                DateFormat('HH:mm').format(parsedTime);
+                                    DateFormat('HH:mm').format(parsedTime);
                                 setState(() {
-                                  startTimeController.text =
-                                      formattedStartTime;
+                                  startTimeController.text = formattedStartTime;
                                 });
                               }
                             },
@@ -906,14 +922,14 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                                 ),
                               ),
                               suffixIcon:
-                              Icon(Icons.keyboard_arrow_down_outlined),
+                                  Icon(Icons.keyboard_arrow_down_outlined),
                             ),
                           ),
                         ],
                       ),
                     ),
                     const SizedBox(
-                      width: 15.0,
+                      width: Dimens.pixel_15,
                     ),
                     Expanded(
                       child: Column(
@@ -924,11 +940,11 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                             style: kTextFormFieldLabelStyle,
                           ),
                           const SizedBox(
-                            height: 10.0,
+                            height: Dimens.pixel_10,
                           ),
                           TextFormField(
                             textAlignVertical: TextAlignVertical.bottom,
-                            style: const TextStyle(height: 1.0),
+                            style: const TextStyle(height: Dimens.pixel_1),
                             keyboardType: TextInputType.number,
                             controller: endTimeController,
                             readOnly: true,
@@ -939,19 +955,12 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                                 context: context,
                               );
                               if (pickedTime != null) {
-                                // print('PickedTime:${pickedTime.format(context)}');
                                 DateTime parsedTime = DateFormat.jm().parse(
                                     pickedTime.format(context).toString());
-                                // print('ParsedTime:$parsedTime');
                                 String formattedEndTime =
-                                DateFormat('HH:mm').format(parsedTime);
-                                // print('FormattedTime:$formattedTime');
+                                    DateFormat('HH:mm').format(parsedTime);
                                 setState(() {
                                   endTimeController.text = formattedEndTime;
-                                  // calculateUnit( //previous calculate unit
-                                  //     startTimeController.text,
-                                  //     endTimeController.text,
-                                  //     breakController.text as double);
                                 });
                               }
                             },
@@ -973,11 +982,11 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                               disabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                   color:
-                                  klabelColor, // Set the border color to grey
+                                      klabelColor, // Set the border color to grey
                                 ),
                               ),
                               suffixIcon:
-                              Icon(Icons.keyboard_arrow_down_outlined),
+                                  Icon(Icons.keyboard_arrow_down_outlined),
                             ),
                           ),
                         ],
@@ -986,14 +995,14 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                   ],
                 ),
                 const SizedBox(
-                  height: 30.0,
+                  height: Dimens.pixel_30,
                 ),
                 const Text(
                   Strings.label_break,
                   style: kTextFormFieldLabelStyle,
                 ),
                 const SizedBox(
-                  height: 12.0,
+                  height: Dimens.pixel_12,
                 ),
                 Stack(
                   children: [
@@ -1002,7 +1011,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                         selectBreakTimeDialog();
                       },
                       child: TextFormField(
-                        style: const TextStyle(height: 1.0),
+                        style: const TextStyle(height: Dimens.pixel_1),
                         textAlignVertical: TextAlignVertical.bottom,
                         enabled: false,
                         controller: breakTimeController,
@@ -1021,12 +1030,9 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                               fit: BoxFit.scaleDown,
                             ),
                           ),
-                          // suffixIcon:
-                          // const Icon(Icons.keyboard_arrow_down_outlined),
                           disabledBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
-                              color:
-                              Colors.grey, // Set the border color to grey
+                              color: Colors.grey,
                             ),
                           ),
                         ),
@@ -1036,8 +1042,8 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                       alignment: Alignment.bottomRight,
                       child: Padding(
                         padding: EdgeInsets.only(
-                          top: 22.0,
-                          right: 8.0,
+                          top: Dimens.pixel_22,
+                          right: Dimens.pixel_8,
                         ),
                         child: Text(
                           Strings.text_minutes,
@@ -1048,14 +1054,14 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                   ],
                 ),
                 const SizedBox(
-                  height: 30.0,
+                  height: Dimens.pixel_30,
                 ),
                 const Text(
                   Strings.text_units,
                   style: kTextFormFieldLabelStyle,
                 ),
                 const SizedBox(
-                  height: 12.0,
+                  height: Dimens.pixel_12,
                 ),
                 GestureDetector(
                   onTap: () {
@@ -1070,7 +1076,6 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                       Images.ic_job,
                       fit: BoxFit.scaleDown,
                     ),
-                    // hint: unit.toStringAsFixed(2),
                     hint: '${unit ?? ''}',
                     hintStyle: const TextStyle(color: klabelColor),
                     readOnly: true,
@@ -1080,14 +1085,14 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                   ),
                 ),
                 const SizedBox(
-                  height: 30.0,
+                  height: Dimens.pixel_30,
                 ),
                 const Text(
                   Strings.create_contract_label_salary,
                   style: kTextFormFieldLabelStyle,
                 ),
                 const SizedBox(
-                  height: 12.0,
+                  height: Dimens.pixel_12,
                 ),
                 Stack(
                   children: [
@@ -1113,8 +1118,8 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                       alignment: Alignment.bottomRight,
                       child: Padding(
                         padding: EdgeInsets.only(
-                          top: 22.0,
-                          right: 8.0,
+                          top: Dimens.pixel_22,
+                          right: Dimens.pixel_8,
                         ),
                         child: Text(
                           Strings.text_per_day,
@@ -1125,21 +1130,21 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                   ],
                 ),
                 const SizedBox(
-                  height: 30.0,
+                  height: Dimens.pixel_30,
                 ),
                 const Text(
                   Strings.create_contract_label_parking,
                   style: kTextFormFieldLabelStyle,
                 ),
                 const SizedBox(
-                  height: 12.0,
+                  height: Dimens.pixel_12,
                 ),
                 GestureDetector(
                   onTap: () {
                     parkingDialog();
                   },
                   child: CustomTextFormField(
-                    hint: selectedParkingItem == 'null'
+                    hint: selectedParkingItem == Strings.text_null
                         ? Strings.text_choose_availability
                         : selectedParkingItem,
                     hintStyle: const TextStyle(color: kDefaultBlackColor),
@@ -1152,7 +1157,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                   ),
                 ),
                 const SizedBox(
-                  height: 48.0,
+                  height: Dimens.pixel_48,
                 ),
                 ElevatedBtn(
                   btnTitle: Strings.text_submit,
@@ -1170,7 +1175,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract> with Base
                         timeInSecForIosWeb: 1,
                         backgroundColor: Colors.red,
                         textColor: Colors.white,
-                        fontSize: 16.0,
+                        fontSize: Dimens.pixel_16,
                       );
                     }
                   },

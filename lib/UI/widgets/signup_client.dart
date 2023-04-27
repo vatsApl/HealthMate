@@ -11,6 +11,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import '../../resourse/api_urls.dart';
+import '../../resourse/dimens.dart';
 import '../../resourse/strings.dart';
 
 class SignUpClient extends StatefulWidget {
@@ -142,7 +143,7 @@ class _SignUpClientState extends State<SignUpClient> {
             TextFormField(
               textAlignVertical: TextAlignVertical.bottom,
               style: TextStyle(
-                height: 1.0,
+                height: Dimens.pixel_1,
                 color: isFnameVerified == null
                     ? klabelColor
                     : isFnameVerified == true
@@ -203,7 +204,7 @@ class _SignUpClientState extends State<SignUpClient> {
               ),
             ),
             const SizedBox(
-              height: 26.0,
+              height: Dimens.pixel_26,
             ),
             const Text(
               Strings.label_email,
@@ -212,14 +213,13 @@ class _SignUpClientState extends State<SignUpClient> {
             TextFormField(
               textAlignVertical: TextAlignVertical.bottom,
               style: TextStyle(
-                height: 1.0,
+                height: Dimens.pixel_1,
                 color: isEmailVerified == null
                     ? klabelColor
                     : isEmailVerified == true
                         ? Colors.green
                         : Colors.red,
               ),
-              // textCapitalization: TextCapitalization.words,
               controller: emailController,
               focusNode: emailFocusNode,
               // onChanged: (val) {
@@ -274,7 +274,7 @@ class _SignUpClientState extends State<SignUpClient> {
               ),
             ),
             const SizedBox(
-              height: 26.0,
+              height: Dimens.pixel_26,
             ),
             const Text(
               Strings.label_phone_number,
@@ -283,7 +283,7 @@ class _SignUpClientState extends State<SignUpClient> {
             TextFormField(
               textAlignVertical: TextAlignVertical.bottom,
               style: TextStyle(
-                height: 1.0,
+                height: Dimens.pixel_1,
                 color: isPhoneVerified == null
                     ? klabelColor
                     : isPhoneVerified == true
@@ -344,7 +344,7 @@ class _SignUpClientState extends State<SignUpClient> {
               ),
             ),
             const SizedBox(
-              height: 26.0,
+              height: Dimens.pixel_26,
             ),
             const Text(
               Strings.sign_up_label_address,
@@ -353,7 +353,7 @@ class _SignUpClientState extends State<SignUpClient> {
             TextFormField(
               textAlignVertical: TextAlignVertical.bottom,
               style: TextStyle(
-                height: 1.0,
+                height: Dimens.pixel_1,
                 color: isAddressVerified == null
                     ? klabelColor
                     : isAddressVerified == true
@@ -387,7 +387,7 @@ class _SignUpClientState extends State<SignUpClient> {
                     ? null
                     : isAddressVerified == true
                         ? Padding(
-                            padding: const EdgeInsets.only(bottom: 30.0),
+                            padding: const EdgeInsets.only(bottom: Dimens.pixel_30,),
                             child: SvgPicture.asset(
                               Images.ic_true,
                               fit: BoxFit.scaleDown,
@@ -395,7 +395,7 @@ class _SignUpClientState extends State<SignUpClient> {
                             ),
                           )
                         : Padding(
-                            padding: const EdgeInsets.only(bottom: 30.0),
+                            padding: const EdgeInsets.only(bottom: Dimens.pixel_30,),
                             child: SvgPicture.asset(
                               Images.ic_error,
                               fit: BoxFit.scaleDown,
@@ -414,7 +414,7 @@ class _SignUpClientState extends State<SignUpClient> {
               ),
             ),
             const SizedBox(
-              height: 26.0,
+              height: Dimens.pixel_26,
             ),
             const Text(
               Strings.label_area,
@@ -423,7 +423,7 @@ class _SignUpClientState extends State<SignUpClient> {
             TextFormField(
               textAlignVertical: TextAlignVertical.bottom,
               style: TextStyle(
-                height: 1.0,
+                height: Dimens.pixel_1,
                 color: isAreaVerified == null
                     ? klabelColor
                     : isAreaVerified == true
@@ -457,7 +457,7 @@ class _SignUpClientState extends State<SignUpClient> {
                     ? null
                     : isAreaVerified == true
                         ? Padding(
-                            padding: const EdgeInsets.only(bottom: 30.0),
+                            padding: const EdgeInsets.only(bottom: Dimens.pixel_30,),
                             child: SvgPicture.asset(
                               Images.ic_true,
                               fit: BoxFit.scaleDown,
@@ -465,7 +465,7 @@ class _SignUpClientState extends State<SignUpClient> {
                             ),
                           )
                         : Padding(
-                            padding: const EdgeInsets.only(bottom: 30.0),
+                            padding: const EdgeInsets.only(bottom: Dimens.pixel_30,),
                             child: SvgPicture.asset(
                               Images.ic_error,
                               fit: BoxFit.scaleDown,
@@ -484,7 +484,7 @@ class _SignUpClientState extends State<SignUpClient> {
               ),
             ),
             const SizedBox(
-              height: 26.0,
+              height: Dimens.pixel_26,
             ),
             const Text(
               Strings.label_postcode,
@@ -494,7 +494,7 @@ class _SignUpClientState extends State<SignUpClient> {
               keyboardType: TextInputType.number,
               textAlignVertical: TextAlignVertical.bottom,
               style: TextStyle(
-                height: 1.0,
+                height: Dimens.pixel_1,
                 color: isPostcodeVerified == null
                     ? klabelColor
                     : isPostcodeVerified == true
@@ -528,7 +528,7 @@ class _SignUpClientState extends State<SignUpClient> {
                     ? null
                     : isPostcodeVerified == true
                         ? Padding(
-                            padding: const EdgeInsets.only(bottom: 30.0),
+                            padding: const EdgeInsets.only(bottom: Dimens.pixel_30,),
                             child: SvgPicture.asset(
                               Images.ic_true,
                               fit: BoxFit.scaleDown,
@@ -536,7 +536,7 @@ class _SignUpClientState extends State<SignUpClient> {
                             ),
                           )
                         : Padding(
-                            padding: const EdgeInsets.only(bottom: 30.0),
+                            padding: const EdgeInsets.only(bottom: Dimens.pixel_30,),
                             child: SvgPicture.asset(
                               Images.ic_error,
                               fit: BoxFit.scaleDown,
@@ -555,20 +555,20 @@ class _SignUpClientState extends State<SignUpClient> {
               ),
             ),
             const SizedBox(
-              height: 26.0,
+              height: Dimens.pixel_26,
             ),
             const Text(
-              Strings.sign_up_label_password,
+              Strings.label_password,
               style: kTextFormFieldLabelStyle,
             ),
             const SizedBox(
-              height: 6.0,
+              height: Dimens.pixel_6,
             ),
             Stack(
               children: [
                 TextFormField(
                   style: TextStyle(
-                    height: 1.0,
+                    height: Dimens.pixel_1,
                     color: isPasswordVerified == null
                         ? klabelColor
                         : isPasswordVerified == true
@@ -585,9 +585,9 @@ class _SignUpClientState extends State<SignUpClient> {
                   // },
                   validator: Validate.validatePassword,
                   decoration: InputDecoration(
-                    hintText: Strings.sign_up_hint_password,
+                    hintText: Strings.hint_password,
                     prefixIcon: Padding(
-                      padding: const EdgeInsets.only(right: 5.0, bottom: 10.0),
+                      padding: const EdgeInsets.only(right: Dimens.pixel_5, bottom: Dimens.pixel_10,),
                       child: SvgPicture.asset(
                         Images.ic_password,
                         fit: BoxFit.scaleDown,
@@ -610,7 +610,7 @@ class _SignUpClientState extends State<SignUpClient> {
                   ),
                 ),
                 Positioned(
-                  right: 0.0,
+                  right: Dimens.pixel_0,
                   child: IconButton(
                       onPressed: () {
                         setState(() {
@@ -620,33 +620,37 @@ class _SignUpClientState extends State<SignUpClient> {
                       icon: isShowPass
                           ? Padding(
                               padding: kSuffixIconPadding,
-                              child: SvgPicture.asset(Images.ic_eye,
-                                  fit: BoxFit.scaleDown),
+                              child: SvgPicture.asset(
+                                  Images.ic_eye,
+                                  fit: BoxFit.scaleDown,
+                              ),
                             )
                           : Padding(
                               padding: kSuffixIconPadding,
-                              child: SvgPicture.asset(Images.ic_eye_off,
-                                  fit: BoxFit.scaleDown),
+                              child: SvgPicture.asset(
+                                  Images.ic_eye_off,
+                                  fit: BoxFit.scaleDown,
+                              ),
                             ),
                   ),
                 ),
               ],
             ),
             const SizedBox(
-              height: 26.0,
+              height: Dimens.pixel_26,
             ),
             const Text(
               Strings.sign_up_label_confirm_password,
               style: kTextFormFieldLabelStyle,
             ),
             const SizedBox(
-              height: 6.0,
+              height: Dimens.pixel_6,
             ),
             Stack(
               children: [
                 TextFormField(
                   style: TextStyle(
-                    height: 1.0,
+                    height: Dimens.pixel_1,
                     color: isConfirmPasswordVerified == null
                         ? klabelColor
                         : isConfirmPasswordVerified == true
@@ -668,7 +672,7 @@ class _SignUpClientState extends State<SignUpClient> {
                   decoration: InputDecoration(
                     hintText: Strings.sign_up_hint_confirm_password,
                     prefixIcon: Padding(
-                      padding: const EdgeInsets.only(right: 5.0, bottom: 10.0),
+                      padding: const EdgeInsets.only(right: Dimens.pixel_5, bottom: Dimens.pixel_10,),
                       child: SvgPicture.asset(
                         Images.ic_password,
                         fit: BoxFit.scaleDown,
@@ -691,7 +695,7 @@ class _SignUpClientState extends State<SignUpClient> {
                   ),
                 ),
                 Positioned(
-                  right: 0.0,
+                  right: Dimens.pixel_0,
                   child: IconButton(
                       onPressed: () {
                         setState(() {
@@ -701,19 +705,22 @@ class _SignUpClientState extends State<SignUpClient> {
                       icon: isShowCpass
                           ? Padding(
                               padding: kSuffixIconPadding,
-                              child: SvgPicture.asset(Images.ic_eye,
-                                  fit: BoxFit.scaleDown),
+                              child: SvgPicture.asset(
+                                  Images.ic_eye,
+                                  fit: BoxFit.scaleDown,
+                              ),
                             )
                           : Padding(
                               padding: kSuffixIconPadding,
                               child: SvgPicture.asset(Images.ic_eye_off,
                                   fit: BoxFit.scaleDown),
-                            )),
+                            ),
+                  ),
                 ),
               ],
             ),
             const SizedBox(
-              height: 30.0,
+              height: Dimens.pixel_30,
             ),
             ElevatedBtn(
               isLoading: isVisible,
@@ -740,7 +747,7 @@ class _SignUpClientState extends State<SignUpClient> {
                     passController.text, confirmPassController.text);
                 //
                 if (_formKey.currentState!.validate()) {
-                  print('Successful');
+                  debugPrint('Successful');
                   signUpClientApi();
                 } else {
                   print('Unsuccessful');

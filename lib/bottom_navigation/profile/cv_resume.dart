@@ -12,6 +12,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../custom_widgets/custom_widget_helper.dart';
 import 'package:http/http.dart' as http;
+import '../../resourse/dimens.dart';
 import '../../resourse/shared_prefs.dart';
 
 class CvResume extends BasePageScreen {
@@ -47,10 +48,10 @@ class _CvResumeState extends BasePageScreenState<CvResume> with BaseScreen {
         textColor: Colors.white,
         fontSize: 16.0,
       );
-      print('uploaded');
+      debugPrint('uploaded');
     } else {
-      print(response.reasonPhrase);
-      print('not uploaded');
+      debugPrint(response.reasonPhrase);
+      debugPrint('not uploaded');
     }
   }
 
@@ -62,16 +63,16 @@ class _CvResumeState extends BasePageScreenState<CvResume> with BaseScreen {
     );
     if (resultFile != null) {
       PlatformFile file = resultFile.files.first;
-      print('filename:${file.name}');
+      debugPrint('filename:${file.name}');
       setState(() {
         fileName = file.name;
         filePath = file.path ?? '';
       });
-      print('bytes:${file.bytes}');
-      print('extension:${file.extension}');
-      print('path:${file.path}');
+      debugPrint('bytes:${file.bytes}');
+      debugPrint('extension:${file.extension}');
+      debugPrint('path:${file.path}');
     } else {
-      print('no file selected');
+      debugPrint('no file selected');
     }
   }
 
@@ -91,16 +92,16 @@ class _CvResumeState extends BasePageScreenState<CvResume> with BaseScreen {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+        padding: const EdgeInsets.fromLTRB(Dimens.pixel_16, Dimens.pixel_0, Dimens.pixel_16, Dimens.pixel_16,),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
-              height: 23.0,
+              height: Dimens.pixel_23,
             ),
-            TitleText(title: Strings.text_title_cv_and_resume),
+            TitleText(title: Strings.text_title_cv_and_resume,),
             const SizedBox(
-              height: 48.0,
+              height: Dimens.pixel_48,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,21 +109,21 @@ class _CvResumeState extends BasePageScreenState<CvResume> with BaseScreen {
                 const Text(
                   Strings.text_selected_file,
                   style: TextStyle(
-                    fontSize: 16.0,
+                    fontSize: Dimens.pixel_16,
                     fontWeight: FontWeight.w400,
                     color: kDefaultBlackColor,
                   ),
                 ),
                 const SizedBox(
-                  height: 10.0,
+                  height: Dimens.pixel_10,
                 ),
                 Text(fileName ?? ''),
                 const SizedBox(
-                  height: 10.0,
+                  height: Dimens.pixel_10,
                 ),
                 SizedBox(
-                  width: 334,
-                  height: 471,
+                  width: Dimens.pixel_334,
+                  height: Dimens.pixel_471,
                   child: filePath != '' && filePath.contains('.jpg')
                       ? Image.file(
                     File(filePath),
@@ -136,15 +137,15 @@ class _CvResumeState extends BasePageScreenState<CvResume> with BaseScreen {
                       : Container(),
                 ),
                 const SizedBox(
-                  height: 30.0,
+                  height: Dimens.pixel_30,
                 ),
                 SizedBox(
                   width: double.infinity,
-                  height: 44.0,
+                  height: Dimens.pixel_44,
                   child: TextButton(
                     style: TextButton.styleFrom(
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6.0),
+                          borderRadius: BorderRadius.circular(Dimens.pixel_6,),
                           side: const BorderSide(color: kDefaultPurpleColor),
                       ),
                     ),
@@ -154,9 +155,10 @@ class _CvResumeState extends BasePageScreenState<CvResume> with BaseScreen {
                     child: const Text(
                       Strings.text_add_new_resume,
                       style: TextStyle(
-                          fontSize: 16.0,
+                          fontSize: Dimens.pixel_16,
                           color: kDefaultPurpleColor,
-                          fontWeight: FontWeight.w500),
+                          fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ),

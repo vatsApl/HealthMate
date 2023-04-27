@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../resourse/images.dart';
+import '../resourse/strings.dart';
 
 class MapScreen extends StatefulWidget {
   MapScreen({this.lat, this.long});
@@ -129,7 +130,7 @@ class _MapScreenState extends State<MapScreen> {
           position: pos,
         );
         //Reset deatination
-        _destination = 'null' as Marker;
+        _destination = Strings.text_null as Marker;
       });
     } else {
       // set destination

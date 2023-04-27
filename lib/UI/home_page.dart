@@ -16,10 +16,10 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import '../custom_widgets/index_notifier.dart';
 import '../resourse/api_urls.dart';
+import '../resourse/dimens.dart';
 import '../resourse/strings.dart';
 
 class HomePage extends StatefulWidget {
-
   static ValueNotifier tabIndexNotifier = TabIndexNotifier();
 
   @override
@@ -91,7 +91,12 @@ class _HomePageState extends State<HomePage> {
       // backgroundColor: Colors.white,
       // appBar: CustomAppBar(name: uFirstName, role: uRoleName, svgPictureTrailing: Images.ic_notification, netImg: netImg,),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(16.0, 63.0, 16.0, 0.0),
+        padding: const EdgeInsets.fromLTRB(
+          Dimens.pixel_16,
+          Dimens.pixel_63,
+          Dimens.pixel_16,
+          Dimens.pixel_0,
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -99,8 +104,8 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                  width: 55.0,
-                  height: 55.0,
+                  width: Dimens.pixel_55,
+                  height: Dimens.pixel_55,
                   child: Container(
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
@@ -121,21 +126,21 @@ class _HomePageState extends State<HomePage> {
                         child: SvgPicture.asset(
                           Images.ic_person,
                           color: Colors.white,
-                          height: 35.0,
+                          height: Dimens.pixel_35,
                         ),
                       ),
                       errorWidget: (context, url, error) => CircleAvatar(
                         child: SvgPicture.asset(
                           Images.ic_person,
                           color: Colors.white,
-                          height: 35.0,
+                          height: Dimens.pixel_35,
                         ),
                       ),
                     ),
                   ),
                 ),
                 const SizedBox(
-                  width: 14.0,
+                  width: Dimens.pixel_14,
                 ),
                 Flexible(
                   child: Row(
@@ -147,14 +152,17 @@ class _HomePageState extends State<HomePage> {
                           Text(
                             uFirstName ?? '',
                             style: const TextStyle(
-                                color: kDefaultPurpleColor,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w700),
+                              color: kDefaultPurpleColor,
+                              fontSize: Dimens.pixel_18,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                           Text(
                             uRoleName,
                             style: const TextStyle(
-                                color: kDefaultBlackColor, height: 1.2),
+                              color: kDefaultBlackColor,
+                              height: Dimens.pixel_1_point_2,
+                            ),
                           ),
                         ],
                       ),
@@ -172,7 +180,7 @@ class _HomePageState extends State<HomePage> {
                 controller: scrollController,
                 physics: const BouncingScrollPhysics(),
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 40.0),
+                  padding: const EdgeInsets.only(top: Dimens.pixel_40,),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -195,7 +203,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           const SizedBox(
-                            width: 22.0,
+                            width: Dimens.pixel_22,
                           ),
                           Expanded(
                             child: CardTopCandidate(
@@ -216,7 +224,7 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                       const SizedBox(
-                        height: 14.0,
+                        height: Dimens.pixel_14,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -225,7 +233,9 @@ class _HomePageState extends State<HomePage> {
                             child: CardTopCandidate(
                               onTap: () {
                                 // Navigate to Booked page.
-                                Provider.of<ValueNotifier<int>>(context, listen: false).value = 2;
+                                Provider.of<ValueNotifier<int>>(context,
+                                        listen: false)
+                                    .value = 2;
                                 HomePage.tabIndexNotifier.value = 1;
                               },
                               icon: Images.ic_booked,
@@ -236,7 +246,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           const SizedBox(
-                            width: 22.0,
+                            width: Dimens.pixel_22,
                           ),
                           Expanded(
                             child: CardTopCandidate(
@@ -251,11 +261,11 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                       const SizedBox(
-                        height: 19.0,
+                        height: Dimens.pixel_19,
                       ),
                       kDivider, //default divider
                       const SizedBox(
-                        height: 10.0,
+                        height: Dimens.pixel_10,
                       ),
                       jobsHome.isEmpty
                           ? Container()
@@ -287,7 +297,7 @@ class _HomePageState extends State<HomePage> {
                               separatorBuilder:
                                   (BuildContext context, int index) {
                                 return const SizedBox(
-                                  height: 20.0,
+                                  height: Dimens.pixel_20,
                                 );
                               },
                             ),
@@ -296,11 +306,11 @@ class _HomePageState extends State<HomePage> {
                               children: const [
                                 Padding(
                                   padding:
-                                      EdgeInsets.symmetric(vertical: 130.0),
+                                      EdgeInsets.symmetric(vertical: Dimens.pixel_130,),
                                   child: Text(
                                     Strings.candidate_text_no_jobs_found,
                                     style: TextStyle(
-                                      fontSize: 22.0,
+                                      fontSize: Dimens.pixel_22,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -311,7 +321,7 @@ class _HomePageState extends State<HomePage> {
                               visible: isVisible,
                               child: const CupertinoActivityIndicator(
                                 color: kDefaultPurpleColor,
-                                radius: 15.0,
+                                radius: Dimens.pixel_15,
                               ),
                             ),
                     ],
@@ -323,10 +333,10 @@ class _HomePageState extends State<HomePage> {
               visible: isLoadingMore,
               child: const Center(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 12.0),
+                  padding: EdgeInsets.symmetric(vertical: Dimens.pixel_12,),
                   child: CupertinoActivityIndicator(
                     color: Colors.black,
-                    radius: 15.0,
+                    radius: Dimens.pixel_15,
                   ),
                 ),
               ),

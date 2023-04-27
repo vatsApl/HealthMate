@@ -19,6 +19,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import '../../custom_widgets/custom_widget_helper.dart';
 import '../../resourse/api_urls.dart';
+import '../../resourse/dimens.dart';
 
 class PersonalDetails extends BasePageScreen {
   @override
@@ -40,7 +41,7 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
         actionUpdateProfile();
       });
     } else {
-      print('No image selected.');
+      debugPrint('No image selected.');
     }
   }
 
@@ -52,11 +53,11 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
         actionUpdateProfile();
       });
     } else {
-      print('No image selected.');
+      debugPrint('No image selected.');
     }
   }
 
-  String genderValue = 'M';
+  String? genderValue;
   TextEditingController fnameController = TextEditingController();
   TextEditingController lnameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -205,24 +206,24 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
       child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+          padding: const EdgeInsets.fromLTRB(Dimens.pixel_16, Dimens.pixel_0, Dimens.pixel_16, Dimens.pixel_16,),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(
-                height: 23.0,
+                height: Dimens.pixel_23,
               ),
               TitleText(title: Strings.text_personal_details),
               const SizedBox(
-                height: 48.0,
+                height: Dimens.pixel_48,
               ),
               Align(
                 alignment: Alignment.center,
                 child: Stack(
                   children: [
                     SizedBox(
-                      height: 100.0,
-                      width: 100.0,
+                      height: Dimens.pixel_100,
+                      width: Dimens.pixel_100,
                       child: Container(
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
@@ -244,7 +245,7 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
                             child: SvgPicture.asset(
                               Images.ic_person,
                               color: Colors.white,
-                              height: 50.0,
+                              height: Dimens.pixel_50,
                             ),
                           ),
                           errorWidget: (context, url, error) =>
@@ -252,22 +253,22 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
                                 child: SvgPicture.asset(
                                   Images.ic_person,
                                   color: Colors.white,
-                                  height: 50.0,
+                                  height: Dimens.pixel_50,
                                 ),
                               ),
                         ),
                       ),
                     ),
                     Positioned(
-                      right: 0.0,
-                      bottom: 0.0,
+                      right: Dimens.pixel_0,
+                      bottom: Dimens.pixel_0,
                       child: SizedBox(
-                        height: 30.0,
-                        width: 30.0,
+                        height: Dimens.pixel_30,
+                        width: Dimens.pixel_30,
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: const BorderRadius.all(
-                              Radius.circular(50.0),
+                              Radius.circular(Dimens.pixel_50),
                             ),
                             border: Border.all(
                               color: kDefaultPurpleColor,
@@ -281,7 +282,7 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
                                 isScrollControlled: true,
                                 shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(6.0),
+                                    top: Radius.circular(Dimens.pixel_6,),
                                   ),
                                 ),
                                 builder: (context) =>
@@ -292,11 +293,10 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
                                               .viewInsets
                                               .bottom,
                                         ),
-                                        // height: 147.0,
                                         decoration: BoxDecoration(
                                           border: Border.all(
                                             color: Colors.grey,
-                                            width: 1.0,
+                                            width: Dimens.pixel_1,
                                           ),
                                         ),
                                         child: Column(
@@ -311,7 +311,8 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
                                               title: const Text(
                                                   Strings.text_documents,
                                                   style:
-                                                  kSelectDocsTextStyle),
+                                                  kSelectDocsTextStyle,
+                                              ),
                                             ),
                                             ListTile(
                                               onTap: () {
@@ -366,7 +367,7 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
                 ),
               ),
               const SizedBox(
-                height: 50.0,
+                height: Dimens.pixel_50,
               ),
               const Text(
                 Strings.personal_details_label_first_name,
@@ -382,7 +383,7 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
                 controller: fnameController,
               ),
               const SizedBox(
-                height: 26.0,
+                height: Dimens.pixel_26,
               ),
               const Text(
                 Strings.candidate_details_label_last_name,
@@ -397,20 +398,21 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
                 controller: lnameController,
               ),
               const SizedBox(
-                height: 26.0,
+                height: Dimens.pixel_26,
               ),
               Text(
                 Strings.candidate_details_label_gender,
                 style: kTextFormFieldLabelStyle.copyWith(
-                    fontSize: 14.0, color: kDefaultBlackColor),
+                    fontSize: Dimens.pixel_14, color: kDefaultBlackColor,
+                ),
               ),
               const SizedBox(
-                height: 10.0,
+                height: Dimens.pixel_10,
               ),
               Row(
                 children: [
                   Radio(
-                    value: Strings.sign_up_gender_radio_male_value,
+                    value: Strings.gender_radio_male_value,
                     groupValue: genderValue,
                     onChanged: (String? value) {
                       setState(() {
@@ -435,7 +437,7 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
                   ),
                   const Text(
                     Strings.sign_up_gender_label_female,
-                    style: TextStyle(color: klabelColor),
+                    style: TextStyle(color: klabelColor,),
                   ),
                   Radio(
                     value: Strings.sign_up_gender_radio_other_value,
@@ -453,7 +455,7 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
                 ],
               ),
               const SizedBox(
-                height: 26.0,
+                height: Dimens.pixel_26,
               ),
               const Text(
                 Strings.label_email,
@@ -470,7 +472,7 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
                 ),
               ),
               const SizedBox(
-                height: 26.0,
+                height: Dimens.pixel_26,
               ),
               const Text(
                 Strings.label_phone_number,
@@ -486,15 +488,15 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
                 ),
               ),
               const SizedBox(
-                height: 26.0,
+                height: Dimens.pixel_26,
               ),
               // two fields of password and confirm password need to show in settings/change password:
               // const Text(
-              //   'Password',
+              //   Strings.label_password,
               //   style: kTextFormFieldLabelStyle,
               // ),
               // CustomTextFormField(
-              //   hint: 'Enter Password',
+              //   hint: Strings.hint_password,
               //   controller: passController,
               //   obscureText: isShowPass ? true : false,
               //   maxLines: 1,
@@ -511,14 +513,14 @@ class _PersonalDetailsState extends BasePageScreenState<PersonalDetails> with Ba
               //   },
               // ),
               // const SizedBox(
-              //   height: 26.0,
+              //   height: Dimens.pixel_26,
               // ),
               // const Text(
-              //   'Confirm Password',
+              //   Strings.label_confirm_password,
               //   style: kTextFormFieldLabelStyle,
               // ),
               // CustomTextFormField(
-              //   hint: 'Enter Confirm Password',
+              //   hint: Strings.hint_enter_confirm_password,
               //   controller: confirmPassController,
               //   obscureText: true,
               //   maxLines: 1, //obscure text can not be multiline

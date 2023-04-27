@@ -76,7 +76,8 @@ class CardTopClient extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           style: const TextStyle(
-                              color: klightColor, fontSize: 12.0,
+                            color: klightColor,
+                            fontSize: 12.0,
                           ),
                         ),
                       ),

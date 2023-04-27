@@ -1,8 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:clg_project/UI/signin_page.dart';
 import 'package:clg_project/constants.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
+import '../resourse/dimens.dart';
 import '../widgets/bg_images.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -53,7 +55,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 }),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 150.0),
+            padding: const EdgeInsets.only(bottom: Dimens.pixel_150),
             child: AnimatedSmoothIndicator(
               activeIndex: activeIndex,
               count: items.length,
@@ -64,14 +66,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 180.0, bottom: 50.0),
+                padding: const EdgeInsets.only(
+                  top: Dimens.pixel_180,
+                  bottom: Dimens.pixel_50,
+                ),
                 child: activeIndex == 2
                     ? Visibility(
                         visible: isVisible,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: Dimens.pixel_20,
+                          ),
                           child: ElevatedBtn(
-                            btnTitle: 'Get Started',
+                            btnTitle: Strings.text_get_started,
                             bgColor: kDefaultPurpleColor,
                             onPressed: () {
                               Navigator.of(context).pushAndRemoveUntil(

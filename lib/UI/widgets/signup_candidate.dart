@@ -12,6 +12,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../resourse/dimens.dart';
 import '../../resourse/strings.dart';
 
 class SignUpCandidate extends StatefulWidget {
@@ -73,7 +74,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
   FocusNode passFocusNode = FocusNode();
   FocusNode confirmPassFocusNode = FocusNode();
 
-  String _genderValue = 'M';
+  String _genderValue = Strings.gender_radio_male_value;
   bool isShowPass = true;
   bool isShowCpass = true;
 
@@ -157,26 +158,31 @@ class SignUpCandidateState extends State<SignUpCandidate> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
-          insetPadding: const EdgeInsets.symmetric(horizontal: 16.0),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
+          insetPadding: const EdgeInsets.symmetric(
+            horizontal: Dimens.pixel_16,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(Dimens.pixel_6),
+          ),
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: Dimens.pixel_10,
+              vertical: Dimens.pixel_15,
+            ),
             child: SizedBox(
-              height: 469.0,
+              height: Dimens.pixel_469,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Padding(
                     padding: EdgeInsets.only(
-                      top: 34.0,
-                      left: 26.0,
+                      top: Dimens.pixel_34,
+                      left: Dimens.pixel_26,
                     ),
                     child: Text(
-                      'Select Role',
+                      Strings.text_select_role,
                       style: TextStyle(
-                        fontSize: 20.0,
+                        fontSize: Dimens.pixel_20,
                         color: kDefaultBlackColor,
                         fontWeight: FontWeight.w500,
                       ),
@@ -184,7 +190,9 @@ class SignUpCandidateState extends State<SignUpCandidate> {
                   ),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 48.5),
+                      padding: const EdgeInsets.only(
+                        top: Dimens.pixel_48_and_half,
+                      ),
                       child: ListView.builder(
                         physics: const BouncingScrollPhysics(),
                         itemCount: roleList.length,
@@ -202,7 +210,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
                               color: Colors.transparent,
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
-                                  horizontal: 26.0,
+                                  horizontal: Dimens.pixel_26,
                                 ),
                                 child: Column(
                                   children: [
@@ -220,7 +228,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
                                           fontWeight: selectedRoleIndex == index
                                               ? FontWeight.w500
                                               : FontWeight.w400,
-                                          fontSize: 16.0,
+                                          fontSize: Dimens.pixel_16,
                                         ),
                                       ),
                                       activeColor: kDefaultPurpleColor,
@@ -240,8 +248,8 @@ class SignUpCandidateState extends State<SignUpCandidate> {
                                     ),
                                     const Divider(
                                       color: Color(0xffF4F2F2),
-                                      height: 1.0,
-                                      thickness: 1.0,
+                                      height: Dimens.pixel_1,
+                                      thickness: Dimens.pixel_1,
                                     ),
                                   ],
                                 ),
@@ -275,7 +283,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
           TextFormField(
             textAlignVertical: TextAlignVertical.bottom,
             style: TextStyle(
-              height: 1.0,
+              height: Dimens.pixel_1,
               color: isFnameVerified == null
                   ? klabelColor
                   : isFnameVerified == true
@@ -336,7 +344,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
             ),
           ),
           const SizedBox(
-            height: 26.0,
+            height: Dimens.pixel_26,
           ),
           const Text(
             Strings.sign_up_label_last_name,
@@ -345,7 +353,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
           TextFormField(
             textAlignVertical: TextAlignVertical.bottom,
             style: TextStyle(
-              height: 1.0,
+              height: Dimens.pixel_1,
               color: isLnameVerified == null
                   ? klabelColor
                   : isLnameVerified == true
@@ -406,7 +414,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
             ),
           ),
           const SizedBox(
-            height: 26.0,
+            height: Dimens.pixel_49,
           ),
           const Align(
             alignment: Alignment.centerLeft,
@@ -418,13 +426,13 @@ class SignUpCandidateState extends State<SignUpCandidate> {
             ),
           ),
           const SizedBox(
-            height: 10.0,
+            height: Dimens.pixel_10,
           ),
           Row(
             children: [
               Radio(
                 activeColor: kDefaultPurpleColor,
-                value: Strings.sign_up_gender_radio_male_value,
+                value: Strings.gender_radio_male_value,
                 groupValue: _genderValue,
                 onChanged: (String? value) {
                   setState(() {
@@ -464,14 +472,15 @@ class SignUpCandidateState extends State<SignUpCandidate> {
               ),
               const Text(
                 Strings.sign_up_gender_label_other,
-                style: TextStyle(color: klabelColor),
+                style: TextStyle(
+                  color: klabelColor,
+                ),
               ),
             ],
           ),
           const SizedBox(
-            height: 26.0,
-          ), //check this spacing
-
+            height: Dimens.pixel_40,
+          ),
           const Align(
             alignment: Alignment.centerLeft,
             child: Text(
@@ -480,7 +489,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
             ),
           ),
           const SizedBox(
-            height: 11.0,
+            height: Dimens.pixel_11,
           ),
           GestureDetector(
             onTap: () {
@@ -489,7 +498,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
             child: TextFormField(
               enabled: false,
               decoration: InputDecoration(
-                hintText: selectedRoleItem == 'null'
+                hintText: selectedRoleItem == Strings.text_null
                     ? Strings.sign_up_default_hint_role
                     : selectedRoleItem,
                 // hintText: selectedIndex == -1
@@ -504,21 +513,20 @@ class SignUpCandidateState extends State<SignUpCandidate> {
                 suffixIcon: const Icon(Icons.keyboard_arrow_down_outlined),
                 disabledBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(
-                    color: Colors.grey, // Set the border color to grey
+                    color: Colors.grey,
                   ),
                 ),
               ),
             ),
           ),
           const SizedBox(
-            height: 26.0,
+            height: Dimens.pixel_26,
           ),
           const Text(
             Strings.label_email,
             style: kTextFormFieldLabelStyle,
           ),
           TextFormField(
-            // textCapitalization: TextCapitalization.words,
             textAlignVertical: TextAlignVertical.bottom,
             controller: emailController,
             keyboardType: TextInputType.emailAddress,
@@ -530,7 +538,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
             // },
             validator: Validate.validateEmail,
             style: TextStyle(
-              height: 1.0,
+              height: Dimens.pixel_1,
               color: isEmailVerified == null
                   ? klabelColor
                   : isEmailVerified == true
@@ -582,7 +590,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
             ),
           ),
           const SizedBox(
-            height: 26.0,
+            height: Dimens.pixel_26,
           ),
           const Text(
             Strings.label_phone_number,
@@ -591,7 +599,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
           TextFormField(
             textAlignVertical: TextAlignVertical.bottom,
             style: TextStyle(
-              height: 1.0,
+              height: Dimens.pixel_1,
               color: isPhoneVerified == null
                   ? klabelColor
                   : isPhoneVerified == true
@@ -652,10 +660,10 @@ class SignUpCandidateState extends State<SignUpCandidate> {
             ),
           ),
           const SizedBox(
-            height: 26.0,
+            height: Dimens.pixel_26,
           ),
           const Text(
-            Strings.sign_up_label_password,
+            Strings.label_password,
             style: kTextFormFieldLabelStyle,
           ),
           Stack(
@@ -663,7 +671,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
               TextFormField(
                 textAlignVertical: TextAlignVertical.bottom,
                 style: TextStyle(
-                  height: 1.0,
+                  height: Dimens.pixel_1,
                   color: isPasswordVerified == null
                       ? klabelColor
                       : isPasswordVerified == true
@@ -680,7 +688,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
                 // },
                 validator: Validate.validatePassword,
                 decoration: InputDecoration(
-                  hintText: Strings.sign_up_hint_password,
+                  hintText: Strings.hint_password,
                   prefixIcon: Padding(
                     padding: kPrefixIconPadding,
                     child: SvgPicture.asset(
@@ -705,29 +713,34 @@ class SignUpCandidateState extends State<SignUpCandidate> {
                 ),
               ),
               Positioned(
-                right: 0.0,
+                right: Dimens.pixel_0,
                 child: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        isShowPass = !isShowPass;
-                      });
-                    },
-                    icon: isShowPass
-                        ? Padding(
-                            padding: kSuffixIconPadding,
-                            child: SvgPicture.asset(Images.ic_eye,
-                                fit: BoxFit.scaleDown),
-                          )
-                        : Padding(
-                            padding: kSuffixIconPadding,
-                            child: SvgPicture.asset(Images.ic_eye_off,
-                                fit: BoxFit.scaleDown),
-                          )),
+                  onPressed: () {
+                    setState(() {
+                      isShowPass = !isShowPass;
+                    });
+                  },
+                  icon: isShowPass
+                      ? Padding(
+                          padding: kSuffixIconPadding,
+                          child: SvgPicture.asset(
+                            Images.ic_eye,
+                            fit: BoxFit.scaleDown,
+                          ),
+                        )
+                      : Padding(
+                          padding: kSuffixIconPadding,
+                          child: SvgPicture.asset(
+                            Images.ic_eye_off,
+                            fit: BoxFit.scaleDown,
+                          ),
+                        ),
+                ),
               ),
             ],
           ),
           const SizedBox(
-            height: 26.0,
+            height: Dimens.pixel_26,
           ),
           const Text(
             Strings.sign_up_label_confirm_password,
@@ -738,7 +751,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
               TextFormField(
                 textAlignVertical: TextAlignVertical.bottom,
                 style: TextStyle(
-                  height: 1.0,
+                  height: Dimens.pixel_1,
                   color: isConfirmPasswordVerified == null
                       ? klabelColor
                       : isConfirmPasswordVerified == true
@@ -792,31 +805,35 @@ class SignUpCandidateState extends State<SignUpCandidate> {
                 ),
               ),
               Positioned(
-                right: 0.0,
+                right: Dimens.pixel_0,
                 child: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        isShowCpass = !isShowCpass;
-                      });
-                    },
-                    icon: isShowCpass
-                        ? Padding(
-                            padding: kSuffixIconPadding,
-                            child: SvgPicture.asset(Images.ic_eye,
-                                fit: BoxFit.scaleDown),
-                          )
-                        : Padding(
-                            padding: kSuffixIconPadding,
-                            child: SvgPicture.asset(Images.ic_eye_off,
-                                fit: BoxFit.scaleDown),
-                          )),
+                  onPressed: () {
+                    setState(() {
+                      isShowCpass = !isShowCpass;
+                    });
+                  },
+                  icon: isShowCpass
+                      ? Padding(
+                          padding: kSuffixIconPadding,
+                          child: SvgPicture.asset(
+                            Images.ic_eye,
+                            fit: BoxFit.scaleDown,
+                          ),
+                        )
+                      : Padding(
+                          padding: kSuffixIconPadding,
+                          child: SvgPicture.asset(
+                            Images.ic_eye_off,
+                            fit: BoxFit.scaleDown,
+                          ),
+                        ),
+                ),
               ),
             ],
           ),
           const SizedBox(
-            height: 30.0,
+            height: Dimens.pixel_30,
           ),
-
           ElevatedBtn(
             isLoading: isVisible,
             btnTitle: Strings.text_submit,

@@ -3,7 +3,9 @@ import 'package:clg_project/bottom_navigation/main_page.dart';
 import 'package:clg_project/client_side/client_main_page.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/pages/welcome_screen.dart';
+import 'package:clg_project/resourse/dimens.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -38,14 +40,14 @@ class SplashState extends State<Splash> {
         } else {
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
-                builder: (context) =>  WelcomeScreen(),
+                builder: (context) => WelcomeScreen(),
               ),
               (route) => false);
         }
       } else {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
-              builder: (context) =>  WelcomeScreen(),
+              builder: (context) => WelcomeScreen(),
             ),
             (route) => false);
       }
@@ -58,11 +60,11 @@ class SplashState extends State<Splash> {
       backgroundColor: kDefaultPurpleColor,
       body: Center(
         child: Text(
-          'Health Mate',
+          Strings.text_health_mate,
           style: TextStyle(
             color: Colors.white,
-            fontSize: 25.0,
-             letterSpacing: 1.0,
+            fontSize: Dimens.pixel_25,
+            letterSpacing: Dimens.pixel_1,
             fontWeight: FontWeight.w500,
           ),
         ),

@@ -20,14 +20,15 @@ import '../../allAPIs/allAPIs.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import '../../custom_widgets/custom_widget_helper.dart';
+import '../resourse/dimens.dart';
 
 class ClientPersonalDetails extends BasePageScreen {
-
   @override
   State<ClientPersonalDetails> createState() => _ClientPersonalDetailsState();
 }
 
-class _ClientPersonalDetailsState extends BasePageScreenState<ClientPersonalDetails> with BaseScreen {
+class _ClientPersonalDetailsState
+    extends BasePageScreenState<ClientPersonalDetails> with BaseScreen {
   bool isVisible = false;
   File? imageFile;
   final picker = ImagePicker();
@@ -48,14 +49,14 @@ class _ClientPersonalDetailsState extends BasePageScreenState<ClientPersonalDeta
 
   Future getImageFromCamera() async {
     final pickedFile = await picker.getImage(source: ImageSource.camera);
-      if (pickedFile != null) {
-        setState(() {
-          imageFile = File(pickedFile.path);
-          actionUpdateProfile();
-        });
-      } else {
-        debugPrint('No image selected.');
-      }
+    if (pickedFile != null) {
+      setState(() {
+        imageFile = File(pickedFile.path);
+        actionUpdateProfile();
+      });
+    } else {
+      debugPrint('No image selected.');
+    }
   }
 
   String genderValue = 'M';
@@ -86,7 +87,8 @@ class _ClientPersonalDetailsState extends BasePageScreenState<ClientPersonalDeta
         netImg = personalDetailsResponse?.data?.avatar.toString();
         setState(() {
           isVisible = false;
-          PreferencesHelper.setString(PreferencesHelper.KEY_CLIENT_AVATAR, netImg!);
+          PreferencesHelper.setString(
+              PreferencesHelper.KEY_CLIENT_AVATAR, netImg!);
         });
       }
     } catch (e) {
@@ -135,7 +137,6 @@ class _ClientPersonalDetailsState extends BasePageScreenState<ClientPersonalDeta
   }
 
   void uploadFileToServerApi(File? imagePath) async {
-
     String url = ApiUrl.clientUploadFileToServerApi;
     var request = http.MultipartRequest("POST", Uri.parse(url));
     request.fields['id'] = uId;
@@ -149,7 +150,7 @@ class _ClientPersonalDetailsState extends BasePageScreenState<ClientPersonalDeta
       // contentType:  MediaType('image', 'jpg')
     ));
     request.send().then((response) {
-      if(response.statusCode == 200){
+      if (response.statusCode == 200) {
         Fluttertoast.showToast(
           msg: "Profile photo uploaded",
           toastLength: Toast.LENGTH_SHORT,
@@ -160,7 +161,8 @@ class _ClientPersonalDetailsState extends BasePageScreenState<ClientPersonalDeta
           fontSize: 16.0,
         );
       }
-      PreferencesHelper.setString(PreferencesHelper.KEY_CLIENT_AVATAR, netImg ?? '');
+      PreferencesHelper.setString(
+          PreferencesHelper.KEY_CLIENT_AVATAR, netImg ?? '');
       http.Response.fromStream(response).then((onValue) {
         try {
           clientPersonalDetailsApi();
@@ -188,228 +190,237 @@ class _ClientPersonalDetailsState extends BasePageScreenState<ClientPersonalDeta
 
   @override
   Widget body() {
-   return isVisible
-       ? const Center(
-     child: CircularProgressIndicator(),
-   )
-       : Form(
-     key: _formKey,
-     child: SingleChildScrollView(
-       physics: const BouncingScrollPhysics(),
-       child: Padding(
-         padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
-         child: Column(
-           crossAxisAlignment: CrossAxisAlignment.start,
-           children: [
-             const SizedBox(
-               height: 23.0,
-             ),
-             TitleText(title: Strings.text_personal_details),
-             const SizedBox(
-               height: 48.0,
-             ),
-             Align(
-               alignment: Alignment.center,
-               child: Stack(
-                 children: [
-                   SizedBox(
-                     height: 100.0,
-                     width: 100.0,
-                     child: Container(
-                       decoration: const BoxDecoration(
-                         shape: BoxShape.circle,
-                         color: kDefaultPurpleColor,
-                       ),
-                       child: CachedNetworkImage(
-                         imageUrl: '${DataURL.baseUrl}/$netImg',
-                         imageBuilder: (context, imageProvider) =>
-                             Container(
-                               decoration: BoxDecoration(
-                                 shape: BoxShape.circle,
-                                 image: DecorationImage(
-                                   image: imageProvider,
-                                   fit: BoxFit.cover,
-                                 ),
-                               ),
-                             ),
-                         placeholder: (context, url) => CircleAvatar(
-                           child: SvgPicture.asset(
-                             Images.ic_person,
-                             color: Colors.white,
-                             height: 50.0,
-                           ),
-                         ),
-                         errorWidget: (context, url, error) =>
-                             CircleAvatar(
-                               child: SvgPicture.asset(
-                                 Images.ic_person,
-                                 color: Colors.white,
-                                 height: 50.0,
-                               ),
-                             ),
-                       ),
-                     ),
-                   ),
-                   Positioned(
-                     right: 0.0,
-                     bottom: 0.0,
-                     child: SizedBox(
-                       height: 30.0,
-                       width: 30.0,
-                       child: Container(
-                         decoration: BoxDecoration(
-                           borderRadius: const BorderRadius.all(
-                             Radius.circular(50.0),
-                           ),
-                           border: Border.all(
-                             color: kDefaultPurpleColor,
-                           ),
-                         ),
-                         child: GestureDetector(
-                           onTap: () {
-                             // show bottom sheet for select picture
-                             showModalBottomSheet(
-                               context: context,
-                               isScrollControlled: true,
-                               shape: const RoundedRectangleBorder(
-                                 borderRadius: BorderRadius.vertical(
-                                   top: Radius.circular(6.0),
-                                 ),
-                               ),
-                               builder: (context) =>
-                                   SingleChildScrollView(
-                                     child: Container(
-                                       padding: EdgeInsets.only(
-                                         bottom: MediaQuery.of(context)
-                                             .viewInsets
-                                             .bottom,
-                                       ),
-                                       decoration: BoxDecoration(
-                                         border: Border.all(
-                                           color: Colors.grey,
-                                           width: 1.0,
-                                         ),
-                                       ),
-                                       child: Column(
-                                         children: [
-                                           ListTile(
-                                             onTap: () {
-                                               Navigator.of(context).pop();
-                                             },
-                                             leading: SvgPicture.asset(
-                                               Images.ic_documents_select,
-                                             ),
-                                             title: const Text(
-                                               Strings.text_documents,
-                                               style: kSelectDocsTextStyle,
-                                             ),
-                                           ),
-                                           ListTile(
-                                             onTap: () {
-                                               getImageFromCamera();
-                                               Navigator.of(context).pop();
-                                             },
-                                             leading: SvgPicture.asset(
-                                               Images.ic_camera_select,
-                                             ),
-                                             title: const Text(
-                                                 Strings.text_camera,
-                                                 style:
-                                                 kSelectDocsTextStyle,
-                                             ),
-                                           ),
-                                           ListTile(
-                                             onTap: () {
-                                               getImageFromGallary();
-                                               Navigator.of(context).pop();
-                                             },
-                                             leading: SvgPicture.asset(
-                                               Images.ic_photos_select,
-                                             ),
-                                             title: const Text(Strings.text_photos,
-                                                 style:
-                                                 kSelectDocsTextStyle),
-                                           ),
-                                         ],
-                                       ),
-                                     ),
-                                   ),
-                             );
-                           },
-                           child: CircleAvatar(
-                             backgroundColor: imageFile == null
-                                 ? Colors.white
-                                 : kDefaultPurpleColor,
-                             child: SvgPicture.asset(
-                               Images.ic_camera,
-                               color: imageFile == null
-                                   ? kDefaultPurpleColor
-                                   : Colors.white,
-                             ),
-                           ),
-                         ),
-                       ),
-                     ),
-                   ),
-                 ],
-               ),
-             ),
-             const SizedBox(
-               height: 50.0,
-             ),
-             const Text(
-               Strings.personal_details_label_first_name,
-               style: kTextFormFieldLabelStyle,
-             ),
-             CustomTextFormField(
-               hint: Strings.personal_details_hint_first_name,
-               // validator: Validate.validateName,
-               svgPrefixIcon: SvgPicture.asset(
-                 Images.ic_person,
-                 fit: BoxFit.scaleDown,
-               ),
-               controller: fnameController,
-             ),
-             const SizedBox(
-               height: 26.0,
-             ),
-             const Text(
-               Strings.label_email,
-               style: kTextFormFieldLabelStyle,
-             ),
-             CustomTextFormField(
-               hint: Strings.hint_email,
-               controller: emailController,
-               readOnly: true,
-               inputType: TextInputType.emailAddress,
-               svgPrefixIcon: SvgPicture.asset(
-                 Images.ic_mail,
-                 fit: BoxFit.scaleDown,
-               ),
-             ),
-             const SizedBox(
-               height: 26.0,
-             ),
-             const Text(
-               Strings.label_phone_number,
-               style: kTextFormFieldLabelStyle,
-             ),
-             CustomTextFormField(
-               hint: Strings.hint_phone_number,
-               controller: phoneController,
-               inputType: TextInputType.number,
-               svgPrefixIcon: SvgPicture.asset(
-                 Images.ic_call,
-                 fit: BoxFit.scaleDown,
-               ),
-             ),
-             const SizedBox(
-               height: 26.0,
-             ),
-           ],
-         ),
-       ),
-     ),
-   );
+    return isVisible
+        ? const Center(
+            child: CircularProgressIndicator(),
+          )
+        : Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(
+                  Dimens.pixel_16,
+                  Dimens.pixel_0,
+                  Dimens.pixel_16,
+                  Dimens.pixel_16,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: Dimens.pixel_23,
+                    ),
+                    TitleText(title: Strings.text_personal_details),
+                    const SizedBox(
+                      height: Dimens.pixel_48,
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Stack(
+                        children: [
+                          SizedBox(
+                            height: Dimens.pixel_100,
+                            width: Dimens.pixel_100,
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: kDefaultPurpleColor,
+                              ),
+                              child: CachedNetworkImage(
+                                imageUrl: '${DataURL.baseUrl}/$netImg',
+                                imageBuilder: (context, imageProvider) =>
+                                    Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      image: imageProvider,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                placeholder: (context, url) => CircleAvatar(
+                                  child: SvgPicture.asset(
+                                    Images.ic_person,
+                                    color: Colors.white,
+                                    height: Dimens.pixel_50,
+                                  ),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    CircleAvatar(
+                                  child: SvgPicture.asset(
+                                    Images.ic_person,
+                                    color: Colors.white,
+                                    height: Dimens.pixel_50,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            right: Dimens.pixel_0,
+                            bottom: Dimens.pixel_0,
+                            child: SizedBox(
+                              height: Dimens.pixel_30,
+                              width: Dimens.pixel_30,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(
+                                      Dimens.pixel_50,
+                                    ),
+                                  ),
+                                  border: Border.all(
+                                    color: kDefaultPurpleColor,
+                                  ),
+                                ),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    // show bottom sheet for select picture
+                                    showModalBottomSheet(
+                                      context: context,
+                                      isScrollControlled: true,
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.vertical(
+                                          top: Radius.circular(
+                                            Dimens.pixel_6,
+                                          ),
+                                        ),
+                                      ),
+                                      builder: (context) =>
+                                          SingleChildScrollView(
+                                        child: Container(
+                                          padding: EdgeInsets.only(
+                                            bottom: MediaQuery.of(context)
+                                                .viewInsets
+                                                .bottom,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: Colors.grey,
+                                              width: Dimens.pixel_1,
+                                            ),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              ListTile(
+                                                onTap: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                leading: SvgPicture.asset(
+                                                  Images.ic_documents_select,
+                                                ),
+                                                title: const Text(
+                                                  Strings.text_documents,
+                                                  style: kSelectDocsTextStyle,
+                                                ),
+                                              ),
+                                              ListTile(
+                                                onTap: () {
+                                                  getImageFromCamera();
+                                                  Navigator.of(context).pop();
+                                                },
+                                                leading: SvgPicture.asset(
+                                                  Images.ic_camera_select,
+                                                ),
+                                                title: const Text(
+                                                  Strings.text_camera,
+                                                  style: kSelectDocsTextStyle,
+                                                ),
+                                              ),
+                                              ListTile(
+                                                onTap: () {
+                                                  getImageFromGallary();
+                                                  Navigator.of(context).pop();
+                                                },
+                                                leading: SvgPicture.asset(
+                                                  Images.ic_photos_select,
+                                                ),
+                                                title: const Text(
+                                                    Strings.text_photos,
+                                                    style:
+                                                        kSelectDocsTextStyle),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: CircleAvatar(
+                                    backgroundColor: imageFile == null
+                                        ? Colors.white
+                                        : kDefaultPurpleColor,
+                                    child: SvgPicture.asset(
+                                      Images.ic_camera,
+                                      color: imageFile == null
+                                          ? kDefaultPurpleColor
+                                          : Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: Dimens.pixel_50,
+                    ),
+                    const Text(
+                      Strings.personal_details_label_first_name,
+                      style: kTextFormFieldLabelStyle,
+                    ),
+                    CustomTextFormField(
+                      hint: Strings.personal_details_hint_first_name,
+                      // validator: Validate.validateName,
+                      svgPrefixIcon: SvgPicture.asset(
+                        Images.ic_person,
+                        fit: BoxFit.scaleDown,
+                      ),
+                      controller: fnameController,
+                    ),
+                    const SizedBox(
+                      height: Dimens.pixel_26,
+                    ),
+                    const Text(
+                      Strings.label_email,
+                      style: kTextFormFieldLabelStyle,
+                    ),
+                    CustomTextFormField(
+                      hint: Strings.hint_email,
+                      controller: emailController,
+                      readOnly: true,
+                      inputType: TextInputType.emailAddress,
+                      svgPrefixIcon: SvgPicture.asset(
+                        Images.ic_mail,
+                        fit: BoxFit.scaleDown,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: Dimens.pixel_26,
+                    ),
+                    const Text(
+                      Strings.label_phone_number,
+                      style: kTextFormFieldLabelStyle,
+                    ),
+                    CustomTextFormField(
+                      hint: Strings.hint_phone_number,
+                      controller: phoneController,
+                      inputType: TextInputType.number,
+                      svgPrefixIcon: SvgPicture.asset(
+                        Images.ic_call,
+                        fit: BoxFit.scaleDown,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: Dimens.pixel_26,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
   }
 }

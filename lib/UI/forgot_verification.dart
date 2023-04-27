@@ -13,6 +13,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
 import '../base_Screen_working/base_screen.dart';
+import '../resourse/dimens.dart';
 import '../resourse/strings.dart';
 
 class ForgotVerification extends BasePageScreen {
@@ -24,7 +25,8 @@ class ForgotVerification extends BasePageScreen {
   State<ForgotVerification> createState() => _ForgotVerificationState();
 }
 
-class _ForgotVerificationState extends BasePageScreenState<ForgotVerification> with BaseScreen {
+class _ForgotVerificationState extends BasePageScreenState<ForgotVerification>
+    with BaseScreen {
   TextEditingController otp1Controller = TextEditingController();
   TextEditingController otp2Controller = TextEditingController();
   TextEditingController otp3Controller = TextEditingController();
@@ -90,7 +92,7 @@ class _ForgotVerificationState extends BasePageScreenState<ForgotVerification> w
   }
 
   //Resend otp api
-  Future<void> forgotPasswordResendOtp() async {
+  Future<void> forgotPasswordResendOtpApi() async {
     String url = ApiUrl.forgotPasswordResendOtp;
     try {
       var response = await http.post(Uri.parse(url), body: {
@@ -103,76 +105,54 @@ class _ForgotVerificationState extends BasePageScreenState<ForgotVerification> w
         var json = jsonDecode(response.body);
         print('this: ${json['code']}');
         Fluttertoast.showToast(
-            msg: "${json['message']}",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: json['code'] == 200 ? Colors.green : Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0);
+          msg: "${json['message']}",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: json['code'] == 200 ? Colors.green : Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
       }
     } catch (e) {
       print(e);
     }
   }
 
-  Widget buildOtpTextFormField() {
-    TextEditingController otpController = TextEditingController();
-    bool? first, last;
-    return SizedBox(
-      height: 52.0,
-      width: 40.0,
-      child: TextFormField(
-        // controller: _otpController,
-        textAlign: TextAlign.center,
-        keyboardType: TextInputType.number,
-        maxLength: 1,
-        style: const TextStyle(
-          fontSize: 24.0,
-          fontWeight: FontWeight.bold,
-        ),
-        decoration: const InputDecoration(
-          counterText: '',
-          contentPadding: EdgeInsets.symmetric(vertical: 16.0),
-          border: OutlineInputBorder(
-            borderSide: BorderSide(width: 2.0),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(width: 2.0),
-          ),
-        ),
-      ),
-    );
-  }
-
   @override
   Widget body() {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+        padding: const EdgeInsets.fromLTRB(
+          Dimens.pixel_16,
+          Dimens.pixel_0,
+          Dimens.pixel_16,
+          Dimens.pixel_16,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
-              height: 23.0,
+              height: Dimens.pixel_23,
             ),
             TitleText(title: Strings.text_title_otp_verification),
             const SizedBox(
-              height: 38.0,
+              height: Dimens.pixel_38,
             ),
             Row(
               children: const [
                 Text(
                   Strings.text_enter_verification_code,
                   style: TextStyle(
-                      fontSize: 16.0,
-                      color: kDefaultBlackColor,
-                      fontWeight: FontWeight.w500),
+                    fontSize: Dimens.pixel_16,
+                    color: kDefaultBlackColor,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ],
             ),
             const SizedBox(
-              height: 28.0,
+              height: Dimens.pixel_28,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -183,7 +163,7 @@ class _ForgotVerificationState extends BasePageScreenState<ForgotVerification> w
                   last: false,
                 ),
                 const SizedBox(
-                  width: 19.0,
+                  width: Dimens.pixel_19,
                 ),
                 OtpTextFormField(
                   otpController: otp2Controller,
@@ -191,7 +171,7 @@ class _ForgotVerificationState extends BasePageScreenState<ForgotVerification> w
                   last: false,
                 ),
                 const SizedBox(
-                  width: 19.0,
+                  width: Dimens.pixel_19,
                 ),
                 OtpTextFormField(
                   otpController: otp3Controller,
@@ -199,7 +179,7 @@ class _ForgotVerificationState extends BasePageScreenState<ForgotVerification> w
                   last: false,
                 ),
                 const SizedBox(
-                  width: 19.0,
+                  width: Dimens.pixel_19,
                 ),
                 OtpTextFormField(
                   otpController: otp4Controller,
@@ -207,12 +187,12 @@ class _ForgotVerificationState extends BasePageScreenState<ForgotVerification> w
                   last: true,
                 ),
                 const SizedBox(
-                  width: 2.0,
+                  width: Dimens.pixel_2,
                 ),
               ],
             ),
             const SizedBox(
-              height: 26.0,
+              height: Dimens.pixel_26,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -220,17 +200,19 @@ class _ForgotVerificationState extends BasePageScreenState<ForgotVerification> w
                 const Text(
                   Strings.text_if_you_didt_receive_a_code,
                   style: TextStyle(
-                      fontWeight: FontWeight.w400, color: kDefaultBlackColor),
+                    fontWeight: FontWeight.w400,
+                    color: kDefaultBlackColor,
+                  ),
                 ),
                 GestureDetector(
                   onTap: () {
                     //Resend otp api
-                    forgotPasswordResendOtp();
+                    forgotPasswordResendOtpApi();
                   },
                   child: const Text(
                     Strings.text_resend,
                     style: TextStyle(
-                      fontSize: 16.0,
+                      fontSize: Dimens.pixel_16,
                       color: kDefaultPurpleColor,
                       fontWeight: FontWeight.w500,
                     ),
@@ -239,7 +221,7 @@ class _ForgotVerificationState extends BasePageScreenState<ForgotVerification> w
               ],
             ),
             const SizedBox(
-              height: 42.0,
+              height: Dimens.pixel_42,
             ),
             ElevatedBtn(
               btnTitle: Strings.text_verify,
@@ -254,5 +236,4 @@ class _ForgotVerificationState extends BasePageScreenState<ForgotVerification> w
       ),
     );
   }
-
 }

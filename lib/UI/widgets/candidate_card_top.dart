@@ -57,9 +57,9 @@ class CardTopCandidate extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                                 style: const TextStyle(
-                                    fontSize: 16.0,
-                                    color: kDefaultBlackColor,
-                                    fontWeight: FontWeight.w500,
+                                  fontSize: 16.0,
+                                  color: kDefaultBlackColor,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ),

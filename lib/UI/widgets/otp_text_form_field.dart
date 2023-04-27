@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class OtpTextFormField extends StatelessWidget {
-  OtpTextFormField({super.key, required this.otpController, this.first, this.last});
+  OtpTextFormField(
+      {super.key, required this.otpController, this.first, this.last});
 
   TextEditingController otpController;
   bool? first, last;

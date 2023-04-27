@@ -5,6 +5,8 @@ import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../resourse/dimens.dart';
+
 class JobCardClient extends StatelessWidget {
   JobModel? clientJobModel;
   JobCardClient({super.key, this.clientJobModel});
@@ -12,9 +14,14 @@ class JobCardClient extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 2.0,
+      elevation: Dimens.pixel_2,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 18.0),
+        padding: const EdgeInsets.fromLTRB(
+          Dimens.pixel_16,
+          Dimens.pixel_16,
+          Dimens.pixel_16,
+          Dimens.pixel_18,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -22,11 +29,11 @@ class JobCardClient extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  padding: const EdgeInsets.symmetric(vertical: Dimens.pixel_8),
                   child: Text(
                     '${clientJobModel?.jobCategory}'.toUpperCase(),
                     style: const TextStyle(
-                      fontSize: 10.0,
+                      fontSize: Dimens.pixel_10,
                       fontWeight: FontWeight.w500,
                       color: kDefaultPurpleColor,
                     ),
@@ -35,14 +42,14 @@ class JobCardClient extends StatelessWidget {
                 RichText(
                   text: TextSpan(
                     style: const TextStyle(
-                      fontSize: 16.0,
+                      fontSize: Dimens.pixel_16,
                       color: kDefaultPurpleColor,
                     ),
                     children: <TextSpan>[
                       const TextSpan(
                         text: Strings.amount_symbol_rupee,
                         style: TextStyle(
-                          fontSize: 16.0,
+                          fontSize: Dimens.pixel_16,
                           fontWeight: FontWeight.w500,
                           color: kDefaultBlackColor,
                         ),
@@ -50,7 +57,7 @@ class JobCardClient extends StatelessWidget {
                       TextSpan(
                         text: '${clientJobModel?.jobSalary}',
                         style: const TextStyle(
-                          fontSize: 16.0,
+                          fontSize: Dimens.pixel_16,
                           fontWeight: FontWeight.w500,
                           color: kDefaultBlackColor,
                         ),
@@ -58,7 +65,7 @@ class JobCardClient extends StatelessWidget {
                       const TextSpan(
                         text: Strings.text_per_day,
                         style: TextStyle(
-                          fontSize: 12.0,
+                          fontSize: Dimens.pixel_12,
                           fontWeight: FontWeight.w400,
                           color: klightColor,
                         ),
@@ -69,17 +76,18 @@ class JobCardClient extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              height: 10.0,
+              height: Dimens.pixel_10,
             ),
             Text(
               "${clientJobModel?.jobTitle}",
               style: const TextStyle(
-                  color: kDefaultBlackColor,
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w500),
+                color: kDefaultBlackColor,
+                fontSize: Dimens.pixel_16,
+                fontWeight: FontWeight.w500,
+              ),
             ),
             const SizedBox(
-              height: 10.0,
+              height: Dimens.pixel_10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -91,12 +99,12 @@ class JobCardClient extends StatelessWidget {
                       fit: BoxFit.scaleDown,
                     ), //
                     const SizedBox(
-                      width: 8.0,
+                      width: Dimens.pixel_8,
                     ),
                     Text(
                       '${clientJobModel?.jobLocation}',
                       style: const TextStyle(
-                        fontSize: 12.0,
+                        fontSize: Dimens.pixel_12,
                         color: Color(0xff656565),
                       ),
                     ),
@@ -109,7 +117,7 @@ class JobCardClient extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              height: 10.0,
+              height: Dimens.pixel_10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -123,14 +131,14 @@ class JobCardClient extends StatelessWidget {
                         fit: BoxFit.scaleDown,
                       ),
                       const SizedBox(
-                        width: 8.0,
+                        width: Dimens.pixel_8,
                       ),
                       Text(
                         '${clientJobModel?.jobDate}',
                         style: const TextStyle(
                           color: kDefaultPurpleColor,
                           fontWeight: FontWeight.w500,
-                          fontSize: 13.0,
+                          fontSize: Dimens.pixel_13,
                         ),
                       ),
                     ],
@@ -143,12 +151,12 @@ class JobCardClient extends StatelessWidget {
                       fit: BoxFit.scaleDown,
                     ),
                     const SizedBox(
-                      width: 8.0,
+                      width: Dimens.pixel_8,
                     ),
                     Text(
                       '${clientJobModel?.jobStartTime} - ${clientJobModel?.jobEndTime}',
                       style: const TextStyle(
-                        fontSize: 12.0,
+                        fontSize: Dimens.pixel_12,
                         color: Color(0xff656565),
                       ),
                     ),

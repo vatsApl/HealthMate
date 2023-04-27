@@ -11,6 +11,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '../../custom_widgets/custom_widget_helper.dart';
 import '../../models/onchange_skills_res.dart';
 import '../../models/roles_skills_res.dart';
+import '../../resourse/dimens.dart';
 import '../../resourse/shared_prefs.dart';
 import 'package:http/http.dart' as http;
 
@@ -99,23 +100,23 @@ class _RoleSkillsState extends BasePageScreenState<RoleSkills> with BaseScreen {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
-          insetPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+          insetPadding: const EdgeInsets.symmetric(horizontal: Dimens.pixel_16,),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
           child: SizedBox(
-            height: 469.0,
+            height: Dimens.pixel_469,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Padding(
                   padding: EdgeInsets.only(
-                    top: 34.0,
-                    left: 26.0,
+                    top: Dimens.pixel_34,
+                    left: Dimens.pixel_26,
                   ),
                   child: Text(
                     Strings.text_select_role,
                     style: TextStyle(
-                      fontSize: 20.0,
+                      fontSize: Dimens.pixel_20,
                       color: kDefaultBlackColor,
                       fontWeight: FontWeight.w500,
                     ),
@@ -123,7 +124,7 @@ class _RoleSkillsState extends BasePageScreenState<RoleSkills> with BaseScreen {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 48.5),
+                    padding: const EdgeInsets.only(top: Dimens.pixel_48_and_half,),
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
                       itemCount: allRole.length,
@@ -134,7 +135,7 @@ class _RoleSkillsState extends BasePageScreenState<RoleSkills> with BaseScreen {
                           color: Colors.transparent,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 26.0,
+                              horizontal: Dimens.pixel_26,
                             ),
                             child: Column(
                               children: [
@@ -152,7 +153,7 @@ class _RoleSkillsState extends BasePageScreenState<RoleSkills> with BaseScreen {
                                       fontWeight: selectedRoleIndex == index
                                           ? FontWeight.w500
                                           : FontWeight.w400,
-                                      fontSize: 16.0,
+                                      fontSize: Dimens.pixel_16,
                                     ),
                                   ),
                                   activeColor: kDefaultPurpleColor,
@@ -174,8 +175,8 @@ class _RoleSkillsState extends BasePageScreenState<RoleSkills> with BaseScreen {
                                 ),
                                 const Divider(
                                   color: Color(0xffF4F2F2),
-                                  height: 1.0,
-                                  thickness: 1.0,
+                                  height: Dimens.pixel_1,
+                                  thickness: Dimens.pixel_1,
                                 ),
                               ],
                             ),
@@ -244,13 +245,13 @@ class _RoleSkillsState extends BasePageScreenState<RoleSkills> with BaseScreen {
     for (int i = 0; i < skill.length; i++) {
       tag.add(
         Padding(
-          padding: const EdgeInsets.only(right: 11.0),
+          padding: const EdgeInsets.only(right: Dimens.pixel_11,),
           child: Chip(
             backgroundColor: const Color(0xffbacF4F2F2),
             label: Text(
               skill[i],
               style: const TextStyle(
-                fontSize: 12.0,
+                fontSize: Dimens.pixel_12,
                 fontWeight: FontWeight.w400,
                 color: klabelColor,
               ),
@@ -271,24 +272,25 @@ class _RoleSkillsState extends BasePageScreenState<RoleSkills> with BaseScreen {
   @override
   Widget body() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+      padding: const EdgeInsets.fromLTRB(Dimens.pixel_16, Dimens.pixel_0, Dimens.pixel_16, Dimens.pixel_16,),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(
-            height: 23.0,
+            height: Dimens.pixel_23,
           ),
           TitleText(title: Strings.text_role_and_skills),
           const SizedBox(
-            height: 48.0,
+            height: Dimens.pixel_48,
           ),
           const Text(
             Strings.text_role,
             style: TextStyle(
-                color: kDefaultBlackColor, fontWeight: FontWeight.w500),
+                color: kDefaultBlackColor, fontWeight: FontWeight.w500,
+            ),
           ),
           const SizedBox(
-            height: 15.5,
+            height: Dimens.pixel_15_and_half,
           ),
           GestureDetector(
             onTap: () {
@@ -298,7 +300,7 @@ class _RoleSkillsState extends BasePageScreenState<RoleSkills> with BaseScreen {
               textAlignVertical: TextAlignVertical.bottom,
               enabled: false,
               decoration: InputDecoration(
-                hintText: selectedRoleItem == 'null'
+                hintText: selectedRoleItem == Strings.text_null
                     ? Strings.text_select_role
                     : selectedRoleItem,
                 hintStyle: const TextStyle(
@@ -320,7 +322,7 @@ class _RoleSkillsState extends BasePageScreenState<RoleSkills> with BaseScreen {
             ),
           ),
           const SizedBox(
-            height: 50.0,
+            height: Dimens.pixel_50,
           ),
           const Text(
             Strings.text_skills,
@@ -330,7 +332,7 @@ class _RoleSkillsState extends BasePageScreenState<RoleSkills> with BaseScreen {
             ),
           ),
           const SizedBox(
-            height: 24.0,
+            height: Dimens.pixel_24,
           ),
           SingleChildScrollView(
             child: Wrap(

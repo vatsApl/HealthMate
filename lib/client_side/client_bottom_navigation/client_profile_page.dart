@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:focus_detector/focus_detector.dart';
 import '../../constants.dart';
 import '../../methods/methods.dart';
+import '../../resourse/dimens.dart';
 import '../../resourse/images.dart';
 import '../client_personal_details.dart';
 
@@ -36,7 +37,12 @@ class _ClientProfilePageState extends State<ClientProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16.0, 19.0, 16.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(
+        Dimens.pixel_16,
+        Dimens.pixel_19,
+        Dimens.pixel_16,
+        Dimens.pixel_0,
+      ),
       child: FocusDetector(
         onFocusGained: () {
           getData();
@@ -48,14 +54,18 @@ class _ClientProfilePageState extends State<ClientProfilePage> {
           ),
           body: Center(
             child: Padding(
-              padding: const EdgeInsets.only(top: 48.0),
+              padding: const EdgeInsets.only(
+                top: Dimens.pixel_48,
+              ),
               child: Column(
                 children: [
                   Card(
-                    elevation: 2.0,
+                    elevation: Dimens.pixel_2,
                     shadowColor: const Color(0xff000000),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6.0),
+                      borderRadius: BorderRadius.circular(
+                        Dimens.pixel_6,
+                      ),
                     ),
                     child: InkWell(
                       onTap: () {
@@ -67,7 +77,9 @@ class _ClientProfilePageState extends State<ClientProfilePage> {
                         );
                       },
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4.0),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: Dimens.pixel_4,
+                        ),
                         child: ListTile(
                           leading: SvgPicture.asset(
                             Images.ic_personal_details,
@@ -89,13 +101,15 @@ class _ClientProfilePageState extends State<ClientProfilePage> {
                     ),
                   ),
                   const SizedBox(
-                    height: 12.0,
+                    height: Dimens.pixel_12,
                   ),
                   Card(
-                    elevation: 2.0,
+                    elevation: Dimens.pixel_2,
                     shadowColor: const Color(0xff000000),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6.0),
+                      borderRadius: BorderRadius.circular(
+                        Dimens.pixel_6,
+                      ),
                     ),
                     child: InkWell(
                       onTap: () {
@@ -107,7 +121,9 @@ class _ClientProfilePageState extends State<ClientProfilePage> {
                         );
                       },
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4.0),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: Dimens.pixel_4,
+                        ),
                         child: ListTile(
                           leading: SvgPicture.asset(
                             Images.ic_hospital,
@@ -129,16 +145,20 @@ class _ClientProfilePageState extends State<ClientProfilePage> {
                     ),
                   ),
                   const SizedBox(
-                    height: 12.0,
+                    height: Dimens.pixel_12,
                   ),
                   Card(
-                    elevation: 2.0,
+                    elevation: Dimens.pixel_2,
                     shadowColor: const Color(0xff000000),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6.0),
+                      borderRadius: BorderRadius.circular(
+                        Dimens.pixel_6,
+                      ),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4.0),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: Dimens.pixel_4,
+                      ),
                       child: ListTile(
                         leading: SvgPicture.asset(
                           Images.ic_settings,
@@ -159,20 +179,24 @@ class _ClientProfilePageState extends State<ClientProfilePage> {
                     ),
                   ),
                   const SizedBox(
-                    height: 12.0,
+                    height: Dimens.pixel_12,
                   ),
                   Card(
-                    elevation: 2.0,
+                    elevation: Dimens.pixel_2,
                     shadowColor: const Color(0xff000000),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6.0),
+                      borderRadius: BorderRadius.circular(
+                        Dimens.pixel_6,
+                      ),
                     ),
                     child: InkWell(
                       onTap: () {
                         Methods.showDialogLogOut(context);
                       },
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4.0),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: Dimens.pixel_4,
+                        ),
                         child: ListTile(
                           leading: SvgPicture.asset(
                             Images.ic_logout,

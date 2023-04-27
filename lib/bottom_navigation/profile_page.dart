@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:focus_detector/focus_detector.dart';
 import '../methods/methods.dart';
+import '../resourse/dimens.dart';
 
 class ProfilePage extends StatefulWidget {
 
@@ -48,15 +49,15 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Scaffold(
         backgroundColor: Colors.white,
         body: Padding(
-          padding: const EdgeInsets.fromLTRB(16.0, 63.0, 16.0, 0.0),
+          padding: const EdgeInsets.fromLTRB(Dimens.pixel_16, Dimens.pixel_63, Dimens.pixel_16, Dimens.pixel_0,),
           child: SingleChildScrollView(
             child: Column(
               children: [
                 Row(
                   children: [
                     SizedBox(
-                      width: 55.0,
-                      height: 55.0,
+                      width: Dimens.pixel_55,
+                      height: Dimens.pixel_55,
                       child: Container(
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
@@ -78,14 +79,14 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: SvgPicture.asset(
                                 Images.ic_person,
                                 color: Colors.white,
-                                height: 35.0,
+                                height: Dimens.pixel_35,
                               ),
                             ),
                             errorWidget: (context, url, error) => CircleAvatar(
                               child: SvgPicture.asset(
                                 Images.ic_person,
                                 color: Colors.white,
-                                height: 35.0,
+                                height: Dimens.pixel_35,
                               ),
                             ),
                           ),
@@ -93,7 +94,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     const SizedBox(
-                      width: 14.0,
+                      width: Dimens.pixel_14,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,29 +103,30 @@ class _ProfilePageState extends State<ProfilePage> {
                           uFirstName ?? '',
                           style: const TextStyle(
                             color: kDefaultPurpleColor,
-                            fontSize: 18.0,
+                            fontSize: Dimens.pixel_18,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
                         Text(
                           uRoleName ?? '',
                           style: const TextStyle(
-                              color: kDefaultBlackColor, height: 1.2),
+                              color: kDefaultBlackColor, height: Dimens.pixel_1_point_2,
+                          ),
                         ),
                       ],
                     )
                   ],
                 ),
                 const SizedBox(
-                  height: 48.0,
+                  height: Dimens.pixel_48,
                 ),
                 Column(
                   children: [
                     Card(
-                      elevation: 2.0,
+                      elevation: Dimens.pixel_2,
                       shadowColor: const Color(0xff000000),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6.0),
+                        borderRadius: BorderRadius.circular(Dimens.pixel_6),
                       ),
                       child: InkWell(
                         onTap: () {
@@ -136,7 +138,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           );
                         },
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 4.0),
+                          padding: const EdgeInsets.symmetric(vertical: Dimens.pixel_4),
                           child: ListTile(
                             leading: SvgPicture.asset(
                               Images.ic_personal_details,
@@ -158,13 +160,13 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     const SizedBox(
-                      height: 18.0,
+                      height: Dimens.pixel_18,
                     ),
                     Card(
-                      elevation: 2.0,
+                      elevation: Dimens.pixel_2,
                       shadowColor: const Color(0xff000000),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6.0),
+                        borderRadius: BorderRadius.circular(Dimens.pixel_6),
                       ),
                       child: InkWell(
                         onTap: () {
@@ -176,7 +178,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           );
                         },
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 4.0),
+                          padding: const EdgeInsets.symmetric(vertical: Dimens.pixel_4),
                           child: ListTile(
                             leading: SvgPicture.asset(
                               Images.ic_skills,
@@ -198,13 +200,13 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     const SizedBox(
-                      height: 18.0,
+                      height: Dimens.pixel_18,
                     ),
                     Card(
-                      elevation: 2.0,
+                      elevation: Dimens.pixel_2,
                       shadowColor: const Color(0xff000000),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6.0),
+                        borderRadius: BorderRadius.circular(Dimens.pixel_6),
                       ),
                       child: InkWell(
                         onTap: () {
@@ -216,7 +218,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           );
                         },
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 4.0),
+                          padding: const EdgeInsets.symmetric(vertical: Dimens.pixel_4),
                           child: ListTile(
                             leading: SvgPicture.asset(
                               Images.ic_resume,
@@ -238,13 +240,13 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     const SizedBox(
-                      height: 18.0,
+                      height: Dimens.pixel_18,
                     ),
                     Card(
-                      elevation: 2.0,
+                      elevation: Dimens.pixel_2,
                       shadowColor: const Color(0xff000000),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6.0),
+                        borderRadius: BorderRadius.circular(Dimens.pixel_6),
                       ),
                       child: InkWell(
                         onTap: () {
@@ -257,14 +259,14 @@ class _ProfilePageState extends State<ProfilePage> {
                           // );
                         },
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 4.0),
+                          padding: const EdgeInsets.symmetric(vertical: Dimens.pixel_4),
                           child: ListTile(
                             leading: SvgPicture.asset(
                               Images.ic_settings,
                               color: kDefaultPurpleColor,
                             ),
                             title: const Text(
-                              'Settings',
+                              Strings.text_settings,
                               style: TextStyle(
                                 color: kDefaultBlackColor,
                                 fontWeight: FontWeight.w400,
@@ -279,20 +281,20 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     const SizedBox(
-                      height: 18.0,
+                      height: Dimens.pixel_18,
                     ),
                     Card(
-                      elevation: 2.0,
+                      elevation: Dimens.pixel_2,
                       shadowColor: const Color(0xff000000),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6.0),
+                        borderRadius: BorderRadius.circular(Dimens.pixel_6),
                       ),
                       child: InkWell(
                         onTap: () {
                           Methods.showDialogLogOut(context);
                         },
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 4.0),
+                          padding: const EdgeInsets.symmetric(vertical: Dimens.pixel_4,),
                           child: ListTile(
                             leading: SvgPicture.asset(
                               Images.ic_logout,

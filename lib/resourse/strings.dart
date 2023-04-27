@@ -1,4 +1,6 @@
 class Strings {
+  static const text_health_mate = 'Health Mate';
+  static const text_get_started = 'Get Started';
   static const sign_in_welcome_back = 'Welcome Back !';
   static const sign_in_email_label = 'Email';
   static const sign_in_hint_enter_email_address = 'Enter Email Address';
@@ -27,7 +29,7 @@ class Strings {
   static const sign_up_label_last_name = 'Last Name';
   static const sign_up_hint_last_name = 'Enter Last Name';
   static const sign_up_label_gender = 'Gender';
-  static const sign_up_gender_radio_male_value = 'M';
+  static const gender_radio_male_value = 'M';
   static const sign_up_gender_label_male = 'Male';
   static const sign_up_gender_radio_female_value = 'F';
   static const sign_up_gender_label_female = 'Female';
@@ -39,8 +41,8 @@ class Strings {
   static const hint_email = 'Enter Email Address';
   static const label_phone_number = 'Phone Number';
   static const hint_phone_number = 'Enter Phone Number';
-  static const sign_up_label_password = 'Password';
-  static const sign_up_hint_password = 'Enter Password';
+  static const label_password = 'Password';
+  static const hint_password = 'Enter Password';
   static const sign_up_label_confirm_password = 'Confirm Password';
   static const sign_up_hint_confirm_password = 'Enter Confirm Password';
   static const sign_up_label_address = 'Address';
@@ -172,4 +174,6 @@ class Strings {
   static const text_remove = 'Remove';
   static const text_set_as_default = 'Set As Default';
   static const text_set_this_as_a_default_address = 'Set this as a default address';
+  static const text_edit_address = 'Edit Address';
+  static const text_null = 'null';
 }

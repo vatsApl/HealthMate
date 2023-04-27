@@ -25,7 +25,8 @@ class CustomTextFormField extends StatefulWidget {
   final int? maxLines;
   final bool autoFocus;
 
-  const CustomTextFormField({super.key, 
+  const CustomTextFormField({
+    super.key,
     this.hint,
     this.controller,
     this.baseColor,
@@ -79,19 +80,23 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           hintText: widget.hint,
           hintStyle: widget.hintStyle,
           focusColor: kDefaultPurpleColor,
-          prefixIcon: widget.svgPrefixIcon != null ? Padding(
-            padding: kPrefixIconPadding,
-            child: widget.svgPrefixIcon,
-          ) : null,
-          suffixIcon: widget.svgSuffixIcon != null ? IconButton(
-            onPressed: () {
-              widget.obscureTap;
-            },
-            icon: Padding(
-              padding: kSuffixIconPadding,
-              child: widget.svgSuffixIcon,
-            ),
-          ) : null,
+          prefixIcon: widget.svgPrefixIcon != null
+              ? Padding(
+                  padding: kPrefixIconPadding,
+                  child: widget.svgPrefixIcon,
+                )
+              : null,
+          suffixIcon: widget.svgSuffixIcon != null
+              ? IconButton(
+                  onPressed: () {
+                    widget.obscureTap;
+                  },
+                  icon: Padding(
+                    padding: kSuffixIconPadding,
+                    child: widget.svgSuffixIcon,
+                  ),
+                )
+              : null,
           disabledBorder: const UnderlineInputBorder(
             borderSide: BorderSide(
               color: Colors.grey,

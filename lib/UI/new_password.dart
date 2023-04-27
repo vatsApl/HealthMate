@@ -14,6 +14,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
+import '../resourse/dimens.dart';
 import '../resourse/strings.dart';
 
 class NewPassword extends BasePageScreen {
@@ -25,7 +26,8 @@ class NewPassword extends BasePageScreen {
   State<NewPassword> createState() => _NewPasswordState();
 }
 
-class _NewPasswordState extends BasePageScreenState<NewPassword> with BaseScreen {
+class _NewPasswordState extends BasePageScreenState<NewPassword>
+    with BaseScreen {
   bool? isNewPasswordVerified;
   bool? isConfirmPasswordVerified;
   TextEditingController newPassController = TextEditingController();
@@ -36,7 +38,7 @@ class _NewPasswordState extends BasePageScreenState<NewPassword> with BaseScreen
   bool isVisible = false;
 
   //reset password api
-  Future<void> resetPassword() async {
+  Future<void> resetPasswordApi() async {
     String url = ApiUrl.resetPassword;
     try {
       setState(() {
@@ -84,24 +86,31 @@ class _NewPasswordState extends BasePageScreenState<NewPassword> with BaseScreen
   @override
   Widget body() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
+      padding: const EdgeInsets.symmetric(
+        horizontal: Dimens.pixel_16,
+      ),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
-              height: 23.0,
+              height: Dimens.pixel_23,
             ),
             TitleText(title: Strings.text_title_new_password),
             const SizedBox(
-              height: 53.0,
+              height: Dimens.pixel_53,
             ),
-            const Text(Strings.label_new_password, style: kTextFormFieldLabelStyle,),
+            const Text(
+              Strings.label_new_password,
+              style: kTextFormFieldLabelStyle,
+            ),
             Stack(
               children: [
                 TextFormField(
                   textAlignVertical: TextAlignVertical.bottom,
-                  style: const TextStyle(height: 1.0),
+                  style: const TextStyle(
+                    height: Dimens.pixel_1,
+                  ),
                   textCapitalization: TextCapitalization.words,
                   obscureText: isShowPass ? true : false,
                   controller: newPassController,
@@ -121,70 +130,80 @@ class _NewPasswordState extends BasePageScreenState<NewPassword> with BaseScreen
                         color: isNewPasswordVerified == null
                             ? klabelColor
                             : isNewPasswordVerified == true
-                            ? Colors.green
-                            : Colors.red,
+                                ? Colors.green
+                                : Colors.red,
                       ),
                     ),
                     focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: isNewPasswordVerified == null
-                              ? kDefaultPurpleColor
-                              : isNewPasswordVerified == true
-                              ? Colors.green
-                              : Colors.red,
-                        )),
+                      borderSide: BorderSide(
+                        color: isNewPasswordVerified == null
+                            ? kDefaultPurpleColor
+                            : isNewPasswordVerified == true
+                                ? Colors.green
+                                : Colors.red,
+                      ),
+                    ),
                   ),
                 ),
                 Positioned(
-                  right: 0.0,
+                  right: Dimens.pixel_0,
                   child: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          isShowPass = !isShowPass;
-                        });
-                      },
-                      icon: isShowPass
-                          ? Padding(
-                        padding: kSuffixIconPadding,
-                        child: SvgPicture.asset(Images.ic_eye,
-                            fit: BoxFit.scaleDown),
-                      )
-                          : Padding(
-                        padding: kSuffixIconPadding,
-                        child: SvgPicture.asset(Images.ic_eye_off,
-                            fit: BoxFit.scaleDown),
-                      )),
+                    onPressed: () {
+                      setState(() {
+                        isShowPass = !isShowPass;
+                      });
+                    },
+                    icon: isShowPass
+                        ? Padding(
+                            padding: kSuffixIconPadding,
+                            child: SvgPicture.asset(
+                              Images.ic_eye,
+                              fit: BoxFit.scaleDown,
+                            ),
+                          )
+                        : Padding(
+                            padding: kSuffixIconPadding,
+                            child: SvgPicture.asset(
+                              Images.ic_eye_off,
+                              fit: BoxFit.scaleDown,
+                            ),
+                          ),
+                  ),
                 ),
               ],
             ),
             const SizedBox(
-              height: 19.0,
+              height: Dimens.pixel_19,
             ),
             const Text(
               Strings.label_confirm_password,
               style: kTextFormFieldLabelStyle,
             ),
             const SizedBox(
-              height: 6.0,
+              height: Dimens.pixel_6,
             ),
             Stack(
               children: [
                 TextFormField(
                   textAlignVertical: TextAlignVertical.bottom,
                   controller: confirmPassController,
-                  style: const TextStyle(height: 1.0),
+                  style: const TextStyle(
+                    height: Dimens.pixel_1,
+                  ),
                   obscureText: isShowCpass,
                   decoration: InputDecoration(
                     hintText: Strings.hint_enter_confirm_password,
                     prefixIcon: Padding(
                       padding: kPrefixIconPadding,
-                      child: SvgPicture.asset(Images.ic_password,
-                          fit: BoxFit.scaleDown),
+                      child: SvgPicture.asset(
+                        Images.ic_password,
+                        fit: BoxFit.scaleDown,
+                      ),
                     ),
                   ),
                 ),
                 Positioned(
-                  right: 0.0,
+                  right: Dimens.pixel_0,
                   child: IconButton(
                     onPressed: () {
                       setState(() {
@@ -193,21 +212,25 @@ class _NewPasswordState extends BasePageScreenState<NewPassword> with BaseScreen
                     },
                     icon: isShowCpass
                         ? Padding(
-                      padding: kSuffixIconPadding,
-                      child: SvgPicture.asset(Images.ic_eye,
-                          fit: BoxFit.scaleDown),
-                    )
+                            padding: kSuffixIconPadding,
+                            child: SvgPicture.asset(
+                              Images.ic_eye,
+                              fit: BoxFit.scaleDown,
+                            ),
+                          )
                         : Padding(
-                      padding: kSuffixIconPadding,
-                      child: SvgPicture.asset(Images.ic_eye_off,
-                          fit: BoxFit.scaleDown),
-                    ),
+                            padding: kSuffixIconPadding,
+                            child: SvgPicture.asset(
+                              Images.ic_eye_off,
+                              fit: BoxFit.scaleDown,
+                            ),
+                          ),
                   ),
                 ),
               ],
             ),
             const SizedBox(
-              height: 58.0,
+              height: Dimens.pixel_58,
             ),
             ElevatedBtn(
               btnTitle: Strings.text_verify,
@@ -220,8 +243,8 @@ class _NewPasswordState extends BasePageScreenState<NewPassword> with BaseScreen
                     Validate.validatePasswordBool(newPassController.text);
                 isConfirmPasswordVerified =
                     Validate.validatePasswordBool(newPassController.text);
-                //
-                resetPassword();
+                // reset password api call
+                resetPasswordApi();
               },
             ),
           ],

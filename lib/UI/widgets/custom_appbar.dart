@@ -30,16 +30,17 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       child: AppBar(
         leading: svgPictureLeading != null
             ? GestureDetector(
-          onTap: (){
-            onTapLeading!();
-          },
+                onTap: () {
+                  onTapLeading!();
+                },
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: SvgPicture.asset(
-                  svgPictureLeading ?? '',
-                  fit: BoxFit.scaleDown,
-              ),
-                ),)
+                    svgPictureLeading ?? '',
+                    fit: BoxFit.scaleDown,
+                  ),
+                ),
+              )
             : CachedNetworkImage(
                 imageUrl: '${DataURL.baseUrl}/$netImg',
                 imageBuilder: (context, imageProvider) => Container(

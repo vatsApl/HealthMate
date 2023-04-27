@@ -16,6 +16,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import '../../custom_widgets/index_notifier.dart';
+import '../../resourse/dimens.dart';
 import '../client_job_description.dart';
 
 class ClientHomePage extends StatefulWidget {
@@ -73,7 +74,8 @@ class _ClientHomePageState extends State<ClientHomePage> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16.0, 19.0, 16.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(
+          Dimens.pixel_16, Dimens.pixel_19, Dimens.pixel_16, Dimens.pixel_0),
       child: Scaffold(
         appBar: CustomAppBar(
           name: clientName,
@@ -87,7 +89,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 48.0),
+                  padding: const EdgeInsets.only(top: Dimens.pixel_48),
                   child: Column(
                     children: [
                       Row(
@@ -108,7 +110,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
                             ),
                           ),
                           const SizedBox(
-                            width: 22.0,
+                            width: Dimens.pixel_22,
                           ),
                           Expanded(
                             flex: 1,
@@ -128,7 +130,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
                         ],
                       ),
                       const SizedBox(
-                        height: 14.0,
+                        height: Dimens.pixel_14,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -148,7 +150,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
                             ),
                           ),
                           const SizedBox(
-                            width: 22.0,
+                            width: Dimens.pixel_22,
                           ),
                           Expanded(
                             child: CardTopClient(
@@ -168,7 +170,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
                         ],
                       ),
                       const SizedBox(
-                        height: 34.0,
+                        height: Dimens.pixel_34,
                       ),
                       Align(
                         alignment: Alignment.centerRight,
@@ -182,11 +184,15 @@ class _ClientHomePageState extends State<ClientHomePage> {
                             );
                           },
                           child: Container(
-                            padding:
-                                EdgeInsets.fromLTRB(14.0, 10.0, 10.0, 10.0),
+                            padding: EdgeInsets.fromLTRB(
+                                Dimens.pixel_14,
+                                Dimens.pixel_10,
+                                Dimens.pixel_10,
+                                Dimens.pixel_10),
                             decoration: BoxDecoration(
                               color: kDefaultPurpleColor,
-                              borderRadius: BorderRadius.circular(6.0),
+                              borderRadius:
+                                  BorderRadius.circular(Dimens.pixel_6),
                             ),
                             child: FittedBox(
                               fit: BoxFit.fill,
@@ -197,13 +203,13 @@ class _ClientHomePageState extends State<ClientHomePage> {
                                     color: Colors.white,
                                   ),
                                   SizedBox(
-                                    width: 10.0,
+                                    width: Dimens.pixel_10,
                                   ),
                                   Text(
                                     Strings.text_create_contract,
                                     maxLines: 1,
                                     style: TextStyle(
-                                      fontSize: 10.0,
+                                      fontSize: Dimens.pixel_10,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.white,
                                     ),
@@ -218,7 +224,8 @@ class _ClientHomePageState extends State<ClientHomePage> {
                           ? Container()
                           : ListView.separated(
                               physics: const NeverScrollableScrollPhysics(),
-                              padding: const EdgeInsets.only(top: 30.0),
+                              padding:
+                                  const EdgeInsets.only(top: Dimens.pixel_30),
                               shrinkWrap: true,
                               itemCount: clientJobs.length,
                               itemBuilder: (BuildContext context, int index) {
@@ -241,7 +248,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
                               separatorBuilder:
                                   (BuildContext context, int index) {
                                 return const SizedBox(
-                                  height: 20.0,
+                                  height: Dimens.pixel_20,
                                 );
                               },
                             ),
@@ -250,18 +257,18 @@ class _ClientHomePageState extends State<ClientHomePage> {
                               visible: isVisible,
                               child: const CupertinoActivityIndicator(
                                 color: kDefaultPurpleColor,
-                                radius: 15.0,
+                                radius: Dimens.pixel_15,
                               ),
                             )
                           : Wrap(
                               children: const [
                                 Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(vertical: 130.0),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: Dimens.pixel_130),
                                   child: Text(
                                     Strings.text_no_contracts_available,
                                     style: TextStyle(
-                                      fontSize: 22.0,
+                                      fontSize: Dimens.pixel_22,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),

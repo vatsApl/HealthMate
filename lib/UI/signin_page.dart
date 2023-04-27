@@ -19,6 +19,7 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import '../base_Screen_working/base_screen.dart';
 import '../models/signin_client_response.dart';
+import '../resourse/dimens.dart';
 import '../resourse/images.dart';
 import '../resourse/strings.dart';
 
@@ -162,19 +163,24 @@ class _SignInPageState extends BasePageScreenState<SignInPage> with BaseScreen {
           child: Form(
             key: _formKey,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+              padding: const EdgeInsets.fromLTRB(
+                Dimens.pixel_16,
+                Dimens.pixel_0,
+                Dimens.pixel_16,
+                Dimens.pixel_16,
+              ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(
-                    height: 23.0,
+                    height: Dimens.pixel_23,
                   ),
                   TitleText(
                     title: Strings.sign_in_welcome_back,
                   ),
                   const SizedBox(
-                    height: 48.0,
+                    height: Dimens.pixel_48,
                   ),
                   Text(
                     Strings.sign_in_email_label,
@@ -194,9 +200,9 @@ class _SignInPageState extends BasePageScreenState<SignInPage> with BaseScreen {
                         color: isEmailVerified == null
                             ? null
                             : isEmailVerified == true
-                            ? Colors.green
-                            : Colors.red,
-                        height: 1.0,
+                                ? Colors.green
+                                : Colors.red,
+                        height: Dimens.pixel_1,
                       ),
                       // onChanged: (val) {
                       //   setState(() {
@@ -214,43 +220,43 @@ class _SignInPageState extends BasePageScreenState<SignInPage> with BaseScreen {
                             color: isEmailVerified == null
                                 ? klabelColor
                                 : isEmailVerified == true
-                                ? Colors.green
-                                : Colors.red,
+                                    ? Colors.green
+                                    : Colors.red,
                           ),
                         ),
                         suffixIcon: isEmailVerified == null
                             ? null
                             : isEmailVerified == true
-                            ? Padding(
-                          padding: kSuffixIconPadding,
-                          child: SvgPicture.asset(
-                            Images.ic_true,
-                            fit: BoxFit.scaleDown,
-                            color: Colors.green,
-                          ),
-                        )
-                            : Padding(
-                          padding: kSuffixIconPadding,
-                          child: SvgPicture.asset(
-                            Images.ic_error,
-                            fit: BoxFit.scaleDown,
-                            color: Colors.red,
-                          ),
-                        ),
+                                ? Padding(
+                                    padding: kSuffixIconPadding,
+                                    child: SvgPicture.asset(
+                                      Images.ic_true,
+                                      fit: BoxFit.scaleDown,
+                                      color: Colors.green,
+                                    ),
+                                  )
+                                : Padding(
+                                    padding: kSuffixIconPadding,
+                                    child: SvgPicture.asset(
+                                      Images.ic_error,
+                                      fit: BoxFit.scaleDown,
+                                      color: Colors.red,
+                                    ),
+                                  ),
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                             color: isEmailVerified == null
                                 ? kDefaultPurpleColor
                                 : isEmailVerified == true
-                                ? Colors.green
-                                : Colors.red,
+                                    ? Colors.green
+                                    : Colors.red,
                           ),
                         ),
                       ),
                     ),
                   ),
                   const SizedBox(
-                    height: 26.0,
+                    height: Dimens.pixel_26,
                   ),
                   const Text(
                     Strings.sign_in_password_label,
@@ -265,12 +271,12 @@ class _SignInPageState extends BasePageScreenState<SignInPage> with BaseScreen {
                         //   });
                         // },
                         style: TextStyle(
-                          height: 1.0,
+                          height: Dimens.pixel_1,
                           color: isPasswordVeified == null
                               ? klabelColor
                               : isPasswordVeified == true
-                              ? Colors.green
-                              : Colors.red,
+                                  ? Colors.green
+                                  : Colors.red,
                         ),
                         textAlignVertical: TextAlignVertical.bottom,
                         controller: passController,
@@ -287,8 +293,8 @@ class _SignInPageState extends BasePageScreenState<SignInPage> with BaseScreen {
                               color: isPasswordVeified == null
                                   ? null
                                   : isPasswordVeified == true
-                                  ? Colors.green
-                                  : Colors.red,
+                                      ? Colors.green
+                                      : Colors.red,
                             ),
                           ),
                           focusedBorder: UnderlineInputBorder(
@@ -296,36 +302,41 @@ class _SignInPageState extends BasePageScreenState<SignInPage> with BaseScreen {
                               color: isPasswordVeified == null
                                   ? kDefaultPurpleColor
                                   : isPasswordVeified == true
-                                  ? Colors.green
-                                  : Colors.red,
+                                      ? Colors.green
+                                      : Colors.red,
                             ),
                           ),
                         ),
                       ),
                       Positioned(
-                        right: 0.0,
+                        right: Dimens.pixel_0,
                         child: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                isShow = !isShow;
-                              });
-                            },
-                            icon: isShow
-                                ? Padding(
-                              padding: kSuffixIconPadding,
-                              child: SvgPicture.asset(Images.ic_eye,
-                                  fit: BoxFit.scaleDown),
-                            )
-                                : Padding(
-                              padding: kSuffixIconPadding,
-                              child: SvgPicture.asset(Images.ic_eye_off,
-                                  fit: BoxFit.scaleDown),
-                            )),
+                          onPressed: () {
+                            setState(() {
+                              isShow = !isShow;
+                            });
+                          },
+                          icon: isShow
+                              ? Padding(
+                                  padding: kSuffixIconPadding,
+                                  child: SvgPicture.asset(
+                                    Images.ic_eye,
+                                    fit: BoxFit.scaleDown,
+                                  ),
+                                )
+                              : Padding(
+                                  padding: kSuffixIconPadding,
+                                  child: SvgPicture.asset(
+                                    Images.ic_eye_off,
+                                    fit: BoxFit.scaleDown,
+                                  ),
+                                ),
+                        ),
                       ),
                     ],
                   ),
                   const SizedBox(
-                    height: 8.0,
+                    height: Dimens.pixel_8,
                   ),
                   Align(
                     alignment: Alignment.centerRight,
@@ -342,14 +353,14 @@ class _SignInPageState extends BasePageScreenState<SignInPage> with BaseScreen {
                         Strings.text_forgot_password,
                         style: TextStyle(
                           color: kDefaultBlackColor,
-                          fontSize: 12.0,
+                          fontSize: Dimens.pixel_12,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
                     ),
                   ),
                   const SizedBox(
-                    height: 30.0,
+                    height: Dimens.pixel_30,
                   ),
                   ElevatedBtn(
                     btnTitle: Strings.text_submit,
@@ -369,7 +380,7 @@ class _SignInPageState extends BasePageScreenState<SignInPage> with BaseScreen {
                     },
                   ),
                   const SizedBox(
-                    height: 30.0, //30.0
+                    height: Dimens.pixel_30,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -377,11 +388,12 @@ class _SignInPageState extends BasePageScreenState<SignInPage> with BaseScreen {
                       const Text(
                         Strings.text_dont_have_an_account,
                         style: TextStyle(
-                            color: kDefaultBlackColor,
-                            fontWeight: FontWeight.w400),
+                          color: kDefaultBlackColor,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                       const SizedBox(
-                        width: 2.0,
+                        width: Dimens.pixel_2,
                       ),
                       InkWell(
                         onTap: () {
@@ -395,7 +407,7 @@ class _SignInPageState extends BasePageScreenState<SignInPage> with BaseScreen {
                         child: const Text(
                           Strings.text_sign_up,
                           style: TextStyle(
-                            fontSize: 16.0,
+                            fontSize: Dimens.pixel_16,
                             fontWeight: FontWeight.w500,
                             color: kDefaultPurpleColor,
                           ),

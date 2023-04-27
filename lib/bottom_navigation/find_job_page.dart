@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../UI/widgets/job_card_home_page.dart';
+import '../resourse/dimens.dart';
 import '../resourse/shared_prefs.dart';
 
 class FindJobPage extends StatefulWidget {
@@ -97,13 +98,13 @@ class _FindJobPageState extends State<FindJobPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        elevation: 0.0,
+        elevation: Dimens.pixel_0,
         automaticallyImplyLeading: false,
       ),
       body: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
+            padding: const EdgeInsets.fromLTRB(Dimens.pixel_16, Dimens.pixel_0, Dimens.pixel_16, Dimens.pixel_0,),
             child: Stack(
               children: [
                 Column(
@@ -115,13 +116,12 @@ class _FindJobPageState extends State<FindJobPage> {
                           ? ListView.separated(
                               controller: scrollController,
                               physics: const BouncingScrollPhysics(),
-                              padding: const EdgeInsets.only(top: 35.0),
+                              padding: const EdgeInsets.only(top: Dimens.pixel_35),
                               shrinkWrap: true,
                               itemCount: jobs.length,
                               itemBuilder: (BuildContext context, int index) {
                                 return InkWell(
                                   onTap: () {
-                                    // print('job Id:${jobs[index].id}');
                                     int? jobId = jobs[index].id;
                                     Navigator.push(
                                       context,
@@ -140,7 +140,7 @@ class _FindJobPageState extends State<FindJobPage> {
                               separatorBuilder:
                                   (BuildContext context, int index) {
                                 return const SizedBox(
-                                  height: 20.0,
+                                  height: Dimens.pixel_20,
                                 );
                               },
                             )
@@ -151,22 +151,22 @@ class _FindJobPageState extends State<FindJobPage> {
                             visible: isLoadingMore,
                             child: const Center(
                               child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 12.0),
+                                padding: EdgeInsets.symmetric(vertical: Dimens.pixel_12),
                                 child: CupertinoActivityIndicator(
                                   color: Colors.black,
-                                  radius: 15.0,
+                                  radius: Dimens.pixel_15,
                                 ),
                               ),
                             ),
                           )
                         : const Expanded(
                             child: Padding(
-                              padding: EdgeInsets.only(bottom: 280.0),
+                              padding: EdgeInsets.only(bottom: Dimens.pixel_280),
                               child: Center(
                                 child: Text(
                                   Strings.candidate_text_no_jobs_found,
                                   style: TextStyle(
-                                    fontSize: 22.0,
+                                    fontSize: Dimens.pixel_22,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),

@@ -9,6 +9,7 @@ import '../../UI/widgets/job_card_with_status.dart';
 import '../../allAPIs/allAPIs.dart';
 import '../../constants.dart';
 import '../../models/candidate_models/find_job_response.dart';
+import '../../resourse/dimens.dart';
 import '../../resourse/shared_prefs.dart';
 
 class TimeSheets extends StatefulWidget {
@@ -105,7 +106,7 @@ class _TimeSheetsState extends State<TimeSheets> {
               },
               separatorBuilder: (BuildContext context, int index) {
                 return const SizedBox(
-                  height: 20.0,
+                  height: Dimens.pixel_20,
                 );
               },
             )

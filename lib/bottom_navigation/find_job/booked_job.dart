@@ -9,6 +9,7 @@ import '../../UI/job_description_my_jobs.dart';
 import '../../constants.dart';
 import '../../models/candidate_models/find_job_response.dart';
 import '../../resourse/api_urls.dart';
+import '../../resourse/dimens.dart';
 import '../../resourse/shared_prefs.dart';
 
 class BookedJob extends StatefulWidget {
@@ -110,7 +111,8 @@ class _BookedJobState extends State<BookedJob> {
                         builder: (context) => JobDescriptionMyJobs(
                             jobId: jobId,
                             appId: appId,
-                            currentIndex: widget.currentIndex),
+                            currentIndex: widget.currentIndex,
+                        ),
                       ),
                     );
                   },
@@ -121,7 +123,7 @@ class _BookedJobState extends State<BookedJob> {
               },
               separatorBuilder: (BuildContext context, int index) {
                 return const SizedBox(
-                  height: 20.0,
+                  height: Dimens.pixel_20,
                 );
               },
             ),
@@ -130,12 +132,12 @@ class _BookedJobState extends State<BookedJob> {
               ? Wrap(
                   children: const [
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 250.0),
+                      padding: EdgeInsets.symmetric(vertical: Dimens.pixel_250,),
                       child: Center(
                         child: Text(
                           Strings.text_no_booked_found,
                           style: TextStyle(
-                            fontSize: 22.0,
+                            fontSize: Dimens.pixel_22,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -147,7 +149,7 @@ class _BookedJobState extends State<BookedJob> {
                   visible: isVisible,
                   child: const CupertinoActivityIndicator(
                     color: kDefaultPurpleColor,
-                    radius: 15.0,
+                    radius: Dimens.pixel_15,
                   ),
                 ),
         ],

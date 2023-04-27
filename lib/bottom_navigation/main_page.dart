@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
+import '../resourse/dimens.dart';
 import '../resourse/strings.dart';
 
 class MainPage extends StatefulWidget {
@@ -38,8 +39,8 @@ class _MainPageState extends State<MainPage> {
         decoration: const BoxDecoration(boxShadow: [
           BoxShadow(
             color: Color(0xff000000),
-            blurRadius: 1.0,
-            offset: Offset(1.0, 1.0),
+            blurRadius: Dimens.pixel_1,
+            offset: Offset(Dimens.pixel_1, Dimens.pixel_1,),
           )
         ]),
         child: BottomNavigationBar(
@@ -49,12 +50,12 @@ class _MainPageState extends State<MainPage> {
           currentIndex: Provider.of<ValueNotifier<int>>(context).value,
           selectedItemColor: kDefaultPurpleColor,
           unselectedItemColor: Colors.black54,
-          elevation: 0.0,
-          iconSize: 28.0,
+          elevation: Dimens.pixel_0,
+          iconSize: Dimens.pixel_28,
           items: [
             BottomNavigationBarItem(
               icon: Padding(
-                padding: const EdgeInsets.only(bottom: 6.0),
+                padding: const EdgeInsets.only(bottom: Dimens.pixel_6,),
                 child: SvgPicture.asset(
                   Images.ic_home_big,
                   fit: BoxFit.scaleDown,
@@ -66,7 +67,7 @@ class _MainPageState extends State<MainPage> {
             ),
             BottomNavigationBarItem(
                 icon: Padding(
-                  padding: const EdgeInsets.only(bottom: 6.0),
+                  padding: const EdgeInsets.only(bottom: Dimens.pixel_6,),
                   child: SvgPicture.asset(
                     Images.ic_search,
                     fit: BoxFit.scaleDown,
@@ -79,7 +80,7 @@ class _MainPageState extends State<MainPage> {
             ),
             BottomNavigationBarItem(
                 icon: Padding(
-                  padding: const EdgeInsets.only(bottom: 6.0),
+                  padding: const EdgeInsets.only(bottom: Dimens.pixel_6,),
                   child: SvgPicture.asset(
                     Images.ic_job,
                     fit: BoxFit.scaleDown,
@@ -92,7 +93,7 @@ class _MainPageState extends State<MainPage> {
             ),
             BottomNavigationBarItem(
               icon: Padding(
-                padding: const EdgeInsets.only(bottom: 6.0),
+                padding: const EdgeInsets.only(bottom: Dimens.pixel_6,),
                 child: SvgPicture.asset(
                   Images.ic_personal_details,
                   fit: BoxFit.scaleDown,

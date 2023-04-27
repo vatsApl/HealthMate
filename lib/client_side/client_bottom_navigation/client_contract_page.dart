@@ -13,6 +13,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
+import '../../resourse/dimens.dart';
 import '../client_job_description.dart';
 
 class ClientContractPage extends BasePageScreen {
@@ -20,7 +21,8 @@ class ClientContractPage extends BasePageScreen {
   State<ClientContractPage> createState() => _ClientContractPageState();
 }
 
-class _ClientContractPageState extends BasePageScreenState<ClientContractPage> with BaseScreen {
+class _ClientContractPageState extends BasePageScreenState<ClientContractPage>
+    with BaseScreen {
   final scrollController = ScrollController();
   List<JobModel> clientJobs = [];
   int page = 1;
@@ -81,7 +83,12 @@ class _ClientContractPageState extends BasePageScreenState<ClientContractPage> w
   @override
   Widget body() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(
+        Dimens.pixel_16,
+        Dimens.pixel_0,
+        Dimens.pixel_16,
+        Dimens.pixel_0,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -100,13 +107,17 @@ class _ClientContractPageState extends BasePageScreenState<ClientContractPage> w
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50.0),
-                    border:
-                    Border.all(width: 1.5, color: kDefaultPurpleColor),
+                    borderRadius: BorderRadius.circular(
+                      Dimens.pixel_50,
+                    ),
+                    border: Border.all(
+                      width: Dimens.pixel_1_and_half,
+                      color: kDefaultPurpleColor,
+                    ),
                   ),
                   child: SvgPicture.asset(
                     Images.ic_plus,
-                    height: 28.0,
+                    height: Dimens.pixel_28,
                   ),
                 ),
               ),
@@ -115,55 +126,59 @@ class _ClientContractPageState extends BasePageScreenState<ClientContractPage> w
           Expanded(
             child: clientJobs.isNotEmpty
                 ? ListView.separated(
-              controller: scrollController,
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.only(top: 35.0),
-              shrinkWrap: true,
-              itemCount: clientJobs.length,
-              itemBuilder: (BuildContext context, int index) {
-                return InkWell(
-                  onTap: () {
-                    int? jobId = clientJobs[index].id;
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ClientJobDescription(
-                          jobId: jobId,
+                    controller: scrollController,
+                    physics: const BouncingScrollPhysics(),
+                    padding: const EdgeInsets.only(
+                      top: Dimens.pixel_35,
+                    ),
+                    shrinkWrap: true,
+                    itemCount: clientJobs.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return InkWell(
+                        onTap: () {
+                          int? jobId = clientJobs[index].id;
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ClientJobDescription(
+                                jobId: jobId,
+                              ),
+                            ),
+                          );
+                        },
+                        child: JobCardClient(
+                          clientJobModel: clientJobs[index],
                         ),
-                      ),
-                    );
-                  },
-                  child: JobCardClient(
-                    clientJobModel: clientJobs[index],
-                  ),
-                );
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return const SizedBox(
-                  height: 20.0,
-                );
-              },
-            )
+                      );
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return const SizedBox(
+                        height: Dimens.pixel_20,
+                      );
+                    },
+                  )
                 : const Center(
-              child: Text(
-                Strings.text_no_contracts_available,
-                style: kDefaultEmptyListStyle,
-              ),
-            ),
+                    child: Text(
+                      Strings.text_no_contracts_available,
+                      style: kDefaultEmptyListStyle,
+                    ),
+                  ),
           ),
           clientJobs.isNotEmpty
               ? Visibility(
-            visible: isLoadingMore,
-            child: const Center(
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 12.0),
-                child: CupertinoActivityIndicator(
-                  color: Colors.black,
-                  radius: 15.0,
-                ),
-              ),
-            ),
-          )
+                  visible: isLoadingMore,
+                  child: const Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: Dimens.pixel_12,
+                      ),
+                      child: CupertinoActivityIndicator(
+                        color: Colors.black,
+                        radius: Dimens.pixel_15,
+                      ),
+                    ),
+                  ),
+                )
               : Container(),
         ],
       ),

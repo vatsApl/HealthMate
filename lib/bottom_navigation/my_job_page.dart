@@ -7,6 +7,7 @@ import 'package:clg_project/constants.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import '../resourse/dimens.dart';
 import '../resourse/shared_prefs.dart';
 
 class MyJobsPage extends StatefulWidget {
@@ -33,52 +34,54 @@ class _MyJobsPageState extends State<MyJobsPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        elevation: 0.0,
+        elevation: Dimens.pixel_0,
         automaticallyImplyLeading: false,
       ),
       backgroundColor: Colors.white,
       body: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
+            padding: const EdgeInsets.fromLTRB(Dimens.pixel_16, Dimens.pixel_0, Dimens.pixel_16, Dimens.pixel_0,),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TitleText(title: Strings.text_title_my_jobs),
                 const SizedBox(
-                  height: 30.0,
+                  height: Dimens.pixel_30,
                 ),
                 Center(
-                  child: ToggleSwitch(
-                    initialLabelIndex: currentIndex,
-                    dividerColor: const Color(0xffE1E1E1),
-                    dividerMargin: 0.0,
-                    labels: const [
-                      Strings.candidate_text_applied,
-                      Strings.candidate_text_booked,
-                      Strings.candidate_text_worked,
-                    ],
-                    minWidth: 108.0,
-                    // minWidth: MediaQuery.of(context).size.width,
-                    activeBgColor: const [
-                      kDefaultPurpleColor,
-                    ],
-                    inactiveBgColor: const Color(0xffFFFFFF),
-                    inactiveFgColor: klabelColor,
-                    cornerRadius: 6.0,
-                    borderColor: const [
-                      Color(0xffE1E1E1),
-                    ],
-                    borderWidth: 1.0,
-                    onToggle: (index) {
-                      setState(() {
-                        currentIndex = index!;
-                      });
-                    },
+                  child: FittedBox(
+                    child: ToggleSwitch(
+                      initialLabelIndex: currentIndex,
+                      dividerColor: const Color(0xffE1E1E1),
+                      dividerMargin: Dimens.pixel_0,
+                      labels: const [
+                        Strings.candidate_text_applied,
+                        Strings.candidate_text_booked,
+                        Strings.candidate_text_worked,
+                      ],
+                      // minWidth: 108.0, //previously added mannually width of toggle switch
+                      minWidth: double.infinity,
+                      activeBgColor: const [
+                        kDefaultPurpleColor,
+                      ],
+                      inactiveBgColor: const Color(0xffFFFFFF),
+                      inactiveFgColor: klabelColor,
+                      cornerRadius: Dimens.pixel_6,
+                      borderColor: const [
+                        Color(0xffE1E1E1),
+                      ],
+                      borderWidth: Dimens.pixel_1,
+                      onToggle: (index) {
+                        setState(() {
+                          currentIndex = index!;
+                        });
+                      },
+                    ),
                   ),
                 ),
                 const SizedBox(
-                  height: 18.0,
+                  height: Dimens.pixel_18,
                 ),
                 if (currentIndex == 0)
                   AppliedJob()

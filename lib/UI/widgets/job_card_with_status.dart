@@ -4,6 +4,9 @@ import 'package:clg_project/resourse/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../resourse/dimens.dart';
+import '../../resourse/strings.dart';
+
 class JobCardWithStatus extends StatefulWidget {
   JobModel? jobModel;
   JobCardWithStatus({super.key, this.jobModel});
@@ -16,9 +19,14 @@ class _JobCardWithStatusState extends State<JobCardWithStatus> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 2.0,
+      elevation: Dimens.pixel_2,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 18.0),
+        padding: const EdgeInsets.fromLTRB(
+          Dimens.pixel_16,
+          Dimens.pixel_16,
+          Dimens.pixel_16,
+          Dimens.pixel_18,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -26,11 +34,13 @@ class _JobCardWithStatusState extends State<JobCardWithStatus> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: Dimens.pixel_8,
+                  ),
                   child: Text(
                     '${widget.jobModel?.jobCategory}'.toUpperCase(),
                     style: const TextStyle(
-                      fontSize: 10.0,
+                      fontSize: Dimens.pixel_10,
                       fontWeight: FontWeight.w500,
                       color: kDefaultPurpleColor,
                     ),
@@ -39,14 +49,14 @@ class _JobCardWithStatusState extends State<JobCardWithStatus> {
                 RichText(
                   text: TextSpan(
                       style: const TextStyle(
-                        fontSize: 16.0,
+                        fontSize: Dimens.pixel_16,
                         color: kDefaultPurpleColor,
                       ),
                       children: <TextSpan>[
                         const TextSpan(
-                          text: '₹ ',
+                          text: Strings.amount_symbol_rupee,
                           style: TextStyle(
-                            fontSize: 16.0,
+                            fontSize: Dimens.pixel_16,
                             fontWeight: FontWeight.w500,
                             color: kDefaultBlackColor,
                           ),
@@ -54,15 +64,15 @@ class _JobCardWithStatusState extends State<JobCardWithStatus> {
                         TextSpan(
                           text: '${widget.jobModel?.jobSalary}',
                           style: const TextStyle(
-                            fontSize: 16.0,
+                            fontSize: Dimens.pixel_16,
                             fontWeight: FontWeight.w500,
                             color: kDefaultBlackColor,
                           ),
                         ),
                         const TextSpan(
-                          text: '/day',
+                          text: Strings.text_per_day,
                           style: TextStyle(
-                            fontSize: 12.0,
+                            fontSize: Dimens.pixel_12,
                             fontWeight: FontWeight.w400,
                             color: klightColor,
                           ),
@@ -72,17 +82,18 @@ class _JobCardWithStatusState extends State<JobCardWithStatus> {
               ],
             ),
             const SizedBox(
-              height: 10.0,
+              height: Dimens.pixel_10,
             ),
             Text(
               "${widget.jobModel?.jobTitle}",
               style: const TextStyle(
-                  color: kDefaultBlackColor,
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w500),
+                color: kDefaultBlackColor,
+                fontSize: Dimens.pixel_16,
+                fontWeight: FontWeight.w500,
+              ),
             ),
             const SizedBox(
-              height: 10.0,
+              height: Dimens.pixel_10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -94,12 +105,12 @@ class _JobCardWithStatusState extends State<JobCardWithStatus> {
                       fit: BoxFit.scaleDown,
                     ), //
                     const SizedBox(
-                      width: 8.0,
+                      width: Dimens.pixel_8,
                     ),
                     Text(
                       '${widget.jobModel?.jobLocation}',
                       style: const TextStyle(
-                        fontSize: 12.0,
+                        fontSize: Dimens.pixel_12,
                         color: Color(0xff656565),
                       ),
                     ),
@@ -107,54 +118,56 @@ class _JobCardWithStatusState extends State<JobCardWithStatus> {
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    vertical: 6.0,
-                    horizontal: 8.0,
+                    vertical: Dimens.pixel_6,
+                    horizontal: Dimens.pixel_8,
                   ),
                   decoration: BoxDecoration(
                     color: widget.jobModel?.jobStatus ==
-                        'Assigned' //color change with timeSheetstatusType
+                            Strings
+                                .text_assigned //color change with timeSheetstatusType
                         ? kGreenColor.withOpacity(0.1)
-                        : widget.jobModel?.jobStatus == 'Pending'
-                        ? kYellowColor.withOpacity(0.1)
-                        : widget.jobModel?.jobStatus == 'Dispute'
-                        ? kredColor.withOpacity(0.1)
-                        : widget.jobModel?.jobStatus == 'Processing'
-                        ? kYellowColor.withOpacity(0.1)
-                        : widget.jobModel?.jobStatus == 'Paid'
-                        ? kGreenColor.withOpacity(0.1)
-                        : null,
-                    borderRadius: BorderRadius.circular(4.0),
+                        : widget.jobModel?.jobStatus == Strings.text_pending
+                            ? kYellowColor.withOpacity(0.1)
+                            : widget.jobModel?.jobStatus == Strings.text_dispute
+                                ? kredColor.withOpacity(0.1)
+                                : widget.jobModel?.jobStatus ==
+                                        Strings.text_processing
+                                    ? kYellowColor.withOpacity(0.1)
+                                    : widget.jobModel?.jobStatus ==
+                                            Strings.text_paid
+                                        ? kGreenColor.withOpacity(0.1)
+                                        : null,
+                    borderRadius: BorderRadius.circular(
+                      Dimens.pixel_4,
+                    ),
                   ),
                   child: Text(
                     '${widget.jobModel?.jobStatus}',
                     style: TextStyle(
-                      fontSize: 10.0,
+                      fontSize: Dimens.pixel_10,
                       color: widget.jobModel?.jobStatus ==
-                          'Assigned' //color change with timeSheetstatusType
+                              Strings
+                                  .text_assigned //color change with timeSheetstatusType
                           ? kGreenColor
-                          : widget.jobModel?.jobStatus == 'Pending'
-                          ? kYellowColor
-                          : widget.jobModel?.jobStatus == 'Dispute'
-                          ? kredColor
-                          : widget.jobModel?.jobStatus == 'Processing'
-                          ? kYellowColor
-                          : widget.jobModel?.jobStatus == 'Paid'
-                          ? kGreenColor
-                          : null,
+                          : widget.jobModel?.jobStatus == Strings.text_pending
+                              ? kYellowColor
+                              : widget.jobModel?.jobStatus ==
+                                      Strings.text_dispute
+                                  ? kredColor
+                                  : widget.jobModel?.jobStatus ==
+                                          Strings.text_processing
+                                      ? kYellowColor
+                                      : widget.jobModel?.jobStatus ==
+                                              Strings.text_paid
+                                          ? kGreenColor
+                                          : null,
                     ),
                   ),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.only(bottom: 6.0),
-                //   child: SvgPicture.asset(
-                //     Images.ic_read_more,
-                //     fit: BoxFit.scaleDown,
-                //   ),
-                // ),
               ],
             ),
             const SizedBox(
-              height: 10.0,
+              height: Dimens.pixel_10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -167,14 +180,14 @@ class _JobCardWithStatusState extends State<JobCardWithStatus> {
                       fit: BoxFit.scaleDown,
                     ),
                     const SizedBox(
-                      width: 8.0,
+                      width: Dimens.pixel_8,
                     ),
                     Text(
                       widget.jobModel?.jobDate ?? '',
                       style: const TextStyle(
                         color: kDefaultPurpleColor,
                         fontWeight: FontWeight.w500,
-                        fontSize: 13.0,
+                        fontSize: Dimens.pixel_13,
                       ),
                     ),
                   ],
@@ -186,12 +199,12 @@ class _JobCardWithStatusState extends State<JobCardWithStatus> {
                       fit: BoxFit.scaleDown,
                     ),
                     const SizedBox(
-                      width: 8.0,
+                      width: Dimens.pixel_8,
                     ),
                     Text(
                       '${widget.jobModel?.jobStartTime} - ${widget.jobModel?.jobEndTime}',
                       style: const TextStyle(
-                        fontSize: 12.0,
+                        fontSize: Dimens.pixel_12,
                         color: Color(0xff656565),
                       ),
                     ),

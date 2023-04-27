@@ -9,6 +9,7 @@ import '../../UI/widgets/job_card_verifications.dart';
 import '../../allAPIs/allAPIs.dart';
 import '../../models/candidate_models/find_job_response.dart';
 import '../../resourse/api_urls.dart';
+import '../../resourse/dimens.dart';
 import '../../resourse/shared_prefs.dart';
 
 class Approvals extends StatefulWidget {
@@ -104,7 +105,7 @@ class _ApprovalsState extends State<Approvals> {
               },
               separatorBuilder: (BuildContext context, int index) {
                 return const SizedBox(
-                  height: 20.0,
+                  height: Dimens.pixel_20,
                 );
               },
             )

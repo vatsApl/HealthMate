@@ -11,17 +11,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-
 import '../base_Screen_working/base_screen.dart';
+import '../resourse/dimens.dart';
 import '../resourse/strings.dart';
 
 class ForgotPassword extends BasePageScreen {
-
   @override
   State<ForgotPassword> createState() => _ForgotPasswordState();
 }
 
-class _ForgotPasswordState extends BasePageScreenState<ForgotPassword> with BaseScreen {
+class _ForgotPasswordState extends BasePageScreenState<ForgotPassword>
+    with BaseScreen {
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   final emailFocusNode = FocusNode();
@@ -29,7 +29,7 @@ class _ForgotPasswordState extends BasePageScreenState<ForgotPassword> with Base
   int? userId;
   int? userType;
   bool isVisible = false;
-  
+
   //forgot password api
   Future<void> forgotPassword() async {
     String url = ApiUrl.forgotPassword;
@@ -62,13 +62,13 @@ class _ForgotPasswordState extends BasePageScreenState<ForgotPassword> with Base
             isVisible = false;
           });
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ForgotVerification(
-                        userId: userId,
-                        userType: userType,
-                      ),
+            context,
+            MaterialPageRoute(
+              builder: (context) => ForgotVerification(
+                userId: userId,
+                userType: userType,
               ),
+            ),
           );
         }
       } else {
@@ -104,41 +104,48 @@ class _ForgotPasswordState extends BasePageScreenState<ForgotPassword> with Base
       child: Scaffold(
         backgroundColor: Colors.white,
         body: Padding(
-          padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+          padding: const EdgeInsets.fromLTRB(
+            Dimens.pixel_16,
+            Dimens.pixel_0,
+            Dimens.pixel_16,
+            Dimens.pixel_16,
+          ),
           child: Form(
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(
-                  height: 23.0,
+                  height: Dimens.pixel_23,
                 ),
-                TitleText(title: Strings.text_title_forgot_password),
+                TitleText(
+                  title: Strings.text_title_forgot_password,
+                ),
                 const SizedBox(
-                  height: 48.0,
+                  height: Dimens.pixel_48,
                 ),
                 const Text(
                   Strings.text_notice_forgot_password,
                   style: TextStyle(
-                    fontSize: 12.0,
+                    fontSize: Dimens.pixel_12,
                     color: kDefaultBlackColor,
                     fontWeight: FontWeight.w400,
-                    height: 1.5,
+                    height: Dimens.pixel_1_and_half,
                   ),
                 ),
                 const SizedBox(
-                  height: 26.0,
+                  height: Dimens.pixel_26,
                 ),
                 const Text(Strings.sign_in_email_label),
                 TextFormField(
                   textAlignVertical: TextAlignVertical.bottom,
                   style: TextStyle(
-                    height: 1.0,
+                    height: Dimens.pixel_1,
                     color: isEmailVerified == null
                         ? klabelColor
                         : isEmailVerified == true
-                        ? Colors.green
-                        : Colors.red,
+                            ? Colors.green
+                            : Colors.red,
                   ),
                   textCapitalization: TextCapitalization.words,
                   controller: emailController,
@@ -153,7 +160,12 @@ class _ForgotPasswordState extends BasePageScreenState<ForgotPassword> with Base
                   decoration: InputDecoration(
                     hintText: Strings.sign_in_hint_enter_email_address,
                     hintStyle: const TextStyle(
-                      color: Color.fromRGBO(3, 8, 55, 1),
+                      color: Color.fromRGBO(
+                        3,
+                        8,
+                        55,
+                        1,
+                      ),
                     ),
                     prefixIcon: Padding(
                       padding: kPrefixIconPadding,
@@ -163,42 +175,42 @@ class _ForgotPasswordState extends BasePageScreenState<ForgotPassword> with Base
                         color: isEmailVerified == null
                             ? klabelColor
                             : isEmailVerified == true
-                            ? Colors.green
-                            : Colors.red,
+                                ? Colors.green
+                                : Colors.red,
                       ),
                     ),
                     suffixIcon: isEmailVerified == null
                         ? null
                         : isEmailVerified == true
-                        ? Padding(
-                      padding: kSuffixIconPadding,
-                      child: SvgPicture.asset(
-                        Images.ic_true,
-                        fit: BoxFit.scaleDown,
-                        color: Colors.green,
-                      ),
-                    )
-                        : Padding(
-                      padding: kSuffixIconPadding,
-                      child: SvgPicture.asset(
-                        Images.ic_error,
-                        fit: BoxFit.scaleDown,
-                        color: Colors.red,
-                      ),
-                    ),
+                            ? Padding(
+                                padding: kSuffixIconPadding,
+                                child: SvgPicture.asset(
+                                  Images.ic_true,
+                                  fit: BoxFit.scaleDown,
+                                  color: Colors.green,
+                                ),
+                              )
+                            : Padding(
+                                padding: kSuffixIconPadding,
+                                child: SvgPicture.asset(
+                                  Images.ic_error,
+                                  fit: BoxFit.scaleDown,
+                                  color: Colors.red,
+                                ),
+                              ),
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: isEmailVerified == null
                             ? kDefaultPurpleColor
                             : isEmailVerified == true
-                            ? Colors.green
-                            : Colors.red,
+                                ? Colors.green
+                                : Colors.red,
                       ),
                     ),
                   ),
                 ),
                 const SizedBox(
-                  height: 50.0,
+                  height: Dimens.pixel_50,
                 ),
                 ElevatedBtn(
                   btnTitle: Strings.text_submit,

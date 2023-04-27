@@ -17,12 +17,12 @@ import '../validations.dart';
 import '../widgets/elevated_button.dart';
 
 class Methods {
-
   static var timeSheetId;
   static final _formKey = GlobalKey<FormState>();
 
   //apply job confirmation popup
-  static Future<void> showDialogApplyJobConfirmation(BuildContext context, String uId, int? jobId) async {
+  static Future<void> showDialogApplyJobConfirmation(
+      BuildContext context, String uId, int? jobId) async {
     return showDialog(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -36,7 +36,8 @@ class Methods {
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0, vertical: 25.0,
+                  horizontal: 10.0,
+                  vertical: 25.0,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -90,7 +91,9 @@ class Methods {
                             },
                           ),
                         ),
-                        const SizedBox(width: 17.0,),
+                        const SizedBox(
+                          width: 17.0,
+                        ),
                         SizedBox(
                           height: 38.0,
                           width: 120.0,
@@ -178,13 +181,13 @@ class Methods {
                             //naviate to home page:
                             Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                  ChangeNotifierProvider<ValueNotifier<int>>.value(
+                                  builder: (context) => ChangeNotifierProvider<
+                                      ValueNotifier<int>>.value(
                                     value: ValueNotifier<int>(0),
                                     child: MainPage(),
                                   ),
                                 ),
-                                    (route) => false);
+                                (route) => false);
                           },
                         ),
                       ),
@@ -337,13 +340,17 @@ class Methods {
                       children: [
                         Text(
                           Strings.text_reason,
-                          style: const TextStyle(color: kDefaultBlackColor, fontWeight: FontWeight.w400,)
-                              .copyWith(height: 1.5),
+                          style: const TextStyle(
+                            color: kDefaultBlackColor,
+                            fontWeight: FontWeight.w400,
+                          ).copyWith(height: 1.5),
                           textAlign: TextAlign.center,
                         ),
                         const Text(
                           Strings.text_field_required_symbol,
-                          style: TextStyle(color: kredColor,),
+                          style: TextStyle(
+                            color: kredColor,
+                          ),
                         ),
                       ],
                     ),
@@ -374,13 +381,18 @@ class Methods {
                             btnTitle: Strings.text_send,
                             bgColor: kDefaultPurpleColor,
                             onPressed: () {
-                              if(_formKey.currentState!.validate()){
-                                rejectTimeSheetApi(rejectReasonController: rejectReasonController, context: context);
+                              if (_formKey.currentState!.validate()) {
+                                rejectTimeSheetApi(
+                                    rejectReasonController:
+                                        rejectReasonController,
+                                    context: context);
                               }
                             },
                           ),
                         ),
-                        const SizedBox(width: 17.0,),
+                        const SizedBox(
+                          width: 17.0,
+                        ),
                         SizedBox(
                           height: 38.0,
                           width: 120.0,
@@ -406,7 +418,9 @@ class Methods {
   }
 
   // rejectTimeSheetApi:
-  static Future<void> rejectTimeSheetApi({TextEditingController? rejectReasonController, required BuildContext context}) async {
+  static Future<void> rejectTimeSheetApi(
+      {TextEditingController? rejectReasonController,
+      required BuildContext context}) async {
     // setState(() {
     //   isVisible = true;
     // });
@@ -435,5 +449,4 @@ class Methods {
   }
 
   // static SvgPicture svgIcon = SvgPicture.asset(Images.ic_home);
-
 }

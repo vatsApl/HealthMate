@@ -12,6 +12,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '../allAPIs/allAPIs.dart';
 import '../custom_widgets/custom_widget_helper.dart';
 import 'package:http/http.dart' as http;
+import '../resourse/dimens.dart';
 import '../resourse/shared_prefs.dart';
 import '../validations.dart';
 
@@ -20,7 +21,8 @@ class AddNewAddress extends BasePageScreen {
   State<AddNewAddress> createState() => _AddNewAddressState();
 }
 
-class _AddNewAddressState extends BasePageScreenState<AddNewAddress> with BaseScreen {
+class _AddNewAddressState extends BasePageScreenState<AddNewAddress>
+    with BaseScreen {
   final _formKey = GlobalKey<FormState>();
   bool? isDefaultAddress = false;
   bool isVisible = false;
@@ -80,116 +82,126 @@ class _AddNewAddressState extends BasePageScreenState<AddNewAddress> with BaseSc
 
   @override
   Widget body() {
-   return SingleChildScrollView(
-     physics: BouncingScrollPhysics(),
-     child: Padding(
-       padding: const EdgeInsets.fromLTRB(16.0, 27.67, 16.0, 0.0),
-       child: Form(
-         key: _formKey,
-         child: Column(
-           crossAxisAlignment: CrossAxisAlignment.start,
-           children: [
-             TitleText(title: Strings.text_add_new_address),
-             Padding(
-               padding: const EdgeInsets.only(top: 48.0),
-               child: Column(
-                 crossAxisAlignment: CrossAxisAlignment.start,
-                 children: [
-                   const Text(
-                     Strings.label_address,
-                     style: kTextFormFieldLabelStyle,
-                   ),
-                   CustomTextFormField(
-                     hint: Strings.hint_address,
-                     controller: addressController,
-                     validator: Validate.validateAddress,
-                   ),
-                   const SizedBox(
-                     height: 30.0,
-                   ),
-                   const Text(
-                     Strings.label_area,
-                     style: kTextFormFieldLabelStyle,
-                   ),
-                   CustomTextFormField(
-                     hint: Strings.hint_area,
-                     controller: areaController,
-                     validator: Validate.validateAddress,
-                   ),
-                   const SizedBox(
-                     height: 30.0,
-                   ),
-                   const Text(
-                     Strings.label_postcode,
-                     style: kTextFormFieldLabelStyle,
-                   ),
-                   CustomTextFormField(
-                     hint: Strings.hint_postcode,
-                     controller: postcodeController,
-                     validator: Validate.validatePostcode,
-                   ),
-                   const SizedBox(
-                     height: 30.0,
-                   ),
-                   Row(
-                     mainAxisAlignment: MainAxisAlignment.start,
-                     children: [
-                       SizedBox(
-                         height: 24.0,
-                         width: 24.0,
-                         child: Checkbox(
-                           activeColor: kDefaultPurpleColor,
-                           value: isDefaultAddress,
-                           onChanged: (value) {
-                             setState(() {
-                               isDefaultAddress = value;
-                             });
-                           },
-                         ),
-                       ),
-                       const SizedBox(
-                         width: 10.0,
-                       ),
-                       GestureDetector(
-                         onTap: () {
-                           setState(() {
-                             isDefaultAddress = !isDefaultAddress!;
-                             print(isDefaultAddress);
-                           });
-                         },
-                         child: const Text(
-                           Strings.text_set_this_as_a_default_address,
-                           style: TextStyle(
-                               fontSize: 14.0,
-                               fontWeight: FontWeight.w400,
-                               color: kDefaultBlackColor),
-                         ),
-                       )
-                     ],
-                   ),
-                   const SizedBox(
-                     height: 200.0,
-                   ),
-                   Padding(
-                     padding: const EdgeInsets.only(bottom: 30.0),
-                     child: ElevatedBtn(
-                       btnTitle: Strings.text_submit,
-                       bgColor: kDefaultPurpleColor,
-                       onPressed: () {
-                         //add new address
-                         if (_formKey.currentState!.validate()) {
-                           addNewAddress();
-                         }
-                       },
-                     ),
-                   ),
-                 ],
-               ),
-             )
-           ],
-         ),
-       ),
-     ),
-   );
+    return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(
+          Dimens.pixel_16,
+          Dimens.pixel_27_point_67,
+          Dimens.pixel_16,
+          Dimens.pixel_0,
+        ),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TitleText(title: Strings.text_add_new_address),
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: Dimens.pixel_48,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      Strings.label_address,
+                      style: kTextFormFieldLabelStyle,
+                    ),
+                    CustomTextFormField(
+                      hint: Strings.hint_address,
+                      controller: addressController,
+                      validator: Validate.validateAddress,
+                    ),
+                    const SizedBox(
+                      height: Dimens.pixel_30,
+                    ),
+                    const Text(
+                      Strings.label_area,
+                      style: kTextFormFieldLabelStyle,
+                    ),
+                    CustomTextFormField(
+                      hint: Strings.hint_area,
+                      controller: areaController,
+                      validator: Validate.validateAddress,
+                    ),
+                    const SizedBox(
+                      height: Dimens.pixel_30,
+                    ),
+                    const Text(
+                      Strings.label_postcode,
+                      style: kTextFormFieldLabelStyle,
+                    ),
+                    CustomTextFormField(
+                      hint: Strings.hint_postcode,
+                      controller: postcodeController,
+                      validator: Validate.validatePostcode,
+                    ),
+                    const SizedBox(
+                      height: Dimens.pixel_30,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: Dimens.pixel_24,
+                          width: Dimens.pixel_24,
+                          child: Checkbox(
+                            activeColor: kDefaultPurpleColor,
+                            value: isDefaultAddress,
+                            onChanged: (value) {
+                              setState(() {
+                                isDefaultAddress = value;
+                              });
+                            },
+                          ),
+                        ),
+                        const SizedBox(
+                          width: Dimens.pixel_10,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isDefaultAddress = !isDefaultAddress!;
+                              print(isDefaultAddress);
+                            });
+                          },
+                          child: const Text(
+                            Strings.text_set_this_as_a_default_address,
+                            style: TextStyle(
+                              fontSize: Dimens.pixel_14,
+                              fontWeight: FontWeight.w400,
+                              color: kDefaultBlackColor,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: Dimens.pixel_200,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: Dimens.pixel_30,
+                      ),
+                      child: ElevatedBtn(
+                        btnTitle: Strings.text_submit,
+                        bgColor: kDefaultPurpleColor,
+                        onPressed: () {
+                          //add new address
+                          if (_formKey.currentState!.validate()) {
+                            addNewAddress();
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

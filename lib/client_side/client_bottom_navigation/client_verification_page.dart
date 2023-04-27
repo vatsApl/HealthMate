@@ -9,12 +9,15 @@ import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
+import '../../resourse/dimens.dart';
+
 class ClientVerificationPage extends BasePageScreen {
   @override
   State<ClientVerificationPage> createState() => _ClientVerificationPageState();
 }
 
-class _ClientVerificationPageState extends BasePageScreenState<ClientVerificationPage> with BaseScreen {
+class _ClientVerificationPageState
+    extends BasePageScreenState<ClientVerificationPage> with BaseScreen {
   int currentIndex = 0;
 
   @override
@@ -27,51 +30,59 @@ class _ClientVerificationPageState extends BasePageScreenState<ClientVerificatio
   @override
   Widget body() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(
+        Dimens.pixel_16,
+        Dimens.pixel_0,
+        Dimens.pixel_16,
+        Dimens.pixel_0,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TitleText(title: Strings.text_title_verifications),
           const SizedBox(
-            height: 48.0,
+            height: Dimens.pixel_48,
           ),
           Center(
-            child: ToggleSwitch(
-              initialLabelIndex: currentIndex,
-              dividerColor: const Color(0xffE1E1E1),
-              dividerMargin: 0.0,
-              labels: const [
-                Strings.text_approvals,
-                Strings.text_timesheets,
-                Strings.text_invoices,
-              ],
-              minWidth: 108.0,
-              activeBgColor: const [
-                kDefaultPurpleColor,
-              ],
-              inactiveBgColor: const Color(0xffFFFFFF),
-              inactiveFgColor: klabelColor,
-              cornerRadius: 6.0,
-              borderColor: const [
-                Color(0xffE1E1E1),
-              ],
-              borderWidth: 1.0,
-              onToggle: (index) {
-                setState(() {
-                  currentIndex = index!;
-                });
-              },
+            child: FittedBox(
+              child: ToggleSwitch(
+                initialLabelIndex: currentIndex,
+                dividerColor: const Color(0xffE1E1E1),
+                dividerMargin: Dimens.pixel_0,
+                labels: const [
+                  Strings.text_approvals,
+                  Strings.text_timesheets,
+                  Strings.text_invoices,
+                ],
+                // minWidth: 108.0, //previously added mannually width of toggle switch
+                minWidth: double.infinity,
+                activeBgColor: const [
+                  kDefaultPurpleColor,
+                ],
+                inactiveBgColor: const Color(0xffFFFFFF),
+                inactiveFgColor: klabelColor,
+                cornerRadius: Dimens.pixel_6,
+                borderColor: const [
+                  Color(0xffE1E1E1),
+                ],
+                borderWidth: Dimens.pixel_1,
+                onToggle: (index) {
+                  setState(() {
+                    currentIndex = index!;
+                  });
+                },
+              ),
             ),
           ),
           const SizedBox(
-            height: 18.0,
+            height: Dimens.pixel_18,
           ),
           if (currentIndex == 0)
             Approvals()
           else if (currentIndex == 1)
             TimeSheets()
           else if (currentIndex == 2)
-              Invoices(),
+            Invoices(),
         ],
       ),
     );

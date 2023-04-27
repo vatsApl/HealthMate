@@ -8,13 +8,13 @@ import '../../allAPIs/allAPIs.dart';
 import '../../constants.dart';
 import '../../models/candidate_models/find_job_response.dart';
 import '../../resourse/api_urls.dart';
+import '../../resourse/dimens.dart';
 import '../../resourse/images.dart';
 import '../../resourse/shared_prefs.dart';
 import 'package:http/http.dart' as http;
 import '../../widgets/elevated_button.dart';
 
 class Invoices extends StatefulWidget {
-
   @override
   State<Invoices> createState() => _InvoicesState();
 }
@@ -54,8 +54,7 @@ class _InvoicesState extends State<Invoices> {
       });
       String url = ApiUrl.clientVerificationsPageApi;
       var response = await http.post(
-          Uri.parse(url)
-              .replace(queryParameters: queryParameters),
+          Uri.parse(url).replace(queryParameters: queryParameters),
           body: {
             'id': uId,
             'status': '3',
@@ -83,20 +82,26 @@ class _InvoicesState extends State<Invoices> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return Dialog(
-          insetPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+          insetPadding: const EdgeInsets.symmetric(
+            horizontal: Dimens.pixel_16,
+          ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6.0),
+            borderRadius: BorderRadius.circular(
+              Dimens.pixel_6,
+            ),
           ),
           child: Wrap(
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0, vertical: 25.0),
+                  horizontal: Dimens.pixel_10,
+                  vertical: Dimens.pixel_25,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(
-                      height: 12.0,
+                      height: Dimens.pixel_12,
                     ),
                     SvgPicture.asset(
                       Images.ic_success_popup,
@@ -104,34 +109,36 @@ class _InvoicesState extends State<Invoices> {
                       fit: BoxFit.scaleDown,
                     ),
                     const SizedBox(
-                      height: 20.0,
+                      height: Dimens.pixel_20,
                     ),
                     const Text(
                       Strings.text_mark_As_paid,
                       style: TextStyle(
-                        fontSize: 18.0,
+                        fontSize: Dimens.pixel_18,
                         fontWeight: FontWeight.w700,
                         color: kDefaultPurpleColor,
                       ),
                     ),
                     const SizedBox(
-                      height: 12.0,
+                      height: Dimens.pixel_12,
                     ),
                     Text(
                       Strings.text_confirmation_of_mark_As_paid,
-                      style: const TextStyle(color: kDefaultBlackColor)
-                          .copyWith(height: 1.5),
+                      style:
+                          const TextStyle(color: kDefaultBlackColor).copyWith(
+                        height: Dimens.pixel_1_and_half,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(
-                      height: 30.0,
+                      height: Dimens.pixel_30,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: 38.0,
-                          width: 120.0,
+                          height: Dimens.pixel_38,
+                          width: Dimens.pixel_120,
                           child: ElevatedBtn(
                             btnTitle: Strings.text_no,
                             textColor: klabelColor,
@@ -141,10 +148,12 @@ class _InvoicesState extends State<Invoices> {
                             },
                           ),
                         ),
-                        const SizedBox(width: 17.0,),
+                        const SizedBox(
+                          width: Dimens.pixel_17,
+                        ),
                         SizedBox(
-                          height: 38.0,
-                          width: 120.0,
+                          height: Dimens.pixel_38,
+                          width: Dimens.pixel_120,
                           child: ElevatedBtn(
                             btnTitle: Strings.text_yes,
                             bgColor: kDefaultPurpleColor,
@@ -172,11 +181,10 @@ class _InvoicesState extends State<Invoices> {
       // setState(() {
       //   isLoadingMore = true;
       // });
-      var response = await http.post(
-          Uri.parse('${DataURL.baseUrl}/api/mark/as/paid'),
-          body: {
-            'invoice_id': invoiceId.toString(),
-          });
+      var response = await http
+          .post(Uri.parse('${DataURL.baseUrl}/api/mark/as/paid'), body: {
+        'invoice_id': invoiceId.toString(),
+      });
       log('invoice res:${response.body}');
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
@@ -196,36 +204,36 @@ class _InvoicesState extends State<Invoices> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: jobs.isNotEmpty ?
-      ListView.separated(
-        physics: const BouncingScrollPhysics(),
-        controller: scrollController,
-        padding: EdgeInsets.zero,
-        shrinkWrap: true,
-        itemCount: jobs.length,
-        itemBuilder: (BuildContext context, int index) {
-          return InkWell(
-            onTap: () {
-              invoiceId = jobs[index].invoiceId;
-              if(jobs[index].jobStatus != 'Paid')
-                showDialogMarkAsPaid();
-            },
-            child: JobCardWithStatus(
-              jobModel: jobs[index],
+      child: jobs.isNotEmpty
+          ? ListView.separated(
+              physics: const BouncingScrollPhysics(),
+              controller: scrollController,
+              padding: EdgeInsets.zero,
+              shrinkWrap: true,
+              itemCount: jobs.length,
+              itemBuilder: (BuildContext context, int index) {
+                return InkWell(
+                  onTap: () {
+                    invoiceId = jobs[index].invoiceId;
+                    if (jobs[index].jobStatus != 'Paid') showDialogMarkAsPaid();
+                  },
+                  child: JobCardWithStatus(
+                    jobModel: jobs[index],
+                  ),
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return const SizedBox(
+                  height: Dimens.pixel_20,
+                );
+              },
+            )
+          : const Center(
+              child: Text(
+                Strings.text_no_invoices,
+                style: kDefaultEmptyListStyle,
+              ),
             ),
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return const SizedBox(
-            height: 20.0,
-          );
-        },
-      ) : const Center(
-        child: Text(
-          Strings.text_no_invoices,
-          style: kDefaultEmptyListStyle,
-        ),
-      ),
     );
   }
 }

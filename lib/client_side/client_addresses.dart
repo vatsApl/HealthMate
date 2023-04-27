@@ -12,6 +12,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:focus_detector/focus_detector.dart';
 import '../constants.dart';
 import '../custom_widgets/custom_widget_helper.dart';
+import '../resourse/dimens.dart';
 import '../resourse/images.dart';
 import '../resourse/shared_prefs.dart';
 import '../widgets/outline_btn.dart';
@@ -19,12 +20,12 @@ import 'package:http/http.dart' as http;
 import 'edit_address.dart';
 
 class ClientAddresses extends BasePageScreen {
-
   @override
   State<ClientAddresses> createState() => _ClientAddressesState();
 }
 
-class _ClientAddressesState extends BasePageScreenState<ClientAddresses> with BaseScreen {
+class _ClientAddressesState extends BasePageScreenState<ClientAddresses>
+    with BaseScreen {
   List<Address>? address = [];
   bool isVisible = false;
   var uId = PreferencesHelper.getString(PreferencesHelper.KEY_USER_ID);
@@ -134,147 +135,159 @@ class _ClientAddressesState extends BasePageScreenState<ClientAddresses> with Ba
 
   @override
   Widget body() {
-   return isVisible
-       ? Center(
-      child: CircularProgressIndicator(),
-   )
-       : Padding(
-     padding: const EdgeInsets.fromLTRB(16.0, 40.0, 16.0, 0.0),
-     child: Column(
-       crossAxisAlignment: CrossAxisAlignment.start,
-       children: [
-         Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: [
-             TitleText(title: Strings.text_addresses),
-             InkWell(
-               onTap: () {
-                 Navigator.push(
-                   context,
-                   MaterialPageRoute(
-                     builder: (context) => AddNewAddress(),
-                   ),
-                 );
-               },
-               child: Container(
-                 decoration: BoxDecoration(
-                   borderRadius: BorderRadius.circular(50.0),
-                   border: Border.all(
-                       width: 2.0, color: kDefaultPurpleColor),
-                 ),
-                 child: SvgPicture.asset(
-                   Images.ic_plus,
-                   height: 28.0,
-                 ),
-               ),
-             ),
-           ],
-         ),
-         Expanded(
-           child: ListView.separated(
-             padding: const EdgeInsets.only(top: 48.0),
-             physics: const BouncingScrollPhysics(),
-             itemCount: address?.length ?? 0,
-             itemBuilder: (BuildContext context, int index) {
-               return Padding(
-                 padding: const EdgeInsets.only(top: 12.0),
-                 child: Card(
-                   child: Padding(
-                     padding: const EdgeInsets.all(14.0),
-                     child: Column(
-                       crossAxisAlignment: CrossAxisAlignment.start,
-                       children: [
-                         Text(
-                           '${address?[index].client?.practiceName}',
-                           style: const TextStyle(
-                               fontSize: 15.0,
-                               fontWeight: FontWeight.w500,
-                               color: kDefaultBlackColor),
-                         ),
-                         const SizedBox(
-                           height: 18.0,
-                         ),
-                         Text(
-                           '${address?[index].address}, ${address?[index].area}-${address?[index].postCode}',
-                           style: const TextStyle(
-                             fontSize: 12.0,
-                             fontWeight: FontWeight.w400,
-                             color: kDefaultBlackColor,
-                             height: 1.5,
-                           ),
-                         ),
-                         const SizedBox(
-                           height: 18.0,
-                         ),
-                         Row(
-                           mainAxisAlignment:
-                           MainAxisAlignment.spaceBetween,
-                           children: [
-                             OutlinedBtn(
-                               btnTitle: Strings.text_edit,
-                               onPressed: () {
-                                 addressId = address?[index]?.id;
-                                 Navigator.push(
-                                   context,
-                                   MaterialPageRoute(
-                                     builder: (context) =>
-                                         EditAddress(addId: addressId),
-                                   ),
-                                 );
-                               },
-                             ),
-                             if (address!.length > 1)
-                               OutlinedBtn(
-                                 btnTitle: Strings.text_remove,
-                                 onPressed: () {
-                                   addressId = address?[index]?.id;
-                                   removeAddressApi(
-                                       addressId: addressId);
-                                   Navigator.pushReplacement(
-                                     context,
-                                     MaterialPageRoute(
-                                       builder: (context) =>
-                                           ClientAddresses(),
-                                     ),
-                                   );
-                                 },
-                               ),
-                             if (address?[index]
-                                 ?.client
-                                 ?.addressId !=
-                                 address?[index]?.id)
-                               OutlinedBtn(
-                                 btnTitle: Strings.text_set_as_default,
-                                 onPressed: () {
-                                   addressId = address?[index]?.id;
-                                   setAsDefaultAddressApi(
-                                       addressId: addressId);
-                                   Navigator.pushReplacement(
-                                     context,
-                                     MaterialPageRoute(
-                                       builder: (context) =>
-                                           ClientAddresses(),
-                                     ),
-                                   );
-                                 },
-                               ),
-                           ],
-                         )
-                       ],
-                     ),
-                   ),
-                 ),
-               );
-             },
-             separatorBuilder: (BuildContext context, int index) {
-               return const SizedBox(
-                 height: 4.0,
-               );
-             },
-           ),
-         ),
-       ],
-     ),
-   );
+    return isVisible
+        ? Center(
+            child: CircularProgressIndicator(),
+          )
+        : Padding(
+            padding: const EdgeInsets.fromLTRB(
+              Dimens.pixel_16,
+              Dimens.pixel_40,
+              Dimens.pixel_16,
+              Dimens.pixel_0,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TitleText(title: Strings.text_addresses),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AddNewAddress(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(Dimens.pixel_50),
+                          border: Border.all(
+                            width: Dimens.pixel_2,
+                            color: kDefaultPurpleColor,
+                          ),
+                        ),
+                        child: SvgPicture.asset(
+                          Images.ic_plus,
+                          height: Dimens.pixel_28,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Expanded(
+                  child: ListView.separated(
+                    padding: const EdgeInsets.only(
+                      top: Dimens.pixel_48,
+                    ),
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: address?.length ?? 0,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(
+                          top: Dimens.pixel_12,
+                        ),
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(
+                              Dimens.pixel_14,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '${address?[index].client?.practiceName}',
+                                  style: const TextStyle(
+                                    fontSize: Dimens.pixel_15,
+                                    fontWeight: FontWeight.w500,
+                                    color: kDefaultBlackColor,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: Dimens.pixel_18,
+                                ),
+                                Text(
+                                  '${address?[index].address}, ${address?[index].area}-${address?[index].postCode}',
+                                  style: const TextStyle(
+                                    fontSize: Dimens.pixel_12,
+                                    fontWeight: FontWeight.w400,
+                                    color: kDefaultBlackColor,
+                                    height: Dimens.pixel_1_and_half,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: Dimens.pixel_18,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    OutlinedBtn(
+                                      btnTitle: Strings.text_edit,
+                                      onPressed: () {
+                                        addressId = address?[index]?.id;
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                EditAddress(addId: addressId),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    if (address!.length > 1)
+                                      OutlinedBtn(
+                                        btnTitle: Strings.text_remove,
+                                        onPressed: () {
+                                          addressId = address?[index]?.id;
+                                          removeAddressApi(
+                                              addressId: addressId);
+                                          Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ClientAddresses(),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    if (address?[index]?.client?.addressId !=
+                                        address?[index]?.id)
+                                      OutlinedBtn(
+                                        btnTitle: Strings.text_set_as_default,
+                                        onPressed: () {
+                                          addressId = address?[index]?.id;
+                                          setAsDefaultAddressApi(
+                                              addressId: addressId);
+                                          Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ClientAddresses(),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return const SizedBox(
+                        height: Dimens.pixel_4,
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          );
   }
 }

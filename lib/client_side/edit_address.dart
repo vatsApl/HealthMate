@@ -4,12 +4,14 @@ import 'package:clg_project/UI/widgets/custom_textfield.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/models/client_model/single_address_response.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../allAPIs/allAPIs.dart';
 import '../custom_widgets/custom_widget_helper.dart';
 import 'package:http/http.dart' as http;
+import '../resourse/dimens.dart';
 import '../resourse/shared_prefs.dart';
 
 class EditAddress extends StatefulWidget {
@@ -45,9 +47,9 @@ class _EditAddressState extends State<EditAddress> {
         areaController.text = clientSingleAddress.address?.area ?? '';
         postcodeController.text =
             clientSingleAddress.address?.postCode.toString() ?? '';
-          setState(() {
-            isVisible = false;
-          });
+        setState(() {
+          isVisible = false;
+        });
       }
     } catch (e) {
       print(e);
@@ -115,58 +117,67 @@ class _EditAddressState extends State<EditAddress> {
       backgroundColor: Colors.white,
       appBar: CustomWidgetHelper.appBar(context: context),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(16.0, 27.67, 16.0, 0.0),
+        padding: const EdgeInsets.fromLTRB(
+          Dimens.pixel_16,
+          Dimens.pixel_27_point_67,
+          Dimens.pixel_16,
+          Dimens.pixel_0,
+        ),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TitleText(title: 'Edit Address'),
+              TitleText(title: Strings.text_edit_address),
               Padding(
-                padding: const EdgeInsets.only(top: 48.0),
+                padding: const EdgeInsets.only(
+                  top: Dimens.pixel_48,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'Address',
+                      Strings.label_address,
                       style: kTextFormFieldLabelStyle,
                     ),
                     CustomTextFormField(
-                      hint: 'Enter Here',
+                      hint: Strings.hint_address,
                       controller: addressController,
                     ),
                     const SizedBox(
-                      height: 30.0,
+                      height: Dimens.pixel_30,
                     ),
                     const Text(
-                      'Area',
+                      Strings.label_area,
                       style: kTextFormFieldLabelStyle,
                     ),
                     CustomTextFormField(
-                      hint: 'Enter Here',
+                      hint: Strings.hint_area,
                       controller: areaController,
                     ),
                     const SizedBox(
-                      height: 30.0,
+                      height: Dimens.pixel_30,
                     ),
                     const Text(
-                      'Postcode',
+                      Strings.label_postcode,
                       style: kTextFormFieldLabelStyle,
                     ),
                     CustomTextFormField(
-                      hint: 'Enter Here',
+                      hint: Strings.hint_postcode,
                       controller: postcodeController,
                     ),
                     const SizedBox(
-                      height: 280.0,
+                      height: Dimens.pixel_280,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 30.0),
+                      padding: const EdgeInsets.only(
+                        bottom: Dimens.pixel_30,
+                      ),
                       child: ElevatedBtn(
-                        btnTitle: 'Submit',
+                        btnTitle: Strings.text_submit,
                         bgColor: kDefaultPurpleColor,
                         onPressed: () {
                           //update address
-                          print('update button pressed');
+                          debugPrint('update button pressed');
                           updateAddress();
                         },
                       ),

@@ -12,6 +12,7 @@ import '../../constants.dart';
 import '../../models/candidate_models/find_job_response.dart';
 import '../../models/candidate_models/show_amount_status_model_worked_job.dart';
 import '../../resourse/api_urls.dart';
+import '../../resourse/dimens.dart';
 import '../../resourse/shared_prefs.dart';
 
 class WorkedJob extends StatefulWidget {
@@ -134,7 +135,7 @@ class _WorkedJobState extends State<WorkedJob> {
             ),
           ),
           Text(
-            '₹ ${amount ?? ''}',
+            '${Strings.amount_symbol_rupee} ${amount ?? ''}',
             style: TextStyle(
               fontWeight: FontWeight.w500,
               color: Color(0xffffffff),
@@ -180,7 +181,7 @@ class _WorkedJobState extends State<WorkedJob> {
                   },
                   separatorBuilder: (BuildContext context, int index) {
                     return const SizedBox(
-                      height: 20.0,
+                      height: Dimens.pixel_20,
                     );
                   },
                 ),
@@ -189,12 +190,12 @@ class _WorkedJobState extends State<WorkedJob> {
                   ? Wrap(
                       children: const [
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical: 250.0),
+                          padding: EdgeInsets.symmetric(vertical: Dimens.pixel_250,),
                           child: Center(
                             child: Text(
                               Strings.text_no_worked_Found,
                               style: TextStyle(
-                                fontSize: 22.0,
+                                fontSize: Dimens.pixel_22,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -206,7 +207,7 @@ class _WorkedJobState extends State<WorkedJob> {
                       visible: isVisible,
                       child: const CupertinoActivityIndicator(
                         color: kDefaultPurpleColor,
-                        radius: 15.0,
+                        radius: Dimens.pixel_15,
                       ),
                     ),
             ],
@@ -222,7 +223,7 @@ class _WorkedJobState extends State<WorkedJob> {
                 visible: isVisibleAmountStatus,
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 42.0,
+                  height: Dimens.pixel_42,
                 ),
               ),
             ),

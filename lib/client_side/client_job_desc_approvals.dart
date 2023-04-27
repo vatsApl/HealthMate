@@ -16,6 +16,7 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import '../custom_widgets/custom_widget_helper.dart';
 import '../models/candidate_models/find_job_response.dart';
+import '../resourse/dimens.dart';
 import '../resourse/shared_prefs.dart';
 
 class ClientJobDescApprovals extends BasePageScreen {
@@ -156,60 +157,68 @@ class _ClientJobDescApprovalsState
       barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
-          insetPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+          insetPadding: const EdgeInsets.symmetric(
+            horizontal: Dimens.pixel_16,
+          ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6.0),
+            borderRadius: BorderRadius.circular(
+              Dimens.pixel_6,
+            ),
           ),
           child: Wrap(
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0, vertical: 25.0),
+                  horizontal: Dimens.pixel_10,
+                  vertical: Dimens.pixel_25,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(
-                      height: 12.0,
+                      height: Dimens.pixel_12,
                     ),
                     SvgPicture.asset(
                       Images.ic_job,
                       // fit: BoxFit.scaleDown,
-                      height: 40.0,
-                      width: 40.0,
+                      height: Dimens.pixel_40,
+                      width: Dimens.pixel_40,
                       color: kDefaultPurpleColor,
                     ),
                     const SizedBox(
-                      height: 20.0,
+                      height: Dimens.pixel_20,
                     ),
                     const Text(
                       Strings.text_approvals_popup,
                       style: TextStyle(
-                        fontSize: 18.0,
+                        fontSize: Dimens.pixel_18,
                         fontWeight: FontWeight.w700,
                         color: kDefaultPurpleColor,
                       ),
                     ),
                     const SizedBox(
-                      height: 12.0,
+                      height: Dimens.pixel_12,
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 21.0),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: Dimens.pixel_21,
+                      ),
                       child: Text(
                         Strings.text_approvals_confirmation,
                         style: const TextStyle(color: kDefaultBlackColor)
-                            .copyWith(height: 1.5),
+                            .copyWith(height: Dimens.pixel_1_and_half),
                         textAlign: TextAlign.center,
                       ),
                     ),
                     const SizedBox(
-                      height: 30.0,
+                      height: Dimens.pixel_30,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: 110.0,
-                          height: 44.0,
+                          width: Dimens.pixel_110,
+                          height: Dimens.pixel_44,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: klightColor,
@@ -220,18 +229,18 @@ class _ClientJobDescApprovalsState
                             child: const Text(
                               Strings.text_cancel,
                               style: TextStyle(
-                                fontSize: 16.0,
+                                fontSize: Dimens.pixel_16,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
                           ),
                         ),
                         const SizedBox(
-                          width: 17.0,
+                          width: Dimens.pixel_17,
                         ),
                         SizedBox(
-                          width: 110.0,
-                          height: 44.0,
+                          width: Dimens.pixel_110,
+                          height: Dimens.pixel_44,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: kDefaultPurpleColor,
@@ -239,12 +248,13 @@ class _ClientJobDescApprovalsState
                             onPressed: () {
                               //approve the candidate and generate timesheet:
                               approveApplicationGenerateTimesheet(
-                                  applicationId: appId);
+                                applicationId: appId,
+                              );
                             },
                             child: const Text(
                               Strings.text_approve,
                               style: TextStyle(
-                                fontSize: 16.0,
+                                fontSize: Dimens.pixel_16,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -272,38 +282,46 @@ class _ClientJobDescApprovalsState
             physics: const BouncingScrollPhysics(),
             child: Expanded(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(16.0, 27.0, 16.0, 0.0),
+                padding: const EdgeInsets.fromLTRB(
+                  Dimens.pixel_16,
+                  Dimens.pixel_27,
+                  Dimens.pixel_16,
+                  Dimens.pixel_0,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TitleText(title: '${jobDesc?.jobTitle.toString()}'),
                     const SizedBox(
-                      height: 38.0,
+                      height: Dimens.pixel_38,
                     ),
                     const Text(
                       Strings.text_job_description,
                       style: TextStyle(
-                          color: kDefaultBlackColor,
-                          fontWeight: FontWeight.w500),
+                        color: kDefaultBlackColor,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                     const SizedBox(
-                      height: 10.0,
+                      height: Dimens.pixel_10,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 24.0),
+                      padding: const EdgeInsets.only(
+                        right: Dimens.pixel_24,
+                      ),
                       child: Text(
                         '${jobDesc?.jobDescription.toString()}',
                         style: const TextStyle(
                           color: klabelColor,
                           fontWeight: FontWeight.w400,
-                          height: 1.2,
+                          height: Dimens.pixel_1_point_2,
                         ),
                       ),
                     ),
                     Row(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 33.0),
+                          padding: const EdgeInsets.only(top: Dimens.pixel_33),
                           child: SvgPicture.asset(
                             Images.ic_location_circle,
                             fit: BoxFit.scaleDown,
@@ -311,8 +329,10 @@ class _ClientJobDescApprovalsState
                         ),
                         Flexible(
                           child: Padding(
-                            padding:
-                                const EdgeInsets.only(top: 30.0, left: 20.0),
+                            padding: const EdgeInsets.only(
+                              top: Dimens.pixel_30,
+                              left: Dimens.pixel_20,
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -320,7 +340,9 @@ class _ClientJobDescApprovalsState
                                   Strings.text_location,
                                   style: kDescText1,
                                 ),
-                                const SizedBox(height: 10.0),
+                                const SizedBox(
+                                  height: Dimens.pixel_10,
+                                ),
                                 Text(
                                   '${jobDesc?.jobLocation.toString()}',
                                   style: kDescText2,
@@ -334,14 +356,19 @@ class _ClientJobDescApprovalsState
                     Row(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 26.0),
+                          padding: const EdgeInsets.only(
+                            top: Dimens.pixel_26,
+                          ),
                           child: SvgPicture.asset(
                             Images.ic_calander_rounded,
                             fit: BoxFit.scaleDown,
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 13.0, left: 20.0),
+                          padding: const EdgeInsets.only(
+                            top: Dimens.pixel_13,
+                            left: Dimens.pixel_20,
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -349,7 +376,7 @@ class _ClientJobDescApprovalsState
                                 Strings.text_date,
                                 style: kDescText1,
                               ),
-                              const SizedBox(height: 10.0),
+                              const SizedBox(height: Dimens.pixel_10),
                               Text(
                                 '${jobDesc?.jobDate}',
                                 style: kDescText2,
@@ -362,14 +389,19 @@ class _ClientJobDescApprovalsState
                     Row(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 19.0),
+                          padding: const EdgeInsets.only(
+                            top: Dimens.pixel_19,
+                          ),
                           child: SvgPicture.asset(
                             Images.ic_time,
                             fit: BoxFit.scaleDown,
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 13.0, left: 20.0),
+                          padding: const EdgeInsets.only(
+                            top: Dimens.pixel_13,
+                            left: Dimens.pixel_20,
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -377,7 +409,9 @@ class _ClientJobDescApprovalsState
                                 Strings.text_time,
                                 style: kDescText1,
                               ),
-                              const SizedBox(height: 10.0),
+                              const SizedBox(
+                                height: Dimens.pixel_10,
+                              ),
                               Text(
                                 '${jobDesc?.jobStartTime.toString()} - ${jobDesc?.jobEndTime.toString()}',
                                 style: kDescText2,
@@ -390,14 +424,19 @@ class _ClientJobDescApprovalsState
                     Row(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 20.0),
+                          padding: const EdgeInsets.only(
+                            top: Dimens.pixel_20,
+                          ),
                           child: SvgPicture.asset(
                             Images.ic_income,
                             fit: BoxFit.scaleDown,
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 13.0, left: 20.0),
+                          padding: const EdgeInsets.only(
+                            top: Dimens.pixel_13,
+                            left: Dimens.pixel_20,
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -405,7 +444,9 @@ class _ClientJobDescApprovalsState
                                 Strings.text_pay,
                                 style: kDescText1,
                               ),
-                              const SizedBox(height: 10.0),
+                              const SizedBox(
+                                height: Dimens.pixel_10,
+                              ),
                               Text(
                                 '${jobDesc?.jobSalary.toString()} ${Strings.text_per_day}',
                                 style: kDescText2,
@@ -418,14 +459,19 @@ class _ClientJobDescApprovalsState
                     Row(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 26.0),
+                          padding: const EdgeInsets.only(
+                            top: Dimens.pixel_26,
+                          ),
                           child: SvgPicture.asset(
                             Images.ic_job_rounded,
                             fit: BoxFit.scaleDown,
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 13.0, left: 20.0),
+                          padding: const EdgeInsets.only(
+                            top: Dimens.pixel_13,
+                            left: Dimens.pixel_20,
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -433,7 +479,9 @@ class _ClientJobDescApprovalsState
                                 Strings.text_units,
                                 style: kDescText1,
                               ),
-                              const SizedBox(height: 10.0),
+                              const SizedBox(
+                                height: Dimens.pixel_10,
+                              ),
                               Text(
                                 jobDesc?.jobUnit == null
                                     ? Strings.default_job_unit
@@ -446,11 +494,11 @@ class _ClientJobDescApprovalsState
                       ],
                     ),
                     const SizedBox(
-                      height: 33.0,
+                      height: Dimens.pixel_33,
                     ),
                     kDivider,
                     const SizedBox(
-                      height: 20.0,
+                      height: Dimens.pixel_20,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -466,19 +514,24 @@ class _ClientJobDescApprovalsState
                                   fit: BoxFit.scaleDown,
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 6.0),
+                                  padding: const EdgeInsets.only(
+                                    left: Dimens.pixel_6,
+                                  ),
                                   child: Text(
                                     '${jobDesc?.jobParking.toString()}',
                                     style: const TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 12.0,
-                                        color: klabelColor),
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: Dimens.pixel_12,
+                                      color: klabelColor,
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
                             const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 15.0),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: Dimens.pixel_15,
+                              ),
                               child: Text(
                                 '.',
                                 style: TextStyle(
@@ -495,13 +548,16 @@ class _ClientJobDescApprovalsState
                                   fit: BoxFit.scaleDown,
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 6.0),
+                                  padding: const EdgeInsets.only(
+                                    left: Dimens.pixel_6,
+                                  ),
                                   child: Text(
                                     '${jobDesc?.breakTime} ${Strings.text_minutes}',
                                     style: const TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 12.0,
-                                        color: klabelColor),
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: Dimens.pixel_12,
+                                      color: klabelColor,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -509,22 +565,23 @@ class _ClientJobDescApprovalsState
                           ],
                         ),
                         const SizedBox(
-                          height: 32.5,
+                          // height: Dimens.pixel_12_and_half,
+                          height: Dimens.pixel_32_and_half,
                         ),
                         const Text(
                           Strings.text_candidates,
                           style: TextStyle(
-                              fontSize: 16.0,
-                              color: kDefaultPurpleColor,
-                              fontWeight: FontWeight.w500,
+                            fontSize: Dimens.pixel_16,
+                            color: kDefaultPurpleColor,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                         const SizedBox(
-                          height: 30.0,
+                          height: Dimens.pixel_30,
                         ),
                         ListView.separated(
                           padding: const EdgeInsets.only(
-                            bottom: 25.0,
+                            bottom: Dimens.pixel_25,
                           ),
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
@@ -537,8 +594,8 @@ class _ClientJobDescApprovalsState
                                       '${DataURL.baseUrl}/${jobDesc?.candidates?[index].avatar}',
                                   imageBuilder: (context, imageProvider) =>
                                       Container(
-                                    height: 40.0,
-                                    width: 40.0,
+                                    height: Dimens.pixel_40,
+                                    width: Dimens.pixel_40,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       image: DecorationImage(
@@ -552,7 +609,7 @@ class _ClientJobDescApprovalsState
                                       child: SvgPicture.asset(
                                         Images.ic_person,
                                         color: Colors.white,
-                                        height: 28.0,
+                                        height: Dimens.pixel_28,
                                       ),
                                     ),
                                   ),
@@ -561,7 +618,7 @@ class _ClientJobDescApprovalsState
                                     child: SvgPicture.asset(
                                       Images.ic_person,
                                       color: Colors.white,
-                                      height: 28.0,
+                                      height: Dimens.pixel_28,
                                     ),
                                   ),
                                 ),
@@ -588,7 +645,7 @@ class _ClientJobDescApprovalsState
                           },
                           separatorBuilder: (BuildContext context, int index) {
                             return const SizedBox(
-                              height: 10.0,
+                              height: Dimens.pixel_10,
                             );
                           },
                         ),
