@@ -863,6 +863,7 @@ class SignUpCandidateState extends State<SignUpCandidate> {
             },
           ),
         ],
+
       ),
     );
   }
