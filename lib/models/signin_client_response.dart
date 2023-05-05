@@ -33,10 +33,10 @@ class SigninClientResponse {
 class Data {
   int? id;
   String? avatar;
-  String? practiceName;
+  String? practiceName; //
   String? email;
   String? phone;
-  String? address;
+  String? address; //
   String? createdAt;
   String? updatedAt;
 

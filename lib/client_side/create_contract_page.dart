@@ -20,6 +20,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../custom_widgets/custom_widget_helper.dart';
 import '../models/client_model/client_Address_model.dart';
+import '../resourse/app_colors.dart';
 import '../resourse/dimens.dart';
 import '../resourse/strings.dart';
 
@@ -117,7 +118,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                       'Select Category',
                       style: TextStyle(
                         fontSize: Dimens.pixel_20,
-                        color: kDefaultBlackColor,
+                        color: AppColors.kDefaultBlackColor,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -160,8 +161,9 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                                               style: TextStyle(
                                                 color:
                                                     selectedRoleIndex == index
-                                                        ? kDefaultBlackColor
-                                                        : klabelColor,
+                                                        ? AppColors
+                                                            .kDefaultBlackColor
+                                                        : AppColors.klabelColor,
                                                 fontWeight:
                                                     selectedRoleIndex == index
                                                         ? FontWeight.w500
@@ -169,7 +171,8 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                                                 fontSize: Dimens.pixel_16,
                                               ),
                                             ),
-                                            activeColor: kDefaultPurpleColor,
+                                            activeColor:
+                                                AppColors.kDefaultPurpleColor,
                                             value: selectRoleList[index],
                                             groupValue: selectedRoleItem,
                                             onChanged: (value) {
@@ -238,7 +241,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                     'Select Breaktime',
                     style: TextStyle(
                       fontSize: Dimens.pixel_20,
-                      color: kDefaultBlackColor,
+                      color: AppColors.kDefaultBlackColor,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -270,8 +273,8 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                                     selectBreakTimeList[index].toString(),
                                     style: TextStyle(
                                       color: selectedBreaktimeIndex == index
-                                          ? kDefaultBlackColor
-                                          : klabelColor,
+                                          ? AppColors.kDefaultBlackColor
+                                          : AppColors.klabelColor,
                                       fontWeight:
                                           selectedBreaktimeIndex == index
                                               ? FontWeight.w500
@@ -279,7 +282,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                                       fontSize: Dimens.pixel_16,
                                     ),
                                   ),
-                                  activeColor: kDefaultPurpleColor,
+                                  activeColor: AppColors.kDefaultPurpleColor,
                                   value: selectBreakTimeList[index],
                                   groupValue: selectedBreakTime,
                                   onChanged: (value) {
@@ -344,7 +347,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                         'Choose availability',
                         style: TextStyle(
                           fontSize: Dimens.pixel_20,
-                          color: kDefaultBlackColor,
+                          color: AppColors.kDefaultBlackColor,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -389,8 +392,9 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                                               style: TextStyle(
                                                 color: selectedParkingIndex ==
                                                         index
-                                                    ? kDefaultBlackColor
-                                                    : klabelColor,
+                                                    ? AppColors
+                                                        .kDefaultBlackColor
+                                                    : AppColors.klabelColor,
                                                 fontWeight:
                                                     selectedParkingIndex ==
                                                             index
@@ -399,7 +403,8 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                                                 fontSize: Dimens.pixel_16,
                                               ),
                                             ),
-                                            activeColor: kDefaultPurpleColor,
+                                            activeColor:
+                                                AppColors.kDefaultPurpleColor,
                                             value: parkingList[index],
                                             groupValue: selectedParkingItem,
                                             onChanged: (value) {
@@ -641,7 +646,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                 title: const Text(
                   Strings.text_add_new_address,
                   style: TextStyle(
-                    color: kDefaultBlackColor,
+                    color: AppColors.kDefaultBlackColor,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -673,7 +678,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                                   style: const TextStyle(
                                     fontSize: Dimens.pixel_16,
                                     fontWeight: FontWeight.w400,
-                                    color: kDefaultBlackColor,
+                                    color: AppColors.kDefaultBlackColor,
                                     height: Dimens.pixel_1_and_half,
                                   ),
                                 ),
@@ -755,10 +760,10 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                           ? Strings.text_select_category
                           : selectedRoleItem,
                       hintStyle: const TextStyle(
-                        color: kDefaultBlackColor,
+                        color: AppColors.kDefaultBlackColor,
                       ),
                       labelStyle: const TextStyle(
-                        color: kDefaultBlackColor,
+                        color: AppColors.kDefaultBlackColor,
                       ),
                       suffixIcon:
                           const Icon(Icons.keyboard_arrow_down_outlined),
@@ -817,10 +822,10 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                     decoration: const InputDecoration(
                       hintText: Strings.create_contract_hint_address,
                       hintStyle: TextStyle(
-                        color: klabelColor,
+                        color: AppColors.klabelColor,
                       ),
                       labelStyle: TextStyle(
-                        color: klabelColor,
+                        color: AppColors.klabelColor,
                       ),
                       suffixIcon: Icon(Icons.keyboard_arrow_down_outlined),
                       disabledBorder: UnderlineInputBorder(
@@ -849,12 +854,14 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                       svgPrefixIcon: SvgPicture.asset(
                         Images.ic_calander,
                         fit: BoxFit.scaleDown,
-                        color: klabelColor,
+                        color: AppColors.klabelColor,
                       ),
-                      icColor: klabelColor,
+                      icColor: AppColors.klabelColor,
                       hint: Strings.create_contract_select_date,
                       hintStyle: TextStyle(
-                        color: klabelColor.withOpacity(Dimens.pixel_0_point_8),
+                        color: AppColors.klabelColor.withOpacity(
+                          Dimens.pixel_0_point_8,
+                        ),
                       ),
                       enabled: false,
                       controller: dateController,
@@ -892,8 +899,14 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                                 context: context,
                               );
                               if (pickedTime != null) {
-                                DateTime parsedTime = DateFormat.jm().parse(
-                                    pickedTime.format(context).toString());
+                                final now = DateTime.now();
+                                final parsedTime = DateTime(
+                                    now.year,
+                                    now.month,
+                                    now.day,
+                                    pickedTime.hour,
+                                    pickedTime.minute);
+                                print('pickedTime:${pickedTime}');
                                 String formattedStartTime =
                                     DateFormat('HH:mm').format(parsedTime);
                                 setState(() {
@@ -908,17 +921,18 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                               return null;
                             },
                             decoration: const InputDecoration(
-                              hintText: Strings.create_contract_hint_time,
+                              hintText: Strings
+                                  .hint_time, // pending show selected time
                               hintStyle: TextStyle(
-                                color: klabelColor,
+                                color: AppColors.klabelColor,
                               ),
                               labelStyle: TextStyle(
-                                color: klabelColor,
+                                color: AppColors.klabelColor,
                               ),
                               border: OutlineInputBorder(),
                               disabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: klabelColor,
+                                  color: AppColors.klabelColor,
                                 ),
                               ),
                               suffixIcon:
@@ -955,8 +969,13 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                                 context: context,
                               );
                               if (pickedTime != null) {
-                                DateTime parsedTime = DateFormat.jm().parse(
-                                    pickedTime.format(context).toString());
+                                final now = DateTime.now();
+                                final parsedTime = DateTime(
+                                    now.year,
+                                    now.month,
+                                    now.day,
+                                    pickedTime.hour,
+                                    pickedTime.minute);
                                 String formattedEndTime =
                                     DateFormat('HH:mm').format(parsedTime);
                                 setState(() {
@@ -972,21 +991,21 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                             },
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
-                              hintText: Strings.create_contract_hint_time,
+                              hintText: Strings.hint_time,
                               hintStyle: TextStyle(
-                                color: klabelColor,
+                                color: AppColors.klabelColor,
                               ),
                               labelStyle: TextStyle(
-                                color: klabelColor,
+                                color: AppColors.klabelColor,
                               ),
                               disabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
-                                  color:
-                                      klabelColor, // Set the border color to grey
+                                  color: AppColors.klabelColor,
                                 ),
                               ),
-                              suffixIcon:
-                                  Icon(Icons.keyboard_arrow_down_outlined),
+                              suffixIcon: Icon(
+                                Icons.keyboard_arrow_down_outlined,
+                              ),
                             ),
                           ),
                         ],
@@ -1018,10 +1037,10 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                         decoration: InputDecoration(
                           hintText: selectedBreakTime,
                           hintStyle: const TextStyle(
-                            color: klabelColor,
+                            color: AppColors.klabelColor,
                           ),
                           labelStyle: const TextStyle(
-                            color: klabelColor,
+                            color: AppColors.klabelColor,
                           ),
                           prefixIcon: Padding(
                             padding: kPrefixIconPadding,
@@ -1077,7 +1096,9 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                       fit: BoxFit.scaleDown,
                     ),
                     hint: '${unit ?? ''}',
-                    hintStyle: const TextStyle(color: klabelColor),
+                    hintStyle: const TextStyle(
+                      color: AppColors.klabelColor,
+                    ),
                     readOnly: true,
                     enabled: false,
                     borderColor: Colors.grey,
@@ -1147,13 +1168,14 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                     hint: selectedParkingItem == Strings.text_null
                         ? Strings.text_choose_availability
                         : selectedParkingItem,
-                    hintStyle: const TextStyle(color: kDefaultBlackColor),
+                    hintStyle: const TextStyle(
+                      color: AppColors.kDefaultBlackColor,
+                    ),
                     svgPrefixIcon: SvgPicture.asset(
                       Images.ic_parking,
                       fit: BoxFit.scaleDown,
                     ),
                     enabled: false,
-                    // borderColor: klabelColor,
                   ),
                 ),
                 const SizedBox(
@@ -1162,7 +1184,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                 ElevatedBtn(
                   btnTitle: Strings.text_submit,
                   isLoading: isVisible,
-                  bgColor: kDefaultPurpleColor,
+                  bgColor: AppColors.kDefaultPurpleColor,
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       createContractApi(); //api

@@ -20,6 +20,7 @@ import '../../allAPIs/allAPIs.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import '../../custom_widgets/custom_widget_helper.dart';
+import '../resourse/app_colors.dart';
 import '../resourse/dimens.dart';
 
 class ClientPersonalDetails extends BasePageScreen {
@@ -225,7 +226,7 @@ class _ClientPersonalDetailsState
                             child: Container(
                               decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: kDefaultPurpleColor,
+                                color: AppColors.kDefaultPurpleColor,
                               ),
                               child: CachedNetworkImage(
                                 imageUrl: '${DataURL.baseUrl}/$netImg',
@@ -271,7 +272,7 @@ class _ClientPersonalDetailsState
                                     ),
                                   ),
                                   border: Border.all(
-                                    color: kDefaultPurpleColor,
+                                    color: AppColors.kDefaultPurpleColor,
                                   ),
                                 ),
                                 child: GestureDetector(
@@ -350,11 +351,11 @@ class _ClientPersonalDetailsState
                                   child: CircleAvatar(
                                     backgroundColor: imageFile == null
                                         ? Colors.white
-                                        : kDefaultPurpleColor,
+                                        : AppColors.kDefaultPurpleColor,
                                     child: SvgPicture.asset(
                                       Images.ic_camera,
                                       color: imageFile == null
-                                          ? kDefaultPurpleColor
+                                          ? AppColors.kDefaultPurpleColor
                                           : Colors.white,
                                     ),
                                   ),

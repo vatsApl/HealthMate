@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/bottom_navigation/find_job/booked_job.dart';
 import 'package:clg_project/resourse/images.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,6 +15,9 @@ import '../constants.dart';
 import '../custom_widgets/custom_widget_helper.dart';
 import 'package:http/http.dart' as http;
 
+import '../resourse/app_colors.dart';
+import '../resourse/dimens.dart';
+
 class SignOffPage extends BasePageScreen {
   int? timeSheetId;
   SignOffPage({this.timeSheetId});
@@ -22,7 +26,8 @@ class SignOffPage extends BasePageScreen {
   State<SignOffPage> createState() => _SignOffPageState();
 }
 
-class _SignOffPageState extends BasePageScreenState<SignOffPage> with BaseScreen {
+class _SignOffPageState extends BasePageScreenState<SignOffPage>
+    with BaseScreen {
   final selectBreakTimeList = [
     '00:10',
     '00:20',
@@ -34,7 +39,7 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage> with BaseScreen
     '01:20',
     '01:30',
   ];
-  String? selectedBreakTime = '00:00';
+  String? selectedBreakTime = Strings.hint_time;
   bool isVisible = false;
   TextEditingController startTimeController = TextEditingController();
   TextEditingController endTimeController = TextEditingController();
@@ -97,22 +102,29 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage> with BaseScreen
       barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+              Dimens.pixel_6,
+            ),
+          ),
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: Dimens.pixel_10,
+              vertical: Dimens.pixel_15,
+            ),
             child: Wrap(
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'Select Breaktime',
-                      style: TextStyle(fontSize: 18.0),
+                      Strings.text_select_breaktime,
+                      style: TextStyle(
+                        fontSize: Dimens.pixel_18,
+                      ),
                     ),
                     const SizedBox(
-                      height: 18.0,
+                      height: Dimens.pixel_18,
                     ),
                     ListView.builder(
                       itemCount: selectBreakTimeList.length,
@@ -134,11 +146,12 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage> with BaseScreen
                                       title: Text(
                                         selectBreakTimeList[index],
                                         style: const TextStyle(
-                                          color: kDefaultBlackColor,
-                                          fontSize: 16.0,
+                                          color: AppColors.kDefaultBlackColor,
+                                          fontSize: Dimens.pixel_16,
                                         ),
                                       ),
-                                      activeColor: kDefaultPurpleColor,
+                                      activeColor:
+                                          AppColors.kDefaultPurpleColor,
                                       value: selectBreakTimeList[index],
                                       groupValue: selectedBreakTime,
                                       onChanged: (value) {
@@ -151,7 +164,6 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage> with BaseScreen
                                         });
                                         breakController.text =
                                             selectedBreakTime!;
-                                        // print('CHITTI ROBO:${breakTimeController.text.toString()}');
                                         Navigator.pop(context);
                                       },
                                     ),
@@ -198,15 +210,20 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage> with BaseScreen
   @override
   Widget body() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16.0, 27.67, 16.0, 16.0),
+      padding: const EdgeInsets.fromLTRB(
+        Dimens.pixel_16,
+        Dimens.pixel_27_point_67,
+        Dimens.pixel_6,
+        Dimens.pixel_6,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TitleText(
-            title: 'Sign Off',
+            title: Strings.text_sign_off,
           ),
           const SizedBox(
-            height: 48.0,
+            height: Dimens.pixel_48,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -216,11 +233,11 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage> with BaseScreen
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'Start Time',
+                      Strings.label_start_time,
                       style: kTextFormFieldLabelStyle,
                     ),
                     const SizedBox(
-                      height: 5.0,
+                      height: Dimens.pixel_5,
                     ),
                     TextFormField(
                       textAlignVertical: TextAlignVertical.bottom,
@@ -233,13 +250,11 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage> with BaseScreen
                           context: context,
                         );
                         if (pickedTime != null) {
-                          // print('PickedTime:${pickedTime.format(context)}');
-                          DateTime parsedTime = DateFormat.jm()
-                              .parse(pickedTime.format(context).toString());
-                          // print('ParsedTime:$parsedTime');
+                          final now = DateTime.now();
+                          final parsedTime = DateTime(now.year, now.month,
+                              now.day, pickedTime.hour, pickedTime.minute);
                           String formattedStartTime =
-                          DateFormat('HH:mm').format(parsedTime);
-                          // print('FormattedTime:$formattedTime');
+                              DateFormat('HH:mm').format(parsedTime);
                           setState(() {
                             startTimeController.text = formattedStartTime;
                           });
@@ -252,23 +267,24 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage> with BaseScreen
                         return null;
                       },
                       decoration: const InputDecoration(
-                        hintText: '00:00',
+                        hintText: Strings.hint_time,
                         hintStyle: TextStyle(
-                          color: klabelColor,
+                          color: AppColors.klabelColor,
                         ),
                         labelStyle: TextStyle(
-                          color: klabelColor,
+                          color: AppColors.klabelColor,
                         ),
                         border: OutlineInputBorder(),
                         disabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
-                            color:
-                            klabelColor, // Set the border color to grey
+                            color: AppColors.klabelColor,
                           ),
                         ),
                         suffixIcon: Padding(
                           padding: kSuffixIconPadding,
-                          child: Icon(Icons.keyboard_arrow_down_outlined),
+                          child: Icon(
+                            Icons.keyboard_arrow_down_outlined,
+                          ),
                         ),
                       ),
                     ),
@@ -276,22 +292,24 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage> with BaseScreen
                 ),
               ),
               const SizedBox(
-                width: 15.0,
+                width: Dimens.pixel_15,
               ),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'End Time',
+                      Strings.label_end_time,
                       style: kTextFormFieldLabelStyle,
                     ),
                     const SizedBox(
-                      height: 5.0,
+                      height: Dimens.pixel_5,
                     ),
                     TextFormField(
                       textAlignVertical: TextAlignVertical.bottom,
-                      style: const TextStyle(height: 1.0),
+                      style: const TextStyle(
+                        height: Dimens.pixel_1,
+                      ),
                       keyboardType: TextInputType.number,
                       controller: endTimeController,
                       readOnly: true,
@@ -301,13 +319,16 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage> with BaseScreen
                           context: context,
                         );
                         if (pickedTime != null) {
-                          // print('PickedTime:${pickedTime.format(context)}');
-                          DateTime parsedTime = DateFormat.jm()
-                              .parse(pickedTime.format(context).toString());
-                          // print('ParsedTime:$parsedTime');
+                          final now = DateTime.now();
+                          final parsedTime = DateTime(
+                            now.year,
+                            now.month,
+                            now.day,
+                            pickedTime.hour,
+                            pickedTime.minute,
+                          );
                           String formattedEndTime =
-                          DateFormat('HH:mm').format(parsedTime);
-                          // print('FormattedTime:$formattedTime');
+                              DateFormat('HH:mm').format(parsedTime);
                           setState(() {
                             endTimeController.text = formattedEndTime;
                           });
@@ -320,23 +341,24 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage> with BaseScreen
                         return null;
                       },
                       decoration: const InputDecoration(
-                        hintText: '00:00',
+                        hintText: Strings.hint_time,
                         hintStyle: TextStyle(
-                          color: klabelColor,
+                          color: AppColors.klabelColor,
                         ),
                         labelStyle: TextStyle(
-                          color: klabelColor,
+                          color: AppColors.klabelColor,
                         ),
                         border: OutlineInputBorder(),
                         disabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
-                            color:
-                            klabelColor, // Set the border color to grey
+                            color: AppColors.klabelColor,
                           ),
                         ),
                         suffixIcon: Padding(
                           padding: kSuffixIconPadding,
-                          child: Icon(Icons.keyboard_arrow_down_outlined),
+                          child: Icon(
+                            Icons.keyboard_arrow_down_outlined,
+                          ),
                         ),
                       ),
                     ),
@@ -346,7 +368,7 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage> with BaseScreen
             ],
           ),
           const SizedBox(
-            height: 30.0,
+            height: Dimens.pixel_30,
           ),
           Row(
             children: [
@@ -355,11 +377,11 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage> with BaseScreen
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'Break',
+                      Strings.label_break,
                       style: kTextFormFieldLabelStyle,
                     ),
                     const SizedBox(
-                      height: 5.0,
+                      height: Dimens.pixel_5,
                     ),
                     Stack(
                       children: [
@@ -374,14 +396,16 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage> with BaseScreen
                               keyboardType: TextInputType.number,
                               enabled: false,
                               textAlignVertical: TextAlignVertical.bottom,
-                              style: const TextStyle(height: 1.0),
+                              style: const TextStyle(
+                                height: Dimens.pixel_1,
+                              ),
                               decoration: InputDecoration(
                                 hintText: selectedBreakTime,
                                 hintStyle: const TextStyle(
-                                  color: klabelColor,
+                                  color: AppColors.klabelColor,
                                 ),
                                 labelStyle: const TextStyle(
-                                  color: klabelColor,
+                                  color: AppColors.klabelColor,
                                 ),
                                 prefixIcon: Padding(
                                   padding: kPrefixIconPadding,
@@ -393,8 +417,7 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage> with BaseScreen
                                 border: const OutlineInputBorder(),
                                 disabledBorder: const OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Colors
-                                        .grey, // Set the border color to grey
+                                    color: Colors.grey,
                                   ),
                                 ),
                               ),
@@ -405,13 +428,13 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage> with BaseScreen
                           alignment: Alignment.bottomRight,
                           child: Padding(
                             padding: EdgeInsets.only(
-                              top: 22.0,
-                              right: 8.0,
+                              top: Dimens.pixel_22,
+                              right: Dimens.pixel_8,
                             ),
                             child: Padding(
                               padding: kSuffixIconPadding,
                               child: Text(
-                                'Hr',
+                                Strings.text_hr,
                                 style: TextStyle(fontWeight: FontWeight.w400),
                               ),
                             ),
@@ -423,18 +446,18 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage> with BaseScreen
                 ),
               ),
               const SizedBox(
-                width: 15.0,
+                width: Dimens.pixel_15,
               ),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'Units',
+                      Strings.text_units,
                       style: kTextFormFieldLabelStyle,
                     ),
                     const SizedBox(
-                      height: 5.0,
+                      height: Dimens.pixel_5,
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
@@ -450,7 +473,9 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage> with BaseScreen
                           readOnly: true,
                           decoration: InputDecoration(
                             hintText: '${unit ?? ''}',
-                            hintStyle: const TextStyle(color: klabelColor),
+                            hintStyle: const TextStyle(
+                              color: AppColors.klabelColor,
+                            ),
                             enabled: false,
                             disabledBorder: const OutlineInputBorder(
                               borderSide: BorderSide(
@@ -471,11 +496,11 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage> with BaseScreen
             ],
           ),
           const SizedBox(
-            height: 48.0,
+            height: Dimens.pixel_48,
           ),
           ElevatedBtn(
-            btnTitle: 'Submit',
-            bgColor: kDefaultPurpleColor,
+            btnTitle: Strings.text_submit,
+            bgColor: AppColors.kDefaultPurpleColor,
             onPressed: () {
               // update timesheet api call:
               updateTimesheet();

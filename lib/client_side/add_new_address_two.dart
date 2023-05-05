@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import '../resourse/api_urls.dart';
+import '../resourse/app_colors.dart';
+import '../resourse/dimens.dart';
 import '../resourse/shared_prefs.dart';
 
 class AddNewAddressTwo extends BasePageScreen {
@@ -78,7 +80,12 @@ class _AddNewAddressTwoState extends BasePageScreenState<AddNewAddressTwo>
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(16.0, 27.67, 16.0, 0.0),
+        padding: const EdgeInsets.fromLTRB(
+          Dimens.pixel_16,
+          Dimens.pixel_27_point_67,
+          Dimens.pixel_16,
+          Dimens.pixel_0,
+        ),
         child: Form(
           key: _formKey,
           child: Column(
@@ -86,7 +93,9 @@ class _AddNewAddressTwoState extends BasePageScreenState<AddNewAddressTwo>
             children: [
               TitleText(title: Strings.text_add_new_address),
               Padding(
-                padding: const EdgeInsets.only(top: 48.0),
+                padding: const EdgeInsets.only(
+                  top: Dimens.pixel_48,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -100,7 +109,7 @@ class _AddNewAddressTwoState extends BasePageScreenState<AddNewAddressTwo>
                       validator: Validate.validateAddress,
                     ),
                     const SizedBox(
-                      height: 30.0,
+                      height: Dimens.pixel_30,
                     ),
                     const Text(
                       Strings.label_area,
@@ -112,7 +121,7 @@ class _AddNewAddressTwoState extends BasePageScreenState<AddNewAddressTwo>
                       validator: Validate.validateAddress,
                     ),
                     const SizedBox(
-                      height: 30.0,
+                      height: Dimens.pixel_30,
                     ),
                     const Text(
                       Strings.label_postcode,
@@ -125,16 +134,16 @@ class _AddNewAddressTwoState extends BasePageScreenState<AddNewAddressTwo>
                       validator: Validate.validatePostcode,
                     ),
                     const SizedBox(
-                      height: 30.0,
+                      height: Dimens.pixel_30,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         SizedBox(
-                          height: 24.0,
-                          width: 24.0,
+                          height: Dimens.pixel_24,
+                          width: Dimens.pixel_24,
                           child: Checkbox(
-                            activeColor: kDefaultPurpleColor,
+                            activeColor: AppColors.kDefaultPurpleColor,
                             value: isDefaultAddress,
                             onChanged: (value) {
                               setState(() {
@@ -144,7 +153,7 @@ class _AddNewAddressTwoState extends BasePageScreenState<AddNewAddressTwo>
                           ),
                         ),
                         const SizedBox(
-                          width: 10.0,
+                          width: Dimens.pixel_10,
                         ),
                         GestureDetector(
                           onTap: () {
@@ -156,21 +165,24 @@ class _AddNewAddressTwoState extends BasePageScreenState<AddNewAddressTwo>
                           child: const Text(
                             Strings.text_set_this_as_a_default_address,
                             style: TextStyle(
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.w400,
-                                color: kDefaultBlackColor),
+                              fontSize: Dimens.pixel_14,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.kDefaultBlackColor,
+                            ),
                           ),
                         )
                       ],
                     ),
                     const SizedBox(
-                      height: 200.0,
+                      height: Dimens.pixel_200,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 30.0),
+                      padding: const EdgeInsets.only(
+                        bottom: Dimens.pixel_30,
+                      ),
                       child: ElevatedBtn(
                         btnTitle: Strings.text_submit,
-                        bgColor: kDefaultPurpleColor,
+                        bgColor: AppColors.kDefaultPurpleColor,
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             newAddress =

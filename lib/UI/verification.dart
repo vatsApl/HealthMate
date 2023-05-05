@@ -1,16 +1,18 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'package:clg_project/UI/signin_page.dart';
 import 'package:clg_project/UI/widgets/otp_text_form_field.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
-import 'package:clg_project/constants.dart';
 import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/resourse/images.dart';
+import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import '../resourse/app_colors.dart';
+import '../resourse/dimens.dart';
+import '../ui/signin/view/signin_page.dart';
 
 class Verification extends StatefulWidget {
   Verification({super.key, this.userId, this.userType});
@@ -63,7 +65,7 @@ class _VerificationState extends State<Verification> {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => SignInPage(),
+              builder: (context) => SigninPage(),
             ),
             (route) => false);
       }
@@ -109,7 +111,7 @@ class _VerificationState extends State<Verification> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        elevation: 0.0,
+        elevation: Dimens.pixel_0,
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);
@@ -122,26 +124,34 @@ class _VerificationState extends State<Verification> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+          padding: const EdgeInsets.fromLTRB(
+            Dimens.pixel_16,
+            Dimens.pixel_0,
+            Dimens.pixel_16,
+            Dimens.pixel_16,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(
-                height: 23.0,
+                height: Dimens.pixel_23,
               ),
-              TitleText(title: 'Verification'),
+              TitleText(
+                title: Strings.text_title_otp_verification,
+              ),
               const SizedBox(
-                height: 38.0,
+                height: Dimens.pixel_38,
               ),
               const Text(
-                'Enter Verification Code',
+                Strings.text_enter_verification_code,
                 style: TextStyle(
-                    fontSize: 16.0,
-                    color: kDefaultBlackColor,
-                    fontWeight: FontWeight.w500),
+                  fontSize: Dimens.pixel_16,
+                  color: AppColors.kDefaultBlackColor,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
               const SizedBox(
-                height: 28.0,
+                height: Dimens.pixel_28,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -152,7 +162,7 @@ class _VerificationState extends State<Verification> {
                     last: false,
                   ),
                   const SizedBox(
-                    width: 19.0,
+                    width: Dimens.pixel_19,
                   ),
                   OtpTextFormField(
                     otpController: otp2Controller,
@@ -160,7 +170,7 @@ class _VerificationState extends State<Verification> {
                     last: false,
                   ),
                   const SizedBox(
-                    width: 19.0,
+                    width: Dimens.pixel_19,
                   ),
                   OtpTextFormField(
                     otpController: otp3Controller,
@@ -168,7 +178,7 @@ class _VerificationState extends State<Verification> {
                     last: false,
                   ),
                   const SizedBox(
-                    width: 19.0,
+                    width: Dimens.pixel_19,
                   ),
                   OtpTextFormField(
                     otpController: otp4Controller,
@@ -176,20 +186,22 @@ class _VerificationState extends State<Verification> {
                     last: true,
                   ),
                   const SizedBox(
-                    width: 2.0,
+                    width: Dimens.pixel_2,
                   ),
                 ],
               ),
               const SizedBox(
-                height: 26.0,
+                height: Dimens.pixel_26,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    'If you did\'t receive a code! ',
+                    Strings.text_if_you_didt_receive_a_code,
                     style: TextStyle(
-                        fontWeight: FontWeight.w400, color: kDefaultBlackColor),
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.kDefaultBlackColor,
+                    ),
                   ),
                   GestureDetector(
                     onTap: () {
@@ -197,10 +209,10 @@ class _VerificationState extends State<Verification> {
                       resendOtpSignup();
                     },
                     child: const Text(
-                      'Resend',
+                      Strings.text_resend,
                       style: TextStyle(
-                        fontSize: 16.0,
-                        color: kDefaultPurpleColor,
+                        fontSize: Dimens.pixel_16,
+                        color: AppColors.kDefaultPurpleColor,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -208,12 +220,12 @@ class _VerificationState extends State<Verification> {
                 ],
               ),
               const SizedBox(
-                height: 42.0,
+                height: Dimens.pixel_42,
               ),
               ElevatedBtn(
-                  btnTitle: 'Verify',
+                  btnTitle: Strings.text_verify,
                   isLoading: isVisible,
-                  bgColor: kDefaultPurpleColor,
+                  bgColor: AppColors.kDefaultPurpleColor,
                   onPressed: () {
                     signupOtpVerify();
                   }),
@@ -228,25 +240,30 @@ class _VerificationState extends State<Verification> {
     TextEditingController otpController = TextEditingController();
     bool? first, last;
     return SizedBox(
-      height: 52.0,
-      width: 40.0,
+      height: Dimens.pixel_52,
+      width: Dimens.pixel_40,
       child: TextFormField(
-        // controller: _otpController,
         textAlign: TextAlign.center,
         keyboardType: TextInputType.number,
         maxLength: 1,
         style: const TextStyle(
-          fontSize: 24.0,
+          fontSize: Dimens.pixel_24,
           fontWeight: FontWeight.bold,
         ),
         decoration: const InputDecoration(
           counterText: '',
-          contentPadding: EdgeInsets.symmetric(vertical: 16.0),
+          contentPadding: EdgeInsets.symmetric(
+            vertical: Dimens.pixel_16,
+          ),
           border: OutlineInputBorder(
-            borderSide: BorderSide(width: 2.0),
+            borderSide: BorderSide(
+              width: Dimens.pixel_2,
+            ),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(width: 2.0),
+            borderSide: BorderSide(
+              width: Dimens.pixel_2,
+            ),
           ),
         ),
       ),

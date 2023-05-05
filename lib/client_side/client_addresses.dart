@@ -12,6 +12,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:focus_detector/focus_detector.dart';
 import '../constants.dart';
 import '../custom_widgets/custom_widget_helper.dart';
+import '../resourse/app_colors.dart';
 import '../resourse/dimens.dart';
 import '../resourse/images.dart';
 import '../resourse/shared_prefs.dart';
@@ -167,7 +168,7 @@ class _ClientAddressesState extends BasePageScreenState<ClientAddresses>
                           borderRadius: BorderRadius.circular(Dimens.pixel_50),
                           border: Border.all(
                             width: Dimens.pixel_2,
-                            color: kDefaultPurpleColor,
+                            color: AppColors.kDefaultPurpleColor,
                           ),
                         ),
                         child: SvgPicture.asset(
@@ -203,7 +204,7 @@ class _ClientAddressesState extends BasePageScreenState<ClientAddresses>
                                   style: const TextStyle(
                                     fontSize: Dimens.pixel_15,
                                     fontWeight: FontWeight.w500,
-                                    color: kDefaultBlackColor,
+                                    color: AppColors.kDefaultBlackColor,
                                   ),
                                 ),
                                 const SizedBox(
@@ -214,7 +215,7 @@ class _ClientAddressesState extends BasePageScreenState<ClientAddresses>
                                   style: const TextStyle(
                                     fontSize: Dimens.pixel_12,
                                     fontWeight: FontWeight.w400,
-                                    color: kDefaultBlackColor,
+                                    color: AppColors.kDefaultBlackColor,
                                     height: Dimens.pixel_1_and_half,
                                   ),
                                 ),

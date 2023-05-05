@@ -12,11 +12,11 @@ abstract class BasePageScreenState<Page extends BasePageScreen>
   bool _isAppBar = true;
   bool _isSystemPop = false;
 
-  void onClickBackButton(){
-    _isSystemPop ? SystemNavigator.pop() : Navigator.pop(context) ;
+  void onClickBackButton() {
+    _isSystemPop ? SystemNavigator.pop() : Navigator.pop(context);
   }
 
-  void onClickSaveButton(){
+  void onClickSaveButton() {
     print('data updated');
   }
 
@@ -42,44 +42,43 @@ mixin BaseScreen<Page extends BasePageScreen> on BasePageScreenState<Page> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-        appBar: _isAppBar
-            ? AppBar(
-                backgroundColor: Colors.white,
-                elevation: 0.0,
-                leading: GestureDetector(
+      appBar: _isAppBar
+          ? AppBar(
+              backgroundColor: Colors.white,
+              elevation: 0.0,
+              leading: GestureDetector(
+                onTap: () {
+                  onClickBackButton();
+                },
+                child: _isBack
+                    ? SvgPicture.asset(
+                        Images.ic_left_arrow,
+                        fit: BoxFit.scaleDown,
+                      )
+                    : Container(),
+              ),
+              actions: [
+                GestureDetector(
                   onTap: () {
-                    // Navigator.pop(context);
-                    onClickBackButton();
+                    onClickSaveButton();
                   },
-                  child: _isBack
-                      ? SvgPicture.asset(
-                          Images.ic_left_arrow,
-                          fit: BoxFit.scaleDown,
+                  child: _isSave
+                      ? Padding(
+                          padding: const EdgeInsets.only(right: 16.0),
+                          child: SvgPicture.asset(
+                            Images.ic_true,
+                            height: 28.0,
+                          ),
                         )
                       : Container(),
                 ),
-                actions: [
-                  GestureDetector(
-                    onTap: () {
-                      onClickSaveButton();
-                    },
-                    child: _isSave
-                        ? Padding(
-                          padding: const EdgeInsets.only(right: 16.0),
-                          child: SvgPicture.asset(
-                              Images.ic_true,
-                              height: 28.0,
-                            ),
-                        )
-                        : Container(),
-                  ),
-                ],
-              )
-            : null,
-        body: Container(
-          child: body(),
-          color: Colors.white,
-        ),
+              ],
+            )
+          : null,
+      body: Container(
+        child: body(),
+        color: Colors.white,
+      ),
     );
   }
 

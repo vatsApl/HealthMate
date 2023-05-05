@@ -3,6 +3,7 @@ import 'package:clg_project/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../allAPIs/allAPIs.dart';
+import '../../resourse/app_colors.dart';
 import '../../resourse/images.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
@@ -71,13 +72,16 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(top: role == null ? 16.0 : 0.0),
+              padding: EdgeInsets.only(
+                top: role == null ? 16.0 : 0.0,
+              ),
               child: Text(
                 name ?? '',
                 style: const TextStyle(
-                    color: kDefaultPurpleColor,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w700),
+                  color: AppColors.kDefaultPurpleColor,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
             Padding(

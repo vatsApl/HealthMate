@@ -5,6 +5,7 @@ import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../resourse/app_colors.dart';
 import '../resourse/dimens.dart';
 
 class JobCardClient extends StatelessWidget {
@@ -35,7 +36,7 @@ class JobCardClient extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: Dimens.pixel_10,
                       fontWeight: FontWeight.w500,
-                      color: kDefaultPurpleColor,
+                      color: AppColors.kDefaultPurpleColor,
                     ),
                   ),
                 ),
@@ -43,7 +44,7 @@ class JobCardClient extends StatelessWidget {
                   text: TextSpan(
                     style: const TextStyle(
                       fontSize: Dimens.pixel_16,
-                      color: kDefaultPurpleColor,
+                      color: AppColors.kDefaultPurpleColor,
                     ),
                     children: <TextSpan>[
                       const TextSpan(
@@ -51,7 +52,7 @@ class JobCardClient extends StatelessWidget {
                         style: TextStyle(
                           fontSize: Dimens.pixel_16,
                           fontWeight: FontWeight.w500,
-                          color: kDefaultBlackColor,
+                          color: AppColors.kDefaultBlackColor,
                         ),
                       ),
                       TextSpan(
@@ -59,7 +60,7 @@ class JobCardClient extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: Dimens.pixel_16,
                           fontWeight: FontWeight.w500,
-                          color: kDefaultBlackColor,
+                          color: AppColors.kDefaultBlackColor,
                         ),
                       ),
                       const TextSpan(
@@ -67,7 +68,7 @@ class JobCardClient extends StatelessWidget {
                         style: TextStyle(
                           fontSize: Dimens.pixel_12,
                           fontWeight: FontWeight.w400,
-                          color: klightColor,
+                          color: AppColors.klightColor,
                         ),
                       ),
                     ],
@@ -81,7 +82,7 @@ class JobCardClient extends StatelessWidget {
             Text(
               "${clientJobModel?.jobTitle}",
               style: const TextStyle(
-                color: kDefaultBlackColor,
+                color: AppColors.kDefaultBlackColor,
                 fontSize: Dimens.pixel_16,
                 fontWeight: FontWeight.w500,
               ),
@@ -127,7 +128,7 @@ class JobCardClient extends StatelessWidget {
                     children: [
                       SvgPicture.asset(
                         Images.ic_calander,
-                        color: kDefaultPurpleColor,
+                        color: AppColors.kDefaultPurpleColor,
                         fit: BoxFit.scaleDown,
                       ),
                       const SizedBox(
@@ -136,7 +137,7 @@ class JobCardClient extends StatelessWidget {
                       Text(
                         '${clientJobModel?.jobDate}',
                         style: const TextStyle(
-                          color: kDefaultPurpleColor,
+                          color: AppColors.kDefaultPurpleColor,
                           fontWeight: FontWeight.w500,
                           fontSize: Dimens.pixel_13,
                         ),

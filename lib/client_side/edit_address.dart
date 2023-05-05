@@ -11,6 +11,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '../allAPIs/allAPIs.dart';
 import '../custom_widgets/custom_widget_helper.dart';
 import 'package:http/http.dart' as http;
+import '../resourse/app_colors.dart';
 import '../resourse/dimens.dart';
 import '../resourse/shared_prefs.dart';
 
@@ -174,7 +175,7 @@ class _EditAddressState extends State<EditAddress> {
                       ),
                       child: ElevatedBtn(
                         btnTitle: Strings.text_submit,
-                        bgColor: kDefaultPurpleColor,
+                        bgColor: AppColors.kDefaultPurpleColor,
                         onPressed: () {
                           //update address
                           debugPrint('update button pressed');

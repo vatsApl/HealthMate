@@ -1,240 +1,242 @@
-import 'dart:convert';
-import 'package:clg_project/UI/forgot_verification.dart';
-import 'package:clg_project/UI/widgets/title_text.dart';
-import 'package:clg_project/constants.dart';
-import 'package:clg_project/models/forgot_response.dart';
-import 'package:clg_project/resourse/api_urls.dart';
-import 'package:clg_project/resourse/images.dart';
-import 'package:clg_project/validations.dart';
-import 'package:clg_project/widgets/elevated_button.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
-import '../base_Screen_working/base_screen.dart';
-import '../resourse/dimens.dart';
-import '../resourse/strings.dart';
-
-class ForgotPassword extends BasePageScreen {
-  @override
-  State<ForgotPassword> createState() => _ForgotPasswordState();
-}
-
-class _ForgotPasswordState extends BasePageScreenState<ForgotPassword>
-    with BaseScreen {
-  final _formKey = GlobalKey<FormState>();
-  TextEditingController emailController = TextEditingController();
-  final emailFocusNode = FocusNode();
-  bool? isEmailVerified;
-  int? userId;
-  int? userType;
-  bool isVisible = false;
-
-  //forgot password api
-  Future<void> forgotPassword() async {
-    String url = ApiUrl.forgotPassword;
-    try {
-      setState(() {
-        isVisible = true;
-      });
-      var response = await http.post(Uri.parse(url), body: {
-        'email': emailController.text.toString(),
-      });
-      print(response.body);
-      if (response.statusCode == 200) {
-        var json = jsonDecode(response.body);
-        var forgotPasswordResponse = ForgotPasswordResponse.fromJson(json);
-        print('forgot res : $forgotPasswordResponse');
-        userId = forgotPasswordResponse.data![0].id;
-        userType = forgotPasswordResponse.type;
-        print(userId);
-        Fluttertoast.showToast(
-          msg: '${json['message']}',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: json['code'] == 200 ? Colors.green : Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0,
-        );
-        if (json['code'] == 200) {
-          setState(() {
-            isVisible = false;
-          });
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ForgotVerification(
-                userId: userId,
-                userType: userType,
-              ),
-            ),
-          );
-        }
-      } else {
-        print(response.statusCode);
-        var json = jsonDecode(response.body);
-        Fluttertoast.showToast(
-          msg: '${json['message']}',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0,
-        );
-      }
-    } catch (e) {
-      print(e);
-      setState(() {
-        isVisible = false;
-      });
-    }
-    setState(() {
-      isVisible = false;
-    });
-  }
-
-  @override
-  Widget body() {
-    return GestureDetector(
-      onTap: () {
-        FocusManager.instance.primaryFocus?.unfocus();
-      },
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: Padding(
-          padding: const EdgeInsets.fromLTRB(
-            Dimens.pixel_16,
-            Dimens.pixel_0,
-            Dimens.pixel_16,
-            Dimens.pixel_16,
-          ),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: Dimens.pixel_23,
-                ),
-                TitleText(
-                  title: Strings.text_title_forgot_password,
-                ),
-                const SizedBox(
-                  height: Dimens.pixel_48,
-                ),
-                const Text(
-                  Strings.text_notice_forgot_password,
-                  style: TextStyle(
-                    fontSize: Dimens.pixel_12,
-                    color: kDefaultBlackColor,
-                    fontWeight: FontWeight.w400,
-                    height: Dimens.pixel_1_and_half,
-                  ),
-                ),
-                const SizedBox(
-                  height: Dimens.pixel_26,
-                ),
-                const Text(Strings.sign_in_email_label),
-                TextFormField(
-                  textAlignVertical: TextAlignVertical.bottom,
-                  style: TextStyle(
-                    height: Dimens.pixel_1,
-                    color: isEmailVerified == null
-                        ? klabelColor
-                        : isEmailVerified == true
-                            ? Colors.green
-                            : Colors.red,
-                  ),
-                  textCapitalization: TextCapitalization.words,
-                  controller: emailController,
-                  focusNode: emailFocusNode,
-                  // onChanged: (val) {
-                  //   setState(() {
-                  //     Validate.validateEmail(val);
-                  //   });
-                  // },
-                  validator: Validate.validateEmail,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    hintText: Strings.sign_in_hint_enter_email_address,
-                    hintStyle: const TextStyle(
-                      color: Color.fromRGBO(
-                        3,
-                        8,
-                        55,
-                        1,
-                      ),
-                    ),
-                    prefixIcon: Padding(
-                      padding: kPrefixIconPadding,
-                      child: SvgPicture.asset(
-                        Images.ic_mail,
-                        fit: BoxFit.scaleDown,
-                        color: isEmailVerified == null
-                            ? klabelColor
-                            : isEmailVerified == true
-                                ? Colors.green
-                                : Colors.red,
-                      ),
-                    ),
-                    suffixIcon: isEmailVerified == null
-                        ? null
-                        : isEmailVerified == true
-                            ? Padding(
-                                padding: kSuffixIconPadding,
-                                child: SvgPicture.asset(
-                                  Images.ic_true,
-                                  fit: BoxFit.scaleDown,
-                                  color: Colors.green,
-                                ),
-                              )
-                            : Padding(
-                                padding: kSuffixIconPadding,
-                                child: SvgPicture.asset(
-                                  Images.ic_error,
-                                  fit: BoxFit.scaleDown,
-                                  color: Colors.red,
-                                ),
-                              ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: isEmailVerified == null
-                            ? kDefaultPurpleColor
-                            : isEmailVerified == true
-                                ? Colors.green
-                                : Colors.red,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: Dimens.pixel_50,
-                ),
-                ElevatedBtn(
-                  btnTitle: Strings.text_submit,
-                  isLoading: isVisible,
-                  bgColor: kDefaultPurpleColor,
-                  onPressed: () {
-                    // validate color
-                    setState(() {});
-                    isEmailVerified =
-                        Validate.validateEmailBool(emailController.text);
-                    //
-                    if (_formKey.currentState!.validate()) {
-                      forgotPassword();
-                      emailController.clear();
-                    } else {
-                      debugPrint('Unsuccessful');
-                    }
-                  },
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+// import 'dart:convert';
+// import 'package:clg_project/UI/forgot_verification.dart';
+// import 'package:clg_project/UI/widgets/title_text.dart';
+// import 'package:clg_project/constants.dart';
+// import 'package:clg_project/models/forgot_response.dart';
+// import 'package:clg_project/resourse/api_urls.dart';
+// import 'package:clg_project/resourse/images.dart';
+// import 'package:clg_project/validations.dart';
+// import 'package:clg_project/widgets/elevated_button.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
+// import 'package:http/http.dart' as http;
+// import '../base_Screen_working/base_screen.dart';
+// import '../resourse/app_colors.dart';
+// import '../resourse/dimens.dart';
+// import '../resourse/strings.dart';
+//
+// class ForgotPassword extends BasePageScreen {
+//   @override
+//   State<ForgotPassword> createState() => _ForgotPasswordState();
+// }
+//
+// class _ForgotPasswordState extends BasePageScreenState<ForgotPassword>
+//     with BaseScreen {
+//   final _formKey = GlobalKey<FormState>();
+//   TextEditingController emailController = TextEditingController();
+//   final emailFocusNode = FocusNode();
+//   bool? isEmailVerified;
+//   int? userId;
+//   int? userType;
+//   bool isVisible = false;
+//
+//   //forgot password api
+//   Future<void> forgotPassword() async {
+//     String url = ApiUrl.forgotPassword;
+//     try {
+//       setState(() {
+//         isVisible = true;
+//       });
+//       var response = await http.post(Uri.parse(url), body: {
+//         'email': emailController.text.toString(),
+//       });
+//       print(response.body);
+//       if (response.statusCode == 200) {
+//         var json = jsonDecode(response.body);
+//         var forgotPasswordResponse = ForgotPasswordResponse.fromJson(json);
+//         print('forgot res : $forgotPasswordResponse');
+//         userId = forgotPasswordResponse.data![0].id;
+//         userType = forgotPasswordResponse.type;
+//         print(userId);
+//         Fluttertoast.showToast(
+//           msg: '${json['message']}',
+//           toastLength: Toast.LENGTH_SHORT,
+//           gravity: ToastGravity.BOTTOM,
+//           timeInSecForIosWeb: 1,
+//           backgroundColor: json['code'] == 200 ? Colors.green : Colors.red,
+//           textColor: Colors.white,
+//           fontSize: 16.0,
+//         );
+//         if (json['code'] == 200) {
+//           setState(() {
+//             isVisible = false;
+//           });
+//           Navigator.push(
+//             context,
+//             MaterialPageRoute(
+//               builder: (context) => ForgotVerification(
+//                 userId: userId,
+//                 userType: userType,
+//               ),
+//             ),
+//           );
+//         }
+//       } else {
+//         print(response.statusCode);
+//         var json = jsonDecode(response.body);
+//         Fluttertoast.showToast(
+//           msg: '${json['message']}',
+//           toastLength: Toast.LENGTH_SHORT,
+//           gravity: ToastGravity.BOTTOM,
+//           timeInSecForIosWeb: 1,
+//           backgroundColor: Colors.red,
+//           textColor: Colors.white,
+//           fontSize: 16.0,
+//         );
+//       }
+//     } catch (e) {
+//       print(e);
+//       setState(() {
+//         isVisible = false;
+//       });
+//     }
+//     setState(() {
+//       isVisible = false;
+//     });
+//   }
+//
+//   @override
+//   Widget body() {
+//     return GestureDetector(
+//       onTap: () {
+//         FocusManager.instance.primaryFocus?.unfocus();
+//       },
+//       child: Scaffold(
+//         backgroundColor: Colors.white,
+//         body: Padding(
+//           padding: const EdgeInsets.fromLTRB(
+//             Dimens.pixel_16,
+//             Dimens.pixel_0,
+//             Dimens.pixel_16,
+//             Dimens.pixel_16,
+//           ),
+//           child: Form(
+//             key: _formKey,
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 const SizedBox(
+//                   height: Dimens.pixel_23,
+//                 ),
+//                 TitleText(
+//                   title: Strings.text_title_forgot_password,
+//                 ),
+//                 Text('this ui is without bloc'),
+//                 const SizedBox(
+//                   height: Dimens.pixel_48,
+//                 ),
+//                 const Text(
+//                   Strings.text_notice_forgot_password,
+//                   style: TextStyle(
+//                     fontSize: Dimens.pixel_12,
+//                     color: AppColors.kDefaultBlackColor,
+//                     fontWeight: FontWeight.w400,
+//                     height: Dimens.pixel_1_and_half,
+//                   ),
+//                 ),
+//                 const SizedBox(
+//                   height: Dimens.pixel_26,
+//                 ),
+//                 const Text(Strings.sign_in_email_label),
+//                 TextFormField(
+//                   textAlignVertical: TextAlignVertical.bottom,
+//                   style: TextStyle(
+//                     height: Dimens.pixel_1,
+//                     color: isEmailVerified == null
+//                         ? AppColors.klabelColor
+//                         : isEmailVerified == true
+//                             ? Colors.green
+//                             : Colors.red,
+//                   ),
+//                   textCapitalization: TextCapitalization.words,
+//                   controller: emailController,
+//                   focusNode: emailFocusNode,
+//                   // onChanged: (val) {
+//                   //   setState(() {
+//                   //     Validate.validateEmail(val);
+//                   //   });
+//                   // },
+//                   validator: Validate.validateEmail,
+//                   keyboardType: TextInputType.emailAddress,
+//                   decoration: InputDecoration(
+//                     hintText: Strings.sign_in_hint_enter_email_address,
+//                     hintStyle: const TextStyle(
+//                       color: Color.fromRGBO(
+//                         3,
+//                         8,
+//                         55,
+//                         1,
+//                       ),
+//                     ),
+//                     prefixIcon: Padding(
+//                       padding: kPrefixIconPadding,
+//                       child: SvgPicture.asset(
+//                         Images.ic_mail,
+//                         fit: BoxFit.scaleDown,
+//                         color: isEmailVerified == null
+//                             ? AppColors.klabelColor
+//                             : isEmailVerified == true
+//                                 ? Colors.green
+//                                 : Colors.red,
+//                       ),
+//                     ),
+//                     suffixIcon: isEmailVerified == null
+//                         ? null
+//                         : isEmailVerified == true
+//                             ? Padding(
+//                                 padding: kSuffixIconPadding,
+//                                 child: SvgPicture.asset(
+//                                   Images.ic_true,
+//                                   fit: BoxFit.scaleDown,
+//                                   color: Colors.green,
+//                                 ),
+//                               )
+//                             : Padding(
+//                                 padding: kSuffixIconPadding,
+//                                 child: SvgPicture.asset(
+//                                   Images.ic_error,
+//                                   fit: BoxFit.scaleDown,
+//                                   color: Colors.red,
+//                                 ),
+//                               ),
+//                     focusedBorder: UnderlineInputBorder(
+//                       borderSide: BorderSide(
+//                         color: isEmailVerified == null
+//                             ? AppColors.kDefaultPurpleColor
+//                             : isEmailVerified == true
+//                                 ? Colors.green
+//                                 : Colors.red,
+//                       ),
+//                     ),
+//                   ),
+//                 ),
+//                 const SizedBox(
+//                   height: Dimens.pixel_50,
+//                 ),
+//                 ElevatedBtn(
+//                   btnTitle: Strings.text_submit,
+//                   isLoading: isVisible,
+//                   bgColor: AppColors.kDefaultPurpleColor,
+//                   onPressed: () {
+//                     // validate color
+//                     setState(() {});
+//                     isEmailVerified =
+//                         Validate.validateEmailBool(emailController.text);
+//                     //
+//                     if (_formKey.currentState!.validate()) {
+//                       forgotPassword();
+//                       emailController.clear();
+//                     } else {
+//                       debugPrint('Unsuccessful');
+//                     }
+//                   },
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

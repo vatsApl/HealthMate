@@ -9,6 +9,7 @@ import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
+import '../../resourse/app_colors.dart';
 import '../../resourse/dimens.dart';
 
 class ClientVerificationPage extends BasePageScreen {
@@ -57,10 +58,10 @@ class _ClientVerificationPageState
                 // minWidth: 108.0, //previously added mannually width of toggle switch
                 minWidth: double.infinity,
                 activeBgColor: const [
-                  kDefaultPurpleColor,
+                  AppColors.kDefaultPurpleColor,
                 ],
                 inactiveBgColor: const Color(0xffFFFFFF),
-                inactiveFgColor: klabelColor,
+                inactiveFgColor: AppColors.klabelColor,
                 cornerRadius: Dimens.pixel_6,
                 borderColor: const [
                   Color(0xffE1E1E1),

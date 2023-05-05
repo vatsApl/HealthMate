@@ -4,6 +4,7 @@ import 'package:clg_project/resourse/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../resourse/app_colors.dart';
 import '../../resourse/dimens.dart';
 import '../../resourse/strings.dart';
 
@@ -42,7 +43,7 @@ class _JobCardWithStatusState extends State<JobCardWithStatus> {
                     style: const TextStyle(
                       fontSize: Dimens.pixel_10,
                       fontWeight: FontWeight.w500,
-                      color: kDefaultPurpleColor,
+                      color: AppColors.kDefaultPurpleColor,
                     ),
                   ),
                 ),
@@ -50,7 +51,7 @@ class _JobCardWithStatusState extends State<JobCardWithStatus> {
                   text: TextSpan(
                       style: const TextStyle(
                         fontSize: Dimens.pixel_16,
-                        color: kDefaultPurpleColor,
+                        color: AppColors.kDefaultPurpleColor,
                       ),
                       children: <TextSpan>[
                         const TextSpan(
@@ -58,7 +59,7 @@ class _JobCardWithStatusState extends State<JobCardWithStatus> {
                           style: TextStyle(
                             fontSize: Dimens.pixel_16,
                             fontWeight: FontWeight.w500,
-                            color: kDefaultBlackColor,
+                            color: AppColors.kDefaultBlackColor,
                           ),
                         ),
                         TextSpan(
@@ -66,7 +67,7 @@ class _JobCardWithStatusState extends State<JobCardWithStatus> {
                           style: const TextStyle(
                             fontSize: Dimens.pixel_16,
                             fontWeight: FontWeight.w500,
-                            color: kDefaultBlackColor,
+                            color: AppColors.kDefaultBlackColor,
                           ),
                         ),
                         const TextSpan(
@@ -74,7 +75,7 @@ class _JobCardWithStatusState extends State<JobCardWithStatus> {
                           style: TextStyle(
                             fontSize: Dimens.pixel_12,
                             fontWeight: FontWeight.w400,
-                            color: klightColor,
+                            color: AppColors.klightColor,
                           ),
                         ),
                       ]),
@@ -87,7 +88,7 @@ class _JobCardWithStatusState extends State<JobCardWithStatus> {
             Text(
               "${widget.jobModel?.jobTitle}",
               style: const TextStyle(
-                color: kDefaultBlackColor,
+                color: AppColors.kDefaultBlackColor,
                 fontSize: Dimens.pixel_16,
                 fontWeight: FontWeight.w500,
               ),
@@ -125,17 +126,17 @@ class _JobCardWithStatusState extends State<JobCardWithStatus> {
                     color: widget.jobModel?.jobStatus ==
                             Strings
                                 .text_assigned //color change with timeSheetstatusType
-                        ? kGreenColor.withOpacity(0.1)
+                        ? AppColors.kGreenColor.withOpacity(0.1)
                         : widget.jobModel?.jobStatus == Strings.text_pending
-                            ? kYellowColor.withOpacity(0.1)
+                            ? AppColors.kYellowColor.withOpacity(0.1)
                             : widget.jobModel?.jobStatus == Strings.text_dispute
-                                ? kredColor.withOpacity(0.1)
+                                ? AppColors.kredColor.withOpacity(0.1)
                                 : widget.jobModel?.jobStatus ==
                                         Strings.text_processing
-                                    ? kYellowColor.withOpacity(0.1)
+                                    ? AppColors.kYellowColor.withOpacity(0.1)
                                     : widget.jobModel?.jobStatus ==
                                             Strings.text_paid
-                                        ? kGreenColor.withOpacity(0.1)
+                                        ? AppColors.kGreenColor.withOpacity(0.1)
                                         : null,
                     borderRadius: BorderRadius.circular(
                       Dimens.pixel_4,
@@ -148,18 +149,18 @@ class _JobCardWithStatusState extends State<JobCardWithStatus> {
                       color: widget.jobModel?.jobStatus ==
                               Strings
                                   .text_assigned //color change with timeSheetstatusType
-                          ? kGreenColor
+                          ? AppColors.kGreenColor
                           : widget.jobModel?.jobStatus == Strings.text_pending
-                              ? kYellowColor
+                              ? AppColors.kYellowColor
                               : widget.jobModel?.jobStatus ==
                                       Strings.text_dispute
-                                  ? kredColor
+                                  ? AppColors.kredColor
                                   : widget.jobModel?.jobStatus ==
                                           Strings.text_processing
-                                      ? kYellowColor
+                                      ? AppColors.kYellowColor
                                       : widget.jobModel?.jobStatus ==
                                               Strings.text_paid
-                                          ? kGreenColor
+                                          ? AppColors.kGreenColor
                                           : null,
                     ),
                   ),
@@ -176,7 +177,7 @@ class _JobCardWithStatusState extends State<JobCardWithStatus> {
                   children: [
                     SvgPicture.asset(
                       Images.ic_calander,
-                      color: kDefaultPurpleColor,
+                      color: AppColors.kDefaultPurpleColor,
                       fit: BoxFit.scaleDown,
                     ),
                     const SizedBox(
@@ -185,7 +186,7 @@ class _JobCardWithStatusState extends State<JobCardWithStatus> {
                     Text(
                       widget.jobModel?.jobDate ?? '',
                       style: const TextStyle(
-                        color: kDefaultPurpleColor,
+                        color: AppColors.kDefaultPurpleColor,
                         fontWeight: FontWeight.w500,
                         fontSize: Dimens.pixel_13,
                       ),

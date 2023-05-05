@@ -1,6 +1,8 @@
 import 'package:clg_project/constants.dart';
 import 'package:flutter/material.dart';
 
+import '../../resourse/app_colors.dart';
+
 class TitleText extends StatelessWidget {
   TitleText({super.key, required this.title});
 
@@ -11,7 +13,7 @@ class TitleText extends StatelessWidget {
       title,
       style: const TextStyle(
         fontSize: 26.0,
-        color: kDefaultPurpleColor,
+        color: AppColors.kDefaultPurpleColor,
         fontWeight: FontWeight.w700,
       ),
     );

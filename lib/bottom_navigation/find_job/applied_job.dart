@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 import '../../UI/job_description_my_jobs.dart';
 import '../../constants.dart';
 import '../../models/candidate_models/find_job_response.dart';
+import '../../resourse/app_colors.dart';
 import '../../resourse/dimens.dart';
 import '../../resourse/shared_prefs.dart';
 import 'package:http/http.dart' as http;
 
 class AppliedJob extends StatefulWidget {
-
   @override
   State<AppliedJob> createState() => _AppliedJobState();
 }
@@ -52,13 +52,11 @@ class _AppliedJobState extends State<AppliedJob> {
       });
       String url = ApiUrl.myJobsApi;
       var urlParsed = Uri.parse(url);
-      var response = await http.post(
-          urlParsed
-              .replace(queryParameters: queryParameters),
-          body: {
-            'candidate_id': uId,
-            'status': '1',
-          });
+      var response = await http
+          .post(urlParsed.replace(queryParameters: queryParameters), body: {
+        'candidate_id': uId,
+        'status': '1',
+      });
       // log(response.body);
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
@@ -104,8 +102,10 @@ class _AppliedJobState extends State<AppliedJob> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            JobDescriptionMyJobs(jobId: jobId, appId: appId,),
+                        builder: (context) => JobDescriptionMyJobs(
+                          jobId: jobId,
+                          appId: appId,
+                        ),
                       ),
                     );
                   },
@@ -125,7 +125,9 @@ class _AppliedJobState extends State<AppliedJob> {
               ? Wrap(
                   children: const [
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: Dimens.pixel_250,),
+                      padding: EdgeInsets.symmetric(
+                        vertical: Dimens.pixel_250,
+                      ),
                       child: Text(
                         Strings.text_no_applied_found,
                         style: TextStyle(
@@ -139,7 +141,7 @@ class _AppliedJobState extends State<AppliedJob> {
               : Visibility(
                   visible: isVisible,
                   child: const CupertinoActivityIndicator(
-                    color: kDefaultPurpleColor,
+                    color: AppColors.kDefaultPurpleColor,
                     radius: Dimens.pixel_15,
                   ),
                 ),

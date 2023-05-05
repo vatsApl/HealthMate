@@ -9,6 +9,8 @@ import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../resourse/app_colors.dart';
+
 class Splash extends StatefulWidget {
   @override
   State<Splash> createState() => SplashState();
@@ -57,7 +59,7 @@ class SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: kDefaultPurpleColor,
+      backgroundColor: AppColors.kDefaultPurpleColor,
       body: Center(
         child: Text(
           Strings.text_health_mate,

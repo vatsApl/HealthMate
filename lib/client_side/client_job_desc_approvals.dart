@@ -16,6 +16,7 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import '../custom_widgets/custom_widget_helper.dart';
 import '../models/candidate_models/find_job_response.dart';
+import '../resourse/app_colors.dart';
 import '../resourse/dimens.dart';
 import '../resourse/shared_prefs.dart';
 
@@ -183,7 +184,7 @@ class _ClientJobDescApprovalsState
                       // fit: BoxFit.scaleDown,
                       height: Dimens.pixel_40,
                       width: Dimens.pixel_40,
-                      color: kDefaultPurpleColor,
+                      color: AppColors.kDefaultPurpleColor,
                     ),
                     const SizedBox(
                       height: Dimens.pixel_20,
@@ -193,7 +194,7 @@ class _ClientJobDescApprovalsState
                       style: TextStyle(
                         fontSize: Dimens.pixel_18,
                         fontWeight: FontWeight.w700,
-                        color: kDefaultPurpleColor,
+                        color: AppColors.kDefaultPurpleColor,
                       ),
                     ),
                     const SizedBox(
@@ -205,8 +206,11 @@ class _ClientJobDescApprovalsState
                       ),
                       child: Text(
                         Strings.text_approvals_confirmation,
-                        style: const TextStyle(color: kDefaultBlackColor)
-                            .copyWith(height: Dimens.pixel_1_and_half),
+                        style: const TextStyle(
+                          color: AppColors.kDefaultBlackColor,
+                        ).copyWith(
+                          height: Dimens.pixel_1_and_half,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -221,7 +225,7 @@ class _ClientJobDescApprovalsState
                           height: Dimens.pixel_44,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: klightColor,
+                              backgroundColor: AppColors.klightColor,
                             ),
                             onPressed: () {
                               Navigator.pop(context);
@@ -243,7 +247,7 @@ class _ClientJobDescApprovalsState
                           height: Dimens.pixel_44,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: kDefaultPurpleColor,
+                              backgroundColor: AppColors.kDefaultPurpleColor,
                             ),
                             onPressed: () {
                               //approve the candidate and generate timesheet:
@@ -298,7 +302,7 @@ class _ClientJobDescApprovalsState
                     const Text(
                       Strings.text_job_description,
                       style: TextStyle(
-                        color: kDefaultBlackColor,
+                        color: AppColors.kDefaultBlackColor,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -312,7 +316,7 @@ class _ClientJobDescApprovalsState
                       child: Text(
                         '${jobDesc?.jobDescription.toString()}',
                         style: const TextStyle(
-                          color: klabelColor,
+                          color: AppColors.klabelColor,
                           fontWeight: FontWeight.w400,
                           height: Dimens.pixel_1_point_2,
                         ),
@@ -522,7 +526,7 @@ class _ClientJobDescApprovalsState
                                     style: const TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: Dimens.pixel_12,
-                                      color: klabelColor,
+                                      color: AppColors.klabelColor,
                                     ),
                                   ),
                                 ),
@@ -556,7 +560,7 @@ class _ClientJobDescApprovalsState
                                     style: const TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: Dimens.pixel_12,
-                                      color: klabelColor,
+                                      color: AppColors.klabelColor,
                                     ),
                                   ),
                                 ),
@@ -572,7 +576,7 @@ class _ClientJobDescApprovalsState
                           Strings.text_candidates,
                           style: TextStyle(
                             fontSize: Dimens.pixel_16,
-                            color: kDefaultPurpleColor,
+                            color: AppColors.kDefaultPurpleColor,
                             fontWeight: FontWeight.w500,
                           ),
                         ),

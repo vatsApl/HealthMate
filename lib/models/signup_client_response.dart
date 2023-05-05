@@ -24,12 +24,12 @@ class SignUpClientResponse {
 
 class Data {
   int? id;
-  String? practiceName;
+  String? practiceName; //
   String? email;
   String? phone;
-  String? address;
-  String? otp;
-  String? otpExpire;
+  String? address; //
+  String? otp; //
+  String? otpExpire; //
   String? createdAt;
   String? updatedAt;
 
@@ -46,12 +46,12 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    practiceName = json['practice_name'];
+    practiceName = json['practice_name']; //
     email = json['email'];
     phone = json['phone'];
-    address = json['address'];
-    otp = json['otp'];
-    otpExpire = json['otp_expire'];
+    address = json['address']; //
+    otp = json['otp']; //
+    otpExpire = json['otp_expire']; //
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }

@@ -8,6 +8,7 @@ import '../../allAPIs/allAPIs.dart';
 import '../../constants.dart';
 import '../../models/candidate_models/find_job_response.dart';
 import '../../resourse/api_urls.dart';
+import '../../resourse/app_colors.dart';
 import '../../resourse/dimens.dart';
 import '../../resourse/images.dart';
 import '../../resourse/shared_prefs.dart';
@@ -105,7 +106,7 @@ class _InvoicesState extends State<Invoices> {
                     ),
                     SvgPicture.asset(
                       Images.ic_success_popup,
-                      color: kDefaultPurpleColor,
+                      color: AppColors.kDefaultPurpleColor,
                       fit: BoxFit.scaleDown,
                     ),
                     const SizedBox(
@@ -116,7 +117,7 @@ class _InvoicesState extends State<Invoices> {
                       style: TextStyle(
                         fontSize: Dimens.pixel_18,
                         fontWeight: FontWeight.w700,
-                        color: kDefaultPurpleColor,
+                        color: AppColors.kDefaultPurpleColor,
                       ),
                     ),
                     const SizedBox(
@@ -124,8 +125,9 @@ class _InvoicesState extends State<Invoices> {
                     ),
                     Text(
                       Strings.text_confirmation_of_mark_As_paid,
-                      style:
-                          const TextStyle(color: kDefaultBlackColor).copyWith(
+                      style: const TextStyle(
+                        color: AppColors.kDefaultBlackColor,
+                      ).copyWith(
                         height: Dimens.pixel_1_and_half,
                       ),
                       textAlign: TextAlign.center,
@@ -141,7 +143,7 @@ class _InvoicesState extends State<Invoices> {
                           width: Dimens.pixel_120,
                           child: ElevatedBtn(
                             btnTitle: Strings.text_no,
-                            textColor: klabelColor,
+                            textColor: AppColors.klabelColor,
                             bgColor: const Color(0xffE1E1E1),
                             onPressed: () {
                               Navigator.of(context).pop();
@@ -156,7 +158,7 @@ class _InvoicesState extends State<Invoices> {
                           width: Dimens.pixel_120,
                           child: ElevatedBtn(
                             btnTitle: Strings.text_yes,
-                            bgColor: kDefaultPurpleColor,
+                            bgColor: AppColors.kDefaultPurpleColor,
                             onPressed: () {
                               markAsPaidApi();
                               Navigator.pop(context);

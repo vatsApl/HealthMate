@@ -2,6 +2,8 @@ import 'package:clg_project/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../resourse/app_colors.dart';
+
 class CustomTextFormField extends StatefulWidget {
   final String? hint;
   final TextEditingController? controller;
@@ -30,7 +32,7 @@ class CustomTextFormField extends StatefulWidget {
     this.hint,
     this.controller,
     this.baseColor,
-    this.borderColor = klabelColor,
+    this.borderColor = AppColors.klabelColor,
     this.errorColor,
     this.inputType = TextInputType.text,
     this.obscureText,
@@ -59,7 +61,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: Theme.of(context).copyWith(primaryColor: kDefaultPurpleColor),
+      data: Theme.of(context).copyWith(
+        primaryColor: AppColors.kDefaultPurpleColor,
+      ),
       child: TextFormField(
         maxLines: widget.maxLines,
         style: const TextStyle(height: 1.0),
@@ -79,7 +83,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         decoration: InputDecoration(
           hintText: widget.hint,
           hintStyle: widget.hintStyle,
-          focusColor: kDefaultPurpleColor,
+          focusColor: AppColors.kDefaultPurpleColor,
           prefixIcon: widget.svgPrefixIcon != null
               ? Padding(
                   padding: kPrefixIconPadding,

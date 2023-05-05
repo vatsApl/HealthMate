@@ -16,6 +16,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import '../../custom_widgets/index_notifier.dart';
+import '../../resourse/app_colors.dart';
 import '../../resourse/dimens.dart';
 import '../client_job_description.dart';
 
@@ -190,7 +191,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
                                 Dimens.pixel_10,
                                 Dimens.pixel_10),
                             decoration: BoxDecoration(
-                              color: kDefaultPurpleColor,
+                              color: AppColors.kDefaultPurpleColor,
                               borderRadius:
                                   BorderRadius.circular(Dimens.pixel_6),
                             ),
@@ -256,7 +257,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
                           ? Visibility(
                               visible: isVisible,
                               child: const CupertinoActivityIndicator(
-                                color: kDefaultPurpleColor,
+                                color: AppColors.kDefaultPurpleColor,
                                 radius: Dimens.pixel_15,
                               ),
                             )

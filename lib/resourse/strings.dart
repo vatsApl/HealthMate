@@ -11,10 +11,12 @@ class Strings {
   static const text_dont_have_an_account = 'Don\'t Have An Account?';
   static const text_sign_up = 'SIGN UP';
   static const text_title_forgot_password = 'Forgot Password';
-  static const text_notice_forgot_password = 'We Will Sent You An Email With Verification Code To Reset Your Password';
+  static const text_notice_forgot_password =
+      'We Will Sent You An Email With Verification Code To Reset Your Password';
   static const text_title_otp_verification = 'Verification';
   static const text_enter_verification_code = 'Enter Verification Code';
-  static const text_if_you_didt_receive_a_code = 'If you did\'t receive a code! ';
+  static const text_if_you_didt_receive_a_code =
+      'If you did\'t receive a code! ';
   static const text_resend = 'Resend';
   static const text_verify = 'Verify';
   static const text_title_new_password = 'New Password';
@@ -57,11 +59,11 @@ class Strings {
   static const candidate_text_booked = 'Booked';
   static const amount_symbol_rupee = '₹ ';
   static const candidate_home_text_payment = 'Payment';
-  static const candidate_text_no_jobs_found  = 'No Jobs Found';
-  static const candidate_bottom_text_home  = 'Home';
-  static const candidate_bottom_text_find_job  = 'Find Job';
-  static const candidate_bottom_text_my_jobs  = 'My Jobs';
-  static const candidate_bottom_text_profile  = 'Profile';
+  static const candidate_text_no_jobs_found = 'No Jobs Found';
+  static const candidate_bottom_text_home = 'Home';
+  static const candidate_bottom_text_find_job = 'Find Job';
+  static const candidate_bottom_text_my_jobs = 'My Jobs';
+  static const candidate_bottom_text_profile = 'Profile';
   static const text_job_description = 'Job Description';
   static const text_location = 'Location';
   static const text_date = 'Date';
@@ -72,11 +74,13 @@ class Strings {
   static const text_minutes = 'Minutes';
   static const text_apply_now = 'Apply Now';
   static const text_job_application = 'Job Application!';
-  static const apply_job_confirmation_text = 'Are You Sure You Want To Apply For This Job?';
+  static const apply_job_confirmation_text =
+      'Are You Sure You Want To Apply For This Job?';
   static const text_cancel = 'Cancel';
   static const text_send = 'Send';
   static const text_thank_you = 'Thank You!';
-  static const text_applied_job_message = 'Your Job Application is Successfully Done!';
+  static const text_applied_job_message =
+      'Your Job Application is Successfully Done!';
   static const text_okay = 'Okay !';
   static const text_log_out = 'Log Out';
   static const text_log_out_confirmation = 'Are You Sure You Want To Log Out?';
@@ -143,7 +147,7 @@ class Strings {
   static const create_contract_hint_address = 'Select Address';
   static const create_contract_select_date = 'Select date';
   static const label_start_time = 'Start Time';
-  static const create_contract_hint_time = '00:00';
+  static const hint_time = '00:00';
   static const label_end_time = 'End Time';
   static const label_break = 'Break';
   static const create_contract_label_salary = 'Salary';
@@ -153,7 +157,8 @@ class Strings {
   static const text_no_approvals = 'No Approvals';
   static const text_no_timesheets = 'No Timesheets';
   static const text_mark_As_paid = 'Mark As Paid';
-  static const text_confirmation_of_mark_As_paid = 'Are You Sure You Want To Mark As Paid';
+  static const text_confirmation_of_mark_As_paid =
+      'Are You Sure You Want To Mark As Paid';
   static const text_no = 'No';
   static const text_yes = 'Yes';
   static const text_no_invoices = 'No Invoices';
@@ -165,7 +170,8 @@ class Strings {
   static const text_accept = 'Accept';
   static const text_reject = 'Reject';
   static const text_approvals_popup = 'Approvals!';
-  static const text_approvals_confirmation = 'Are You Sure You Want To Approve This Application?';
+  static const text_approvals_confirmation =
+      'Are You Sure You Want To Approve This Application?';
   static const text_approve = 'Approve';
   static const text_candidates = 'Candidates';
   static const text_addresses = 'Addresses';
@@ -173,7 +179,8 @@ class Strings {
   static const text_edit = 'Edit';
   static const text_remove = 'Remove';
   static const text_set_as_default = 'Set As Default';
-  static const text_set_this_as_a_default_address = 'Set this as a default address';
+  static const text_set_this_as_a_default_address =
+      'Set this as a default address';
   static const text_edit_address = 'Edit Address';
   static const text_null = 'null';
 }

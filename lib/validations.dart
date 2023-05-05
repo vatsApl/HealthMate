@@ -1,4 +1,5 @@
 import 'package:clg_project/constants.dart';
+import 'package:clg_project/resourse/app_colors.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
@@ -20,13 +21,8 @@ class Validate {
     } else if (EmailValidator.validate(value)) {
       return Colors.green;
     } else {
-      return klabelColor;
+      return AppColors.klabelColor;
     }
-    // }
-    // else
-    //   {
-    //     return klabelColor;
-    //   }
   }
 
   static dynamic validatePasswordColor(FocusNode focusNode, String value) {
@@ -38,10 +34,10 @@ class Validate {
       } else if (validatePasswordBool(value)) {
         return Colors.green;
       } else {
-        return klabelColor;
+        return AppColors.klabelColor;
       }
     } else {
-      return klabelColor;
+      return AppColors.klabelColor;
     }
   }
 
@@ -55,7 +51,7 @@ class Validate {
         return Colors.green;
       }
     } else {
-      return klabelColor;
+      return AppColors.klabelColor;
     }
   }
 
@@ -123,10 +119,10 @@ class Validate {
       } else if (validateNameBool(value)) {
         return Colors.green;
       } else {
-        return klabelColor;
+        return AppColors.klabelColor;
       }
     } else {
-      return klabelColor;
+      return AppColors.klabelColor;
     }
   }
 
@@ -170,10 +166,10 @@ class Validate {
       } else if (validatePhoneNumberBool(value)) {
         return Colors.green;
       } else {
-        return klabelColor;
+        return AppColors.klabelColor;
       }
     } else {
-      return klabelColor;
+      return AppColors.klabelColor;
     }
   }
 
@@ -188,15 +184,19 @@ class Validate {
   }
 
   //confirm pass
-  static String? validateConfirmPass(
-      String value, TextEditingController pass, TextEditingController cPass) {
-    if (value.length < 8 && value!.isEmpty) {
-      return 'Please enter atleast 8 character';
-    } else if (pass.text != cPass.text) {
-      return 'Password do not matched';
-    }
-    return '';
-  }
+  // static String? validateConfirmPass({
+  //   required String value,
+  //   required String pass,
+  // }) {
+  //   debugPrint('validate cpass called');
+  //   if (value!.isEmpty) {
+  //     return 'Please enter the password';
+  //   } else if (value.length < 8) {
+  //   } else if (value != pass) {
+  //     return 'Password do not matched';
+  //   }
+  //   return null;
+  // }
 
   static dynamic validateConfirmPassColor(FocusNode focusNode, String value,
       TextEditingController pass, TextEditingController cPass) {
@@ -208,10 +208,10 @@ class Validate {
       } else if (validateConfirmPassBool(pass.text, cPass)) {
         return Colors.green;
       } else {
-        return klabelColor;
+        return AppColors.klabelColor;
       }
     } else {
-      return klabelColor;
+      return AppColors.klabelColor;
     }
   }
 
@@ -241,10 +241,10 @@ class Validate {
       } else if (validateAddressBool(value)) {
         return Colors.green;
       } else {
-        return klabelColor;
+        return AppColors.klabelColor;
       }
     }
-    return klabelColor;
+    return AppColors.klabelColor;
   }
 
   static bool validateAddressBool(String? value) {

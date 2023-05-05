@@ -14,8 +14,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
+import '../resourse/app_colors.dart';
 import '../resourse/dimens.dart';
 import '../resourse/strings.dart';
+import '../ui/signin/view/signin_page.dart';
 
 class NewPassword extends BasePageScreen {
   NewPassword({this.userId, this.userType});
@@ -68,7 +70,7 @@ class _NewPasswordState extends BasePageScreenState<NewPassword>
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => SignInPage(),
+            builder: (context) => SigninPage(),
           ),
         );
       }
@@ -128,7 +130,7 @@ class _NewPasswordState extends BasePageScreenState<NewPassword>
                         Images.ic_password,
                         fit: BoxFit.scaleDown,
                         color: isNewPasswordVerified == null
-                            ? klabelColor
+                            ? AppColors.klabelColor
                             : isNewPasswordVerified == true
                                 ? Colors.green
                                 : Colors.red,
@@ -137,7 +139,7 @@ class _NewPasswordState extends BasePageScreenState<NewPassword>
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: isNewPasswordVerified == null
-                            ? kDefaultPurpleColor
+                            ? AppColors.kDefaultPurpleColor
                             : isNewPasswordVerified == true
                                 ? Colors.green
                                 : Colors.red,
@@ -234,7 +236,7 @@ class _NewPasswordState extends BasePageScreenState<NewPassword>
             ),
             ElevatedBtn(
               btnTitle: Strings.text_verify,
-              bgColor: kDefaultPurpleColor,
+              bgColor: AppColors.kDefaultPurpleColor,
               isLoading: isVisible,
               onPressed: () {
                 setState(() {});

@@ -12,6 +12,7 @@ import '../allAPIs/allAPIs.dart';
 import '../constants.dart';
 import '../custom_widgets/custom_widget_helper.dart';
 import 'package:http/http.dart' as http;
+import '../resourse/app_colors.dart';
 
 class SignOffPageAfterDispute extends StatefulWidget {
   int? timeSheetId;
@@ -130,13 +131,16 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
                             context: context,
                           );
                           if (pickedTime != null) {
-                            // print('PickedTime:${pickedTime.format(context)}');
-                            DateTime parsedTime = DateFormat.jm()
-                                .parse(pickedTime.format(context).toString());
-                            // print('ParsedTime:$parsedTime');
+                            final now = DateTime.now();
+                            final parsedTime = DateTime(
+                              now.year,
+                              now.month,
+                              now.day,
+                              pickedTime.hour,
+                              pickedTime.minute,
+                            );
                             String formattedStartTime =
                                 DateFormat('HH:mm').format(parsedTime);
-                            // print('FormattedTime:$formattedTime');
                             setState(() {
                               startTimeController.text = formattedStartTime;
                             });
@@ -151,16 +155,15 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
                         decoration: const InputDecoration(
                           hintText: '00:00',
                           hintStyle: TextStyle(
-                            color: klabelColor,
+                            color: AppColors.klabelColor,
                           ),
                           labelStyle: TextStyle(
-                            color: klabelColor,
+                            color: AppColors.klabelColor,
                           ),
                           border: OutlineInputBorder(),
                           disabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
-                              color:
-                                  klabelColor, // Set the border color to grey
+                              color: AppColors.klabelColor,
                             ),
                           ),
                           suffixIcon: Padding(
@@ -198,13 +201,16 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
                             context: context,
                           );
                           if (pickedTime != null) {
-                            // print('PickedTime:${pickedTime.format(context)}');
-                            DateTime parsedTime = DateFormat.jm()
-                                .parse(pickedTime.format(context).toString());
-                            // print('ParsedTime:$parsedTime');
+                            final now = DateTime.now();
+                            final parsedTime = DateTime(
+                              now.year,
+                              now.month,
+                              now.day,
+                              pickedTime.hour,
+                              pickedTime.minute,
+                            );
                             String formattedEndTime =
                                 DateFormat('HH:mm').format(parsedTime);
-                            // print('FormattedTime:$formattedTime');
                             setState(() {
                               endTimeController.text = formattedEndTime;
                             });
@@ -219,16 +225,15 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
                         decoration: const InputDecoration(
                           hintText: '00:00',
                           hintStyle: TextStyle(
-                            color: klabelColor,
+                            color: AppColors.klabelColor,
                           ),
                           labelStyle: TextStyle(
-                            color: klabelColor,
+                            color: AppColors.klabelColor,
                           ),
                           border: OutlineInputBorder(),
                           disabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
-                              color:
-                                  klabelColor, // Set the border color to grey
+                              color: AppColors.klabelColor,
                             ),
                           ),
                           suffixIcon: Padding(
@@ -275,10 +280,10 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
                                 decoration: InputDecoration(
                                   hintText: selectedBreakTime,
                                   hintStyle: const TextStyle(
-                                    color: klabelColor,
+                                    color: AppColors.klabelColor,
                                   ),
                                   labelStyle: const TextStyle(
-                                    color: klabelColor,
+                                    color: AppColors.klabelColor,
                                   ),
                                   prefixIcon: Padding(
                                     padding: kPrefixIconPadding,
@@ -347,7 +352,9 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
                             readOnly: true,
                             decoration: InputDecoration(
                               hintText: '${unit ?? ''}',
-                              hintStyle: const TextStyle(color: klabelColor),
+                              hintStyle: const TextStyle(
+                                color: AppColors.klabelColor,
+                              ),
                               enabled: false,
                               disabledBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(
@@ -372,7 +379,7 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
             ),
             ElevatedBtn(
               btnTitle: 'Submit',
-              bgColor: kDefaultPurpleColor,
+              bgColor: AppColors.kDefaultPurpleColor,
               onPressed: () {
                 updateTimeSheetAfterDisputeApi();
               },
@@ -431,11 +438,12 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
                                         title: Text(
                                           selectBreakTimeList[index],
                                           style: const TextStyle(
-                                            color: kDefaultBlackColor,
+                                            color: AppColors.kDefaultBlackColor,
                                             fontSize: 16.0,
                                           ),
                                         ),
-                                        activeColor: kDefaultPurpleColor,
+                                        activeColor:
+                                            AppColors.kDefaultPurpleColor,
                                         value: selectBreakTimeList[index],
                                         groupValue: selectedBreakTime,
                                         onChanged: (value) {

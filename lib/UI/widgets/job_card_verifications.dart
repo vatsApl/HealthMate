@@ -7,6 +7,7 @@ import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../allAPIs/allAPIs.dart';
+import '../../resourse/app_colors.dart';
 
 class JobCardVerification extends StatefulWidget {
   JobModel? jobModel;
@@ -45,7 +46,7 @@ class _JobCardVerificationState extends State<JobCardVerification> {
                     style: const TextStyle(
                       fontSize: Dimens.pixel_10,
                       fontWeight: FontWeight.w500,
-                      color: kDefaultPurpleColor,
+                      color: AppColors.kDefaultPurpleColor,
                     ),
                   ),
                 ),
@@ -53,7 +54,7 @@ class _JobCardVerificationState extends State<JobCardVerification> {
                   text: TextSpan(
                     style: const TextStyle(
                       fontSize: Dimens.pixel_16,
-                      color: kDefaultPurpleColor,
+                      color: AppColors.kDefaultPurpleColor,
                     ),
                     children: <TextSpan>[
                       const TextSpan(
@@ -61,7 +62,7 @@ class _JobCardVerificationState extends State<JobCardVerification> {
                         style: TextStyle(
                           fontSize: Dimens.pixel_16,
                           fontWeight: FontWeight.w500,
-                          color: kDefaultBlackColor,
+                          color: AppColors.kDefaultBlackColor,
                         ),
                       ),
                       TextSpan(
@@ -69,7 +70,7 @@ class _JobCardVerificationState extends State<JobCardVerification> {
                         style: const TextStyle(
                           fontSize: Dimens.pixel_16,
                           fontWeight: FontWeight.w500,
-                          color: kDefaultBlackColor,
+                          color: AppColors.kDefaultBlackColor,
                         ),
                       ),
                       const TextSpan(
@@ -77,7 +78,7 @@ class _JobCardVerificationState extends State<JobCardVerification> {
                         style: TextStyle(
                           fontSize: Dimens.pixel_12,
                           fontWeight: FontWeight.w400,
-                          color: klightColor,
+                          color: AppColors.klightColor,
                         ),
                       ),
                     ],
@@ -94,7 +95,7 @@ class _JobCardVerificationState extends State<JobCardVerification> {
                 Text(
                   "${widget.jobModel?.jobTitle}",
                   style: const TextStyle(
-                    color: kDefaultBlackColor,
+                    color: AppColors.kDefaultBlackColor,
                     fontSize: Dimens.pixel_16,
                     fontWeight: FontWeight.w500,
                   ),
@@ -145,7 +146,7 @@ class _JobCardVerificationState extends State<JobCardVerification> {
                         children: [
                           SvgPicture.asset(
                             Images.ic_calander,
-                            color: kDefaultPurpleColor,
+                            color: AppColors.kDefaultPurpleColor,
                             fit: BoxFit.scaleDown,
                           ),
                           const SizedBox(
@@ -154,7 +155,7 @@ class _JobCardVerificationState extends State<JobCardVerification> {
                           Text(
                             widget.jobModel?.jobDate ?? '',
                             style: const TextStyle(
-                              color: kDefaultPurpleColor,
+                              color: AppColors.kDefaultPurpleColor,
                               fontWeight: FontWeight.w500,
                               fontSize: Dimens.pixel_13,
                             ),
@@ -251,7 +252,7 @@ class _JobCardVerificationState extends State<JobCardVerification> {
                       style: const TextStyle(
                         fontSize: Dimens.pixel_10,
                         fontWeight: FontWeight.w400,
-                        color: kDefaultBlackColor,
+                        color: AppColors.kDefaultBlackColor,
                       ),
                     ),
                   ),

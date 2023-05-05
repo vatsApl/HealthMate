@@ -9,6 +9,7 @@ import '../../UI/job_description_my_jobs.dart';
 import '../../constants.dart';
 import '../../models/candidate_models/find_job_response.dart';
 import '../../resourse/api_urls.dart';
+import '../../resourse/app_colors.dart';
 import '../../resourse/dimens.dart';
 import '../../resourse/shared_prefs.dart';
 
@@ -30,7 +31,6 @@ class _BookedJobState extends State<BookedJob> {
   bool isLoadingMore = false;
   bool isVisible = false;
   final scrollController = ScrollController();
-
 
   void scrollListener() {
     if (scrollController.position.pixels ==
@@ -59,12 +59,11 @@ class _BookedJobState extends State<BookedJob> {
       });
       String url = ApiUrl.myJobsApi;
       var urlParsed = Uri.parse(url);
-      var response = await http.post(
-          urlParsed.replace(queryParameters: queryParameters),
-          body: {
-            'candidate_id': uId,
-            'status': '2',
-          });
+      var response = await http
+          .post(urlParsed.replace(queryParameters: queryParameters), body: {
+        'candidate_id': uId,
+        'status': '2',
+      });
       log(response.body);
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
@@ -109,9 +108,9 @@ class _BookedJobState extends State<BookedJob> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => JobDescriptionMyJobs(
-                            jobId: jobId,
-                            appId: appId,
-                            currentIndex: widget.currentIndex,
+                          jobId: jobId,
+                          appId: appId,
+                          currentIndex: widget.currentIndex,
                         ),
                       ),
                     );
@@ -132,7 +131,9 @@ class _BookedJobState extends State<BookedJob> {
               ? Wrap(
                   children: const [
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: Dimens.pixel_250,),
+                      padding: EdgeInsets.symmetric(
+                        vertical: Dimens.pixel_250,
+                      ),
                       child: Center(
                         child: Text(
                           Strings.text_no_booked_found,
@@ -148,7 +149,7 @@ class _BookedJobState extends State<BookedJob> {
               : Visibility(
                   visible: isVisible,
                   child: const CupertinoActivityIndicator(
-                    color: kDefaultPurpleColor,
+                    color: AppColors.kDefaultPurpleColor,
                     radius: Dimens.pixel_15,
                   ),
                 ),

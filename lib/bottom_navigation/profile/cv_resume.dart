@@ -12,6 +12,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../custom_widgets/custom_widget_helper.dart';
 import 'package:http/http.dart' as http;
+import '../../resourse/app_colors.dart';
 import '../../resourse/dimens.dart';
 import '../../resourse/shared_prefs.dart';
 
@@ -87,19 +88,27 @@ class _CvResumeState extends BasePageScreenState<CvResume> with BaseScreen {
   void onClickSaveButton() {
     _uploadCv(filePath);
   }
+
   @override
   Widget body() {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(Dimens.pixel_16, Dimens.pixel_0, Dimens.pixel_16, Dimens.pixel_16,),
+        padding: const EdgeInsets.fromLTRB(
+          Dimens.pixel_16,
+          Dimens.pixel_0,
+          Dimens.pixel_16,
+          Dimens.pixel_16,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
               height: Dimens.pixel_23,
             ),
-            TitleText(title: Strings.text_title_cv_and_resume,),
+            TitleText(
+              title: Strings.text_title_cv_and_resume,
+            ),
             const SizedBox(
               height: Dimens.pixel_48,
             ),
@@ -111,7 +120,7 @@ class _CvResumeState extends BasePageScreenState<CvResume> with BaseScreen {
                   style: TextStyle(
                     fontSize: Dimens.pixel_16,
                     fontWeight: FontWeight.w400,
-                    color: kDefaultBlackColor,
+                    color: AppColors.kDefaultBlackColor,
                   ),
                 ),
                 const SizedBox(
@@ -126,15 +135,15 @@ class _CvResumeState extends BasePageScreenState<CvResume> with BaseScreen {
                   height: Dimens.pixel_471,
                   child: filePath != '' && filePath.contains('.jpg')
                       ? Image.file(
-                    File(filePath),
-                    fit: BoxFit.cover,
-                  )
+                          File(filePath),
+                          fit: BoxFit.cover,
+                        )
                       : filePath != '' && filePath.contains('.pdf')
-                      ? PDFView(
-                    filePath: filePath,
-                    fitEachPage: true,
-                  )
-                      : Container(),
+                          ? PDFView(
+                              filePath: filePath,
+                              fitEachPage: true,
+                            )
+                          : Container(),
                 ),
                 const SizedBox(
                   height: Dimens.pixel_30,
@@ -145,8 +154,12 @@ class _CvResumeState extends BasePageScreenState<CvResume> with BaseScreen {
                   child: TextButton(
                     style: TextButton.styleFrom(
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(Dimens.pixel_6,),
-                          side: const BorderSide(color: kDefaultPurpleColor),
+                        borderRadius: BorderRadius.circular(
+                          Dimens.pixel_6,
+                        ),
+                        side: const BorderSide(
+                          color: AppColors.kDefaultPurpleColor,
+                        ),
                       ),
                     ),
                     onPressed: () async {
@@ -155,9 +168,9 @@ class _CvResumeState extends BasePageScreenState<CvResume> with BaseScreen {
                     child: const Text(
                       Strings.text_add_new_resume,
                       style: TextStyle(
-                          fontSize: Dimens.pixel_16,
-                          color: kDefaultPurpleColor,
-                          fontWeight: FontWeight.w500,
+                        fontSize: Dimens.pixel_16,
+                        color: AppColors.kDefaultPurpleColor,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),

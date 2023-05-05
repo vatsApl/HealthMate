@@ -2,6 +2,9 @@ import 'package:clg_project/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../resourse/app_colors.dart';
+import '../../resourse/dimens.dart';
+
 class CardTopClient extends StatelessWidget {
   CardTopClient({
     super.key,
@@ -23,10 +26,10 @@ class CardTopClient extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 160.0,
-      height: 68.0,
+      width: Dimens.pixel_160,
+      height: Dimens.pixel_68,
       child: Card(
-        elevation: 2.0,
+        elevation: Dimens.pixel_2,
         child: InkWell(
           onTap: () {
             if (onTap != null) {
@@ -34,11 +37,8 @@ class CardTopClient extends StatelessWidget {
             }
           },
           child: Padding(
-            padding: const EdgeInsets.only(
-              left: 14.0,
-              top: 14.0,
-              bottom: 14.0,
-              right: 14.0,
+            padding: const EdgeInsets.all(
+              Dimens.pixel_14,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,16 +59,17 @@ class CardTopClient extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                                 style: const TextStyle(
-                                    fontSize: 16.0,
-                                    color: kDefaultBlackColor,
-                                    fontWeight: FontWeight.w500),
+                                  fontSize: Dimens.pixel_16,
+                                  color: AppColors.kDefaultBlackColor,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
                           ],
                         ),
                       ),
                       const SizedBox(
-                        height: 5.0,
+                        height: Dimens.pixel_5,
                       ),
                       Flexible(
                         child: Text(
@@ -76,8 +77,8 @@ class CardTopClient extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           style: const TextStyle(
-                            color: klightColor,
-                            fontSize: 12.0,
+                            color: AppColors.klightColor,
+                            fontSize: Dimens.pixel_12,
                           ),
                         ),
                       ),

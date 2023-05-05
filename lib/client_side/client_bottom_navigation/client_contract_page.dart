@@ -13,6 +13,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
+import '../../resourse/app_colors.dart';
 import '../../resourse/dimens.dart';
 import '../client_job_description.dart';
 
@@ -112,7 +113,7 @@ class _ClientContractPageState extends BasePageScreenState<ClientContractPage>
                     ),
                     border: Border.all(
                       width: Dimens.pixel_1_and_half,
-                      color: kDefaultPurpleColor,
+                      color: AppColors.kDefaultPurpleColor,
                     ),
                   ),
                   child: SvgPicture.asset(

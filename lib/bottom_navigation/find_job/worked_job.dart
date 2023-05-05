@@ -12,6 +12,7 @@ import '../../constants.dart';
 import '../../models/candidate_models/find_job_response.dart';
 import '../../models/candidate_models/show_amount_status_model_worked_job.dart';
 import '../../resourse/api_urls.dart';
+import '../../resourse/app_colors.dart';
 import '../../resourse/dimens.dart';
 import '../../resourse/shared_prefs.dart';
 
@@ -122,8 +123,11 @@ class _WorkedJobState extends State<WorkedJob> {
   @override
   Widget build(BuildContext context) {
     final snackBarAmountStatus = SnackBar(
-      backgroundColor:
-          amountStatusMsg == Strings.text_total_paid ? kGreenColor : amountStatusMsg == Strings.text_payment_due ? kredColor : Colors.grey,
+      backgroundColor: amountStatusMsg == Strings.text_total_paid
+          ? AppColors.kGreenColor
+          : amountStatusMsg == Strings.text_payment_due
+              ? AppColors.kredColor
+              : Colors.grey,
       content: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -190,7 +194,9 @@ class _WorkedJobState extends State<WorkedJob> {
                   ? Wrap(
                       children: const [
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical: Dimens.pixel_250,),
+                          padding: EdgeInsets.symmetric(
+                            vertical: Dimens.pixel_250,
+                          ),
                           child: Center(
                             child: Text(
                               Strings.text_no_worked_Found,
@@ -206,7 +212,7 @@ class _WorkedJobState extends State<WorkedJob> {
                   : Visibility(
                       visible: isVisible,
                       child: const CupertinoActivityIndicator(
-                        color: kDefaultPurpleColor,
+                        color: AppColors.kDefaultPurpleColor,
                         radius: Dimens.pixel_15,
                       ),
                     ),

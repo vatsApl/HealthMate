@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:clg_project/resourse/dimens.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:http/http.dart' as http;
 import 'package:clg_project/bottom_navigation/main_page.dart';
@@ -10,9 +11,11 @@ import '../UI/signin_page.dart';
 import '../UI/widgets/custom_textfield.dart';
 import '../allAPIs/allAPIs.dart';
 import '../constants.dart';
+import '../resourse/app_colors.dart';
 import '../resourse/images.dart';
 import '../resourse/shared_prefs.dart';
 import '../services/api_services.dart';
+import '../ui/signin/view/signin_page.dart';
 import '../validations.dart';
 import '../widgets/elevated_button.dart';
 
@@ -28,63 +31,72 @@ class Methods {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return Dialog(
-          insetPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+          insetPadding: const EdgeInsets.symmetric(
+            horizontal: Dimens.pixel_16,
+          ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6.0),
+            borderRadius: BorderRadius.circular(
+              Dimens.pixel_6,
+            ),
           ),
           child: Wrap(
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 10.0,
-                  vertical: 25.0,
+                  horizontal: Dimens.pixel_10,
+                  vertical: Dimens.pixel_25,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(
-                      height: 12.0,
+                      height: Dimens.pixel_12,
                     ),
                     SvgPicture.asset(
                       Images.ic_job,
-                      color: kDefaultPurpleColor,
+                      color: AppColors.kDefaultPurpleColor,
                       fit: BoxFit.scaleDown,
                     ),
                     const SizedBox(
-                      height: 20.0,
+                      height: Dimens.pixel_20,
                     ),
                     const Text(
                       Strings.text_job_application,
                       style: TextStyle(
-                        fontSize: 18.0,
+                        fontSize: Dimens.pixel_18,
                         fontWeight: FontWeight.w700,
-                        color: kDefaultPurpleColor,
+                        color: AppColors.kDefaultPurpleColor,
                       ),
                     ),
                     const SizedBox(
-                      height: 12.0,
+                      height: Dimens.pixel_12,
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 21.0),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: Dimens.pixel_21,
+                      ),
                       child: Text(
                         Strings.apply_job_confirmation_text,
-                        style: const TextStyle(color: kDefaultBlackColor)
-                            .copyWith(height: 1.5),
+                        style: const TextStyle(
+                          color: AppColors.kDefaultBlackColor,
+                        ).copyWith(
+                          height: Dimens.pixel_1_and_half,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                     ),
                     const SizedBox(
-                      height: 30.0,
+                      height: Dimens.pixel_30,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: 38.0,
-                          width: 120.0,
+                          height: Dimens.pixel_38,
+                          width: Dimens.pixel_120,
                           child: ElevatedBtn(
                             btnTitle: Strings.text_cancel,
-                            textColor: klabelColor,
+                            textColor: AppColors.klabelColor,
                             bgColor: const Color(0xffE1E1E1),
                             onPressed: () {
                               Navigator.of(context).pop();
@@ -92,14 +104,14 @@ class Methods {
                           ),
                         ),
                         const SizedBox(
-                          width: 17.0,
+                          width: Dimens.pixel_17,
                         ),
                         SizedBox(
-                          height: 38.0,
-                          width: 120.0,
+                          height: Dimens.pixel_38,
+                          width: Dimens.pixel_120,
                           child: ElevatedBtn(
                             btnTitle: Strings.text_send,
-                            bgColor: kDefaultPurpleColor,
+                            bgColor: AppColors.kDefaultPurpleColor,
                             onPressed: () {
                               ApiServices.applyJob(uId, jobId ?? 0, context);
                             },
@@ -124,59 +136,70 @@ class Methods {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return Dialog(
-          insetPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+          insetPadding: const EdgeInsets.symmetric(
+            horizontal: Dimens.pixel_16,
+          ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6.0),
+            borderRadius: BorderRadius.circular(
+              Dimens.pixel_6,
+            ),
           ),
           child: Wrap(
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0, vertical: 25.0),
+                  horizontal: Dimens.pixel_10,
+                  vertical: Dimens.pixel_25,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(
-                      height: 12.0,
+                      height: Dimens.pixel_12,
                     ),
                     SvgPicture.asset(
                       Images.ic_success_popup,
                       fit: BoxFit.scaleDown,
                     ),
                     const SizedBox(
-                      height: 20.0,
+                      height: Dimens.pixel_20,
                     ),
                     const Text(
                       Strings.text_thank_you,
                       style: TextStyle(
-                        fontSize: 18.0,
+                        fontSize: Dimens.pixel_18,
                         fontWeight: FontWeight.w700,
-                        color: kDefaultPurpleColor,
+                        color: AppColors.kDefaultPurpleColor,
                       ),
                     ),
                     const SizedBox(
-                      height: 12.0,
+                      height: Dimens.pixel_12,
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 21.0),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: Dimens.pixel_21,
+                      ),
                       child: Text(
                         Strings.text_applied_job_message,
-                        style: const TextStyle(color: kDefaultBlackColor)
-                            .copyWith(height: 1.5),
+                        style: const TextStyle(
+                          color: AppColors.kDefaultBlackColor,
+                        ).copyWith(
+                          height: Dimens.pixel_1_and_half,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                     ),
                     const SizedBox(
-                      height: 30.0,
+                      height: Dimens.pixel_30,
                     ),
                     Align(
                       alignment: Alignment.center,
                       child: SizedBox(
-                        height: 44.0,
-                        width: 160.0,
+                        height: Dimens.pixel_44,
+                        width: Dimens.pixel_160,
                         child: ElevatedBtn(
                           btnTitle: Strings.text_okay,
-                          bgColor: kDefaultPurpleColor,
+                          bgColor: AppColors.kDefaultPurpleColor,
                           onPressed: () {
                             //naviate to home page:
                             Navigator.of(context).pushAndRemoveUntil(
@@ -209,99 +232,109 @@ class Methods {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
-          insetPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+          insetPadding: const EdgeInsets.symmetric(
+            horizontal: Dimens.pixel_16,
+          ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6.0),
+            borderRadius: BorderRadius.circular(
+              Dimens.pixel_6,
+            ),
           ),
           child: SizedBox(
-            // height: 233.0,
             child: Wrap(
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 10.0, vertical: 25.0),
+                    horizontal: Dimens.pixel_10,
+                    vertical: Dimens.pixel_25,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const SizedBox(
-                        height: 12.0,
+                        height: Dimens.pixel_12,
                       ),
                       SvgPicture.asset(
                         Images.ic_personal_details,
-                        height: 40.0,
-                        width: 40.0,
-                        color: kredColor,
+                        height: Dimens.pixel_40,
+                        width: Dimens.pixel_40,
+                        color: AppColors.kredColor,
                       ),
                       const SizedBox(
-                        height: 20.0,
+                        height: Dimens.pixel_20,
                       ),
                       const Text(
                         Strings.text_log_out,
                         style: TextStyle(
-                          fontSize: 18.0,
+                          fontSize: Dimens.pixel_18,
                           fontWeight: FontWeight.w700,
-                          color: kredColor,
+                          color: AppColors.kredColor,
                         ),
                       ),
                       const SizedBox(
-                        height: 12.0,
+                        height: Dimens.pixel_12,
                       ),
                       Text(
                         Strings.text_log_out_confirmation,
-                        style: const TextStyle(color: kDefaultBlackColor)
-                            .copyWith(height: 1.5),
+                        style: const TextStyle(
+                          color: AppColors.kDefaultBlackColor,
+                        ).copyWith(
+                          height: Dimens.pixel_1_and_half,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(
-                        height: 30.0,
+                        height: Dimens.pixel_30,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(
-                            width: 110.0,
-                            height: 44.0,
+                            width: Dimens.pixel_110,
+                            height: Dimens.pixel_44,
                             child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: kredColor,
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.kredColor,
+                              ),
+                              onPressed: () async {
+                                PreferencesHelper.setBool(
+                                    PreferencesHelper.KEY_USER_LOGIN, false);
+                                Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                      builder: (context) => SigninPage(),
+                                    ),
+                                    (route) => false);
+                              },
+                              child: const Text(
+                                Strings.text_log_out,
+                                style: TextStyle(
+                                  fontSize: Dimens.pixel_16,
+                                  fontWeight: FontWeight.w500,
                                 ),
-                                onPressed: () async {
-                                  PreferencesHelper.setBool(
-                                      PreferencesHelper.KEY_USER_LOGIN, false);
-                                  Navigator.of(context).pushAndRemoveUntil(
-                                      MaterialPageRoute(
-                                        builder: (context) => SignInPage(),
-                                      ),
-                                      (route) => false);
-                                },
-                                child: const Text(
-                                  Strings.text_log_out,
-                                  style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                )),
+                              ),
+                            ),
                           ),
                           const SizedBox(
-                            width: 17.0,
+                            width: Dimens.pixel_17,
                           ),
                           SizedBox(
-                            width: 110.0,
-                            height: 44.0,
+                            width: Dimens.pixel_110,
+                            height: Dimens.pixel_44,
                             child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: klightColor,
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.klightColor,
+                              ),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text(
+                                Strings.text_cancel,
+                                style: TextStyle(
+                                  fontSize: Dimens.pixel_16,
+                                  fontWeight: FontWeight.w500,
                                 ),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: const Text(
-                                  Strings.text_cancel,
-                                  style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                )),
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -326,13 +359,17 @@ class Methods {
       builder: (BuildContext context) {
         return Dialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6.0),
+            borderRadius: BorderRadius.circular(
+              Dimens.pixel_6,
+            ),
           ),
           child: Wrap(
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0, vertical: 25.0),
+                  horizontal: Dimens.pixel_10,
+                  vertical: Dimens.pixel_25,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -341,21 +378,23 @@ class Methods {
                         Text(
                           Strings.text_reason,
                           style: const TextStyle(
-                            color: kDefaultBlackColor,
+                            color: AppColors.kDefaultBlackColor,
                             fontWeight: FontWeight.w400,
-                          ).copyWith(height: 1.5),
+                          ).copyWith(
+                            height: Dimens.pixel_1_and_half,
+                          ),
                           textAlign: TextAlign.center,
                         ),
                         const Text(
                           Strings.text_field_required_symbol,
                           style: TextStyle(
-                            color: kredColor,
+                            color: AppColors.kredColor,
                           ),
                         ),
                       ],
                     ),
                     const SizedBox(
-                      height: 4.0,
+                      height: Dimens.pixel_4,
                     ),
                     Form(
                       key: _formKey,
@@ -369,36 +408,37 @@ class Methods {
                       ),
                     ),
                     const SizedBox(
-                      height: 27.0,
+                      height: Dimens.pixel_27,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: 38.0,
-                          width: 120.0,
+                          height: Dimens.pixel_38,
+                          width: Dimens.pixel_120,
                           child: ElevatedBtn(
                             btnTitle: Strings.text_send,
-                            bgColor: kDefaultPurpleColor,
+                            bgColor: AppColors.kDefaultPurpleColor,
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 rejectTimeSheetApi(
-                                    rejectReasonController:
-                                        rejectReasonController,
-                                    context: context);
+                                  rejectReasonController:
+                                      rejectReasonController,
+                                  context: context,
+                                );
                               }
                             },
                           ),
                         ),
                         const SizedBox(
-                          width: 17.0,
+                          width: Dimens.pixel_17,
                         ),
                         SizedBox(
-                          height: 38.0,
-                          width: 120.0,
+                          height: Dimens.pixel_38,
+                          width: Dimens.pixel_120,
                           child: ElevatedBtn(
                             btnTitle: Strings.text_cancel,
-                            textColor: klabelColor,
+                            textColor: AppColors.klabelColor,
                             bgColor: const Color(0xffE1E1E1),
                             onPressed: () {
                               Navigator.of(context).pop();
@@ -447,6 +487,4 @@ class Methods {
     //   isVisible = false;
     // });
   }
-
-  // static SvgPicture svgIcon = SvgPicture.asset(Images.ic_home);
 }

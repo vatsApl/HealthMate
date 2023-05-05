@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
+import '../resourse/app_colors.dart';
 import '../resourse/dimens.dart';
 
 class ClientMainPage extends StatefulWidget {
@@ -48,7 +49,7 @@ class _ClientMainPageState extends State<ClientMainPage> {
           backgroundColor: const Color(0xffffffff),
           onTap: onTappedBar,
           currentIndex: Provider.of<ValueNotifier<int>>(context).value,
-          selectedItemColor: kDefaultPurpleColor,
+          selectedItemColor: AppColors.kDefaultPurpleColor,
           unselectedItemColor: Colors.black54,
           elevation: Dimens.pixel_0,
           iconSize: Dimens.pixel_28,
@@ -59,8 +60,9 @@ class _ClientMainPageState extends State<ClientMainPage> {
                 child: SvgPicture.asset(
                   Images.ic_home_big,
                   fit: BoxFit.scaleDown,
-                  color:
-                      currentIndex == 0 ? kDefaultPurpleColor : kdisabledColor,
+                  color: currentIndex == 0
+                      ? AppColors.kDefaultPurpleColor
+                      : AppColors.kdisabledColor,
                 ),
               ),
               label: Strings.client_bottom_text_home,
@@ -71,8 +73,9 @@ class _ClientMainPageState extends State<ClientMainPage> {
                 child: SvgPicture.asset(
                   Images.ic_resume,
                   fit: BoxFit.scaleDown,
-                  color:
-                      currentIndex == 1 ? kDefaultPurpleColor : kdisabledColor,
+                  color: currentIndex == 1
+                      ? AppColors.kDefaultPurpleColor
+                      : AppColors.kdisabledColor,
                 ),
               ),
               label: Strings.client_bottom_text_contracts,
@@ -83,8 +86,9 @@ class _ClientMainPageState extends State<ClientMainPage> {
                 child: SvgPicture.asset(
                   Images.ic_true,
                   height: Dimens.pixel_28,
-                  color:
-                      currentIndex == 2 ? kDefaultPurpleColor : kdisabledColor,
+                  color: currentIndex == 2
+                      ? AppColors.kDefaultPurpleColor
+                      : AppColors.kdisabledColor,
                 ),
               ),
               label: Strings.client_bottom_text_verification,
@@ -95,8 +99,9 @@ class _ClientMainPageState extends State<ClientMainPage> {
                 child: SvgPicture.asset(
                   Images.ic_personal_details,
                   fit: BoxFit.scaleDown,
-                  color:
-                      currentIndex == 3 ? kDefaultPurpleColor : kdisabledColor,
+                  color: currentIndex == 3
+                      ? AppColors.kDefaultPurpleColor
+                      : AppColors.kdisabledColor,
                 ),
               ),
               label: Strings.client_bottom_text_profile,

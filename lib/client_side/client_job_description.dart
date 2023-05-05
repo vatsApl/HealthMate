@@ -17,6 +17,7 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import '../custom_widgets/custom_widget_helper.dart';
 import '../models/candidate_models/find_job_response.dart';
+import '../resourse/app_colors.dart';
 import '../resourse/dimens.dart';
 
 class ClientJobDescription extends BasePageScreen {
@@ -149,7 +150,7 @@ class _ClientJobDescriptionState
                   const Text(
                     Strings.text_job_description,
                     style: TextStyle(
-                      color: kDefaultBlackColor,
+                      color: AppColors.kDefaultBlackColor,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -157,11 +158,13 @@ class _ClientJobDescriptionState
                     height: Dimens.pixel_10,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: Dimens.pixel_24),
+                    padding: const EdgeInsets.only(
+                      right: Dimens.pixel_24,
+                    ),
                     child: Text(
                       '${jobDesc?.jobDescription.toString()}',
                       style: const TextStyle(
-                        color: klabelColor,
+                        color: AppColors.klabelColor,
                         fontWeight: FontWeight.w400,
                         height: Dimens.pixel_1_point_2,
                       ),
@@ -170,7 +173,9 @@ class _ClientJobDescriptionState
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: Dimens.pixel_33),
+                        padding: const EdgeInsets.only(
+                          top: Dimens.pixel_33,
+                        ),
                         child: SvgPicture.asset(
                           Images.ic_location_circle,
                           fit: BoxFit.scaleDown,
@@ -367,7 +372,7 @@ class _ClientJobDescriptionState
                                   style: const TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: Dimens.pixel_12,
-                                    color: klabelColor,
+                                    color: AppColors.klabelColor,
                                   ),
                                 ),
                               ),
@@ -399,9 +404,10 @@ class _ClientJobDescriptionState
                                 child: Text(
                                   '${jobDesc?.breakTime} ${Strings.text_minutes}',
                                   style: const TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: Dimens.pixel_12,
-                                      color: klabelColor),
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: Dimens.pixel_12,
+                                    color: AppColors.klabelColor,
+                                  ),
                                 ),
                               ),
                             ],
@@ -416,7 +422,7 @@ class _ClientJobDescriptionState
                     ),
                     child: ElevatedBtn(
                       btnTitle: Strings.text_remove_contract,
-                      bgColor: kDefaultPurpleColor,
+                      bgColor: AppColors.kDefaultPurpleColor,
                       isLoading: isVisible,
                       onPressed: () {
                         //remove contract api

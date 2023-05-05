@@ -14,6 +14,8 @@ class PreferencesHelper {
   static const KEY_AVATAR = "avatar";
   static const KEY_CLIENT_AVATAR = "clientAvatar";
   static const KEY_CV = "cv";
+  static const KEYCandidateFirstName = 'candidate_fname';
+  static const KEYCandidateLastName = 'candidate_fname';
 
   static Future<SharedPreferences> get _instance async =>
       _prefsInstance ??= await SharedPreferences.getInstance();

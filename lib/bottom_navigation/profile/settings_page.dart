@@ -5,6 +5,7 @@ import '../../UI/widgets/custom_textfield.dart';
 import '../../UI/widgets/title_text.dart';
 import '../../constants.dart';
 import '../../custom_widgets/custom_widget_helper.dart';
+import '../../resourse/app_colors.dart';
 import '../../resourse/images.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -71,10 +72,8 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               ElevatedBtn(
                   btnTitle: 'Submit',
-                  bgColor: kDefaultPurpleColor,
-                  onPressed: () {
-
-                  }),
+                  bgColor: AppColors.kDefaultPurpleColor,
+                  onPressed: () {}),
             ],
           ),
         ),

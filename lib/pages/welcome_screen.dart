@@ -1,10 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:clg_project/UI/signin_page.dart';
-import 'package:clg_project/constants.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
+import '../resourse/app_colors.dart';
 import '../resourse/dimens.dart';
+import '../ui/signin/view/signin_page.dart';
 import '../widgets/bg_images.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -79,11 +79,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           ),
                           child: ElevatedBtn(
                             btnTitle: Strings.text_get_started,
-                            bgColor: kDefaultPurpleColor,
+                            bgColor: AppColors.kDefaultPurpleColor,
                             onPressed: () {
                               Navigator.of(context).pushAndRemoveUntil(
                                   MaterialPageRoute(
-                                    builder: (context) => SignInPage(),
+                                    // builder: (context) => SignInPage(),
+                                    builder: (context) => SigninPage(),
                                   ),
                                   (route) => false);
                             },

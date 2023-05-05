@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:focus_detector/focus_detector.dart';
 import '../../constants.dart';
 import '../../methods/methods.dart';
+import '../../resourse/app_colors.dart';
 import '../../resourse/dimens.dart';
 import '../../resourse/images.dart';
 import '../client_personal_details.dart';
@@ -83,18 +84,18 @@ class _ClientProfilePageState extends State<ClientProfilePage> {
                         child: ListTile(
                           leading: SvgPicture.asset(
                             Images.ic_personal_details,
-                            color: kDefaultPurpleColor,
+                            color: AppColors.kDefaultPurpleColor,
                           ),
                           title: const Text(
                             Strings.text_personal_details,
                             style: TextStyle(
-                              color: kDefaultBlackColor,
+                              color: AppColors.kDefaultBlackColor,
                               fontWeight: FontWeight.w400,
                             ),
                           ),
                           trailing: SvgPicture.asset(
                             Images.ic_read_more_1,
-                            color: kreadMoreColor,
+                            color: AppColors.kreadMoreColor,
                           ),
                         ),
                       ),
@@ -127,18 +128,18 @@ class _ClientProfilePageState extends State<ClientProfilePage> {
                         child: ListTile(
                           leading: SvgPicture.asset(
                             Images.ic_hospital,
-                            color: kDefaultPurpleColor,
+                            color: AppColors.kDefaultPurpleColor,
                           ),
                           title: const Text(
                             Strings.text_addresses,
                             style: TextStyle(
-                              color: kDefaultBlackColor,
+                              color: AppColors.kDefaultBlackColor,
                               fontWeight: FontWeight.w400,
                             ),
                           ),
                           trailing: SvgPicture.asset(
                             Images.ic_read_more_1,
-                            color: kreadMoreColor,
+                            color: AppColors.kreadMoreColor,
                           ),
                         ),
                       ),
@@ -162,18 +163,18 @@ class _ClientProfilePageState extends State<ClientProfilePage> {
                       child: ListTile(
                         leading: SvgPicture.asset(
                           Images.ic_settings,
-                          color: kDefaultPurpleColor,
+                          color: AppColors.kDefaultPurpleColor,
                         ),
                         title: const Text(
                           Strings.text_settings,
                           style: TextStyle(
-                            color: kDefaultBlackColor,
+                            color: AppColors.kDefaultBlackColor,
                             fontWeight: FontWeight.w400,
                           ),
                         ),
                         trailing: SvgPicture.asset(
                           Images.ic_read_more_1,
-                          color: kreadMoreColor,
+                          color: AppColors.kreadMoreColor,
                         ),
                       ),
                     ),
@@ -200,18 +201,18 @@ class _ClientProfilePageState extends State<ClientProfilePage> {
                         child: ListTile(
                           leading: SvgPicture.asset(
                             Images.ic_logout,
-                            color: kDefaultPurpleColor,
+                            color: AppColors.kDefaultPurpleColor,
                           ),
                           title: const Text(
                             Strings.text_log_out,
                             style: TextStyle(
-                              color: kDefaultBlackColor,
+                              color: AppColors.kDefaultBlackColor,
                               fontWeight: FontWeight.w400,
                             ),
                           ),
                           trailing: SvgPicture.asset(
                             Images.ic_read_more_1,
-                            color: kreadMoreColor,
+                            color: AppColors.kreadMoreColor,
                           ),
                         ),
                       ),

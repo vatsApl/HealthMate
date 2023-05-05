@@ -11,10 +11,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:focus_detector/focus_detector.dart';
 import '../methods/methods.dart';
+import '../resourse/app_colors.dart';
 import '../resourse/dimens.dart';
 
 class ProfilePage extends StatefulWidget {
-
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
@@ -49,7 +49,12 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Scaffold(
         backgroundColor: Colors.white,
         body: Padding(
-          padding: const EdgeInsets.fromLTRB(Dimens.pixel_16, Dimens.pixel_63, Dimens.pixel_16, Dimens.pixel_0,),
+          padding: const EdgeInsets.fromLTRB(
+            Dimens.pixel_16,
+            Dimens.pixel_63,
+            Dimens.pixel_16,
+            Dimens.pixel_0,
+          ),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -61,7 +66,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Container(
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
-                          color: kDefaultPurpleColor,
+                          color: AppColors.kDefaultPurpleColor,
                         ),
                         child: CircleAvatar(
                           child: CachedNetworkImage(
@@ -102,7 +107,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         Text(
                           uFirstName ?? '',
                           style: const TextStyle(
-                            color: kDefaultPurpleColor,
+                            color: AppColors.kDefaultPurpleColor,
                             fontSize: Dimens.pixel_18,
                             fontWeight: FontWeight.w700,
                           ),
@@ -110,7 +115,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         Text(
                           uRoleName ?? '',
                           style: const TextStyle(
-                              color: kDefaultBlackColor, height: Dimens.pixel_1_point_2,
+                            color: AppColors.kDefaultBlackColor,
+                            height: Dimens.pixel_1_point_2,
                           ),
                         ),
                       ],
@@ -138,22 +144,24 @@ class _ProfilePageState extends State<ProfilePage> {
                           );
                         },
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: Dimens.pixel_4),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: Dimens.pixel_4,
+                          ),
                           child: ListTile(
                             leading: SvgPicture.asset(
                               Images.ic_personal_details,
-                              color: kDefaultPurpleColor,
+                              color: AppColors.kDefaultPurpleColor,
                             ),
                             title: const Text(
                               Strings.text_personal_details,
                               style: TextStyle(
-                                color: kDefaultBlackColor,
+                                color: AppColors.kDefaultBlackColor,
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
                             trailing: SvgPicture.asset(
                               Images.ic_read_more_1,
-                              color: kreadMoreColor,
+                              color: AppColors.kreadMoreColor,
                             ),
                           ),
                         ),
@@ -178,22 +186,23 @@ class _ProfilePageState extends State<ProfilePage> {
                           );
                         },
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: Dimens.pixel_4),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: Dimens.pixel_4),
                           child: ListTile(
                             leading: SvgPicture.asset(
                               Images.ic_skills,
-                              color: kDefaultPurpleColor,
+                              color: AppColors.kDefaultPurpleColor,
                             ),
                             title: const Text(
                               Strings.text_role_and_skills,
                               style: TextStyle(
-                                color: kDefaultBlackColor,
+                                color: AppColors.kDefaultBlackColor,
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
                             trailing: SvgPicture.asset(
                               Images.ic_read_more_1,
-                              color: kreadMoreColor,
+                              color: AppColors.kreadMoreColor,
                             ),
                           ),
                         ),
@@ -218,22 +227,23 @@ class _ProfilePageState extends State<ProfilePage> {
                           );
                         },
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: Dimens.pixel_4),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: Dimens.pixel_4),
                           child: ListTile(
                             leading: SvgPicture.asset(
                               Images.ic_resume,
-                              color: kDefaultPurpleColor,
+                              color: AppColors.kDefaultPurpleColor,
                             ),
                             title: const Text(
                               Strings.text_cv_and_resume,
                               style: TextStyle(
-                                color: kDefaultBlackColor,
+                                color: AppColors.kDefaultBlackColor,
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
                             trailing: SvgPicture.asset(
                               Images.ic_read_more_1,
-                              color: kreadMoreColor,
+                              color: AppColors.kreadMoreColor,
                             ),
                           ),
                         ),
@@ -259,22 +269,23 @@ class _ProfilePageState extends State<ProfilePage> {
                           // );
                         },
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: Dimens.pixel_4),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: Dimens.pixel_4),
                           child: ListTile(
                             leading: SvgPicture.asset(
                               Images.ic_settings,
-                              color: kDefaultPurpleColor,
+                              color: AppColors.kDefaultPurpleColor,
                             ),
                             title: const Text(
                               Strings.text_settings,
                               style: TextStyle(
-                                color: kDefaultBlackColor,
+                                color: AppColors.kDefaultBlackColor,
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
                             trailing: SvgPicture.asset(
                               Images.ic_read_more_1,
-                              color: kreadMoreColor,
+                              color: AppColors.kreadMoreColor,
                             ),
                           ),
                         ),
@@ -294,22 +305,24 @@ class _ProfilePageState extends State<ProfilePage> {
                           Methods.showDialogLogOut(context);
                         },
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: Dimens.pixel_4,),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: Dimens.pixel_4,
+                          ),
                           child: ListTile(
                             leading: SvgPicture.asset(
                               Images.ic_logout,
-                              color: kDefaultPurpleColor,
+                              color: AppColors.kDefaultPurpleColor,
                             ),
                             title: const Text(
                               Strings.text_log_out,
                               style: TextStyle(
-                                color: kDefaultBlackColor,
+                                color: AppColors.kDefaultBlackColor,
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
                             trailing: SvgPicture.asset(
                               Images.ic_read_more_1,
-                              color: kreadMoreColor,
+                              color: AppColors.kreadMoreColor,
                             ),
                           ),
                         ),

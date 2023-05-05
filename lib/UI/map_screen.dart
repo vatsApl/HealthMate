@@ -2,6 +2,7 @@ import 'package:clg_project/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import '../resourse/app_colors.dart';
 import '../resourse/images.dart';
 import '../resourse/strings.dart';
 
@@ -112,7 +113,7 @@ class _MapScreenState extends State<MapScreen> {
             ),
           ),
         ),
-        backgroundColor: kDefaultPurpleColor,
+        backgroundColor: AppColors.kDefaultPurpleColor,
         child: const Icon(Icons.center_focus_strong_outlined),
       ),
     );

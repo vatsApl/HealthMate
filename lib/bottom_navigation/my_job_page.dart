@@ -7,11 +7,11 @@ import 'package:clg_project/constants.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import '../resourse/app_colors.dart';
 import '../resourse/dimens.dart';
 import '../resourse/shared_prefs.dart';
 
 class MyJobsPage extends StatefulWidget {
-
   @override
   State<MyJobsPage> createState() => _MyJobsPageState();
 }
@@ -41,7 +41,12 @@ class _MyJobsPageState extends State<MyJobsPage> {
       body: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(Dimens.pixel_16, Dimens.pixel_0, Dimens.pixel_16, Dimens.pixel_0,),
+            padding: const EdgeInsets.fromLTRB(
+              Dimens.pixel_16,
+              Dimens.pixel_0,
+              Dimens.pixel_16,
+              Dimens.pixel_0,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -63,10 +68,10 @@ class _MyJobsPageState extends State<MyJobsPage> {
                       // minWidth: 108.0, //previously added mannually width of toggle switch
                       minWidth: double.infinity,
                       activeBgColor: const [
-                        kDefaultPurpleColor,
+                        AppColors.kDefaultPurpleColor,
                       ],
                       inactiveBgColor: const Color(0xffFFFFFF),
-                      inactiveFgColor: klabelColor,
+                      inactiveFgColor: AppColors.klabelColor,
                       cornerRadius: Dimens.pixel_6,
                       borderColor: const [
                         Color(0xffE1E1E1),
@@ -86,7 +91,9 @@ class _MyJobsPageState extends State<MyJobsPage> {
                 if (currentIndex == 0)
                   AppliedJob()
                 else if (currentIndex == 1)
-                  BookedJob(currentIndex: currentIndex,)
+                  BookedJob(
+                    currentIndex: currentIndex,
+                  )
                 else if (currentIndex == 2)
                   WorkedJob(),
               ],

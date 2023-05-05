@@ -12,6 +12,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '../allAPIs/allAPIs.dart';
 import '../custom_widgets/custom_widget_helper.dart';
 import 'package:http/http.dart' as http;
+import '../resourse/app_colors.dart';
 import '../resourse/dimens.dart';
 import '../resourse/shared_prefs.dart';
 import '../validations.dart';
@@ -147,7 +148,7 @@ class _AddNewAddressState extends BasePageScreenState<AddNewAddress>
                           height: Dimens.pixel_24,
                           width: Dimens.pixel_24,
                           child: Checkbox(
-                            activeColor: kDefaultPurpleColor,
+                            activeColor: AppColors.kDefaultPurpleColor,
                             value: isDefaultAddress,
                             onChanged: (value) {
                               setState(() {
@@ -171,7 +172,7 @@ class _AddNewAddressState extends BasePageScreenState<AddNewAddress>
                             style: TextStyle(
                               fontSize: Dimens.pixel_14,
                               fontWeight: FontWeight.w400,
-                              color: kDefaultBlackColor,
+                              color: AppColors.kDefaultBlackColor,
                             ),
                           ),
                         )
@@ -186,7 +187,7 @@ class _AddNewAddressState extends BasePageScreenState<AddNewAddress>
                       ),
                       child: ElevatedBtn(
                         btnTitle: Strings.text_submit,
-                        bgColor: kDefaultPurpleColor,
+                        bgColor: AppColors.kDefaultPurpleColor,
                         onPressed: () {
                           //add new address
                           if (_formKey.currentState!.validate()) {

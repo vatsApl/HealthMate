@@ -2,6 +2,9 @@ import 'package:clg_project/UI/widgets/custom_loader.dart';
 import 'package:clg_project/constants.dart';
 import 'package:flutter/material.dart';
 
+import '../resourse/app_colors.dart';
+import '../resourse/dimens.dart';
+
 class OutlinedBtn extends StatelessWidget {
   OutlinedBtn(
       {super.key,
@@ -20,7 +23,7 @@ class OutlinedBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 35.0,
+      height: Dimens.pixel_35,
       child: OutlinedButton(
         onPressed: () {
           onPressed!();
@@ -28,16 +31,19 @@ class OutlinedBtn extends StatelessWidget {
         style: OutlinedButton.styleFrom(
           backgroundColor: bgColor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6.0),
+            borderRadius: BorderRadius.circular(
+              Dimens.pixel_6,
+            ),
           ),
         ),
         child: !isLoading
             ? Text(
                 btnTitle,
                 style: const TextStyle(
-                    fontSize: 10.0,
-                    color: kDefaultPurpleColor,
-                    fontWeight: FontWeight.w500),
+                  fontSize: Dimens.pixel_10,
+                  color: AppColors.kDefaultPurpleColor,
+                  fontWeight: FontWeight.w500,
+                ),
               )
             : CustomLoader(
                 isVisible: isLoading,
