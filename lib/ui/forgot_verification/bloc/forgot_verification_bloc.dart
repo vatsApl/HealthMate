@@ -1,4 +1,4 @@
-import 'package:clg_project/ui/forgot_verification/bloc/forgot_verification_State.dart';
+import 'package:clg_project/ui/forgot_verification/bloc/forgot_verification_state.dart';
 import 'package:clg_project/ui/forgot_verification/bloc/forgot_verification_event.dart';
 import 'package:clg_project/ui/forgot_verification/repo/forgot_verification_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +21,14 @@ class ForgotVerificationBloc
       }
 
       if (event is ForgotVerificationResendEvent) {
-        //
+        emit(ForgotVerificationLoadingState());
+        try {
+          var response = await _forgotVerificationRepository
+              .forgotPasswordResendOtpApi(event.params);
+          emit(ForgotVerificationResendLoadedState(response));
+        } catch (e) {
+          emit(ForgotVerificationErrorState(error: e.toString()));
+        }
       }
     });
   }

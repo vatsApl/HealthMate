@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/allAPIs/allAPIs.dart';
 import 'package:clg_project/base_Screen_working/base_screen.dart';
-import 'package:clg_project/client_side/client_main_page.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/models/candidate_models/job_description_res.dart';
 import 'package:clg_project/resourse/api_urls.dart';
@@ -19,6 +18,7 @@ import '../custom_widgets/custom_widget_helper.dart';
 import '../models/candidate_models/find_job_response.dart';
 import '../resourse/app_colors.dart';
 import '../resourse/dimens.dart';
+import '../ui/client_side/client_main_page.dart';
 
 class ClientJobDescription extends BasePageScreen {
   int? jobId;

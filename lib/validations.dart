@@ -83,6 +83,10 @@ class Validate {
       return 'Please enter the password';
     } else if (value.length < 8) {
       return 'Please enter atleast 8 character';
+    } else if (!RegExp(
+            r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+        .hasMatch(value)) {
+      return 'must contain 1 special char, digit, capital & small char';
     }
     return null;
   }

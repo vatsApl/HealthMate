@@ -1,16 +1,15 @@
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/base_Screen_working/base_screen.dart';
-import 'package:clg_project/client_side/client_bottom_navigation/client_home_page.dart';
 import 'package:clg_project/client_side/client_verification_pages/approvals.dart';
 import 'package:clg_project/client_side/client_verification_pages/invoices.dart';
 import 'package:clg_project/client_side/client_verification_pages/timesheets.dart';
-import 'package:clg_project/constants.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 import '../../resourse/app_colors.dart';
 import '../../resourse/dimens.dart';
+import '../../ui/client_side/client_home_page/view/client_home_page.dart';
 
 class ClientVerificationPage extends BasePageScreen {
   @override

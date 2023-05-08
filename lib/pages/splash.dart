@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'package:clg_project/bottom_navigation/main_page.dart';
-import 'package:clg_project/client_side/client_main_page.dart';
-import 'package:clg_project/constants.dart';
 import 'package:clg_project/pages/welcome_screen.dart';
 import 'package:clg_project/resourse/dimens.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
@@ -10,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../resourse/app_colors.dart';
+import '../ui/client_side/client_main_page.dart';
 
 class Splash extends StatefulWidget {
   @override

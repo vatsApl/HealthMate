@@ -9,6 +9,11 @@ class ForgotVerificationLoadedState extends ForgotVerificationState {
   ForgotVerificationLoadedState(this.response);
 }
 
+class ForgotVerificationResendLoadedState extends ForgotVerificationState {
+  dynamic response;
+  ForgotVerificationResendLoadedState(this.response);
+}
+
 class ForgotVerificationErrorState extends ForgotVerificationState {
   final String error;
   ForgotVerificationErrorState({required this.error});

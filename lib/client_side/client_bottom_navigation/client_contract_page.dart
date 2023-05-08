@@ -61,7 +61,7 @@ class _ClientContractPageState extends BasePageScreenState<ClientContractPage>
       // log('contract page log:${response.body}');
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
-        var clientJobResponse = ClientJobModelResponse.fromJson(json);
+        var clientJobResponse = ClientJobModel.fromJson(json);
         isLastPage = clientJobResponse.isLastPage;
         setState(() {
           isLoadingMore = false;

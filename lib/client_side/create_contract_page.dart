@@ -5,7 +5,6 @@ import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/allAPIs/allAPIs.dart';
 import 'package:clg_project/base_Screen_working/base_screen.dart';
 import 'package:clg_project/client_side/add_new_address_two.dart';
-import 'package:clg_project/client_side/client_main_page.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/resourse/images.dart';
@@ -23,6 +22,7 @@ import '../models/client_model/client_Address_model.dart';
 import '../resourse/app_colors.dart';
 import '../resourse/dimens.dart';
 import '../resourse/strings.dart';
+import '../ui/client_side/client_main_page.dart';
 
 class CreateContract extends BasePageScreen {
   CreateContract({this.newAddress});

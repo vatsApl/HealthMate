@@ -1,4 +1,4 @@
-class ClientJobModelResponse {
+class ClientJobModel {
   String? message;
   bool? success;
   int? code;
@@ -11,21 +11,21 @@ class ClientJobModelResponse {
   int? invoiceCount;
   int? allPayment;
 
-  ClientJobModelResponse(
-      {this.message,
-      this.success,
-      this.code,
-      this.data,
-      this.curentPage,
-      this.lastPage,
-      this.isLastPage,
-      this.contractCount,
-      this.timesheetCount,
-      this.invoiceCount,
-      this.allPayment,
-      });
+  ClientJobModel({
+    this.message,
+    this.success,
+    this.code,
+    this.data,
+    this.curentPage,
+    this.lastPage,
+    this.isLastPage,
+    this.contractCount,
+    this.timesheetCount,
+    this.invoiceCount,
+    this.allPayment,
+  });
 
-  ClientJobModelResponse.fromJson(Map<String, dynamic> json) {
+  ClientJobModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     success = json['success'];
     code = json['code'];
@@ -156,4 +156,3 @@ class JobModel {
     return data;
   }
 }
-

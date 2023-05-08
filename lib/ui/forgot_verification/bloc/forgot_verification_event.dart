@@ -6,5 +6,6 @@ class ForgotVerificationVerifyEvent extends ForgotVerificationEvent {
 }
 
 class ForgotVerificationResendEvent extends ForgotVerificationEvent {
-  //
+  Map<String, dynamic> params;
+  ForgotVerificationResendEvent(this.params);
 }

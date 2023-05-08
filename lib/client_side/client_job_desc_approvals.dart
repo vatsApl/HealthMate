@@ -19,6 +19,7 @@ import '../models/candidate_models/find_job_response.dart';
 import '../resourse/app_colors.dart';
 import '../resourse/dimens.dart';
 import '../resourse/shared_prefs.dart';
+import '../ui/client_side/client_main_page.dart';
 
 class ClientJobDescApprovals extends BasePageScreen {
   int? jobId;

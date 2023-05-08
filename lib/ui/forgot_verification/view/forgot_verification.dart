@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'package:clg_project/UI/new_password.dart';
 import 'package:clg_project/UI/widgets/otp_text_form_field.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/resourse/api_urls.dart';
-import 'package:clg_project/ui/forgot_verification/bloc/forgot_verification_State.dart';
+import 'package:clg_project/ui/forgot_verification/bloc/forgot_verification_state.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +14,7 @@ import '../../../resourse/app_colors.dart';
 import '../../../resourse/dimens.dart';
 import '../../../resourse/strings.dart';
 import '../../forgot_password/model/forgot_password_model.dart';
+import '../../new_password/view/new_password.dart';
 import '../bloc/forgot_verification_bloc.dart';
 import '../bloc/forgot_verification_event.dart';
 import '../repo/forgot_verification_repository.dart';
@@ -36,91 +36,32 @@ class _ForgotVerificationState extends BasePageScreenState<ForgotVerification>
   TextEditingController otp4Controller = TextEditingController();
   bool isVisible = false;
 
-  //otp verify api after signup candidate
-  // Future<void> verifyOtpForgotPassword() async {
-  //   String url = ApiUrl.verifyOtpForgotPassword;
+  // Future<void> forgotPasswordResendOtpApi() async {
+  //   String url = ApiUrl.forgotPasswordResendOtp;
   //   try {
-  //     setState(() {
-  //       isVisible = true;
-  //     });
   //     var response = await http.post(Uri.parse(url), body: {
-  //       'otp1': otp1Controller.text,
-  //       'otp2': otp2Controller.text,
-  //       'otp3': otp3Controller.text,
-  //       'otp4': otp4Controller.text,
   //       'id': widget.userId.toString(),
   //       'type': widget.userType.toString(),
   //     });
-  //     var json = jsonDecode(response.body);
-  //     print('this: ${json['code']}');
-  //     Fluttertoast.showToast(
+  //     print('USERID: ${widget.userId}');
+  //     print('USERID: ${widget.userType}');
+  //     if (response.statusCode == 200) {
+  //       var json = jsonDecode(response.body);
+  //       print('this: ${json['code']}');
+  //       Fluttertoast.showToast(
   //         msg: "${json['message']}",
   //         toastLength: Toast.LENGTH_SHORT,
   //         gravity: ToastGravity.BOTTOM,
   //         timeInSecForIosWeb: 1,
   //         backgroundColor: json['code'] == 200 ? Colors.green : Colors.red,
   //         textColor: Colors.white,
-  //         fontSize: 16.0);
-  //     log('HP: ${response.body}');
-  //     print(widget.userId);
-  //     print(widget.userType);
-  //
-  //     var newUserId = widget.userId;
-  //     var newUserType = widget.userType;
-  //     print('new one: $newUserId');
-  //     print('new one: $newUserType');
-  //     if (json['code'] == 200) {
-  //       setState(() {
-  //         isVisible = false;
-  //       });
-  //       Navigator.pushReplacement(
-  //         context,
-  //         MaterialPageRoute(
-  //           builder: (context) => NewPassword(
-  //             userId: newUserId,
-  //             userType: newUserType,
-  //           ),
-  //         ),
+  //         fontSize: 16.0,
   //       );
   //     }
   //   } catch (e) {
-  //     print('HP: $e');
-  //     setState(() {
-  //       isVisible = false;
-  //     });
+  //     print(e);
   //   }
-  //   setState(() {
-  //     isVisible = false;
-  //   });
   // }
-
-  //Resend otp api
-  Future<void> forgotPasswordResendOtpApi() async {
-    String url = ApiUrl.forgotPasswordResendOtp;
-    try {
-      var response = await http.post(Uri.parse(url), body: {
-        'id': widget.userId.toString(),
-        'type': widget.userType.toString(),
-      });
-      print('USERID: ${widget.userId}');
-      print('USERID: ${widget.userType}');
-      if (response.statusCode == 200) {
-        var json = jsonDecode(response.body);
-        print('this: ${json['code']}');
-        Fluttertoast.showToast(
-          msg: "${json['message']}",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: json['code'] == 200 ? Colors.green : Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0,
-        );
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
 
   final _forgotVerificationBloc =
       ForgotVerificationBloc(ForgotVerificationRepository());
@@ -140,11 +81,11 @@ class _ForgotVerificationState extends BasePageScreenState<ForgotVerification>
               isVisible = false;
             });
             var responseBody = state.response;
-            var forgotPasswordResponse =
+            var forgotPasswordVerificationResponse =
                 ForgotPasswordModel.fromJson(responseBody);
-            if (forgotPasswordResponse.code == 200) {
+            if (forgotPasswordVerificationResponse.code == 200) {
               Fluttertoast.showToast(
-                msg: "${forgotPasswordResponse.message}",
+                msg: "${forgotPasswordVerificationResponse.message}",
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.BOTTOM,
                 timeInSecForIosWeb: 1,
@@ -162,6 +103,45 @@ class _ForgotVerificationState extends BasePageScreenState<ForgotVerification>
                     userType: newUserType,
                   ),
                 ),
+              );
+            } else {
+              Fluttertoast.showToast(
+                msg: "${forgotPasswordVerificationResponse.message}",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.red,
+                textColor: Colors.white,
+                fontSize: 16.0,
+              );
+            }
+          }
+          if (state is ForgotVerificationResendLoadedState) {
+            setState(() {
+              isVisible = false;
+            });
+            var responseBody = state.response;
+            var forgotPasswordResendResponse =
+                ForgotPasswordModel.fromJson(responseBody);
+            if (forgotPasswordResendResponse.code == 200) {
+              Fluttertoast.showToast(
+                msg: "${forgotPasswordResendResponse.message}",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.green,
+                textColor: Colors.white,
+                fontSize: 16.0,
+              );
+            } else {
+              Fluttertoast.showToast(
+                msg: "${forgotPasswordResendResponse.message}",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.red,
+                textColor: Colors.white,
+                fontSize: 16.0,
               );
             }
           }
@@ -251,8 +231,13 @@ class _ForgotVerificationState extends BasePageScreenState<ForgotVerification>
                     ),
                     GestureDetector(
                       onTap: () {
-                        //Resend otp api
-                        forgotPasswordResendOtpApi();
+                        // Forgot password Resend otp api
+                        var params = {
+                          'id': widget.userId.toString(),
+                          'type': widget.userType.toString(),
+                        };
+                        _forgotVerificationBloc
+                            .add(ForgotVerificationResendEvent(params));
                       },
                       child: const Text(
                         Strings.text_resend,
@@ -273,7 +258,6 @@ class _ForgotVerificationState extends BasePageScreenState<ForgotVerification>
                   isLoading: isVisible,
                   bgColor: AppColors.kDefaultPurpleColor,
                   onPressed: () {
-                    // verifyOtpForgotPassword();
                     // event of verification
                     var params = {
                       'otp1': otp1Controller.text,

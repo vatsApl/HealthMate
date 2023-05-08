@@ -6,7 +6,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import '../../../UI/widgets/title_text.dart';
 import '../../../bottom_navigation/main_page.dart';
-import '../../../client_side/client_main_page.dart';
 import '../../../constants.dart';
 import '../../../resourse/app_colors.dart';
 import '../../../resourse/dimens.dart';
@@ -15,6 +14,7 @@ import '../../../resourse/shared_prefs.dart';
 import '../../../resourse/strings.dart';
 import '../../../validations.dart';
 import '../../../widgets/elevated_button.dart';
+import '../../client_side/client_main_page.dart';
 import '../../forgot_password/view/forgot_password.dart';
 import '../../signup/signup_page.dart';
 import '../bloc/signin_bloc.dart';
@@ -74,7 +74,6 @@ class _SigninPageState extends BasePageScreenState<SigninPage> with BaseScreen {
               isVisible = false;
             });
             var responseBody = state.response;
-
             var signinResponse = SigninModel.fromJson(responseBody);
             if (signinResponse.code == 200) {
               var userId = signinResponse
@@ -109,7 +108,6 @@ class _SigninPageState extends BasePageScreenState<SigninPage> with BaseScreen {
                 gravity: ToastGravity.BOTTOM,
                 timeInSecForIosWeb: 1,
                 backgroundColor: Colors.green,
-                // signinResponse.code == 200 ? Colors.green : Colors.red,
                 textColor: Colors.white,
                 fontSize: 16.0,
               );
