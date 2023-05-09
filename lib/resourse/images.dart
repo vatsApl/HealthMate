@@ -54,4 +54,5 @@ class Images {
   static const ic_calander_rounded = "images/calander_rounded.svg";
   static const ic_job_rounded = "images/job_rounded.svg";
   static const ic_timesheet_rounded = "images/timesheet_rounded.svg";
+  static const ic_approvals_rounded = "images/approvals_rounded.svg";
 }

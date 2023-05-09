@@ -1,5 +1,3 @@
-import 'package:clg_project/client_side/client_bottom_navigation/client_contract_page.dart';
-import 'package:clg_project/client_side/client_bottom_navigation/client_home_page.dart';
 import 'package:clg_project/client_side/client_bottom_navigation/client_profile_page.dart';
 import 'package:clg_project/client_side/client_bottom_navigation/client_verification_page.dart';
 import 'package:clg_project/resourse/images.dart';
@@ -9,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import '../../resourse/app_colors.dart';
 import '../../resourse/dimens.dart';
+import 'client_contract_page/view/client_contract_page.dart';
 import 'client_home_page/view/client_home_page.dart';
 
 class ClientMainPage extends StatefulWidget {

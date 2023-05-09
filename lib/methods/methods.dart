@@ -7,15 +7,13 @@ import 'package:clg_project/bottom_navigation/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import '../UI/signin_page.dart';
 import '../UI/widgets/custom_textfield.dart';
 import '../allAPIs/allAPIs.dart';
-import '../constants.dart';
 import '../resourse/app_colors.dart';
 import '../resourse/images.dart';
 import '../resourse/shared_prefs.dart';
 import '../services/api_services.dart';
-import '../ui/signin/view/signin_page.dart';
+import '../ui/auth/signin/view/signin_page.dart';
 import '../validations.dart';
 import '../widgets/elevated_button.dart';
 

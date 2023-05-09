@@ -37,36 +37,44 @@ class _ClientProfilePageState extends State<ClientProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(
-        Dimens.pixel_16,
-        Dimens.pixel_19,
-        Dimens.pixel_16,
-        Dimens.pixel_0,
-      ),
-      child: FocusDetector(
-        onFocusGained: () {
-          getData();
-        },
-        child: Scaffold(
-          appBar: CustomAppBar(
-            name: clientName,
-            netImg: netImg,
+    return FocusDetector(
+      onFocusGained: () {
+        getData();
+      },
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: CustomAppBar(
+          name: clientName,
+          netImg: netImg,
+        ),
+        body: Container(
+          padding: const EdgeInsets.fromLTRB(
+            Dimens.pixel_16,
+            Dimens.pixel_19,
+            Dimens.pixel_16,
+            Dimens.pixel_0,
           ),
-          body: Center(
+          child: Center(
             child: Padding(
               padding: const EdgeInsets.only(
                 top: Dimens.pixel_48,
               ),
               child: Column(
                 children: [
-                  Card(
-                    elevation: Dimens.pixel_2,
-                    shadowColor: const Color(0xff000000),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        Dimens.pixel_6,
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(Dimens.pixel_6),
                       ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          spreadRadius: 1,
+                          blurRadius: 6,
+                          offset: Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
                     ),
                     child: InkWell(
                       onTap: () {
@@ -104,13 +112,20 @@ class _ClientProfilePageState extends State<ClientProfilePage> {
                   const SizedBox(
                     height: Dimens.pixel_12,
                   ),
-                  Card(
-                    elevation: Dimens.pixel_2,
-                    shadowColor: const Color(0xff000000),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        Dimens.pixel_6,
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(Dimens.pixel_6),
                       ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          spreadRadius: 1,
+                          blurRadius: 6,
+                          offset: Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
                     ),
                     child: InkWell(
                       onTap: () {
@@ -148,13 +163,20 @@ class _ClientProfilePageState extends State<ClientProfilePage> {
                   const SizedBox(
                     height: Dimens.pixel_12,
                   ),
-                  Card(
-                    elevation: Dimens.pixel_2,
-                    shadowColor: const Color(0xff000000),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        Dimens.pixel_6,
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(Dimens.pixel_6),
                       ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          spreadRadius: 1,
+                          blurRadius: 6,
+                          offset: Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -182,13 +204,20 @@ class _ClientProfilePageState extends State<ClientProfilePage> {
                   const SizedBox(
                     height: Dimens.pixel_12,
                   ),
-                  Card(
-                    elevation: Dimens.pixel_2,
-                    shadowColor: const Color(0xff000000),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        Dimens.pixel_6,
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(Dimens.pixel_6),
                       ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          spreadRadius: 1,
+                          blurRadius: 6,
+                          offset: Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
                     ),
                     child: InkWell(
                       onTap: () {

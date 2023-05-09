@@ -1,5 +1,5 @@
 class Strings {
-  static const text_health_mate = 'Health Mate';
+  static const text_healthmate = 'HealthMate';
   static const text_get_started = 'Get Started';
   static const sign_in_welcome_back = 'Welcome Back !';
   static const sign_in_email_label = 'Email';
@@ -57,7 +57,7 @@ class Strings {
   static const candidate_text_applied = 'Applied';
   static const candidate_text_worked = 'Worked';
   static const candidate_text_booked = 'Booked';
-  static const amount_symbol_rupee = '₹ ';
+  static const amount_symbol_rupee = '₹';
   static const candidate_home_text_payment = 'Payment';
   static const candidate_text_no_jobs_found = 'No Jobs Found';
   static const candidate_bottom_text_home = 'Home';

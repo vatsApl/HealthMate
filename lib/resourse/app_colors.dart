@@ -11,4 +11,5 @@ class AppColors {
   static const kGreenColor = Color(0xff198754);
   static const kYellowColor = Color(0xffE3A008);
   static const kDisabledColorBtn = Color(0xffD0D0DA);
+  // shadowColor: const Color(0xff000000),
 }

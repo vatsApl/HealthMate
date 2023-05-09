@@ -9,7 +9,6 @@ class ClientHomeRepository {
     required String uId,
   }) async {
     String url = ApiUrl.showContractHomeApi(uId);
-    ;
     var response = await http.get(Uri.parse(url));
     log('client home log:${response.body}');
     var json = jsonDecode(response.body);

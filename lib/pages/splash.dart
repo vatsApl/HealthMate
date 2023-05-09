@@ -57,11 +57,11 @@ class SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: AppColors.kDefaultPurpleColor,
+    return Scaffold(
+      backgroundColor: AppColors.kDefaultPurpleColor.withOpacity(0.7),
       body: Center(
         child: Text(
-          Strings.text_health_mate,
+          Strings.text_healthmate,
           style: TextStyle(
             color: Colors.white,
             fontSize: Dimens.pixel_25,

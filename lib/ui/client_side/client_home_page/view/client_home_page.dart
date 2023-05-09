@@ -33,7 +33,7 @@ class ClientHomePage extends StatefulWidget {
 }
 
 class _ClientHomePageState extends State<ClientHomePage> {
-  List<JobModel> clientJobs = []; // previously used condition on this (isEmpty)
+  List<JobModel> clientJobs = [];
   var clientJobResponse;
   var clientJobResponse2;
   bool isVisible = false;
@@ -104,473 +104,200 @@ class _ClientHomePageState extends State<ClientHomePage> {
           }
         },
         builder: (BuildContext context, Object? state) {
-          return Padding(
-            padding: const EdgeInsets.fromLTRB(
-              Dimens.pixel_16,
-              Dimens.pixel_19,
-              Dimens.pixel_16,
-              Dimens.pixel_0,
+          return Scaffold(
+            backgroundColor: Colors.white,
+            appBar: CustomAppBar(
+              name: clientName,
+              svgPictureTrailing: Images.ic_notification,
+              netImg: netImg,
             ),
-            child: Scaffold(
-              appBar: CustomAppBar(
-                name: clientName,
-                svgPictureTrailing: Images.ic_notification,
-                netImg: netImg,
+            body: Container(
+              padding: const EdgeInsets.fromLTRB(
+                Dimens.pixel_16,
+                Dimens.pixel_19,
+                Dimens.pixel_16,
+                Dimens.pixel_0,
               ),
-              body: Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: Dimens.pixel_48),
-                      child: Column(
-                        children: [
-                          Row(
-                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Flexible(
-                                flex: 1,
-                                child: CardTopClient(
-                                  onTap: () {
-                                    // Navigate to contracts page.
-                                    Provider.of<ValueNotifier<int>>(context,
-                                            listen: false)
-                                        .value = 1;
-                                  },
-                                  icon: Images.ic_contracts_circle,
-                                  number:
-                                      clientJobResponse2?.contractCount ?? 0,
-                                  label: Strings.text_contracts,
-                                ),
-                              ),
-                              // const SizedBox(
-                              //   width: Dimens.pixel_22,
-                              // ),
-                              Flexible(
-                                flex: 1,
-                                child: CardTopClient(
-                                  onTap: () {
-                                    //Navigate to Timesheet page.
-                                    Provider.of<ValueNotifier<int>>(context,
-                                            listen: false)
-                                        .value = 2;
-                                    ClientHomePage.tabIndexNotifier.value = 1;
-                                  },
-                                  icon: Images.ic_timesheet,
-                                  number:
-                                      clientJobResponse2?.timesheetCount ?? 0,
-                                  label: Strings.text_timesheets,
-                                ),
-                              ),
-                            ],
-                          ),
-                          // const SizedBox(
-                          //   height: Dimens.pixel_14,
-                          // ),
-                          Row(
-                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Flexible(
-                                flex: 1,
-                                child: CardTopClient(
-                                  onTap: () {
-                                    //Navigate to approvals page.
-                                    Provider.of<ValueNotifier<int>>(context,
-                                            listen: false)
-                                        .value = 2;
-                                    ClientHomePage.tabIndexNotifier.value = 0;
-                                  },
-                                  icon: Images.ic_approvals_2,
-                                  number: clientJobResponse2?.invoiceCount ?? 0,
-                                  label: Strings.text_approvals,
-                                ),
-                              ),
-                              // const SizedBox(
-                              //   width: Dimens.pixel_22,
-                              // ),
-                              Flexible(
-                                flex: 1,
-                                child: CardTopClient(
-                                  onTap: () {
-                                    //Navigate to Invoice page.
-                                    Provider.of<ValueNotifier<int>>(context,
-                                            listen: false)
-                                        .value = 2;
-                                    ClientHomePage.tabIndexNotifier.value = 2;
-                                  },
-                                  icon: Images.ic_payment,
-                                  number: clientJobResponse2?.allPayment ?? 0,
-                                  label: Strings.text_invoices,
-                                  amountSymbol: Strings.amount_symbol_rupee,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: Dimens.pixel_34,
-                          ),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => CreateContract(),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      clipBehavior: Clip.none,
+                      physics: const BouncingScrollPhysics(),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: Dimens.pixel_48),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Flexible(
+                                  flex: 1,
+                                  child: CardTopClient(
+                                    onTap: () {
+                                      // Navigate to contracts page.
+                                      Provider.of<ValueNotifier<int>>(context,
+                                              listen: false)
+                                          .value = 1;
+                                    },
+                                    icon: Images.ic_contracts_circle,
+                                    number:
+                                        clientJobResponse2?.contractCount ?? 0,
+                                    label: Strings.text_contracts,
                                   ),
-                                );
-                              },
-                              child: Container(
-                                padding: EdgeInsets.fromLTRB(
-                                  Dimens.pixel_14,
-                                  Dimens.pixel_10,
-                                  Dimens.pixel_10,
-                                  Dimens.pixel_10,
                                 ),
-                                decoration: BoxDecoration(
-                                  color: AppColors.kDefaultPurpleColor,
-                                  borderRadius:
-                                      BorderRadius.circular(Dimens.pixel_6),
+                                const SizedBox(
+                                  width: Dimens.pixel_22,
                                 ),
-                                child: FittedBox(
-                                  fit: BoxFit.fill,
-                                  child: Row(
-                                    children: [
-                                      SvgPicture.asset(
-                                        Images.ic_plus,
-                                        color: Colors.white,
-                                      ),
-                                      SizedBox(
-                                        width: Dimens.pixel_10,
-                                      ),
-                                      Text(
-                                        Strings.text_create_contract,
-                                        maxLines: 1,
-                                        style: TextStyle(
-                                          fontSize: Dimens.pixel_10,
-                                          fontWeight: FontWeight.w500,
+                                Flexible(
+                                  flex: 1,
+                                  child: CardTopClient(
+                                    onTap: () {
+                                      //Navigate to Timesheet page.
+                                      Provider.of<ValueNotifier<int>>(context,
+                                              listen: false)
+                                          .value = 2;
+                                      ClientHomePage.tabIndexNotifier.value = 1;
+                                    },
+                                    icon: Images.ic_timesheet_rounded,
+                                    number:
+                                        clientJobResponse2?.timesheetCount ?? 0,
+                                    label: Strings.text_timesheets,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: Dimens.pixel_14,
+                            ),
+                            Row(
+                              children: [
+                                Flexible(
+                                  flex: 1,
+                                  child: CardTopClient(
+                                    onTap: () {
+                                      //Navigate to approvals page.
+                                      Provider.of<ValueNotifier<int>>(context,
+                                              listen: false)
+                                          .value = 2;
+                                      ClientHomePage.tabIndexNotifier.value = 0;
+                                    },
+                                    icon: Images.ic_approvals_rounded,
+                                    number:
+                                        clientJobResponse2?.invoiceCount ?? 0,
+                                    label: Strings.text_approvals,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: Dimens.pixel_22,
+                                ),
+                                Flexible(
+                                  flex: 1,
+                                  child: CardTopClient(
+                                    onTap: () {
+                                      //Navigate to Invoice page.
+                                      Provider.of<ValueNotifier<int>>(context,
+                                              listen: false)
+                                          .value = 2;
+                                      ClientHomePage.tabIndexNotifier.value = 2;
+                                    },
+                                    icon: Images.ic_payment,
+                                    number: clientJobResponse2?.allPayment ?? 0,
+                                    isPrice: true,
+                                    label: Strings.text_invoices,
+                                    amountSymbol: Strings.amount_symbol_rupee,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: Dimens.pixel_34,
+                            ),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => CreateContract(),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.fromLTRB(
+                                    Dimens.pixel_14,
+                                    Dimens.pixel_10,
+                                    Dimens.pixel_10,
+                                    Dimens.pixel_10,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.kDefaultPurpleColor,
+                                    borderRadius:
+                                        BorderRadius.circular(Dimens.pixel_6),
+                                  ),
+                                  child: FittedBox(
+                                    fit: BoxFit.fill,
+                                    child: Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                          Images.ic_plus,
                                           color: Colors.white,
                                         ),
-                                      ),
-                                    ],
+                                        SizedBox(
+                                          width: Dimens.pixel_10,
+                                        ),
+                                        Text(
+                                          Strings.text_create_contract,
+                                          maxLines: 1,
+                                          style: TextStyle(
+                                            fontSize: Dimens.pixel_10,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          displayList()
-                        ],
+                            displayList()
+                          ],
+                        ),
                       ),
                     ),
                   ),
                   if (isVisible)
-                    Expanded(child: Center(child: CircularProgressIndicator()))
+                    Expanded(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
+                  if (clientJobs.isEmpty && !isVisible)
+                    Expanded(
+                      child: Center(
+                        child: Text(
+                          Strings.text_no_contracts_available,
+                          style: TextStyle(
+                            fontSize: Dimens.pixel_20,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
                 ],
               ),
             ),
           );
         },
-        // child: Padding(
-        //   padding: const EdgeInsets.fromLTRB(
-        //     Dimens.pixel_16,
-        //     Dimens.pixel_19,
-        //     Dimens.pixel_16,
-        //     Dimens.pixel_0,
-        //   ),
-        //   child: Scaffold(
-        //     appBar: CustomAppBar(
-        //       name: clientName,
-        //       svgPictureTrailing: Images.ic_notification,
-        //       netImg: netImg,
-        //     ),
-        //     body: Column(
-        //       crossAxisAlignment: CrossAxisAlignment.start,
-        //       children: [
-        //         Expanded(
-        //           child: SingleChildScrollView(
-        //             physics: const BouncingScrollPhysics(),
-        //             child: Padding(
-        //               padding: const EdgeInsets.only(top: Dimens.pixel_48),
-        //               child: Column(
-        //                 children: [
-        //                   Row(
-        //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //                     children: [
-        //                       Expanded(
-        //                         flex: 1,
-        //                         child: CardTopClient(
-        //                           onTap: () {
-        //                             // Navigate to contracts page.
-        //                             Provider.of<ValueNotifier<int>>(context,
-        //                                     listen: false)
-        //                                 .value = 1;
-        //                           },
-        //                           icon: Images.ic_contracts_circle,
-        //                           number:
-        //                               clientJobResponse2?.contractCount ?? 0,
-        //                           label: Strings.text_contracts,
-        //                         ),
-        //                       ),
-        //                       const SizedBox(
-        //                         width: Dimens.pixel_22,
-        //                       ),
-        //                       Expanded(
-        //                         flex: 1,
-        //                         child: CardTopClient(
-        //                           onTap: () {
-        //                             //Navigate to Timesheet page.
-        //                             Provider.of<ValueNotifier<int>>(context,
-        //                                     listen: false)
-        //                                 .value = 2;
-        //                             ClientHomePage.tabIndexNotifier.value = 1;
-        //                           },
-        //                           icon: Images.ic_timesheet,
-        //                           number:
-        //                               clientJobResponse2?.timesheetCount ?? 0,
-        //                           label: Strings.text_timesheets,
-        //                         ),
-        //                       ),
-        //                     ],
-        //                   ),
-        //                   const SizedBox(
-        //                     height: Dimens.pixel_14,
-        //                   ),
-        //                   Row(
-        //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //                     children: [
-        //                       Expanded(
-        //                         child: CardTopClient(
-        //                           onTap: () {
-        //                             //Navigate to approvals page.
-        //                             Provider.of<ValueNotifier<int>>(context,
-        //                                     listen: false)
-        //                                 .value = 2;
-        //                             ClientHomePage.tabIndexNotifier.value = 0;
-        //                           },
-        //                           icon: Images.ic_approvals_2,
-        //                           number: clientJobResponse2?.invoiceCount ?? 0,
-        //                           label: Strings.text_approvals,
-        //                         ),
-        //                       ),
-        //                       const SizedBox(
-        //                         width: Dimens.pixel_22,
-        //                       ),
-        //                       Expanded(
-        //                         child: CardTopClient(
-        //                           onTap: () {
-        //                             //Navigate to Invoice page.
-        //                             Provider.of<ValueNotifier<int>>(context,
-        //                                     listen: false)
-        //                                 .value = 2;
-        //                             ClientHomePage.tabIndexNotifier.value = 2;
-        //                           },
-        //                           icon: Images.ic_payment,
-        //                           number: clientJobResponse2?.allPayment ?? 0,
-        //                           label: Strings.text_invoices,
-        //                           amountSymbol: Strings.amount_symbol_rupee,
-        //                         ),
-        //                       ),
-        //                     ],
-        //                   ),
-        //                   const SizedBox(
-        //                     height: Dimens.pixel_34,
-        //                   ),
-        //                   Align(
-        //                     alignment: Alignment.centerRight,
-        //                     child: InkWell(
-        //                       onTap: () {
-        //                         Navigator.push(
-        //                           context,
-        //                           MaterialPageRoute(
-        //                             builder: (context) => CreateContract(),
-        //                           ),
-        //                         );
-        //                       },
-        //                       child: Container(
-        //                         padding: EdgeInsets.fromLTRB(
-        //                           Dimens.pixel_14,
-        //                           Dimens.pixel_10,
-        //                           Dimens.pixel_10,
-        //                           Dimens.pixel_10,
-        //                         ),
-        //                         decoration: BoxDecoration(
-        //                           color: AppColors.kDefaultPurpleColor,
-        //                           borderRadius:
-        //                               BorderRadius.circular(Dimens.pixel_6),
-        //                         ),
-        //                         child: FittedBox(
-        //                           fit: BoxFit.fill,
-        //                           child: Row(
-        //                             children: [
-        //                               SvgPicture.asset(
-        //                                 Images.ic_plus,
-        //                                 color: Colors.white,
-        //                               ),
-        //                               SizedBox(
-        //                                 width: Dimens.pixel_10,
-        //                               ),
-        //                               Text(
-        //                                 Strings.text_create_contract,
-        //                                 maxLines: 1,
-        //                                 style: TextStyle(
-        //                                   fontSize: Dimens.pixel_10,
-        //                                   fontWeight: FontWeight.w500,
-        //                                   color: Colors.white,
-        //                                 ),
-        //                               ),
-        //                             ],
-        //                           ),
-        //                         ),
-        //                       ),
-        //                     ),
-        //                   ),
-        //                   BlocBuilder<ClientHomeBloc, ClientHomeState>(
-        //                     builder: (context, state) {
-        //                       if (state is ClientHomeLoadingState) {
-        //                         return Center(
-        //                           child: CircularProgressIndicator(),
-        //                         );
-        //                       }
-        //                       if (state is ClientHomeLoadedState) {
-        //                         return ListView.separated(
-        //                           physics: const NeverScrollableScrollPhysics(),
-        //                           padding: const EdgeInsets.only(
-        //                             top: Dimens.pixel_30,
-        //                           ),
-        //                           shrinkWrap: true,
-        //                           itemCount: clientJobs.length,
-        //                           itemBuilder:
-        //                               (BuildContext context, int index) {
-        //                             return InkWell(
-        //                               onTap: () {
-        //                                 int? jobId = clientJobs[index].id;
-        //                                 Navigator.push(
-        //                                   context,
-        //                                   MaterialPageRoute(
-        //                                     builder: (context) =>
-        //                                         ClientJobDescription(
-        //                                             jobId: jobId),
-        //                                   ),
-        //                                 );
-        //                               },
-        //                               child: JobCardClient(
-        //                                 clientJobModel: clientJobs[index],
-        //                               ),
-        //                             );
-        //                           },
-        //                           separatorBuilder:
-        //                               (BuildContext context, int index) {
-        //                             return const SizedBox(
-        //                               height: Dimens.pixel_20,
-        //                             );
-        //                           },
-        //                         );
-        //                       }
-        //                       return clientJobs.isEmpty
-        //                           ? Wrap(
-        //                               children: const [
-        //                                 Padding(
-        //                                   padding: EdgeInsets.symmetric(
-        //                                       vertical: Dimens.pixel_130),
-        //                                   child: Text(
-        //                                     Strings.text_no_contracts_available,
-        //                                     style: TextStyle(
-        //                                       fontSize: Dimens.pixel_22,
-        //                                       fontWeight: FontWeight.w500,
-        //                                     ),
-        //                                   ),
-        //                                 ),
-        //                               ],
-        //                             )
-        //                           : Container();
-        //                     },
-        //                   ),
-        //                   // clientJobs.isEmpty
-        //                   //     ? Container()
-        //                   //     : ListView.separated(
-        //                   //         physics: const NeverScrollableScrollPhysics(),
-        //                   //         padding: const EdgeInsets.only(
-        //                   //           top: Dimens.pixel_30,
-        //                   //         ),
-        //                   //         shrinkWrap: true,
-        //                   //         itemCount: clientJobs.length,
-        //                   //         itemBuilder:
-        //                   //             (BuildContext context, int index) {
-        //                   //           return InkWell(
-        //                   //             onTap: () {
-        //                   //               int? jobId = clientJobs[index].id;
-        //                   //               Navigator.push(
-        //                   //                 context,
-        //                   //                 MaterialPageRoute(
-        //                   //                   builder: (context) =>
-        //                   //                       ClientJobDescription(
-        //                   //                           jobId: jobId),
-        //                   //                 ),
-        //                   //               );
-        //                   //             },
-        //                   //             child: JobCardClient(
-        //                   //               clientJobModel: clientJobs[index],
-        //                   //             ),
-        //                   //           );
-        //                   //         },
-        //                   //         separatorBuilder:
-        //                   //             (BuildContext context, int index) {
-        //                   //           return const SizedBox(
-        //                   //             height: Dimens.pixel_20,
-        //                   //           );
-        //                   //         },
-        //                   //       ),
-        //                   // clientJobs.isNotEmpty
-        //                   //     ? Visibility(
-        //                   //         visible: isVisible,
-        //                   //         child: const CupertinoActivityIndicator(
-        //                   //           color: AppColors.kDefaultPurpleColor,
-        //                   //           radius: Dimens.pixel_15,
-        //                   //         ),
-        //                   //       )
-        //                   //     : Wrap(
-        //                   //         children: const [
-        //                   //           Padding(
-        //                   //             padding: EdgeInsets.symmetric(
-        //                   //                 vertical: Dimens.pixel_130),
-        //                   //             child: Text(
-        //                   //               Strings.text_no_contracts_available,
-        //                   //               style: TextStyle(
-        //                   //                 fontSize: Dimens.pixel_22,
-        //                   //                 fontWeight: FontWeight.w500,
-        //                   //               ),
-        //                   //             ),
-        //                   //           ),
-        //                   //         ],
-        //                   //       ),
-        //                 ],
-        //               ),
-        //             ),
-        //           ),
-        //         )
-        //       ],
-        //     ),
-        //   ),
-        // ),
       ),
     );
   }
 
   displayList() {
-    return clientJobs.isEmpty
-        ? Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: Dimens.pixel_130,
-            ),
-            child: Text(
-              Strings.text_no_contracts_available,
-              style: TextStyle(
-                fontSize: Dimens.pixel_20,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          )
+    return clientJobs.isEmpty && !isVisible
+        ? Container()
         : ListView.separated(
             physics: const NeverScrollableScrollPhysics(),
             padding: const EdgeInsets.only(

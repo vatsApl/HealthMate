@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../resourse/app_colors.dart';
 import '../../resourse/dimens.dart';
+import '../../resourse/strings.dart';
 
 class CardTopClient extends StatelessWidget {
   CardTopClient({
@@ -14,6 +15,7 @@ class CardTopClient extends StatelessWidget {
     this.amountSymbol,
     this.icColor,
     this.onTap,
+    this.isPrice = false,
   });
 
   String icon;
@@ -22,11 +24,25 @@ class CardTopClient extends StatelessWidget {
   String? amountSymbol;
   Color? icColor;
   Function? onTap;
+  bool isPrice;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 2,
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(
+          Radius.circular(Dimens.pixel_6),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 6,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
+      ),
       child: InkWell(
         onTap: () {
           if (onTap != null) {
@@ -41,15 +57,33 @@ class CardTopClient extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      '$number',
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      style: const TextStyle(
-                        fontSize: Dimens.pixel_16,
-                        color: AppColors.kDefaultBlackColor,
-                        fontWeight: FontWeight.w500,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (isPrice)
+                          Text(
+                            '${Strings.amount_symbol_rupee}',
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.start,
+                            maxLines: 1,
+                            style: const TextStyle(
+                              fontSize: Dimens.pixel_14,
+                              color: AppColors.kDefaultBlackColor,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        Text(
+                          '${number}',
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: const TextStyle(
+                            fontSize: Dimens.pixel_16,
+                            color: AppColors.kDefaultBlackColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(
                       height: Dimens.pixel_5,
@@ -71,6 +105,7 @@ class CardTopClient extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: SvgPicture.asset(
                     icon,
+                    fit: BoxFit.scaleDown,
                     color: icColor,
                   ),
                 ),
@@ -151,5 +186,13 @@ class CardTopClient extends StatelessWidget {
     //     ),
     //   ),
     // );
+  }
+
+  String getData(bool isPrice) {
+    if (isPrice) {
+      return '${Strings.amount_symbol_rupee}${number}';
+    } else {
+      return '$number';
+    }
   }
 }
