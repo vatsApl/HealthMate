@@ -19,6 +19,7 @@ import 'package:http/http.dart' as http;
 import '../../../../client_side/client_job_description.dart';
 import '../../../../resourse/app_colors.dart';
 import '../../../../resourse/dimens.dart';
+import '../../create_contract/view/create_contract_page.dart';
 import '../bloc/client_contract_event.dart';
 import '../repo/client_contract_repository.dart';
 
@@ -234,7 +235,7 @@ class _ClientContractPageState extends BasePageScreenState<ClientContractPage>
         : const Center(
             child: Text(
               Strings.text_no_contracts_available,
-              style: kDefaultEmptyListStyle,
+              style: kDefaultEmptyFieldTextStyle,
             ),
           );
   }

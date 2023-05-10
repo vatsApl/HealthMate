@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../resourse/app_colors.dart';
 import '../../resourse/dimens.dart';
+import '../../resourse/strings.dart';
 
 class CardTopCandidate extends StatelessWidget {
   CardTopCandidate({
@@ -12,89 +13,185 @@ class CardTopCandidate extends StatelessWidget {
     required this.number,
     required this.label,
     this.amountSymbol,
+    this.icColor,
     this.onTap,
+    this.isPrice = false,
   });
 
   String icon;
   int number;
   String label;
   String? amountSymbol;
+  Color? icColor;
   Function? onTap;
+  bool isPrice;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: Dimens.pixel_160,
-      height: Dimens.pixel_68,
-      child: Card(
-        elevation: Dimens.pixel_2,
-        child: InkWell(
-          onTap: () {
-            if (onTap != null) {
-              onTap!();
-            }
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(
-              Dimens.pixel_14,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Flexible(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(amountSymbol ?? ''),
-                            Flexible(
-                              child: Text(
-                                '$number',
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                                style: const TextStyle(
-                                  fontSize: Dimens.pixel_16,
-                                  color: AppColors.kDefaultBlackColor,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(
+          Radius.circular(Dimens.pixel_6),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 6,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
+      ),
+      child: InkWell(
+        onTap: () {
+          if (onTap != null) {
+            onTap!();
+          }
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(
+            Dimens.pixel_14,
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        if (isPrice)
+                          Text(
+                            '${Strings.amount_symbol_rupee}',
+                            overflow: TextOverflow.ellipsis,
+                            // textAlign: TextAlign.start,
+                            maxLines: 1,
+                            style: const TextStyle(
+                              fontSize: Dimens.pixel_16,
+                              color: AppColors.kDefaultBlackColor,
+                              fontWeight: FontWeight.w400,
                             ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: Dimens.pixel_5,
-                      ),
-                      Flexible(
-                        child: Text(
-                          label,
+                          ),
+                        Text(
+                          '$number',
                           overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.start,
                           maxLines: 1,
                           style: const TextStyle(
-                            color: AppColors.klightColor,
-                            fontSize: Dimens.pixel_12,
-                            fontWeight: FontWeight.w400,
+                            fontSize: Dimens.pixel_16,
+                            color: AppColors.kDefaultBlackColor,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: Dimens.pixel_5,
+                    ),
+                    Text(
+                      label,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: const TextStyle(
+                        color: AppColors.klightColor,
+                        fontSize: Dimens.pixel_12,
+                        fontWeight: FontWeight.w400,
                       ),
-                    ],
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: SvgPicture.asset(
+                    icon,
+                    fit: BoxFit.scaleDown,
+                    color: icColor,
                   ),
                 ),
-                Expanded(
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: SvgPicture.asset(icon),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
     );
+
+    // previous fixed size card top candidate home
+    // return SizedBox(
+    //   width: Dimens.pixel_160,
+    //   height: Dimens.pixel_68,
+    //   child: Card(
+    //     elevation: Dimens.pixel_2,
+    //     child: InkWell(
+    //       onTap: () {
+    //         if (onTap != null) {
+    //           onTap!();
+    //         }
+    //       },
+    //       child: Padding(
+    //         padding: const EdgeInsets.all(
+    //           Dimens.pixel_14,
+    //         ),
+    //         child: Row(
+    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //           children: [
+    //             Expanded(
+    //               child: Column(
+    //                 mainAxisAlignment: MainAxisAlignment.center,
+    //                 crossAxisAlignment: CrossAxisAlignment.start,
+    //                 children: [
+    //                   Flexible(
+    //                     child: Row(
+    //                       mainAxisAlignment: MainAxisAlignment.start,
+    //                       children: [
+    //                         Text(amountSymbol ?? ''),
+    //                         Flexible(
+    //                           child: Text(
+    //                             '$number',
+    //                             overflow: TextOverflow.ellipsis,
+    //                             maxLines: 1,
+    //                             style: const TextStyle(
+    //                               fontSize: Dimens.pixel_16,
+    //                               color: AppColors.kDefaultBlackColor,
+    //                               fontWeight: FontWeight.w500,
+    //                             ),
+    //                           ),
+    //                         ),
+    //                       ],
+    //                     ),
+    //                   ),
+    //                   const SizedBox(
+    //                     height: Dimens.pixel_5,
+    //                   ),
+    //                   Flexible(
+    //                     child: Text(
+    //                       label,
+    //                       overflow: TextOverflow.ellipsis,
+    //                       maxLines: 1,
+    //                       style: const TextStyle(
+    //                         color: AppColors.klightColor,
+    //                         fontSize: Dimens.pixel_12,
+    //                         fontWeight: FontWeight.w400,
+    //                       ),
+    //                     ),
+    //                   ),
+    //                 ],
+    //               ),
+    //             ),
+    //             Expanded(
+    //               child: Align(
+    //                 alignment: Alignment.centerRight,
+    //                 child: SvgPicture.asset(icon),
+    //               ),
+    //             ),
+    //           ],
+    //         ),
+    //       ),
+    //     ),
+    //   ),
+    // );
   }
 }

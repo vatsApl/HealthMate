@@ -183,4 +183,5 @@ class Strings {
       'Set this as a default address';
   static const text_edit_address = 'Edit Address';
   static const text_null = 'null';
+  static const text_No_Address_Found = 'No address found';
 }

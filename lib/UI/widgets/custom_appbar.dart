@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../allAPIs/allAPIs.dart';
 import '../../resourse/app_colors.dart';
+import '../../resourse/dimens.dart';
 import '../../resourse/images.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
@@ -30,6 +31,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       color: Colors.white,
       padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
       child: AppBar(
+        backgroundColor: Colors.white,
         leading: svgPictureLeading != null
             ? GestureDetector(
                 onTap: () {
@@ -89,16 +91,20 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
               padding: const EdgeInsets.only(top: 5.0),
               child: Text(
                 role ?? '',
-                style: const TextStyle(
-                  color: Color(0xff030837),
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w300,
+                style: TextStyle(
+                  color: AppColors.kDefaultBlackColor,
+                  fontSize: Dimens.pixel_14,
+                  fontWeight: FontWeight.w400,
                 ),
+                // const TextStyle(
+                //   color: Color(0xff030837),
+                //   fontSize: 14.0,
+                //   fontWeight: FontWeight.w300,
+                // ),
               ),
             ),
           ],
         ),
-        backgroundColor: Colors.transparent,
         actions: [
           SvgPicture.asset(svgPictureTrailing ?? ''),
         ],

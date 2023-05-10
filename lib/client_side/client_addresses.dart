@@ -16,6 +16,7 @@ import '../resourse/app_colors.dart';
 import '../resourse/dimens.dart';
 import '../resourse/images.dart';
 import '../resourse/shared_prefs.dart';
+import '../ui/client_side/create_contract/model/addresses_model.dart';
 import '../widgets/outline_btn.dart';
 import 'package:http/http.dart' as http;
 import 'edit_address.dart';
@@ -43,7 +44,7 @@ class _ClientAddressesState extends BasePageScreenState<ClientAddresses>
       log('All address LOG:${response.body}');
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
-        var clientAddressResponse = ClientAddressesResponse.fromJson(json);
+        var clientAddressResponse = AddressesModel.fromJson(json);
         address = clientAddressResponse.address;
         setState(() {
           isVisible = false;

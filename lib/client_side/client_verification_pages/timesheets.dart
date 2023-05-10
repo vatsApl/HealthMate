@@ -113,7 +113,7 @@ class _TimeSheetsState extends State<TimeSheets> {
           : const Center(
               child: Text(
                 Strings.text_no_timesheets,
-                style: kDefaultEmptyListStyle,
+                style: kDefaultEmptyFieldTextStyle,
               ),
             ),
     );

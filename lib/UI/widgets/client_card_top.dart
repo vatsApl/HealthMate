@@ -1,7 +1,5 @@
-import 'package:clg_project/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import '../../resourse/app_colors.dart';
 import '../../resourse/dimens.dart';
 import '../../resourse/strings.dart';
@@ -50,7 +48,9 @@ class CardTopClient extends StatelessWidget {
           }
         },
         child: Padding(
-          padding: const EdgeInsets.all(14.0),
+          padding: const EdgeInsets.all(
+            Dimens.pixel_14,
+          ),
           child: Row(
             children: [
               Expanded(
@@ -59,16 +59,15 @@ class CardTopClient extends StatelessWidget {
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         if (isPrice)
                           Text(
                             '${Strings.amount_symbol_rupee}',
                             overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.start,
+                            // textAlign: TextAlign.start,
                             maxLines: 1,
                             style: const TextStyle(
-                              fontSize: Dimens.pixel_14,
+                              fontSize: Dimens.pixel_16,
                               color: AppColors.kDefaultBlackColor,
                               fontWeight: FontWeight.w400,
                             ),
@@ -76,6 +75,7 @@ class CardTopClient extends StatelessWidget {
                         Text(
                           '${number}',
                           overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.start,
                           maxLines: 1,
                           style: const TextStyle(
                             fontSize: Dimens.pixel_16,
@@ -95,6 +95,7 @@ class CardTopClient extends StatelessWidget {
                       style: const TextStyle(
                         color: AppColors.klightColor,
                         fontSize: Dimens.pixel_12,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ],

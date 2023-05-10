@@ -55,6 +55,7 @@ const kSelectDocsTextStyle = TextStyle(
 );
 
 const kDefaultEmptyListStyle = TextStyle(
+  ///
   fontSize: Dimens.pixel_22,
   fontWeight: FontWeight.w500,
 );
@@ -68,4 +69,9 @@ const kSignOffTimeTextStyle = TextStyle(
   fontSize: Dimens.pixel_18,
   fontWeight: FontWeight.w500,
   color: AppColors.kDefaultBlackColor,
+);
+
+const kDefaultEmptyFieldTextStyle = TextStyle(
+  fontSize: Dimens.pixel_20,
+  fontWeight: FontWeight.w400,
 );

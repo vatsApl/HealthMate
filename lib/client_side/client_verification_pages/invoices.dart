@@ -233,7 +233,7 @@ class _InvoicesState extends State<Invoices> {
           : const Center(
               child: Text(
                 Strings.text_no_invoices,
-                style: kDefaultEmptyListStyle,
+                style: kDefaultEmptyFieldTextStyle,
               ),
             ),
     );

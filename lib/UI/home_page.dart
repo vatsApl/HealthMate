@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:clg_project/UI/job_description.dart';
 import 'package:clg_project/UI/widgets/candidate_card_top.dart';
+import 'package:clg_project/UI/widgets/custom_appbar.dart';
 import 'package:clg_project/UI/widgets/job_card_home_page.dart';
 import 'package:clg_project/allAPIs/allAPIs.dart';
 import 'package:clg_project/constants.dart';
@@ -89,108 +90,116 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.white,
-      // appBar: CustomAppBar(name: uFirstName, role: uRoleName, svgPictureTrailing: Images.ic_notification, netImg: netImg,),
-      body: Padding(
+      backgroundColor: Colors.white,
+      appBar: CustomAppBar(
+        name: uFirstName,
+        role: uRoleName,
+        svgPictureTrailing: Images.ic_notification,
+        netImg: netImg,
+      ),
+      body: Container(
         padding: const EdgeInsets.fromLTRB(
           Dimens.pixel_16,
-          Dimens.pixel_63,
+          Dimens.pixel_19,
           Dimens.pixel_16,
           Dimens.pixel_0,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  width: Dimens.pixel_55,
-                  height: Dimens.pixel_55,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: AppColors.kDefaultPurpleColor,
-                    ),
-                    child: CachedNetworkImage(
-                      imageUrl: '${DataURL.baseUrl}/$netImg',
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      placeholder: (context, url) => CircleAvatar(
-                        child: SvgPicture.asset(
-                          Images.ic_person,
-                          color: Colors.white,
-                          height: Dimens.pixel_35,
-                        ),
-                      ),
-                      errorWidget: (context, url, error) => CircleAvatar(
-                        child: SvgPicture.asset(
-                          Images.ic_person,
-                          color: Colors.white,
-                          height: Dimens.pixel_35,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: Dimens.pixel_14,
-                ),
-                Flexible(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            uFirstName ?? '',
-                            style: const TextStyle(
-                              color: AppColors.kDefaultPurpleColor,
-                              fontSize: Dimens.pixel_18,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          Text(
-                            uRoleName,
-                            style: const TextStyle(
-                              color: AppColors.kDefaultBlackColor,
-                              height: Dimens.pixel_1_point_2,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SvgPicture.asset(
-                        Images.ic_notification,
-                        fit: BoxFit.scaleDown,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+            // used instead of appbar
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     SizedBox(
+            //       width: Dimens.pixel_55,
+            //       height: Dimens.pixel_55,
+            //       child: Container(
+            //         decoration: const BoxDecoration(
+            //           shape: BoxShape.circle,
+            //           color: AppColors.kDefaultPurpleColor,
+            //         ),
+            //         child: CachedNetworkImage(
+            //           imageUrl: '${DataURL.baseUrl}/$netImg',
+            //           imageBuilder: (context, imageProvider) => Container(
+            //             decoration: BoxDecoration(
+            //               shape: BoxShape.circle,
+            //               image: DecorationImage(
+            //                 image: imageProvider,
+            //                 fit: BoxFit.cover,
+            //               ),
+            //             ),
+            //           ),
+            //           placeholder: (context, url) => CircleAvatar(
+            //             child: SvgPicture.asset(
+            //               Images.ic_person,
+            //               color: Colors.white,
+            //               height: Dimens.pixel_35,
+            //             ),
+            //           ),
+            //           errorWidget: (context, url, error) => CircleAvatar(
+            //             child: SvgPicture.asset(
+            //               Images.ic_person,
+            //               color: Colors.white,
+            //               height: Dimens.pixel_35,
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //     const SizedBox(
+            //       width: Dimens.pixel_14,
+            //     ),
+            //     Flexible(
+            //       child: Row(
+            //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //         children: [
+            //           Column(
+            //             crossAxisAlignment: CrossAxisAlignment.start,
+            //             children: [
+            //               Text(
+            //                 uFirstName ?? '',
+            //                 style: const TextStyle(
+            //                   color: AppColors.kDefaultPurpleColor,
+            //                   fontSize: Dimens.pixel_18,
+            //                   fontWeight: FontWeight.w700,
+            //                 ),
+            //               ),
+            //               Text(
+            //                 uRoleName,
+            //                 style: const TextStyle(
+            //                   color: AppColors.kDefaultBlackColor,
+            //                   height: Dimens.pixel_1_point_2,
+            //                 ),
+            //               ),
+            //             ],
+            //           ),
+            //           SvgPicture.asset(
+            //             Images.ic_notification,
+            //             fit: BoxFit.scaleDown,
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ],
+            // ),
             Expanded(
               child: SingleChildScrollView(
+                clipBehavior: Clip.none,
                 controller: scrollController,
                 physics: const BouncingScrollPhysics(),
                 child: Padding(
                   padding: const EdgeInsets.only(
-                    top: Dimens.pixel_40,
+                    top: Dimens.pixel_48,
                   ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    // mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Expanded(
+                          Flexible(
+                            flex: 1,
                             child: CardTopCandidate(
                               onTap: () {
                                 Provider.of<ValueNotifier<int>>(context,
@@ -208,7 +217,8 @@ class _HomePageState extends State<HomePage> {
                           const SizedBox(
                             width: Dimens.pixel_22,
                           ),
-                          Expanded(
+                          Flexible(
+                            flex: 1,
                             child: CardTopCandidate(
                               onTap: () {
                                 //Navigate to worked page.
@@ -232,7 +242,8 @@ class _HomePageState extends State<HomePage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Expanded(
+                          Flexible(
+                            flex: 1,
                             child: CardTopCandidate(
                               onTap: () {
                                 // Navigate to Booked page.
@@ -251,13 +262,15 @@ class _HomePageState extends State<HomePage> {
                           const SizedBox(
                             width: Dimens.pixel_22,
                           ),
-                          Expanded(
+                          Flexible(
+                            flex: 1,
                             child: CardTopCandidate(
                               icon: Images.ic_payment,
                               amountSymbol: Strings.amount_symbol_rupee,
                               number: homePageResponse2?.totalPayment ??
                                   homePageResponse3?.totalPayment ??
                                   0,
+                              isPrice: true,
                               label: Strings.candidate_home_text_payment,
                             ),
                           ),

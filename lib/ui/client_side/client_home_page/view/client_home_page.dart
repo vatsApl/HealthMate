@@ -19,9 +19,11 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 import '../../../../client_side/client_job_description.dart';
+import '../../../../constants.dart';
 import '../../../../custom_widgets/index_notifier.dart';
 import '../../../../resourse/app_colors.dart';
 import '../../../../resourse/dimens.dart';
+import '../../create_contract/view/create_contract_page.dart';
 import '../bloc/client_home_event.dart';
 import '../repo/client_home_repository.dart';
 
@@ -126,7 +128,9 @@ class _ClientHomePageState extends State<ClientHomePage> {
                       clipBehavior: Clip.none,
                       physics: const BouncingScrollPhysics(),
                       child: Padding(
-                        padding: const EdgeInsets.only(top: Dimens.pixel_48),
+                        padding: const EdgeInsets.only(
+                          top: Dimens.pixel_48,
+                        ),
                         child: Column(
                           children: [
                             Row(
@@ -279,10 +283,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
                       child: Center(
                         child: Text(
                           Strings.text_no_contracts_available,
-                          style: TextStyle(
-                            fontSize: Dimens.pixel_20,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: kDefaultEmptyFieldTextStyle,
                         ),
                       ),
                     ),

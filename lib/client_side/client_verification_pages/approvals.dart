@@ -112,7 +112,7 @@ class _ApprovalsState extends State<Approvals> {
           : const Center(
               child: Text(
                 Strings.text_no_approvals,
-                style: kDefaultEmptyListStyle,
+                style: kDefaultEmptyFieldTextStyle,
               ),
             ),
     );
