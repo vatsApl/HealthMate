@@ -56,32 +56,6 @@ class _ClientContractPageState extends BasePageScreenState<ClientContractPage>
     }
   }
 
-  //show contract api:
-  // Future<void> showContractApi(int pageValue) async {
-  //   final queryParameters = {
-  //     'page': pageValue.toString(),
-  //   };
-  //   var uId = PreferencesHelper.getString(PreferencesHelper.KEY_USER_ID);
-  //   String url = ApiUrl.showContractApi(uId);
-  //   try {
-  //     var response = await http.get(
-  //       Uri.parse(url).replace(queryParameters: queryParameters),
-  //     );
-  //     // log('contract page log:${response.body}');
-  //     if (response.statusCode == 200) {
-  //       var json = jsonDecode(response.body);
-  //       var clientJobResponse = ClientJobModel.fromJson(json);
-  //       isLastPage = clientJobResponse.isLastPage;
-  //       setState(() {
-  //         isLoadingMore = false;
-  //         clientJobs.addAll(clientJobResponse.data ?? []);
-  //       });
-  //     }
-  //   } catch (e) {
-  //     print(e.toString());
-  //   }
-  // }
-
   @override
   void initState() {
     super.initState();
@@ -104,19 +78,15 @@ class _ClientContractPageState extends BasePageScreenState<ClientContractPage>
               setState(() {
                 isVisible = true;
               });
-            } else {
-              //
             }
           }
           if (state is ClientContractLoadedState) {
-            setState(() {
-              isVisible = false;
-            });
             var responseBody = state.response;
             clientJobResponse = ClientJobModel.fromJson(responseBody);
             if (clientJobResponse.code == 200) {
               isLastPage = clientJobResponse.isLastPage;
               setState(() {
+                isVisible = false;
                 isLoadingMore = false;
                 clientJobs.addAll(clientJobResponse.data ?? []);
               });
@@ -165,31 +135,28 @@ class _ClientContractPageState extends BasePageScreenState<ClientContractPage>
                     ),
                   ],
                 ),
-                isVisible
-                    ? Expanded(
-                        child: Center(
+                Expanded(
+                  child: isVisible
+                      ? Center(
                           child: CircularProgressIndicator(),
+                        )
+                      : contractsList(),
+                ),
+                if (clientJobs.isNotEmpty)
+                  Visibility(
+                    visible: isLoadingMore,
+                    child: const Center(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: Dimens.pixel_16,
                         ),
-                      )
-                    : Expanded(
-                        child: contractsList(),
+                        child: CupertinoActivityIndicator(
+                          color: Colors.black,
+                          radius: Dimens.pixel_15,
+                        ),
                       ),
-                clientJobs.isNotEmpty
-                    ? Visibility(
-                        visible: isLoadingMore,
-                        child: const Center(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: Dimens.pixel_16,
-                            ),
-                            child: CupertinoActivityIndicator(
-                              color: Colors.black,
-                              radius: Dimens.pixel_15,
-                            ),
-                          ),
-                        ),
-                      )
-                    : Container(),
+                    ),
+                  )
               ],
             ),
           );

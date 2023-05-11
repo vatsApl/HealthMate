@@ -82,7 +82,7 @@ class ApiUrl {
   static String removeAddressApi(var addressId) {
     return "${DataURL.baseUrl}/api/address/$addressId/delete";
   }
-  static String addNewAddressApi =
-      "${DataURL.baseUrl}/api/address/store";
 
+  static String addNewAddressApi = "${DataURL.baseUrl}/api/address/store";
+  static String markAsPaidApi = "${DataURL.baseUrl}/api/mark/as/paid";
 }

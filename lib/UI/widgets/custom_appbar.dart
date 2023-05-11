@@ -7,7 +7,7 @@ import '../../resourse/app_colors.dart';
 import '../../resourse/dimens.dart';
 import '../../resourse/images.dart';
 
-class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   CustomAppBar(
       {Key? key,
       this.svgPictureLeading,
@@ -29,7 +29,9 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
+      padding: EdgeInsets.symmetric(
+        horizontal: Dimens.pixel_16,
+      ),
       child: AppBar(
         backgroundColor: Colors.white,
         leading: svgPictureLeading != null

@@ -1,3 +1,7 @@
+// changes after upgrade:
+// --no-sound-null-safety <- removed from config
+// PreferredSizeWidget <- removed from custom appbar
+// -----------------------------------------------------------------
 // Future<void> parkingDialog() async {
 //   return showDialog<void>(
 //     context: context,

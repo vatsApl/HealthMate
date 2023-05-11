@@ -9,6 +9,7 @@ import '../../resourse/app_colors.dart';
 import '../../resourse/dimens.dart';
 import 'client_contract_page/view/client_contract_page.dart';
 import 'client_home_page/view/client_home_page.dart';
+import 'client_verification_pages/client_verification_page.dart';
 
 class ClientMainPage extends StatefulWidget {
   @override
