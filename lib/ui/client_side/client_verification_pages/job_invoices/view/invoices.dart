@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../../../../../constants.dart';
 import '../../../../../models/candidate_models/find_job_response.dart';
 import 'package:http/http.dart' as http;
@@ -28,6 +29,7 @@ class Invoices extends StatefulWidget {
 class _InvoicesState extends State<Invoices> {
   bool isLoadingMore = false;
   bool isVisible = false;
+  bool markAsPaidLoading = false;
   int page = 1;
   final scrollController = ScrollController();
   List<JobModel> jobs = [];
@@ -134,11 +136,13 @@ class _InvoicesState extends State<Invoices> {
                           height: Dimens.pixel_38,
                           width: Dimens.pixel_120,
                           child: ElevatedBtn(
+                            isLoading: markAsPaidLoading,
                             btnTitle: Strings.text_yes,
                             bgColor: AppColors.kDefaultPurpleColor,
                             onPressed: () {
-                              markAsPaidApi();
-                              Navigator.pop(context);
+                              // event of mark as paid api
+                              _invoiceBloc
+                                  .add(MarkAsPaidEvent(invoiceId: invoiceId));
                             },
                           ),
                         ),
@@ -154,25 +158,22 @@ class _InvoicesState extends State<Invoices> {
     );
   }
 
-  //mark as paid api:
-  Future<void> markAsPaidApi() async {
-    try {
-      // setState(() {
-      //   isLoadingMore = true;
-      // });
-      String url = ApiUrl.markAsPaidApi;
-      var response = await http.post(Uri.parse(url), body: {
-        'invoice_id': invoiceId.toString(),
-      });
-      log('invoice res:${response.body}');
-      if (response.statusCode == 200) {
-        var json = jsonDecode(response.body);
-        print('${json['message']}');
-      }
-    } catch (e) {
-      throw Exception(e.toString());
-    }
-  }
+  // //mark as paid api:
+  // Future<void> markAsPaidApi() async {
+  //   try {
+  //     String url = ApiUrl.markAsPaidApi;
+  //     var response = await http.post(Uri.parse(url), body: {
+  //       'invoice_id': invoiceId.toString(),
+  //     });
+  //     log('mark As Paid res:${response.body}');
+  //     if (response.statusCode == 200) {
+  //       var json = jsonDecode(response.body);
+  //       print('${json['message']}');
+  //     }
+  //   } catch (e) {
+  //     throw Exception(e.toString());
+  //   }
+  // }
 
   @override
   void initState() {
@@ -210,6 +211,24 @@ class _InvoicesState extends State<Invoices> {
                 isVisible = false;
               });
             }
+          }
+          if (state is InvoiceErrorState) {
+            debugPrint(state.error);
+          }
+          if (state is MarkAsPaidLoadingState) {
+            setState(() {
+              markAsPaidLoading = true;
+            });
+          }
+          if (state is MarkAsPaidLoadedState) {
+            setState(() {
+              markAsPaidLoading = false;
+            });
+            var responseBody = state.response;
+            Navigator.pop(context);
+          }
+          if (state is MarkAsPaidErrorState) {
+            debugPrint(state.error);
           }
         },
         builder: (BuildContext context, Object? state) {

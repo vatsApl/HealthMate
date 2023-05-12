@@ -15,13 +15,8 @@ import '../../../../../resourse/api_urls.dart';
 import '../../../../../resourse/dimens.dart';
 import '../../../../../resourse/shared_prefs.dart';
 import '../bloc/approvals_event.dart';
+import '../job_approvals_desc/view/job_desc_approvals.dart';
 import '../repo/approvals_repository.dart';
-// import '../../UI/widgets/job_card_verifications.dart';
-// import '../../allAPIs/allAPIs.dart';
-// import '../../models/candidate_models/find_job_response.dart';
-// import '../../resourse/api_urls.dart';
-// import '../../resourse/dimens.dart';
-// import '../../resourse/shared_prefs.dart';
 
 class Approvals extends StatefulWidget {
   @override

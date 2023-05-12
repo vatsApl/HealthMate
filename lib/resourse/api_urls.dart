@@ -20,6 +20,10 @@ class ApiUrl {
     return "${DataURL.baseUrl}/api/job/$jobId";
   }
 
+  static String RemoveContractApi(int? jobId) {
+    return "${DataURL.baseUrl}/api/job/$jobId";
+  }
+
   static String applyJob = "${DataURL.baseUrl}/api/application";
   static String findJobCandidateApi(String uId) {
     return "${DataURL.baseUrl}/api/job/$uId/specific/candidate";
@@ -85,4 +89,9 @@ class ApiUrl {
 
   static String addNewAddressApi = "${DataURL.baseUrl}/api/address/store";
   static String markAsPaidApi = "${DataURL.baseUrl}/api/mark/as/paid";
+  // below two api is used in one method
+  static String approveApplicationApi =
+      "${DataURL.baseUrl}/api/application/approve";
+  static String GenerateTimesheetApi = "${DataURL.baseUrl}/api/timesheet";
+  //
 }

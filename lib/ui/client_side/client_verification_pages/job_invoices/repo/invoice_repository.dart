@@ -25,4 +25,17 @@ class InvoiceRepository {
     var json = jsonDecode(response.body);
     return json;
   }
+
+  // mark as paid api
+  Future<dynamic> markAsPaidApi({
+    required int? invoiceId,
+  }) async {
+    String url = ApiUrl.markAsPaidApi;
+    var response = await http.post(Uri.parse(url), body: {
+      'invoice_id': invoiceId.toString(),
+    });
+    log('mark As Paid res:${response.body}');
+    var json = jsonDecode(response.body);
+    return json;
+  }
 }

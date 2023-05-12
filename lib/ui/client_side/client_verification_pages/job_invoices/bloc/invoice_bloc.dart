@@ -19,6 +19,17 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
           emit(InvoiceErrorState(error: e.toString()));
         }
       }
+
+      if (event is MarkAsPaidEvent) {
+        emit(MarkAsPaidLoadingState());
+        try {
+          var response = await _invoiceRepository.markAsPaidApi(
+              invoiceId: event.invoiceId);
+          emit(MarkAsPaidLoadedState(response));
+        } catch (e) {
+          emit(MarkAsPaidErrorState(error: e.toString()));
+        }
+      }
     });
   }
 }

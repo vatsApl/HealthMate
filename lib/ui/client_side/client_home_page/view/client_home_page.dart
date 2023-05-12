@@ -1,11 +1,7 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'package:clg_project/UI/widgets/client_card_top.dart';
 import 'package:clg_project/UI/widgets/custom_appbar.dart';
-import 'package:clg_project/client_side/create_contract_page.dart';
 import 'package:clg_project/client_side/job_card_client.dart';
 import 'package:clg_project/models/client_model/client_job_res.dart';
-import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
 import 'package:clg_project/resourse/strings.dart';
@@ -15,16 +11,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-
-import '../../../../client_side/client_job_description.dart';
 import '../../../../constants.dart';
 import '../../../../custom_widgets/index_notifier.dart';
 import '../../../../resourse/app_colors.dart';
 import '../../../../resourse/dimens.dart';
 import '../../create_contract/view/create_contract_page.dart';
 import '../bloc/client_home_event.dart';
+import '../client_job_description/view/client_job_description.dart';
 import '../repo/client_home_repository.dart';
 
 class ClientHomePage extends StatefulWidget {
@@ -92,15 +86,13 @@ class _ClientHomePageState extends State<ClientHomePage> {
             });
           }
           if (state is ClientHomeLoadedState) {
-            setState(() {
-              isVisible = false;
-            });
             var responseBody = state.response;
             clientJobResponse = ClientJobModel.fromJson(responseBody);
             clientJobResponse2 = ClientJobModel.fromJson(responseBody);
             if (clientJobResponse.code == 200) {
               setState(() {
                 clientJobs.addAll(clientJobResponse.data ?? []);
+                isVisible = false;
               });
             }
           }

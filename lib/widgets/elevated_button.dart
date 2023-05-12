@@ -1,6 +1,8 @@
 import 'package:clg_project/UI/widgets/custom_loader.dart';
 import 'package:flutter/material.dart';
 
+import '../resourse/dimens.dart';
+
 class ElevatedBtn extends StatelessWidget {
   ElevatedBtn(
       {super.key,
@@ -20,7 +22,7 @@ class ElevatedBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 44.0,
+      height: Dimens.pixel_44,
       child: ElevatedButton(
         onPressed: () {
           if (onPressed != null) {
@@ -30,14 +32,14 @@ class ElevatedBtn extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: onPressed != null ? bgColor : Colors.grey,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6.0),
+            borderRadius: BorderRadius.circular(Dimens.pixel_6),
           ),
         ),
         child: !isLoading
             ? Text(
                 btnTitle,
                 style: TextStyle(
-                  fontSize: 16.0,
+                  fontSize: Dimens.pixel_16,
                   fontWeight: FontWeight.w500,
                   color: textColor,
                 ),

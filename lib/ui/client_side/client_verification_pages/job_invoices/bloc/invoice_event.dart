@@ -8,3 +8,8 @@ class ShowInvoiceEvent extends InvoiceEvent {
     required this.status,
   });
 }
+
+class MarkAsPaidEvent extends InvoiceEvent {
+  int? invoiceId;
+  MarkAsPaidEvent({this.invoiceId});
+}
