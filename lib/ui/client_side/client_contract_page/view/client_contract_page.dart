@@ -163,6 +163,7 @@ class _ClientContractPageState extends BasePageScreenState<ClientContractPage>
   Widget contractsList() {
     return clientJobs.isNotEmpty
         ? ListView.separated(
+            // clipBehavior: Clip.none,
             controller: scrollController,
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.only(

@@ -94,4 +94,6 @@ class ApiUrl {
       "${DataURL.baseUrl}/api/application/approve";
   static String GenerateTimesheetApi = "${DataURL.baseUrl}/api/timesheet";
   //
+  static String approveTimeSheetApi =
+      "${DataURL.baseUrl}/api/timesheet/approve";
 }

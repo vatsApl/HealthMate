@@ -1,20 +1,15 @@
-import 'dart:convert';
-import 'dart:developer';
-import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/ui/client_side/client_verification_pages/job_timesheets/bloc/timesheet_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import '../../../../../UI/job_description_with_status.dart';
 import '../../../../../UI/widgets/job_card_with_status.dart';
 import '../../../../../constants.dart';
 import '../../../../../models/candidate_models/find_job_response.dart';
 import '../../../../../resourse/dimens.dart';
-import '../../../../../resourse/shared_prefs.dart';
 import '../bloc/timesheet_bloc.dart';
 import '../bloc/timesheet_event.dart';
+import '../job_timesheet_desc/view/timesheet_desc_with_status.dart';
 import '../repo/timesheet_repository.dart';
 
 class TimeSheets extends StatefulWidget {

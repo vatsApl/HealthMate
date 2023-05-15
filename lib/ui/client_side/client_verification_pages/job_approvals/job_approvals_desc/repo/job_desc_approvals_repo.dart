@@ -12,7 +12,7 @@ class JobApprovalsDescRepository {
     return json;
   }
 
-  // Api for approve the candidate and generate timesheet:
+  // Api for approve the application and generate timesheet:
   Future<dynamic> approveApplicationGenerateTimesheetApi({
     required int? candidateId,
     required int? jobId,
