@@ -3,7 +3,6 @@ import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/bottom_navigation/find_job/applied_job.dart';
 import 'package:clg_project/bottom_navigation/find_job/booked_job.dart';
 import 'package:clg_project/bottom_navigation/find_job/worked_job.dart';
-import 'package:clg_project/constants.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';

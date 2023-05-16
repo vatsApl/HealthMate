@@ -1,12 +1,9 @@
-import 'package:clg_project/UI/widgets/signup_candidate.dart';
-import 'package:clg_project/UI/widgets/signup_client.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/base_Screen_working/base_screen.dart';
 import 'package:clg_project/ui/auth/signup/signup_candidate/view/signup_candidate.dart';
 import 'package:clg_project/ui/auth/signup/signup_client/view/signup_client.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
-
 import '../../../resourse/app_colors.dart';
 import '../../../resourse/dimens.dart';
 import '../../../resourse/strings.dart';

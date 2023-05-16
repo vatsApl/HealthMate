@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
-import 'package:clg_project/client_side/client_job_desc_approvals.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/ui/client_side/client_verification_pages/job_approvals/bloc/approvals_bloc.dart';
@@ -8,10 +5,8 @@ import 'package:clg_project/ui/client_side/client_verification_pages/job_approva
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart' as http;
 import '../../../../../UI/widgets/job_card_verifications.dart';
 import '../../../../../models/candidate_models/find_job_response.dart';
-import '../../../../../resourse/api_urls.dart';
 import '../../../../../resourse/dimens.dart';
 import '../../../../../resourse/shared_prefs.dart';
 import '../bloc/approvals_event.dart';

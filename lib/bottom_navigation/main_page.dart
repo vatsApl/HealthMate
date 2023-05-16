@@ -2,7 +2,6 @@ import 'package:clg_project/UI/home_page.dart';
 import 'package:clg_project/bottom_navigation/my_job_page.dart';
 import 'package:clg_project/bottom_navigation/profile_page.dart';
 import 'package:clg_project/bottom_navigation/find_job_page.dart';
-import 'package:clg_project/constants.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

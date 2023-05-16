@@ -8,7 +8,6 @@ import 'package:focus_detector/focus_detector.dart';
 import '../../UI/job_description_with_Status_candidate.dart';
 import '../../allAPIs/allAPIs.dart';
 import 'package:http/http.dart' as http;
-import '../../constants.dart';
 import '../../models/candidate_models/find_job_response.dart';
 import '../../models/candidate_models/show_amount_status_model_worked_job.dart';
 import '../../resourse/api_urls.dart';

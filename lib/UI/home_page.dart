@@ -1,18 +1,15 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:clg_project/UI/job_description.dart';
 import 'package:clg_project/UI/widgets/candidate_card_top.dart';
 import 'package:clg_project/UI/widgets/custom_appbar.dart';
 import 'package:clg_project/UI/widgets/job_card_home_page.dart';
-import 'package:clg_project/allAPIs/allAPIs.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/models/candidate_models/find_job_response.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import '../custom_widgets/index_notifier.dart';

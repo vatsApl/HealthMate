@@ -1,18 +1,12 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'package:clg_project/UI/widgets/custom_textfield.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
-import 'package:clg_project/allAPIs/allAPIs.dart';
 import 'package:clg_project/base_Screen_working/base_screen.dart';
-import 'package:clg_project/client_side/add_new_address_two.dart';
 import 'package:clg_project/constants.dart';
-import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
 import 'package:clg_project/ui/client_side/create_contract/bloc/create_contract_bloc.dart';
 import 'package:clg_project/ui/client_side/create_contract/bloc/create_contract_event.dart';
 import 'package:clg_project/ui/client_side/create_contract/bloc/create_contract_state.dart';
-import 'package:clg_project/ui/client_side/create_contract/model/addresses_model.dart';
 import 'package:clg_project/ui/client_side/create_contract/repo/create_contract_repository.dart';
 import 'package:clg_project/validations.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
@@ -20,15 +14,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../models/client_model/client_Address_model.dart';
 import '../../../../resourse/app_colors.dart';
 import '../../../../resourse/dimens.dart';
 import '../../../../resourse/strings.dart';
+import '../../../client_profile_page/client_addresses/model/address_model.dart';
 import '../../client_main_page.dart';
+import '../add_new_address_create_contract/view/add_new_address_cc.dart';
 import '../model/create_contract_model.dart';
 
 class CreateContract extends BasePageScreen {
@@ -501,41 +495,10 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
   var uId = PreferencesHelper.getString(PreferencesHelper.KEY_USER_ID);
   List<Address>? address = [];
 
-  //show all addresses api:
-  // Future<void> allAddressesApi() async {
-  //   String url = '${DataURL.baseUrl}/api/address/$uId/index';
-  //   try {
-  //     setState(() {
-  //       isVisible = true;
-  //     });
-  //     var response = await http.get(Uri.parse(url));
-  //     log('All address LOG:${response.body}');
-  //     if (response.statusCode == 200) {
-  // var json = jsonDecode(response.body);
-  // var clientAddressResponse = ClientAddressesResponse.fromJson(json);
-  //       address = clientAddressResponse.address;
-  //       if (json['code'] == 200) {
-  //         setState(() {
-  //           isVisible = false;
-  //         });
-  //       }
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //     setState(() {
-  //       isVisible = false;
-  //     });
-  //   }
-  //   setState(() {
-  //     isVisible = false;
-  //   });
-  // }
-
   @override
   void initState() {
     super.initState();
-    // allAddressesApi();
-    // todo: add event of show addresses 1
+    // event of show addresses
     _createContractBloc.add(ShowAllAddressesApi(uId));
 
     addressController.text = widget.newAddress ?? '';
@@ -571,7 +534,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => AddNewAddressTwo(),
+                      builder: (context) => AddNewAddressCreateContract(),
                     ),
                   ).then((value) {
                     setState(() {
@@ -1216,8 +1179,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                         bgColor: AppColors.kDefaultPurpleColor,
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            // createContractApi();
-                            // todo: event of create contract goes here
+                            // event of create contract
                             var params = {
                               'client_id': uId,
                               'job_title': jobTitleController.text,

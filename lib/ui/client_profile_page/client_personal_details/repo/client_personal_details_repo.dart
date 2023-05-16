@@ -48,19 +48,10 @@ class ClientPersonalDetailsRepo {
       length!,
       filename: "${DateTime.now()}.$fileExtension",
     ));
-    request.send().then((response) {
-      if (response.statusCode == 200) {
-        Fluttertoast.showToast(
-          msg: "Profile photo uploaded",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-          fontSize: 16.0,
-        );
-      }
-    });
-    // return request;
+    var streamedResponse = await request.send();
+    var response = await http.Response.fromStream(streamedResponse);
+    log('upload profile log :${response.body}');
+    var json = jsonDecode(response.body);
+    return json;
   }
 }

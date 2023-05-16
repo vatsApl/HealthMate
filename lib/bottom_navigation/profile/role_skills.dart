@@ -4,18 +4,14 @@ import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/base_Screen_working/base_screen.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/resourse/api_urls.dart';
-import 'package:clg_project/resourse/images.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../../custom_widgets/custom_widget_helper.dart';
 import '../../models/onchange_skills_res.dart';
 import '../../models/roles_skills_res.dart';
 import '../../resourse/app_colors.dart';
 import '../../resourse/dimens.dart';
 import '../../resourse/shared_prefs.dart';
 import 'package:http/http.dart' as http;
-
 import '../../resourse/strings.dart';
 
 class RoleSkills extends BasePageScreen {

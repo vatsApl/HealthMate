@@ -1,5 +1,4 @@
 import 'package:clg_project/UI/widgets/custom_appbar.dart';
-import 'package:clg_project/client_side/client_addresses.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +8,7 @@ import '../../methods/methods.dart';
 import '../../resourse/app_colors.dart';
 import '../../resourse/dimens.dart';
 import '../../resourse/images.dart';
+import 'client_addresses/view/client_addresses.dart';
 import 'client_personal_details/view/client_personal_details.dart';
 
 class ClientProfilePage extends StatefulWidget {
