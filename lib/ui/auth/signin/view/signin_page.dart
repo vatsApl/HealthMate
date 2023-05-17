@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import '../../../../UI/widgets/title_text.dart';
-import '../../../../bottom_navigation/main_page.dart';
+import '../../../candidate_side/candidate_main_page.dart';
 import '../../../../constants.dart';
 import '../../../../resourse/app_colors.dart';
 import '../../../../resourse/dimens.dart';
@@ -123,7 +123,7 @@ class _SigninPageState extends BasePageScreenState<SigninPage> with BaseScreen {
                       ChangeNotifierProvider<ValueNotifier<int>>.value(
                     value: ValueNotifier<int>(0),
                     child: signinResponse.type == 2
-                        ? MainPage()
+                        ? CandidateMainPage()
                         : ClientMainPage(),
                   ),
                 ),

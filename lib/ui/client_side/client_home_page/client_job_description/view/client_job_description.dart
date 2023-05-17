@@ -39,63 +39,6 @@ class _ClientJobDescriptionState
   bool isVisible = false;
   bool isRemoveContractLoading = false;
 
-  // Future<void> removeContractApi() async {
-  //   setState(() {
-  //     isVisible = true;
-  //   });
-  //   var url = Uri.parse('${DataURL.baseUrl}/api/job/${widget.jobId}');
-  //   var response = await http.delete(url);
-  //   try {
-  //     setState(() {
-  //       isVisible = true;
-  //     });
-  //     log('delete log:${response.body}');
-  //     if (response.statusCode == 200) {
-  //       var json = jsonDecode(response.body);
-  //       Fluttertoast.showToast(
-  //         msg: "${json['message']}",
-  //         toastLength: Toast.LENGTH_SHORT,
-  //         gravity: ToastGravity.BOTTOM,
-  //         timeInSecForIosWeb: 1,
-  //         backgroundColor: json['code'] == 200 ? Colors.green : Colors.red,
-  //         textColor: Colors.white,
-  //         fontSize: 16.0,
-  //       );
-  //       Navigator.of(context).pushAndRemoveUntil(
-  //           MaterialPageRoute(
-  //             builder: (context) =>
-  //                 ChangeNotifierProvider<ValueNotifier<int>>.value(
-  //               value: ValueNotifier<int>(0),
-  //               child: ClientMainPage(),
-  //             ),
-  //           ),
-  //           (route) => false);
-  //       setState(() {
-  //         isVisible = false;
-  //       });
-  //     } else {
-  //       var json = jsonDecode(response.body);
-  //       Fluttertoast.showToast(
-  //         msg: "${json['message']}",
-  //         toastLength: Toast.LENGTH_SHORT,
-  //         gravity: ToastGravity.BOTTOM,
-  //         timeInSecForIosWeb: 1,
-  //         backgroundColor: json['code'] == 200 ? Colors.green : Colors.red,
-  //         textColor: Colors.white,
-  //         fontSize: 16.0,
-  //       );
-  //     }
-  //   } catch (e) {
-  //     print(e.toString());
-  //     setState(() {
-  //       isVisible = false;
-  //     });
-  //   }
-  //   setState(() {
-  //     isVisible = false;
-  //   });
-  // }
-
   @override
   void initState() {
     super.initState();
@@ -176,9 +119,7 @@ class _ClientJobDescriptionState
         },
         builder: (BuildContext context, Object? state) {
           return isVisible
-              ? Center(
-                  child: CustomWidgetHelper.Loader(context: context),
-                )
+              ? CustomWidgetHelper.Loader(context: context)
               : SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   child: Padding(

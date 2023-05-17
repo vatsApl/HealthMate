@@ -15,7 +15,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import '../bottom_navigation/main_page.dart';
+import '../ui/candidate_side/candidate_main_page.dart';
 import '../custom_widgets/custom_widget_helper.dart';
 import '../models/candidate_models/find_job_response.dart';
 import '../resourse/api_urls.dart';
@@ -120,7 +120,7 @@ class _JobDescriptionMyJobsState
               builder: (context) =>
                   ChangeNotifierProvider<ValueNotifier<int>>.value(
                 value: ValueNotifier<int>(2),
-                child: MainPage(),
+                child: CandidateMainPage(),
               ),
             ),
             (route) => false);

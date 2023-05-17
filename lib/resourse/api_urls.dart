@@ -96,4 +96,9 @@ class ApiUrl {
   //
   static String approveTimeSheetApi =
       "${DataURL.baseUrl}/api/timesheet/approve";
+  static String editAddressApi(String addId) {
+    return "${DataURL.baseUrl}/api/edit/$addId/address";
+  }
+
+  static String updateAddressApi = "${DataURL.baseUrl}/api/address/update";
 }

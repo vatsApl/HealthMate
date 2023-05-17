@@ -1,15 +1,21 @@
 class ClientAddressesSingleResponse {
+  String? message;
+  int? code;
   Address? address;
 
-  ClientAddressesSingleResponse({this.address});
+  ClientAddressesSingleResponse({this.message, this.code, this.address});
 
   ClientAddressesSingleResponse.fromJson(Map<String, dynamic> json) {
+    message = json['message'];
+    code = json['code'];
     address =
-    json['address'] != null ? new Address.fromJson(json['address']) : null;
+        json['address'] != null ? new Address.fromJson(json['address']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['message'] = this.message;
+    data['code'] = this.code;
     if (this.address != null) {
       data['address'] = this.address!.toJson();
     }
@@ -29,13 +35,13 @@ class Address {
 
   Address(
       {this.id,
-        this.clientId,
-        this.address,
-        this.area,
-        this.postCode,
-        this.createdAt,
-        this.updatedAt,
-        this.client});
+      this.clientId,
+      this.address,
+      this.area,
+      this.postCode,
+      this.createdAt,
+      this.updatedAt,
+      this.client});
 
   Address.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -46,7 +52,7 @@ class Address {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     client =
-    json['client'] != null ? new Client.fromJson(json['client']) : null;
+        json['client'] != null ? new Client.fromJson(json['client']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -77,13 +83,13 @@ class Client {
 
   Client(
       {this.id,
-        this.avatar,
-        this.practiceName,
-        this.email,
-        this.phone,
-        this.addressId,
-        this.createdAt,
-        this.updatedAt});
+      this.avatar,
+      this.practiceName,
+      this.email,
+      this.phone,
+      this.addressId,
+      this.createdAt,
+      this.updatedAt});
 
   Client.fromJson(Map<String, dynamic> json) {
     id = json['id'];

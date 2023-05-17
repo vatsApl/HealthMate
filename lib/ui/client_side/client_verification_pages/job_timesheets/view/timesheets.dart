@@ -3,8 +3,9 @@ import 'package:clg_project/ui/client_side/client_verification_pages/job_timeshe
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import '../../../../../UI/widgets/job_card_with_status.dart';
+import '../../../job_cards/job_card_with_status.dart';
 import '../../../../../constants.dart';
+import '../../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../../models/candidate_models/find_job_response.dart';
 import '../../../../../resourse/dimens.dart';
 import '../bloc/timesheet_bloc.dart';
@@ -43,38 +44,6 @@ class _TimeSheetsState extends State<TimeSheets> {
       });
     }
   }
-
-  //timesheet job api:
-  // Future<void> timesheetJobApi(int pageValue) async {
-  //   final queryParameters = {
-  //     'page': pageValue.toString(),
-  //   };
-  //   try {
-  //     setState(() {
-  //       isLoadingMore = true;
-  //     });
-  //     String url = ApiUrl.clientVerificationsPageApi;
-  //     var response = await http.post(
-  //         Uri.parse(url).replace(queryParameters: queryParameters),
-  //         body: {
-  //           'id': uId,
-  //           'status': '2',
-  //         });
-  //     log('TIMESHEET RES:${response.body}');
-  //     if (response.statusCode == 200) {
-  //       var json = jsonDecode(response.body);
-  //       var timesheetJobResponse = FindJobResponse.fromJson(json);
-  //       print('${json['message']}');
-  //       setState(() {
-  //         isLoadingMore = false;
-  //         page = timesheetJobResponse.lastPage!;
-  //         jobs.addAll(timesheetJobResponse.data ?? []);
-  //       });
-  //     }
-  //   } catch (e) {
-  //     throw Exception(e.toString());
-  //   }
-  // }
 
   @override
   void initState() {
@@ -120,9 +89,7 @@ class _TimeSheetsState extends State<TimeSheets> {
         builder: (BuildContext context, Object? state) {
           return Flexible(
             child: isVisible
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
+                ? CustomWidgetHelper.Loader(context: context)
                 : timesheetList(),
           );
         },
@@ -132,14 +99,16 @@ class _TimeSheetsState extends State<TimeSheets> {
 
   timesheetList() {
     return jobs.isNotEmpty
-        ? SingleChildScrollView(
-            controller: scrollController,
-            physics: BouncingScrollPhysics(),
-            child: Column(
-              children: [
-                ListView.separated(
-                  padding: EdgeInsets.zero,
-                  physics: const NeverScrollableScrollPhysics(),
+        ? Column(
+            children: [
+              Flexible(
+                child: ListView.separated(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: Dimens.pixel_16,
+                    vertical: Dimens.pixel_18,
+                  ),
+                  controller: scrollController,
+                  physics: const BouncingScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: jobs.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -165,23 +134,23 @@ class _TimeSheetsState extends State<TimeSheets> {
                     );
                   },
                 ),
-                if (jobs.isNotEmpty)
-                  Visibility(
-                    visible: isLoadingMore,
-                    child: Center(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: Dimens.pixel_16,
-                        ),
-                        child: CupertinoActivityIndicator(
-                          color: Colors.black,
-                          radius: Dimens.pixel_15,
-                        ),
+              ),
+              if (jobs.isNotEmpty)
+                Visibility(
+                  visible: isLoadingMore,
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: Dimens.pixel_16,
+                      ),
+                      child: CupertinoActivityIndicator(
+                        color: Colors.black,
+                        radius: Dimens.pixel_15,
                       ),
                     ),
                   ),
-              ],
-            ),
+                ),
+            ],
           )
         : const Center(
             child: Text(

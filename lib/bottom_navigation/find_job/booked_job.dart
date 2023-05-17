@@ -137,10 +137,7 @@ class _BookedJobState extends State<BookedJob> {
                       child: Center(
                         child: Text(
                           Strings.text_no_booked_found,
-                          style: TextStyle(
-                            fontSize: Dimens.pixel_22,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: kDefaultEmptyFieldTextStyle,
                         ),
                       ),
                     ),

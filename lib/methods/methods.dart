@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:clg_project/resourse/dimens.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:http/http.dart' as http;
-import 'package:clg_project/bottom_navigation/main_page.dart';
+import 'package:clg_project/ui/candidate_side/candidate_main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -205,7 +205,7 @@ class Methods {
                                   builder: (context) => ChangeNotifierProvider<
                                       ValueNotifier<int>>.value(
                                     value: ValueNotifier<int>(0),
-                                    child: MainPage(),
+                                    child: CandidateMainPage(),
                                   ),
                                 ),
                                 (route) => false);

@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:clg_project/bottom_navigation/main_page.dart';
+import 'package:clg_project/ui/candidate_side/candidate_main_page.dart';
 import 'package:clg_project/pages/welcome_screen.dart';
 import 'package:clg_project/resourse/dimens.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
@@ -34,7 +34,7 @@ class SplashState extends State<Splash> {
                 builder: (context) =>
                     ChangeNotifierProvider<ValueNotifier<int>>.value(
                   value: ValueNotifier<int>(0),
-                  child: userType == 2 ? MainPage() : ClientMainPage(),
+                  child: userType == 2 ? CandidateMainPage() : ClientMainPage(),
                 ),
               ),
               (route) => false);

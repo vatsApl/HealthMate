@@ -1,22 +1,22 @@
 import 'package:clg_project/UI/widgets/client_card_top.dart';
 import 'package:clg_project/UI/widgets/custom_appbar.dart';
-import 'package:clg_project/client_side/job_card_client.dart';
 import 'package:clg_project/models/client_model/client_job_res.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/ui/client_side/client_home_page/bloc/client_home_bloc.dart';
 import 'package:clg_project/ui/client_side/client_home_page/bloc/client_home_state.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import '../../../../constants.dart';
+import '../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../custom_widgets/index_notifier.dart';
 import '../../../../resourse/app_colors.dart';
 import '../../../../resourse/dimens.dart';
 import '../../create_contract/view/create_contract_page.dart';
+import '../../job_cards/job_card_client.dart';
 import '../bloc/client_home_event.dart';
 import '../client_job_description/view/client_job_description.dart';
 import '../repo/client_home_repository.dart';
@@ -39,33 +39,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
   String? netImg =
       PreferencesHelper.getString(PreferencesHelper.KEY_CLIENT_AVATAR);
   var uId = PreferencesHelper.getString(PreferencesHelper.KEY_USER_ID);
-  // client home page api
-  // Future<void> showContractHomeApi() async {
-  //   var uId = PreferencesHelper.getString(PreferencesHelper.KEY_USER_ID);
-  //   String url = ApiUrl.showContractHomeApi(uId);
-  //   try {
-  //     setState(() {
-  //       isVisible = true;
-  //     });
-  //     var response = await http.get(Uri.parse(url));
-  //     log('client home res:${response.body}');
-  //     if (response.statusCode == 200) {
-  //       var json = jsonDecode(response.body);
-  //       clientJobResponse = ClientJobModelResponse.fromJson(json);
-  //       clientJobResponse2 = ClientJobModelResponse.fromJson(json);
-  //       print(clientJobResponse2.contractCount);
-  //       setState(() {
-  //         isVisible = false;
-  //         clientJobs.addAll(clientJobResponse.data ?? []);
-  //       });
-  //     }
-  //   } catch (e) {
-  //     setState(() {
-  //       isVisible = false;
-  //     });
-  //     debugPrint(e.toString());
-  //   }
-  // }
+
   final _clientHomeBloc = ClientHomeBloc(ClientHomeRepository());
 
   @override
@@ -266,9 +240,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
                   ),
                   if (isVisible)
                     Expanded(
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ),
+                      child: CustomWidgetHelper.Loader(context: context),
                     ),
                   if (clientJobs.isEmpty && !isVisible)
                     Expanded(
@@ -293,8 +265,8 @@ class _ClientHomePageState extends State<ClientHomePage> {
         ? Container()
         : ListView.separated(
             physics: const NeverScrollableScrollPhysics(),
-            padding: const EdgeInsets.only(
-              top: Dimens.pixel_30,
+            padding: const EdgeInsets.symmetric(
+              vertical: Dimens.pixel_30,
             ),
             shrinkWrap: true,
             itemCount: clientJobs.length,

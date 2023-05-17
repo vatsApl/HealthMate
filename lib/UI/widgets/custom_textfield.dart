@@ -66,7 +66,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       ),
       child: TextFormField(
         maxLines: widget.maxLines,
-        style: const TextStyle(height: 1.0),
+        style: const TextStyle(height: 1.0, color: AppColors.klabelColor),
         textAlignVertical: TextAlignVertical.bottom,
         textCapitalization: TextCapitalization.words,
         keyboardType: widget.inputType,

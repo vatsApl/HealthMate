@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/allAPIs/allAPIs.dart';
@@ -18,10 +16,9 @@ import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:http/http.dart' as http;
+
 import '../../../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../../../models/candidate_models/find_job_response.dart';
-import '../../../../../../resourse/api_urls.dart';
 import '../../../../../../resourse/app_colors.dart';
 import '../../../../../../resourse/dimens.dart';
 import '../../../../../../resourse/shared_prefs.dart';
@@ -43,38 +40,6 @@ class _JobDescriptionWithStatusState
   var uIdInt = PreferencesHelper.getInt(PreferencesHelper.KEY_USER_ID_INT);
   String? timeSheetStatusType; //must -> Assigned, Pending, Dispute.
   TextEditingController rejectReasonController = TextEditingController();
-
-  // // approve timesheet api:
-  // Future<void> approveTimeSheetApi() async {
-  //   String url = ApiUrl.approveTimeSheetApi;
-  //   var response = await http.post(Uri.parse(url), body: {
-  //     'timesheet_id': timeSheetId.toString(),
-  //   });
-  //   try {
-  //     log('DESC approveTimesheet:${response.body}');
-  //     if (response.statusCode == 200) {
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         const SnackBar(
-  //           content: Text('TimeSheet Accepted!'),
-  //           padding: EdgeInsets.symmetric(
-  //             horizontal: 17.0,
-  //             vertical: 12.0,
-  //           ),
-  //           margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 21.0),
-  //           behavior: SnackBarBehavior.floating,
-  //           shape: RoundedRectangleBorder(
-  //             borderRadius: BorderRadius.only(
-  //               bottomLeft: Radius.circular(6.0),
-  //               bottomRight: Radius.circular(6.0),
-  //             ),
-  //           ),
-  //         ),
-  //       );
-  //     }
-  //   } catch (e) {
-  //     print(e.toString());
-  //   }
-  // }
 
   @override
   void initState() {

@@ -1,6 +1,5 @@
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/base_Screen_working/base_screen.dart';
-import 'package:clg_project/client_side/job_card_client.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/models/client_model/client_job_res.dart';
 import 'package:clg_project/resourse/images.dart';
@@ -11,10 +10,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import '../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../resourse/app_colors.dart';
 import '../../../../resourse/dimens.dart';
 import '../../client_home_page/client_job_description/view/client_job_description.dart';
 import '../../create_contract/view/create_contract_page.dart';
+import '../../job_cards/job_card_client.dart';
 import '../bloc/client_contract_event.dart';
 import '../repo/client_contract_repository.dart';
 
@@ -89,52 +91,53 @@ class _ClientContractPageState extends BasePageScreenState<ClientContractPage>
           }
         },
         builder: (BuildContext context, Object? state) {
-          return Padding(
-            padding: const EdgeInsets.fromLTRB(
-              Dimens.pixel_16,
-              Dimens.pixel_0,
-              Dimens.pixel_16,
-              Dimens.pixel_0,
-            ),
+          return WillPopScope(
+            onWillPop: () async {
+              Provider.of<ValueNotifier<int>>(context, listen: false).value = 0;
+              return false;
+            },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TitleText(title: Strings.text_contracts),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => CreateContract(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: Dimens.pixel_16,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TitleText(title: Strings.text_contracts),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CreateContract(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                              Dimens.pixel_50,
+                            ),
+                            border: Border.all(
+                              width: Dimens.pixel_1_and_half,
+                              color: AppColors.kDefaultPurpleColor,
+                            ),
                           ),
-                        );
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            Dimens.pixel_50,
+                          child: SvgPicture.asset(
+                            Images.ic_plus,
+                            height: Dimens.pixel_28,
                           ),
-                          border: Border.all(
-                            width: Dimens.pixel_1_and_half,
-                            color: AppColors.kDefaultPurpleColor,
-                          ),
-                        ),
-                        child: SvgPicture.asset(
-                          Images.ic_plus,
-                          height: Dimens.pixel_28,
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 Expanded(
                   child: isVisible
-                      ? Center(
-                          child: CircularProgressIndicator(),
-                        )
+                      ? CustomWidgetHelper.Loader(context: context)
                       : contractsList(),
                 ),
                 if (clientJobs.isNotEmpty)
@@ -163,11 +166,13 @@ class _ClientContractPageState extends BasePageScreenState<ClientContractPage>
   Widget contractsList() {
     return clientJobs.isNotEmpty
         ? ListView.separated(
-            // clipBehavior: Clip.none,
             controller: scrollController,
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.only(
               top: Dimens.pixel_35,
+              left: Dimens.pixel_16,
+              right: Dimens.pixel_16,
+              bottom: Dimens.pixel_18,
             ),
             shrinkWrap: true,
             itemCount: clientJobs.length,

@@ -16,12 +16,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../resourse/app_colors.dart';
 import '../../../../resourse/dimens.dart';
 import '../../../../resourse/strings.dart';
-import '../../../client_profile_page/client_addresses/model/address_model.dart';
 import '../../client_main_page.dart';
+import '../../client_profile_page/client_addresses/model/address_model.dart';
 import '../add_new_address_create_contract/view/add_new_address_cc.dart';
 import '../model/create_contract_model.dart';
 
@@ -796,7 +795,10 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                           _createContractBloc.add(ShowAllAddressesApi(uId));
                         },
                         child: TextFormField(
-                          style: const TextStyle(height: Dimens.pixel_1),
+                          style: const TextStyle(
+                            height: Dimens.pixel_1,
+                            color: AppColors.klabelColor,
+                          ),
                           enabled: false,
                           controller: addressController,
                           maxLines: null,
@@ -1022,7 +1024,10 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                               selectBreakTimeDialog();
                             },
                             child: TextFormField(
-                              style: const TextStyle(height: Dimens.pixel_1),
+                              style: const TextStyle(
+                                height: Dimens.pixel_1,
+                                color: AppColors.klabelColor,
+                              ),
                               textAlignVertical: TextAlignVertical.bottom,
                               enabled: false,
                               controller: breakTimeController,

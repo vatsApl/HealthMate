@@ -130,10 +130,7 @@ class _AppliedJobState extends State<AppliedJob> {
                       ),
                       child: Text(
                         Strings.text_no_applied_found,
-                        style: TextStyle(
-                          fontSize: Dimens.pixel_22,
-                          fontWeight: FontWeight.w500,
-                        ),
+                        style: kDefaultEmptyFieldTextStyle,
                       ),
                     ),
                   ],

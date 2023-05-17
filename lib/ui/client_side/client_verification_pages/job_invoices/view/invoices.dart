@@ -1,17 +1,14 @@
-import 'dart:convert';
-import 'dart:developer';
-import 'package:clg_project/UI/widgets/job_card_with_status.dart';
+import 'package:clg_project/ui/client_side/job_cards/job_card_with_status.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/ui/client_side/client_verification_pages/job_invoices/bloc/invoice_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import '../../../../../constants.dart';
+import '../../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../../models/candidate_models/find_job_response.dart';
-import 'package:http/http.dart' as http;
-import '../../../../../resourse/api_urls.dart';
 import '../../../../../resourse/app_colors.dart';
 import '../../../../../resourse/dimens.dart';
 import '../../../../../resourse/images.dart';
@@ -158,23 +155,6 @@ class _InvoicesState extends State<Invoices> {
     );
   }
 
-  // //mark as paid api:
-  // Future<void> markAsPaidApi() async {
-  //   try {
-  //     String url = ApiUrl.markAsPaidApi;
-  //     var response = await http.post(Uri.parse(url), body: {
-  //       'invoice_id': invoiceId.toString(),
-  //     });
-  //     log('mark As Paid res:${response.body}');
-  //     if (response.statusCode == 200) {
-  //       var json = jsonDecode(response.body);
-  //       print('${json['message']}');
-  //     }
-  //   } catch (e) {
-  //     throw Exception(e.toString());
-  //   }
-  // }
-
   @override
   void initState() {
     super.initState();
@@ -234,9 +214,7 @@ class _InvoicesState extends State<Invoices> {
         builder: (BuildContext context, Object? state) {
           return Flexible(
             child: isVisible
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
+                ? CustomWidgetHelper.Loader(context: context)
                 : invoiceList(),
           );
         },
@@ -246,15 +224,16 @@ class _InvoicesState extends State<Invoices> {
 
   invoiceList() {
     return jobs.isNotEmpty
-        ? SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            controller: scrollController,
-            child: Column(
-              children: [
-                ListView.separated(
-                  physics: const NeverScrollableScrollPhysics(),
-                  // controller: scrollController,
-                  padding: EdgeInsets.zero,
+        ? Column(
+            children: [
+              Flexible(
+                child: ListView.separated(
+                  physics: const BouncingScrollPhysics(),
+                  controller: scrollController,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: Dimens.pixel_16,
+                    vertical: Dimens.pixel_18,
+                  ),
                   shrinkWrap: true,
                   itemCount: jobs.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -275,23 +254,23 @@ class _InvoicesState extends State<Invoices> {
                     );
                   },
                 ),
-                if (jobs.isNotEmpty)
-                  Visibility(
-                    visible: isLoadingMore,
-                    child: Center(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: Dimens.pixel_16,
-                        ),
-                        child: CupertinoActivityIndicator(
-                          color: Colors.black,
-                          radius: Dimens.pixel_15,
-                        ),
+              ),
+              if (jobs.isNotEmpty)
+                Visibility(
+                  visible: isLoadingMore,
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: Dimens.pixel_16,
+                      ),
+                      child: CupertinoActivityIndicator(
+                        color: Colors.black,
+                        radius: Dimens.pixel_15,
                       ),
                     ),
                   ),
-              ],
-            ),
+                ),
+            ],
           )
         : const Center(
             child: Text(

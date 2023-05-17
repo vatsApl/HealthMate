@@ -5,7 +5,8 @@ import 'package:clg_project/ui/client_side/client_verification_pages/job_approva
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../UI/widgets/job_card_verifications.dart';
+import '../../../job_cards/job_card_verifications.dart';
+import '../../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../../models/candidate_models/find_job_response.dart';
 import '../../../../../resourse/dimens.dart';
 import '../../../../../resourse/shared_prefs.dart';
@@ -90,9 +91,7 @@ class _ApprovalsState extends State<Approvals> {
         builder: (BuildContext context, Object? state) {
           return Flexible(
             child: isVisible
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
+                ? CustomWidgetHelper.Loader(context: context)
                 : approvalsList(),
           );
         },
@@ -102,16 +101,17 @@ class _ApprovalsState extends State<Approvals> {
 
   approvalsList() {
     return jobs.isNotEmpty
-        ? SingleChildScrollView(
-            controller: scrollController,
-            physics: const BouncingScrollPhysics(),
-            child: Column(
-              children: [
-                ListView.separated(
-                  // controller: scrollController,
-                  padding: EdgeInsets.zero,
+        ? Column(
+            children: [
+              Flexible(
+                child: ListView.separated(
+                  controller: scrollController,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: Dimens.pixel_16,
+                    vertical: Dimens.pixel_18,
+                  ),
+                  physics: BouncingScrollPhysics(),
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
                   itemCount: jobs.length,
                   itemBuilder: (BuildContext context, int index) {
                     return InkWell(
@@ -134,23 +134,23 @@ class _ApprovalsState extends State<Approvals> {
                     );
                   },
                 ),
-                if (jobs.isNotEmpty)
-                  Visibility(
-                    visible: isLoadingMore,
-                    child: const Center(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: Dimens.pixel_16,
-                        ),
-                        child: CupertinoActivityIndicator(
-                          color: Colors.black,
-                          radius: Dimens.pixel_15,
-                        ),
+              ),
+              if (jobs.isNotEmpty)
+                Visibility(
+                  visible: isLoadingMore,
+                  child: const Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: Dimens.pixel_16,
+                      ),
+                      child: CupertinoActivityIndicator(
+                        color: Colors.black,
+                        radius: Dimens.pixel_15,
                       ),
                     ),
                   ),
-              ],
-            ),
+                ),
+            ],
           )
         : const Center(
             child: Text(
