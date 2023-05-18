@@ -1,16 +1,16 @@
-import 'dart:convert';
 import 'package:clg_project/UI/widgets/job_card_home_page.dart';
-import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/resourse/strings.dart';
+import 'package:clg_project/ui/candidate_side/myJobs/applied_job/bloc/applied_job_bloc.dart';
+import 'package:clg_project/ui/candidate_side/myJobs/applied_job/repo/applied_job_repo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../UI/job_description_my_jobs.dart';
-import '../../constants.dart';
-import '../../models/candidate_models/find_job_response.dart';
-import '../../resourse/app_colors.dart';
-import '../../resourse/dimens.dart';
-import '../../resourse/shared_prefs.dart';
-import 'package:http/http.dart' as http;
+
+import '../../../../../UI/job_description_my_jobs.dart';
+import '../../../../../constants.dart';
+import '../../../../../models/candidate_models/find_job_response.dart';
+import '../../../../../resourse/app_colors.dart';
+import '../../../../../resourse/dimens.dart';
+import '../../../../../resourse/shared_prefs.dart';
 
 class AppliedJob extends StatefulWidget {
   @override
@@ -29,7 +29,8 @@ class _AppliedJobState extends State<AppliedJob> {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
       if (page != 0) {
-        appliedJob(page);
+        // appliedJobApi(page);
+        // todo: add event here also of show applied job
         setState(() {
           isLoadingMore = true;
         });
@@ -41,46 +42,50 @@ class _AppliedJobState extends State<AppliedJob> {
     }
   }
 
-  // applied job api:
-  Future<void> appliedJob(int pageValue) async {
-    final queryParameters = {
-      'page': pageValue.toString(),
-    };
-    try {
-      setState(() {
-        isLoadingMore = true;
-      });
-      String url = ApiUrl.myJobsApi;
-      var urlParsed = Uri.parse(url);
-      var response = await http
-          .post(urlParsed.replace(queryParameters: queryParameters), body: {
-        'candidate_id': uId,
-        'status': '1',
-      });
-      // log(response.body);
-      if (response.statusCode == 200) {
-        var json = jsonDecode(response.body);
-        var appliedJobResponse = FindJobResponse.fromJson(json);
-        print('${json['message']}');
-        setState(() {
-          isLoadingMore = false;
-          page = appliedJobResponse.lastPage!;
-          jobs.addAll(appliedJobResponse.data ?? []);
-        });
-      }
-    } catch (e) {
-      throw Exception(e.toString());
-    }
-  }
+  // // applied job api:
+  // Future<void> appliedJobApi(int pageValue) async {
+  //   final queryParameters = {
+  //     'page': pageValue.toString(),
+  //   };
+  //   try {
+  //     setState(() {
+  //       isLoadingMore = true;
+  //     });
+  //     String url = ApiUrl.myJobsApi;
+  //     var urlParsed = Uri.parse(url);
+  //     var response = await http
+  //         .post(urlParsed.replace(queryParameters: queryParameters), body: {
+  //       'candidate_id': uId,
+  //       'status': '1',
+  //     });
+  //     // log(response.body);
+  //     if (response.statusCode == 200) {
+  //       var json = jsonDecode(response.body);
+  //       var appliedJobResponse = FindJobResponse.fromJson(json);
+  //       print('${json['message']}');
+  //       setState(() {
+  //         isLoadingMore = false;
+  //         page = appliedJobResponse.lastPage!;
+  //         jobs.addAll(appliedJobResponse.data ?? []);
+  //       });
+  //     }
+  //   } catch (e) {
+  //     throw Exception(e.toString());
+  //   }
+  // }
 
   @override
   void initState() {
     super.initState();
     setState(() {
       scrollController.addListener(scrollListener);
-      appliedJob(page);
+      // appliedJobApi(page);
+      // todo: add event of show applied job
     });
   }
+
+  final _AppliedJobBloc = AppliedJobBloc(AppliedJobRepository());
+  //reached here
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +95,10 @@ class _AppliedJobState extends State<AppliedJob> {
           Expanded(
             child: ListView.separated(
               controller: scrollController,
-              padding: EdgeInsets.zero,
+              padding: EdgeInsets.symmetric(
+                horizontal: Dimens.pixel_16,
+                vertical: Dimens.pixel_18,
+              ),
               shrinkWrap: true,
               physics: const BouncingScrollPhysics(),
               itemCount: jobs.length,

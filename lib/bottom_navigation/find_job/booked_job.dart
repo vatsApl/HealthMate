@@ -95,7 +95,10 @@ class _BookedJobState extends State<BookedJob> {
           Expanded(
             child: ListView.separated(
               controller: scrollController,
-              padding: EdgeInsets.zero,
+              padding: EdgeInsets.symmetric(
+                horizontal: Dimens.pixel_16,
+                vertical: Dimens.pixel_18,
+              ),
               physics: const BouncingScrollPhysics(),
               shrinkWrap: true,
               itemCount: jobs.length,

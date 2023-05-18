@@ -1,5 +1,5 @@
 import 'package:clg_project/ui/candidate_side/candidate_home_page/view/candidate_home_page.dart';
-import 'package:clg_project/bottom_navigation/my_job_page.dart';
+import 'package:clg_project/ui/candidate_side/myJobs/my_job_page.dart';
 import 'package:clg_project/bottom_navigation/profile_page.dart';
 import 'package:clg_project/ui/candidate_side/find_job/view/find_job_page.dart';
 import 'package:clg_project/resourse/images.dart';

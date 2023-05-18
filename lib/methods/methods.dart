@@ -14,16 +14,20 @@ import '../resourse/images.dart';
 import '../resourse/shared_prefs.dart';
 import '../services/api_services.dart';
 import '../ui/auth/signin/view/signin_page.dart';
+import '../ui/candidate_side/candidate_home_page/candidate_job_description/bloc/job_desc_bloc.dart';
+import '../ui/candidate_side/candidate_home_page/candidate_job_description/bloc/job_desc_event.dart';
+import '../ui/candidate_side/candidate_home_page/candidate_job_description/repo/job_desc_repository.dart';
 import '../validations.dart';
 import '../widgets/elevated_button.dart';
 
 class Methods {
   static var timeSheetId;
   static final _formKey = GlobalKey<FormState>();
+  // static final _JobDescBloc = JobDescBloc(JobDescriptionRepository());
 
   //apply job confirmation popup
   static Future<void> showDialogApplyJobConfirmation(
-      BuildContext context, String uId, int? jobId) async {
+      BuildContext context, Map<String, dynamic> params) async {
     return showDialog(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -111,7 +115,9 @@ class Methods {
                             btnTitle: Strings.text_send,
                             bgColor: AppColors.kDefaultPurpleColor,
                             onPressed: () {
-                              ApiServices.applyJob(uId, jobId ?? 0, context);
+                              // ApiServices.applyJobApi(uId, jobId ?? 0, context);
+                              // todo: add event of apply job
+                              // _JobDescBloc.add(ApplyJobEvent(params: params));
                             },
                           ),
                         ),
@@ -128,7 +134,7 @@ class Methods {
   }
 
   //apply job pop up:
-  static Future<void> showDialogApplyJob(BuildContext context) async {
+  static Future<void> showDialogAppliedJob(BuildContext context) async {
     return showDialog(
       context: context,
       barrierDismissible: false, // user must tap button!

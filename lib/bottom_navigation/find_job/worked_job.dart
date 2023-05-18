@@ -158,7 +158,10 @@ class _WorkedJobState extends State<WorkedJob> {
                 child: ListView.separated(
                   controller: scrollController,
                   physics: const BouncingScrollPhysics(),
-                  padding: EdgeInsets.zero,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: Dimens.pixel_16,
+                    vertical: Dimens.pixel_18,
+                  ),
                   shrinkWrap: true,
                   itemCount: jobs.length,
                   itemBuilder: (BuildContext context, int index) {

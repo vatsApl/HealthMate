@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:clg_project/UI/widgets/title_text.dart';
-import 'package:clg_project/bottom_navigation/my_job_page.dart';
+import 'package:clg_project/ui/candidate_side/myJobs/my_job_page.dart';
 import 'package:clg_project/models/candidate_models/find_job_response.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/widgets/elevated_button.dart';

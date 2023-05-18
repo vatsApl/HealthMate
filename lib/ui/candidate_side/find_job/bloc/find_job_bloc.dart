@@ -10,7 +10,8 @@ class FindJobBloc extends Bloc<FindJobEvent, FindJobState> {
       if (event is ShowFindJobEvent) {
         emit(FindJobLoadingState());
         try {
-          var response = await _findJobRepository.findJobApi(event.pageValue);
+          var response =
+              await _findJobRepository.findJobApi(pageValue: event.pageValue);
           emit(FindJobLoadedState(response));
         } catch (e) {
           emit(FindJobErrorState(error: e.toString()));

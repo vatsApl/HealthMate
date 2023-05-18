@@ -1,8 +1,6 @@
-import 'dart:convert';
-import 'package:clg_project/UI/job_description.dart';
+import 'package:clg_project/ui/candidate_side/candidate_home_page/candidate_job_description/view/job_description.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/models/candidate_models/find_job_response.dart';
-import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/ui/candidate_side/find_job/bloc/find_job_bloc.dart';
 import 'package:clg_project/ui/candidate_side/find_job/bloc/find_job_state.dart';
@@ -10,13 +8,11 @@ import 'package:clg_project/ui/candidate_side/find_job/repo/find_job_repository.
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import '../../../../UI/widgets/job_card_home_page.dart';
 import '../../../../constants.dart';
 import '../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../resourse/dimens.dart';
-import '../../../../resourse/shared_prefs.dart';
 import '../bloc/find_job_event.dart';
 
 class FindJobPage extends StatefulWidget {
@@ -27,11 +23,9 @@ class FindJobPage extends StatefulWidget {
 class _FindJobPageState extends State<FindJobPage> {
   final scrollController = ScrollController();
   bool isVisible = false;
-  bool isLastPage = false;
   bool isLoadingMore = false;
   List<JobModel> jobs = [];
   int page = 1;
-  var uId = PreferencesHelper.getString(PreferencesHelper.KEY_USER_ID);
 
   void scrollListener() {
     if (scrollController.position.pixels ==
@@ -39,6 +33,7 @@ class _FindJobPageState extends State<FindJobPage> {
       if (page != 0) {
         // event of show find jobs
         _findJobBloc.add(ShowFindJobEvent(pageValue: page));
+        page++;
         setState(() {
           isLoadingMore = true;
         });
@@ -122,15 +117,13 @@ class _FindJobPageState extends State<FindJobPage> {
           child: BlocConsumer<FindJobBloc, FindJobState>(
             listener: (BuildContext context, state) {
               if (state is FindJobLoadingState) {
-                setState(() {
-                  isVisible = true;
-                });
+                if (page == 1) {
+                  setState(() {
+                    isVisible = true;
+                  });
+                }
               }
               if (state is FindJobLoadedState) {
-                setState(() {
-                  isVisible = false;
-                  isLoadingMore = false;
-                });
                 var responseBody = state.response;
                 var findJobResponse = FindJobResponse.fromJson(responseBody);
                 if (findJobResponse.code == 200) {
@@ -141,8 +134,11 @@ class _FindJobPageState extends State<FindJobPage> {
                   //     jsonDecode(response.headers['x-pagination'].toString());
                   // print('HEADERS: ${response.headers['x-pagination']}');
                   setState(() {
+                    page = findJobResponse.lastPage ?? 0;
                     jobs.addAll(findJobResponse.data ?? []);
-                    page = findJobResponse.lastPage!;
+                    // print('condition page: $page');
+                    isVisible = false;
+                    isLoadingMore = false;
                   });
                 }
               }
@@ -151,103 +147,90 @@ class _FindJobPageState extends State<FindJobPage> {
               }
             },
             builder: (BuildContext context, Object? state) {
-              return isVisible
-                  ? CustomWidgetHelper.Loader(context: context)
-                  : Stack(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(
-                            Dimens.pixel_16,
-                            Dimens.pixel_0,
-                            Dimens.pixel_16,
-                            Dimens.pixel_0,
-                          ),
-                          child: Stack(
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  TitleText(
-                                      title: Strings.text_title_find_jobs),
-                                  Expanded(
-                                    child: jobs.isNotEmpty
-                                        ? ListView.separated(
-                                            controller: scrollController,
-                                            physics:
-                                                const BouncingScrollPhysics(),
-                                            padding: const EdgeInsets.only(
-                                                top: Dimens.pixel_35),
-                                            shrinkWrap: true,
-                                            itemCount: jobs.length,
-                                            itemBuilder: (BuildContext context,
-                                                int index) {
-                                              return InkWell(
-                                                onTap: () {
-                                                  int? jobId = jobs[index].id;
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          JobDescription(
-                                                        jobId: jobId,
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                                child: JobCardCandidate(
-                                                  homePageModel: jobs[index],
-                                                ),
-                                              );
-                                            },
-                                            separatorBuilder:
-                                                (BuildContext context,
-                                                    int index) {
-                                              return const SizedBox(
-                                                height: Dimens.pixel_20,
-                                              );
-                                            },
-                                          )
-                                        : Container(),
-                                  ),
-                                  jobs.isNotEmpty
-                                      ? Visibility(
-                                          visible: isLoadingMore,
-                                          child: const Center(
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: Dimens.pixel_12),
-                                              child: CupertinoActivityIndicator(
-                                                color: Colors.black,
-                                                radius: Dimens.pixel_15,
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                      : const Expanded(
-                                          child: Padding(
-                                            padding: EdgeInsets.only(
-                                                bottom: Dimens.pixel_280),
-                                            child: Center(
-                                              child: Text(
-                                                Strings
-                                                    .candidate_text_no_jobs_found,
-                                                style:
-                                                    kDefaultEmptyFieldTextStyle,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                ],
-                              ),
-                            ],
-                          ),
+              return Stack(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: Dimens.pixel_16,
                         ),
-                      ],
-                    );
+                        child: TitleText(title: Strings.text_title_find_jobs),
+                      ),
+                      Expanded(
+                        child: isVisible
+                            ? CustomWidgetHelper.Loader(context: context)
+                            : findJobList(),
+                      ),
+                      if (jobs.isNotEmpty)
+                        Visibility(
+                          visible: isLoadingMore,
+                          child: const Center(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                vertical: Dimens.pixel_16,
+                              ),
+                              child: CupertinoActivityIndicator(
+                                color: Colors.black,
+                                radius: Dimens.pixel_15,
+                              ),
+                            ),
+                          ),
+                        )
+                    ],
+                  ),
+                ],
+              );
             },
           ),
         ),
       ),
     );
+  }
+
+  findJobList() {
+    return jobs.isEmpty
+        ? Center(
+            child: Text(
+              Strings.candidate_text_no_jobs_found,
+              style: kDefaultEmptyFieldTextStyle,
+            ),
+          )
+        : ListView.separated(
+            controller: scrollController,
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.only(
+              top: Dimens.pixel_35,
+              left: Dimens.pixel_16,
+              right: Dimens.pixel_16,
+              bottom: Dimens.pixel_18,
+            ),
+            shrinkWrap: true,
+            itemCount: jobs.length,
+            itemBuilder: (BuildContext context, int index) {
+              return InkWell(
+                onTap: () {
+                  int? jobId = jobs[index].id;
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => JobDescription(
+                        jobId: jobId,
+                      ),
+                    ),
+                  );
+                },
+                child: JobCardCandidate(
+                  homePageModel: jobs[index],
+                ),
+              );
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return const SizedBox(
+                height: Dimens.pixel_20,
+              );
+            },
+          );
   }
 }

@@ -12,11 +12,10 @@ class ApiServices {
   static List<JobModel>? jobs;
 
   //candidate apply job api:
-  static Future applyJob(String uId, int jobId, BuildContext context) async {
+  static Future applyJobApi(String uId, int jobId, BuildContext context) async {
     String url = ApiUrl.applyJob;
     var urlParsed = Uri.parse(url);
-    var response =
-        await http.post(urlParsed, body: {
+    var response = await http.post(urlParsed, body: {
       'candidate_id': uId,
       'job_id': jobId.toString(),
     });
@@ -24,8 +23,8 @@ class ApiServices {
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
       debugPrint('${json['message']}');
-      Methods.showDialogApplyJob(context);
-      if(json['code'] == 400) {
+      Methods.showDialogAppliedJob(context);
+      if (json['code'] == 400) {
         Fluttertoast.showToast(
           msg: "${json['message']}",
           toastLength: Toast.LENGTH_SHORT,
