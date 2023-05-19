@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+
 import '../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../resourse/app_colors.dart';
 import '../../../../resourse/dimens.dart';
@@ -42,14 +43,10 @@ class _ClientContractPageState extends BasePageScreenState<ClientContractPage>
         // event of show contract
         _clientContractBloc.add(ClientContractLoadEvent(page));
         page++;
-        setState(() {
-          isLoadingMore = true;
-        });
+        isLoadingMore = true;
       }
     } else {
-      setState(() {
-        isLoadingMore = false;
-      });
+      isLoadingMore = false;
     }
   }
 
@@ -72,9 +69,7 @@ class _ClientContractPageState extends BasePageScreenState<ClientContractPage>
         listener: (BuildContext context, state) {
           if (state is ClientContractLoadingState) {
             if (page == 1) {
-              setState(() {
-                isVisible = true;
-              });
+              isVisible = true;
             }
           }
           if (state is ClientContractLoadedState) {
@@ -83,11 +78,9 @@ class _ClientContractPageState extends BasePageScreenState<ClientContractPage>
             if (clientJobResponse.code == 200) {
               isLastPage = clientJobResponse.isLastPage;
               print('contract page isLastpage:$isLastPage');
-              setState(() {
-                isVisible = false;
-                isLoadingMore = false;
-                clientJobs.addAll(clientJobResponse.data ?? []);
-              });
+              isVisible = false;
+              isLoadingMore = false;
+              clientJobs.addAll(clientJobResponse.data ?? []);
             }
           }
         },

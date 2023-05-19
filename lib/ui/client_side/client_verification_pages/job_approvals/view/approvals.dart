@@ -5,11 +5,12 @@ import 'package:clg_project/ui/client_side/client_verification_pages/job_approva
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../job_cards/job_card_verifications.dart';
+
 import '../../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../../models/candidate_models/find_job_response.dart';
 import '../../../../../resourse/dimens.dart';
 import '../../../../../resourse/shared_prefs.dart';
+import '../../../job_cards/job_card_verifications.dart';
 import '../bloc/approvals_event.dart';
 import '../job_approvals_desc/view/job_desc_approvals.dart';
 import '../repo/approvals_repository.dart';
@@ -32,19 +33,15 @@ class _ApprovalsState extends State<Approvals> {
         scrollController.position.maxScrollExtent) {
       if (page != 0) {
         // event of show approvals 2
-        setState(() {
-          _approvalsBloc.add(ShowApprovalsEvent(
-            pageValue: page,
-            uId: uId,
-            status: '1',
-          ));
-          isLoadingMore = true;
-        });
+        _approvalsBloc.add(ShowApprovalsEvent(
+          pageValue: page,
+          uId: uId,
+          status: '1',
+        ));
+        isLoadingMore = true;
       }
     } else {
-      setState(() {
-        isLoadingMore = false;
-      });
+      isLoadingMore = false;
     }
   }
 
@@ -70,21 +67,17 @@ class _ApprovalsState extends State<Approvals> {
         listener: (BuildContext context, state) {
           if (state is ApprovalsLoadingState) {
             if (page == 1) {
-              setState(() {
-                isVisible = true;
-              });
+              isVisible = true;
             }
           }
           if (state is ApprovalsLoadedState) {
             var responseBody = state.response;
             var approvalsJobResponse = FindJobResponse.fromJson(responseBody);
             if (approvalsJobResponse.code == 200) {
-              setState(() {
-                page = approvalsJobResponse.lastPage ?? 0;
-                jobs.addAll(approvalsJobResponse.data ?? []);
-                isVisible = false;
-                isLoadingMore = false;
-              });
+              page = approvalsJobResponse.lastPage ?? 0;
+              jobs.addAll(approvalsJobResponse.data ?? []);
+              isVisible = false;
+              isLoadingMore = false;
             }
           }
         },

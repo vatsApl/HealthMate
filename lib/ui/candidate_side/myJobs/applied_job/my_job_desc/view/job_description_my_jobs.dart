@@ -1,213 +1,183 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:clg_project/UI/map_screen.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
-import 'package:clg_project/allAPIs/allAPIs.dart';
 import 'package:clg_project/base_Screen_working/base_screen.dart';
 import 'package:clg_project/constants.dart';
-import 'package:clg_project/models/candidate_models/job_description_res.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/strings.dart';
+import 'package:clg_project/ui/candidate_side/myJobs/applied_job/my_job_desc/bloc/my_job_desc_bloc.dart';
+import 'package:clg_project/ui/candidate_side/myJobs/applied_job/my_job_desc/bloc/my_job_desc_state.dart';
+import 'package:clg_project/ui/candidate_side/myJobs/applied_job/my_job_desc/repo/my_job_desc_repo.dart';
 import 'package:clg_project/ui/client_side/client_home_page/client_job_description/model/basic_model.dart';
-import 'package:clg_project/ui/client_side/client_verification_pages/job_approvals/job_approvals_desc/bloc/job_approvals_desc_bloc.dart';
-import 'package:clg_project/ui/client_side/client_verification_pages/job_approvals/job_approvals_desc/bloc/job_approvals_desc_state.dart';
-import 'package:clg_project/ui/client_side/client_verification_pages/job_approvals/job_approvals_desc/repo/job_desc_approvals_repo.dart';
+import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../../../models/candidate_models/find_job_response.dart';
+import '../../../../../../models/candidate_models/job_description_res.dart';
 import '../../../../../../resourse/app_colors.dart';
 import '../../../../../../resourse/dimens.dart';
 import '../../../../../../resourse/shared_prefs.dart';
-import '../../../../client_main_page.dart';
-import '../bloc/job_approvals_desc_event.dart';
+import '../../../../candidate_main_page.dart';
+import '../../../booked_job/sign_off_page/view/sign_off_page.dart';
+import '../bloc/my_job_desc_event.dart';
 
-class ClientJobDescApprovals extends BasePageScreen {
+class JobDescriptionMyJobs extends BasePageScreen {
   int? jobId;
-  ClientJobDescApprovals({this.jobId});
+  int? appId;
+  int? currentIndex;
+  JobDescriptionMyJobs({this.jobId, this.appId, this.currentIndex});
   @override
-  State<ClientJobDescApprovals> createState() => _ClientJobDescApprovalsState();
+  State<JobDescriptionMyJobs> createState() => _JobDescriptionMyJobsState();
 }
 
-class _ClientJobDescApprovalsState
-    extends BasePageScreenState<ClientJobDescApprovals> with BaseScreen {
+class _JobDescriptionMyJobsState
+    extends BasePageScreenState<JobDescriptionMyJobs> with BaseScreen {
   JobModel? jobDesc;
+  int? timeSheetId;
+  double? lat;
+  double? long;
   bool isVisible = false;
-  bool isApproveApplicationLoading = false;
-  String? appId;
+  bool isWithdrawLoading = false;
+  bool isSignOffLoading = false;
+  bool isVisibleSignoff = false;
+  var currentDateFormatted;
+  var jobDate;
+  var endTiMe;
+  var currentTimeCon;
+  var endTimeCon;
   var uId = PreferencesHelper.getString(PreferencesHelper.KEY_USER_ID);
-  var candidateId;
+  var uIdInt = PreferencesHelper.getInt(PreferencesHelper.KEY_USER_ID_INT);
+
+  // // Edit Timesheet api:
+  // Future<void> editTimesheetApi() async {
+  //   setState(() {
+  //     isVisible = true;
+  //   });
+  //   String url = ApiUrl.editTimesheetApi(timeSheetId);
+  //   var urlParsed = Uri.parse(url);
+  //   var response = await http.get(urlParsed);
+  //   try {
+  //     setState(() {
+  //       isVisible = true;
+  //     });
+  //     log('Edit Timesheet:${response.body}');
+  //     if (response.statusCode == 200) {
+  //       var json = jsonDecode(response.body);
+  //       print(json['message']);
+  //       setState(() {
+  //         Navigator.push(
+  //           context,
+  //           MaterialPageRoute(
+  //             builder: (context) => SignOffPage(timeSheetId: timeSheetId),
+  //           ),
+  //         );
+  //       });
+  //     }
+  //   } catch (e) {
+  //     print(e.toString());
+  //     setState(() {
+  //       isVisible = false;
+  //     });
+  //   }
+  //   setState(() {
+  //     isVisible = false;
+  //   });
+  // }
 
   @override
   void initState() {
     super.initState();
-    // event of show job desc approvals
-    _jobApprovalsDescBloc.add(ShowJobApprovalsDescEvent(jobId: widget.jobId));
+    // event of show my job desc
+    _myJobDescBloc.add(ShowMyJobDescEvent(jobId: widget.jobId));
   }
 
-  // approve candidate application popup
-  Future<dynamic> showDialogApproveCandidate(BuildContext context) {
-    return showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return Dialog(
-          insetPadding: const EdgeInsets.symmetric(
-            horizontal: Dimens.pixel_16,
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              Dimens.pixel_6,
-            ),
-          ),
-          child: Wrap(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: Dimens.pixel_10,
-                  vertical: Dimens.pixel_25,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      height: Dimens.pixel_12,
-                    ),
-                    SvgPicture.asset(
-                      Images.ic_job,
-                      // fit: BoxFit.scaleDown,
-                      height: Dimens.pixel_40,
-                      width: Dimens.pixel_40,
-                      color: AppColors.kDefaultPurpleColor,
-                    ),
-                    const SizedBox(
-                      height: Dimens.pixel_20,
-                    ),
-                    const Text(
-                      Strings.text_approvals_popup,
-                      style: TextStyle(
-                        fontSize: Dimens.pixel_18,
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.kDefaultPurpleColor,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: Dimens.pixel_12,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: Dimens.pixel_21,
-                      ),
-                      child: Text(
-                        Strings.text_approvals_confirmation,
-                        style: const TextStyle(
-                          color: AppColors.kDefaultBlackColor,
-                        ).copyWith(
-                          height: Dimens.pixel_1_and_half,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: Dimens.pixel_30,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: Dimens.pixel_110,
-                          height: Dimens.pixel_44,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.klightColor,
-                            ),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text(
-                              Strings.text_cancel,
-                              style: TextStyle(
-                                fontSize: Dimens.pixel_16,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: Dimens.pixel_17,
-                        ),
-                        SizedBox(
-                          width: Dimens.pixel_110,
-                          height: Dimens.pixel_44,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.kDefaultPurpleColor,
-                            ),
-                            onPressed: () {
-                              // event of approve application & generate timesheet
-                              _jobApprovalsDescBloc.add(ApproveApplicationEvent(
-                                candidateId: candidateId,
-                                jobId: widget.jobId,
-                                applicationId: appId,
-                              ));
-                            },
-                            child: const Text(
-                              Strings.text_approve,
-                              style: TextStyle(
-                                fontSize: Dimens.pixel_16,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
+  final _myJobDescBloc = MyJobDescBloc(MyJobDescRepository());
 
-  final _jobApprovalsDescBloc =
-      JobApprovalsDescBloc(JobApprovalsDescRepository());
+  // sign off button condition (active button when current date & time matched)
+  void signOffbuttonCon() {
+    DateTime currentTime = DateTime.now();
+    String formattedTime = DateFormat('HH:mm').format(currentTime);
+    print('actual time:$endTiMe');
+    DateTime inputTime = DateFormat("HH:mm").parse(endTiMe);
+    DateTime currentFormate = DateFormat("HH:mm").parse(formattedTime);
+    print('OUTPUT:${currentFormate.minute}');
+    print('INPUT:${inputTime.minute}');
+
+    Duration currentDuration = Duration(hours: currentFormate.hour);
+    var currentMinute = (currentDuration.inHours * 60) + currentFormate.minute;
+
+    Duration d1 = Duration(hours: inputTime.hour);
+    var minutes = (d1.inHours * 60) + inputTime.minute;
+    print('TOTAL output cuurent:$currentMinute');
+    print('TOTAL Input dMINUTES:$minutes');
+    currentTimeCon = currentMinute;
+    endTimeCon = minutes;
+
+    if (jobDate == currentDateFormatted && currentTimeCon >= endTimeCon) {
+      print('DATE MATCHED');
+      setState(() {
+        isVisibleSignoff = true;
+      });
+    } else {
+      print('Not matched');
+      setState(() {
+        isVisibleSignoff = false;
+      });
+    }
+  }
 
   @override
   Widget body() {
-    return BlocProvider<JobApprovalsDescBloc>(
-      create: (BuildContext context) => _jobApprovalsDescBloc,
-      child: BlocConsumer<JobApprovalsDescBloc, JobApprovalsDescState>(
+    return BlocProvider<MyJobDescBloc>(
+      create: (BuildContext context) => _myJobDescBloc,
+      child: BlocConsumer<MyJobDescBloc, MyJobDescState>(
         listener: (BuildContext context, state) {
-          if (state is ShowJobApprovalsDescLoadingState) {
-            isVisible = true;
+          if (state is ShowMyJobDescLoadingState) {
+            setState(() {
+              isVisible = true;
+            });
           }
-          if (state is ShowJobApprovalsDescLoadedState) {
+          if (state is ShowMyJobDescLoadedState) {
+            setState(() {
+              isVisible = false;
+            });
             var responseBody = state.response;
             var joDetailResponse =
                 JobDescriptionResponse.fromJson(responseBody);
             if (joDetailResponse.code == 200) {
               jobDesc = joDetailResponse.data;
-              isVisible = false;
+              jobDate = jobDesc?.jobDate;
+              lat = jobDesc?.cordinates?.latitude;
+              long = jobDesc?.cordinates?.longtitude;
+              DateTime currentDate = DateTime.now();
+              currentDateFormatted =
+                  DateFormat('dd-MM-yyyy').format(currentDate);
+              timeSheetId = jobDesc?.timesheetId;
+              print(timeSheetId);
+              //time match method:
+              endTiMe = jobDesc?.jobEndTime;
+              signOffbuttonCon();
+              signOffbuttonCon();
             }
           }
-          if (state is ShowJobApprovalsDescErrorState) {
+          if (state is ShowMyJobDescErrorState) {
             debugPrint(state.error);
           }
-          if (state is ApproveApplicationLoadingState) {
-            isApproveApplicationLoading = true;
+          if (state is WithdrawJobLoadingState) {
+            isWithdrawLoading = true;
           }
-          if (state is ApproveApplicationLoadedState) {
-            isApproveApplicationLoading = false;
+          if (state is WithdrawJobLoadedState) {
+            isWithdrawLoading = false;
             var responseBody = state.response;
-            var approveApplicationResponse = BasicModel.fromJson(responseBody);
-            if (approveApplicationResponse.code == 200) {
+            var basicModel = BasicModel.fromJson(responseBody);
+            if (basicModel.code == 200) {
               Fluttertoast.showToast(
-                msg: "${approveApplicationResponse.message}",
+                msg: "${basicModel.message}",
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.BOTTOM,
                 timeInSecForIosWeb: 1,
@@ -220,13 +190,32 @@ class _ClientJobDescApprovalsState
                     builder: (context) =>
                         ChangeNotifierProvider<ValueNotifier<int>>.value(
                       value: ValueNotifier<int>(2),
-                      child: ClientMainPage(),
+                      child: CandidateMainPage(),
                     ),
                   ),
                   (route) => false);
+            }
+          }
+          if (state is WithdrawJobErrorState) {
+            debugPrint(state.error);
+          }
+          if (state is EditTimesheetLoadingState) {
+            isSignOffLoading = true;
+          }
+          if (state is EditTimesheetLoadedState) {
+            isSignOffLoading = false;
+            var responseBody = state.response;
+            var basicModel = BasicModel.fromJson(responseBody);
+            if (basicModel.code == 200) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SignOffPage(timeSheetId: timeSheetId),
+                ),
+              );
             } else {
               Fluttertoast.showToast(
-                msg: "${approveApplicationResponse.message}",
+                msg: "${basicModel.message}",
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.BOTTOM,
                 timeInSecForIosWeb: 1,
@@ -235,6 +224,9 @@ class _ClientJobDescApprovalsState
                 fontSize: 16.0,
               );
             }
+          }
+          if (state is EditTimesheetErrorState) {
+            debugPrint(state.error);
           }
         },
         builder: (BuildContext context, Object? state) {
@@ -247,7 +239,7 @@ class _ClientJobDescApprovalsState
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(
                       Dimens.pixel_16,
-                      Dimens.pixel_27,
+                      Dimens.pixel_27_point_67,
                       Dimens.pixel_16,
                       Dimens.pixel_0,
                     ),
@@ -273,7 +265,7 @@ class _ClientJobDescApprovalsState
                             right: Dimens.pixel_24,
                           ),
                           child: Text(
-                            '${jobDesc?.jobDescription.toString()}',
+                            '${jobDesc?.jobDescription}',
                             style: const TextStyle(
                               color: AppColors.klabelColor,
                               fontWeight: FontWeight.w400,
@@ -282,11 +274,14 @@ class _ClientJobDescApprovalsState
                           ),
                         ),
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding:
-                                  const EdgeInsets.only(top: Dimens.pixel_33),
+                              padding: const EdgeInsets.only(
+                                top: Dimens.pixel_33,
+                              ),
                               child: SvgPicture.asset(
+                                alignment: Alignment.topCenter,
                                 Images.ic_location_circle,
                                 fit: BoxFit.scaleDown,
                               ),
@@ -304,13 +299,49 @@ class _ClientJobDescApprovalsState
                                       Strings.text_location,
                                       style: kDescText1,
                                     ),
-                                    const SizedBox(
-                                      height: Dimens.pixel_10,
-                                    ),
+                                    const SizedBox(height: Dimens.pixel_10),
                                     Text(
                                       '${jobDesc?.jobLocation.toString()}',
                                       style: kDescText2,
+                                      softWrap: true,
                                     ),
+                                    const SizedBox(height: Dimens.pixel_10),
+                                    if (widget.currentIndex == 1)
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => MapScreen(
+                                                lat: lat,
+                                                long: long,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                            Dimens.pixel_10,
+                                          ),
+                                          child: Stack(
+                                            children: [
+                                              Image.asset(
+                                                'images/map2.jpg',
+                                                height: Dimens.pixel_130,
+                                                width: double.infinity,
+                                              ),
+                                              Positioned(
+                                                right: Dimens.pixel_30,
+                                                top: Dimens.pixel_10,
+                                                child: SvgPicture.asset(
+                                                  Images.ic_map_loc,
+                                                  height: Dimens.pixel_28,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
                                   ],
                                 ),
                               ),
@@ -388,9 +419,8 @@ class _ClientJobDescApprovalsState
                         Row(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(
-                                top: Dimens.pixel_20,
-                              ),
+                              padding:
+                                  const EdgeInsets.only(top: Dimens.pixel_20),
                               child: SvgPicture.asset(
                                 Images.ic_income,
                                 fit: BoxFit.scaleDown,
@@ -458,14 +488,14 @@ class _ClientJobDescApprovalsState
                           ],
                         ),
                         const SizedBox(
-                          height: Dimens.pixel_33,
+                          height: Dimens.pixel_28_point_8,
                         ),
                         kDivider,
                         const SizedBox(
                           height: Dimens.pixel_20,
                         ),
                         Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -479,8 +509,7 @@ class _ClientJobDescApprovalsState
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                        left: Dimens.pixel_6,
-                                      ),
+                                          left: Dimens.pixel_6),
                                       child: Text(
                                         '${jobDesc?.jobParking.toString()}',
                                         style: const TextStyle(
@@ -494,8 +523,7 @@ class _ClientJobDescApprovalsState
                                 ),
                                 const Padding(
                                   padding: EdgeInsets.symmetric(
-                                    horizontal: Dimens.pixel_15,
-                                  ),
+                                      horizontal: Dimens.pixel_15),
                                   child: Text(
                                     '.',
                                     style: TextStyle(
@@ -529,92 +557,42 @@ class _ClientJobDescApprovalsState
                                 ),
                               ],
                             ),
-                            const SizedBox(
-                              // height: Dimens.pixel_12_and_half,
-                              height: Dimens.pixel_32_and_half,
-                            ),
-                            const Text(
-                              Strings.text_candidates,
-                              style: TextStyle(
-                                fontSize: Dimens.pixel_16,
-                                color: AppColors.kDefaultPurpleColor,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: Dimens.pixel_30,
-                            ),
-                            ListView.separated(
+                            Padding(
                               padding: const EdgeInsets.only(
-                                bottom: Dimens.pixel_25,
+                                bottom: Dimens.pixel_40,
+                                top: Dimens.pixel_40,
                               ),
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: jobDesc?.candidates?.length ?? 0,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Card(
-                                  child: ListTile(
-                                    leading: CachedNetworkImage(
-                                      imageUrl:
-                                          '${DataURL.baseUrl}/${jobDesc?.candidates?[index].avatar}',
-                                      imageBuilder: (context, imageProvider) =>
-                                          Container(
-                                        height: Dimens.pixel_40,
-                                        width: Dimens.pixel_40,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          image: DecorationImage(
-                                            image: imageProvider,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
+                              child: widget.currentIndex == 1
+                                  ? ElevatedBtn(
+                                      isLoading: isSignOffLoading,
+                                      btnTitle: Strings.text_sign_off,
+                                      bgColor: AppColors.kDefaultPurpleColor,
+                                      onPressed: isVisibleSignoff == true
+                                          ? () {
+                                              _myJobDescBloc
+                                                  .add(EditTimesheetEvent(
+                                                timesheetId: timeSheetId,
+                                              ));
+                                            }
+                                          : null,
+                                    )
+                                  : Padding(
+                                      padding: const EdgeInsets.only(
+                                        bottom: Dimens.pixel_40,
+                                        top: Dimens.pixel_30,
                                       ),
-                                      placeholder: (context, url) =>
-                                          CircleAvatar(
-                                        child: SizedBox(
-                                          child: SvgPicture.asset(
-                                            Images.ic_person,
-                                            color: Colors.white,
-                                            height: Dimens.pixel_28,
-                                          ),
-                                        ),
-                                      ),
-                                      errorWidget: (context, url, error) =>
-                                          CircleAvatar(
-                                        child: SvgPicture.asset(
-                                          Images.ic_person,
-                                          color: Colors.white,
-                                          height: Dimens.pixel_28,
-                                        ),
+                                      child: ElevatedBtn(
+                                        btnTitle: Strings.text_withdraw,
+                                        bgColor: AppColors.kDefaultPurpleColor,
+                                        isLoading: isWithdrawLoading,
+                                        onPressed: () {
+                                          // event of withdraw job
+                                          _myJobDescBloc.add(WithdrawJobEvent(
+                                            appId: widget.appId,
+                                          ));
+                                        },
                                       ),
                                     ),
-                                    title: Text(
-                                        '${jobDesc?.candidates?[index].fullName}'),
-                                    subtitle: Text(
-                                        '${jobDesc?.candidates?[index].role}'),
-                                    trailing: GestureDetector(
-                                      onTap: () {
-                                        candidateId = jobDesc
-                                            ?.candidates?[index].candidateId;
-                                        debugPrint(
-                                            'this is appID:${jobDesc?.candidates?[index].applicationId}');
-                                        appId =
-                                            '${jobDesc?.candidates?[index].applicationId}';
-                                        showDialogApproveCandidate(context);
-                                      },
-                                      child: SvgPicture.asset(
-                                        Images.ic_approvals,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                              separatorBuilder:
-                                  (BuildContext context, int index) {
-                                return const SizedBox(
-                                  height: Dimens.pixel_10,
-                                );
-                              },
                             ),
                           ],
                         ),

@@ -1,11 +1,7 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'package:clg_project/UI/widgets/title_text.dart';
-import 'package:clg_project/allAPIs/allAPIs.dart';
 import 'package:clg_project/base_Screen_working/base_screen.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/models/candidate_models/job_description_res.dart';
-import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/ui/client_side/client_home_page/client_job_description/bloc/client_job_desc_bloc.dart';
@@ -18,8 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+
 import '../../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../../models/candidate_models/find_job_response.dart';
 import '../../../../../resourse/app_colors.dart';
@@ -55,31 +51,23 @@ class _ClientJobDescriptionState
       child: BlocConsumer<ClientJobDescBloc, ClientJobDescState>(
         listener: (BuildContext context, state) {
           if (state is ShowJobDescLoadingState) {
-            setState(() {
-              isVisible = true;
-            });
+            isVisible = true;
           }
           if (state is ShowJobDescLoadedState) {
             var responseBody = state.response;
             var joDetailResponse =
                 JobDescriptionResponse.fromJson(responseBody);
-            setState(() {
-              jobDesc = joDetailResponse.data;
-              isVisible = false;
-            });
+            jobDesc = joDetailResponse.data;
+            isVisible = false;
           }
           if (state is ShowJobDescErrorState) {
             debugPrint(state.error);
           }
           if (state is RemoveContractLoadingState) {
-            setState(() {
-              isRemoveContractLoading = true;
-            });
+            isRemoveContractLoading = true;
           }
           if (state is RemoveContractLoadedState) {
-            setState(() {
-              isRemoveContractLoading = false;
-            });
+            isRemoveContractLoading = false;
             var responseBody = state.response;
             var basicModel = BasicModel.fromJson(responseBody);
             if (basicModel.code == 200) {

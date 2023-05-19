@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:clg_project/UI/widgets/custom_textfield.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
@@ -15,6 +16,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+
 import '../../../../../allAPIs/allAPIs.dart';
 import '../../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../../resourse/app_colors.dart';
@@ -108,9 +110,7 @@ class _ClientPersonalDetailsState
           BlocConsumer<ClientPersonalDetailsBloc, ClientPersonalDetialsState>(
         listener: (BuildContext context, state) {
           if (state is ShowClientPersonalDetailsLoadingState) {
-            setState(() {
-              isVisible = true;
-            });
+            isVisible = true;
           }
           if (state is ShowClientPersonalDetailsLoadedState) {
             var responseBody = state.response;
@@ -122,33 +122,25 @@ class _ClientPersonalDetailsState
               phoneController.text = personalDetailsResponse?.data?.phone ?? '';
               emailController.text = personalDetailsResponse?.data?.email ?? '';
               netImg = personalDetailsResponse?.data?.avatar.toString();
-              setState(() {
-                isVisible = false;
-                PreferencesHelper.setString(
-                    PreferencesHelper.KEY_CLIENT_AVATAR, netImg!);
-              });
+              isVisible = false;
+              PreferencesHelper.setString(
+                  PreferencesHelper.KEY_CLIENT_AVATAR, netImg!);
             }
           }
           if (state is ShowClientPersonalDetailsErrorState) {
             debugPrint(state.error);
           }
           if (state is UpdateClientDetailsLoadingState) {
-            setState(() {
-              isVisible = true;
-            });
+            isVisible = true;
           }
           if (state is UpdateClientDetailsLoadedState) {
-            setState(() {
-              isVisible = false;
-            });
+            isVisible = false;
             var responseBody = state.response;
             var updateDetailsResponse = BasicModel.fromJson(responseBody);
             if (updateDetailsResponse.code == 200) {
               print('data updated successfully');
-              setState(() {
-                PreferencesHelper.setString(
-                    PreferencesHelper.KEY_CLIENT_NAME, fnameController.text);
-              });
+              PreferencesHelper.setString(
+                  PreferencesHelper.KEY_CLIENT_NAME, fnameController.text);
               Fluttertoast.showToast(
                 msg: "${updateDetailsResponse.message}",
                 toastLength: Toast.LENGTH_SHORT,
@@ -165,14 +157,10 @@ class _ClientPersonalDetailsState
             debugPrint(state.error);
           }
           if (state is UploadFileToServerLoadingState) {
-            setState(() {
-              isProfileLoading = true;
-            });
+            isProfileLoading = true;
           }
           if (state is UploadFileToServerLoadedState) {
-            setState(() {
-              isProfileLoading = false;
-            });
+            isProfileLoading = false;
             var responseBody = state.response;
             var uploadProfileResponse = BasicModel.fromJson(responseBody);
             if (uploadProfileResponse.code == 200) {

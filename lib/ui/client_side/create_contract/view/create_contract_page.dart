@@ -16,6 +16,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
 import '../../../../resourse/app_colors.dart';
 import '../../../../resourse/dimens.dart';
 import '../../../../resourse/strings.dart';
@@ -226,7 +227,9 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
         return Dialog(
           insetPadding: const EdgeInsets.symmetric(horizontal: Dimens.pixel_16),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(Dimens.pixel_6),
+            borderRadius: BorderRadius.circular(
+              Dimens.pixel_6,
+            ),
           ),
           child: SizedBox(
             height: Dimens.pixel_469,
@@ -249,8 +252,9 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                 ),
                 Expanded(
                   child: Padding(
-                    padding:
-                        const EdgeInsets.only(top: Dimens.pixel_48_and_half),
+                    padding: const EdgeInsets.only(
+                      top: Dimens.pixel_48_and_half,
+                    ),
                     child: ListView.builder(
                       itemCount: selectBreakTimeList.length,
                       physics: const BouncingScrollPhysics(),

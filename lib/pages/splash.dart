@@ -1,13 +1,14 @@
 import 'dart:async';
-import 'package:clg_project/ui/candidate_side/candidate_main_page.dart';
+
 import 'package:clg_project/pages/welcome_screen.dart';
+import 'package:clg_project/resourse/app_colors.dart';
 import 'package:clg_project/resourse/dimens.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
 import 'package:clg_project/resourse/strings.dart';
+import 'package:clg_project/ui/candidate_side/candidate_main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../resourse/app_colors.dart';
 import '../ui/client_side/client_main_page.dart';
 
 class Splash extends StatefulWidget {
@@ -58,15 +59,27 @@ class SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.kDefaultPurpleColor.withOpacity(0.8),
-      body: Center(
-        child: Text(
-          Strings.text_healthmate,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: Dimens.pixel_25,
-            letterSpacing: Dimens.pixel_1,
-            fontWeight: FontWeight.w500,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              AppColors.kYellowColor.withOpacity(0.8),
+              AppColors.kDefaultPurpleColor.withOpacity(0.8),
+              AppColors.kredColor.withOpacity(0.8),
+            ],
+          ),
+        ),
+        child: Center(
+          child: Text(
+            Strings.text_healthmate,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: Dimens.pixel_25,
+              letterSpacing: Dimens.pixel_2,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
       ),

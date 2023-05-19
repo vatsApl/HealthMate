@@ -1,6 +1,6 @@
-import 'package:clg_project/ui/client_side/job_cards/job_card_with_status.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/ui/client_side/client_verification_pages/job_invoices/bloc/invoice_state.dart';
+import 'package:clg_project/ui/client_side/job_cards/job_card_with_status.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,14 +42,10 @@ class _InvoicesState extends State<Invoices> {
           pageValue: page,
           status: '3',
         ));
-        setState(() {
-          isLoadingMore = true;
-        });
+        isLoadingMore = true;
       }
     } else {
-      setState(() {
-        isLoadingMore = false;
-      });
+      isLoadingMore = false;
     }
   }
 
@@ -175,35 +171,27 @@ class _InvoicesState extends State<Invoices> {
         listener: (BuildContext context, state) {
           if (state is InvoiceLoadingState) {
             if (page == 1) {
-              setState(() {
-                isVisible = true;
-              });
+              isVisible = true;
             }
           }
           if (state is InvoiceLoadedState) {
             var responseBody = state.response;
             var invoiceJobResponse = FindJobResponse.fromJson(responseBody);
             if (invoiceJobResponse.code == 200) {
-              setState(() {
-                page = invoiceJobResponse.lastPage!;
-                jobs.addAll(invoiceJobResponse.data ?? []);
-                isLoadingMore = false;
-                isVisible = false;
-              });
+              page = invoiceJobResponse.lastPage!;
+              jobs.addAll(invoiceJobResponse.data ?? []);
+              isLoadingMore = false;
+              isVisible = false;
             }
           }
           if (state is InvoiceErrorState) {
             debugPrint(state.error);
           }
           if (state is MarkAsPaidLoadingState) {
-            setState(() {
-              markAsPaidLoading = true;
-            });
+            markAsPaidLoading = true;
           }
           if (state is MarkAsPaidLoadedState) {
-            setState(() {
-              markAsPaidLoading = false;
-            });
+            markAsPaidLoading = false;
             var responseBody = state.response;
             Navigator.pop(context);
           }

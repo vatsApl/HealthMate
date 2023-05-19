@@ -57,14 +57,10 @@ class _JobDescriptionWithStatusState
       child: BlocConsumer<TimesheetDescBloc, TimesheetDescState>(
         listener: (BuildContext context, state) {
           if (state is TimesheetDescLoadingState) {
-            setState(() {
-              isVisible = true;
-            });
+            isVisible = true;
           }
           if (state is TimesheetDescLoadedState) {
-            setState(() {
-              isVisible = false;
-            });
+            isVisible = false;
             var responseBody = state.response;
             var joDetailResponse =
                 JobDescriptionResponse.fromJson(responseBody);

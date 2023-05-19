@@ -12,7 +12,6 @@ class AppliedJobBloc extends Bloc<AppliedJobEvent, AppliedJobState> {
         emit(ShowAppliedJobLoadingState());
         try {
           var response = await _appliedJobRepository.appliedJobApi(
-            params: event.params,
             pageValue: event.pageValue,
           );
           emit(ShowAppliedJobLoadedState(response));

@@ -1,13 +1,14 @@
 import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/ui/client_side/client_verification_pages/job_timesheets/bloc/timesheet_state.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import '../../../job_cards/job_card_with_status.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../../constants.dart';
 import '../../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../../models/candidate_models/find_job_response.dart';
 import '../../../../../resourse/dimens.dart';
+import '../../../job_cards/job_card_with_status.dart';
 import '../bloc/timesheet_bloc.dart';
 import '../bloc/timesheet_event.dart';
 import '../job_timesheet_desc/view/timesheet_desc_with_status.dart';
@@ -34,14 +35,10 @@ class _TimeSheetsState extends State<TimeSheets> {
           pageValue: page,
           status: '2',
         ));
-        setState(() {
-          isLoadingMore = true;
-        });
+        isLoadingMore = true;
       }
     } else {
-      setState(() {
-        isLoadingMore = false;
-      });
+      isLoadingMore = false;
     }
   }
 
@@ -65,21 +62,17 @@ class _TimeSheetsState extends State<TimeSheets> {
         listener: (BuildContext context, state) {
           if (state is TimesheetLoadingState) {
             if (page == 1) {
-              setState(() {
                 isVisible = true;
-              });
             }
           }
           if (state is TimesheetLoadedState) {
             var responseBody = state.response;
             var timesheetJobResponse = FindJobResponse.fromJson(responseBody);
             if (timesheetJobResponse.code == 200) {
-              setState(() {
                 page = timesheetJobResponse.lastPage!;
                 jobs.addAll(timesheetJobResponse.data ?? []);
                 isLoadingMore = false;
                 isVisible = false;
-              });
             }
           }
           if (state is TimesheetErrorState) {

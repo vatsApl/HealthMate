@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+
 import '../../../../constants.dart';
 import '../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../custom_widgets/index_notifier.dart';
@@ -83,19 +84,15 @@ class _ClientHomePageState extends State<ClientHomePage> {
         child: BlocConsumer<ClientHomeBloc, ClientHomeState>(
           listener: (BuildContext context, state) {
             if (state is ClientHomeLoadingState) {
-              setState(() {
-                isVisible = true;
-              });
+              isVisible = true;
             }
             if (state is ClientHomeLoadedState) {
               var responseBody = state.response;
               clientJobResponse = ClientJobModel.fromJson(responseBody);
               clientJobResponse2 = ClientJobModel.fromJson(responseBody);
               if (clientJobResponse.code == 200) {
-                setState(() {
-                  clientJobs.addAll(clientJobResponse.data ?? []);
-                  isVisible = false;
-                });
+                clientJobs.addAll(clientJobResponse.data ?? []);
+                isVisible = false;
               }
             }
           },

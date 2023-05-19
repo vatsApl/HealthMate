@@ -1,4 +1,3 @@
-import 'package:clg_project/ui/candidate_side/candidate_home_page/candidate_job_description/view/job_description.dart';
 import 'package:clg_project/UI/widgets/candidate_card_top.dart';
 import 'package:clg_project/UI/widgets/custom_appbar.dart';
 import 'package:clg_project/UI/widgets/job_card_home_page.dart';
@@ -7,11 +6,13 @@ import 'package:clg_project/models/candidate_models/find_job_response.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
 import 'package:clg_project/ui/candidate_side/candidate_home_page/bloc/candidate_home_page_state.dart';
+import 'package:clg_project/ui/candidate_side/candidate_home_page/candidate_job_description/view/job_description.dart';
 import 'package:clg_project/ui/candidate_side/candidate_home_page/repo/candidate_home_page_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+
 import '../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../custom_widgets/index_notifier.dart';
 import '../../../../resourse/dimens.dart';
@@ -94,23 +95,17 @@ class _CandidateHomePageState extends State<CandidateHomePage> {
           child: BlocConsumer<CandidateHomePageBloc, CandidateHomePageState>(
             listener: (BuildContext context, state) {
               if (state is CandidateHomePageLoadingState) {
-                setState(() {
-                  isVisible = true;
-                });
+                isVisible = true;
               }
               if (state is CandidateHomePageLoadedState) {
                 var responseBody = state.response;
                 var homePageResponse = FindJobResponse.fromJson(responseBody);
                 homePageResponse2 = FindJobResponse.fromJson(responseBody);
-                setState(() {
-                  isVisible = false;
-                });
+                isVisible = false;
                 if (homePageResponse.code == 200) {
                   isLastPage = homePageResponse.isLastPage;
-                  setState(() {
-                    jobsHome.addAll(homePageResponse.data ?? []);
-                    isLoadingMore = false;
-                  });
+                  jobsHome.addAll(homePageResponse.data ?? []);
+                  isLoadingMore = false;
                 } else {
                   homePageResponse3 = FindJobResponse.fromJson(responseBody);
                 }

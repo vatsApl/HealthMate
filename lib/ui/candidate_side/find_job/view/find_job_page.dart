@@ -1,7 +1,7 @@
-import 'package:clg_project/ui/candidate_side/candidate_home_page/candidate_job_description/view/job_description.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/models/candidate_models/find_job_response.dart';
 import 'package:clg_project/resourse/strings.dart';
+import 'package:clg_project/ui/candidate_side/candidate_home_page/candidate_job_description/view/job_description.dart';
 import 'package:clg_project/ui/candidate_side/find_job/bloc/find_job_bloc.dart';
 import 'package:clg_project/ui/candidate_side/find_job/bloc/find_job_state.dart';
 import 'package:clg_project/ui/candidate_side/find_job/repo/find_job_repository.dart';
@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+
 import '../../../../UI/widgets/job_card_home_page.dart';
 import '../../../../constants.dart';
 import '../../../../custom_widgets/custom_widget_helper.dart';
@@ -33,60 +34,13 @@ class _FindJobPageState extends State<FindJobPage> {
       if (page != 0) {
         // event of show find jobs
         _findJobBloc.add(ShowFindJobEvent(pageValue: page));
-        page++;
-        setState(() {
-          isLoadingMore = true;
-        });
+        // page++;
+        isLoadingMore = true;
       }
     } else {
-      setState(() {
-        isLoadingMore = false;
-      });
+      isLoadingMore = false;
     }
   }
-
-  // // Candidate find job api:
-  // Future<void> findJobCandidateApi(int pageValue) async {
-  //   final queryParameters = {
-  //     'page': pageValue.toString(),
-  //   };
-  //   String url = ApiUrl.findJobCandidateApi(uId);
-  //   var urlParsed = Uri.parse(url);
-  //   final urlName = urlParsed.replace(queryParameters: queryParameters);
-  //   try {
-  //     setState(() {
-  //       isVisible = true;
-  //     });
-  //     var response = await http.get(urlName);
-  //     // log('find job log:${response.body}');
-  //     if (response.statusCode == 200) {
-  //       var json = jsonDecode(response.body);
-  //       var findJobResponse = FindJobResponse.fromJson(json);
-  //       setState(() {
-  //         page = findJobResponse.lastPage!;
-  //       });
-  //       // pagination with url
-  //       // var headerPagination = HeaderPagination.fromJson(headerDecoded);
-  //       // page = headerPagination.nextPage ?? 1;
-  //       // var headerDecoded =
-  //       //     jsonDecode(response.headers['x-pagination'].toString());
-  //       // print('HEADERS: ${response.headers['x-pagination']}');
-  //       setState(() {
-  //         isVisible = false;
-  //         isLoadingMore = false;
-  //         jobs.addAll(findJobResponse.data ?? []);
-  //       });
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //     setState(() {
-  //       isVisible = false;
-  //     });
-  //   }
-  //   setState(() {
-  //     isVisible = false;
-  //   });
-  // }
 
   @override
   void initState() {
@@ -118,9 +72,7 @@ class _FindJobPageState extends State<FindJobPage> {
             listener: (BuildContext context, state) {
               if (state is FindJobLoadingState) {
                 if (page == 1) {
-                  setState(() {
-                    isVisible = true;
-                  });
+                  isVisible = true;
                 }
               }
               if (state is FindJobLoadedState) {
@@ -133,13 +85,11 @@ class _FindJobPageState extends State<FindJobPage> {
                   // var headerDecoded =
                   //     jsonDecode(response.headers['x-pagination'].toString());
                   // print('HEADERS: ${response.headers['x-pagination']}');
-                  setState(() {
-                    page = findJobResponse.lastPage ?? 0;
-                    jobs.addAll(findJobResponse.data ?? []);
-                    // print('condition page: $page');
-                    isVisible = false;
-                    isLoadingMore = false;
-                  });
+                  page = findJobResponse.lastPage ?? 0;
+                  // print('find job page 200: $page');
+                  jobs.addAll(findJobResponse.data ?? []);
+                  isVisible = false;
+                  isLoadingMore = false;
                 }
               }
               if (state is FindJobErrorState) {

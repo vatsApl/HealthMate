@@ -38,6 +38,10 @@ class ApiUrl {
     return "${DataURL.baseUrl}/api/timesheet/$timeSheetId/edit";
   }
 
+  static String updateTimesheetApi(int? timeSheetId) {
+    return "${DataURL.baseUrl}/api/timesheet/$timeSheetId";
+  }
+
   static String personalDetailsApi(String uId) {
     return "${DataURL.baseUrl}/api/candidate/$uId/index";
   }

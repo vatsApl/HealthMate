@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:focus_detector/focus_detector.dart';
+
 import '../../../../../resourse/app_colors.dart';
 import '../../../../../resourse/dimens.dart';
 import '../../../../../resourse/images.dart';
@@ -49,35 +50,27 @@ class _ClientAddressesState extends BasePageScreenState<ClientAddresses>
       child: BlocConsumer<ClientAddressBloc, ClientAddressState>(
         listener: (BuildContext context, state) {
           if (state is ClientAddressLoadingState) {
-            setState(() {
-              isVisible = true;
-            });
+            isVisible = true;
           }
           if (state is ClientAddressLoadedState) {
             var responseBody = state.response;
             var clientAddressResponse = AddressesModel.fromJson(responseBody);
             if (clientAddressResponse.code == 200) {
-              setState(() {
-                isVisible = false;
-                address = clientAddressResponse.address;
-              });
+              isVisible = false;
+              address = clientAddressResponse.address;
             }
           }
           if (state is ClientAddressErrorState) {
             debugPrint(state.error);
           }
           if (state is SetAsDefaultAddressLoadingState) {
-            setState(() {
-              showLoader = true;
-            });
+            showLoader = true;
           }
           if (state is SetAsDefaultAddressLoadedState) {
             var responseBody = state.response;
             var setAsDefaultAddressResponse = BasicModel.fromJson(responseBody);
             if (setAsDefaultAddressResponse.code == 200) {
-              setState(() {
-                showLoader = false;
-              });
+              showLoader = false;
               Fluttertoast.showToast(
                 msg: "${setAsDefaultAddressResponse.message}",
                 toastLength: Toast.LENGTH_SHORT,
@@ -99,14 +92,10 @@ class _ClientAddressesState extends BasePageScreenState<ClientAddresses>
             debugPrint(state.error);
           }
           if (state is RemoveAddressLoadingState) {
-            setState(() {
-              showLoader = true;
-            });
+            showLoader = true;
           }
           if (state is RemoveAddressLoadedState) {
-            setState(() {
-              showLoader = false;
-            });
+            showLoader = false;
             var responseBody = state.response;
             var removeAddressResponse = BasicModel.fromJson(responseBody);
             if (removeAddressResponse.code == 200) {

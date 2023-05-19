@@ -1,16 +1,19 @@
 import 'package:clg_project/UI/widgets/job_card_home_page.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/ui/candidate_side/myJobs/applied_job/bloc/applied_job_bloc.dart';
+import 'package:clg_project/ui/candidate_side/myJobs/applied_job/bloc/applied_job_state.dart';
 import 'package:clg_project/ui/candidate_side/myJobs/applied_job/repo/applied_job_repo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../UI/job_description_my_jobs.dart';
 import '../../../../../constants.dart';
+import '../../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../../models/candidate_models/find_job_response.dart';
 import '../../../../../resourse/app_colors.dart';
 import '../../../../../resourse/dimens.dart';
-import '../../../../../resourse/shared_prefs.dart';
+import '../bloc/applied_job_event.dart';
+import '../my_job_desc/view/job_description_my_jobs.dart';
 
 class AppliedJob extends StatefulWidget {
   @override
@@ -18,7 +21,6 @@ class AppliedJob extends StatefulWidget {
 }
 
 class _AppliedJobState extends State<AppliedJob> {
-  var uId = PreferencesHelper.getString(PreferencesHelper.KEY_USER_ID);
   int page = 1;
   final scrollController = ScrollController();
   List<JobModel> jobs = [];
@@ -29,8 +31,10 @@ class _AppliedJobState extends State<AppliedJob> {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
       if (page != 0) {
-        // appliedJobApi(page);
-        // todo: add event here also of show applied job
+        // event of show applied job
+        _AppliedJobBloc.add(ShowAppliedJobEvent(
+          pageValue: page,
+        ));
         setState(() {
           isLoadingMore = true;
         });
@@ -42,57 +46,84 @@ class _AppliedJobState extends State<AppliedJob> {
     }
   }
 
-  // // applied job api:
-  // Future<void> appliedJobApi(int pageValue) async {
-  //   final queryParameters = {
-  //     'page': pageValue.toString(),
-  //   };
-  //   try {
-  //     setState(() {
-  //       isLoadingMore = true;
-  //     });
-  //     String url = ApiUrl.myJobsApi;
-  //     var urlParsed = Uri.parse(url);
-  //     var response = await http
-  //         .post(urlParsed.replace(queryParameters: queryParameters), body: {
-  //       'candidate_id': uId,
-  //       'status': '1',
-  //     });
-  //     // log(response.body);
-  //     if (response.statusCode == 200) {
-  //       var json = jsonDecode(response.body);
-  //       var appliedJobResponse = FindJobResponse.fromJson(json);
-  //       print('${json['message']}');
-  //       setState(() {
-  //         isLoadingMore = false;
-  //         page = appliedJobResponse.lastPage!;
-  //         jobs.addAll(appliedJobResponse.data ?? []);
-  //       });
-  //     }
-  //   } catch (e) {
-  //     throw Exception(e.toString());
-  //   }
-  // }
-
   @override
   void initState() {
     super.initState();
     setState(() {
       scrollController.addListener(scrollListener);
-      // appliedJobApi(page);
-      // todo: add event of show applied job
+      // event of show applied job
+      _AppliedJobBloc.add(ShowAppliedJobEvent(
+        pageValue: page,
+      ));
     });
   }
 
   final _AppliedJobBloc = AppliedJobBloc(AppliedJobRepository());
-  //reached here
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        children: [
-          Expanded(
+    return BlocProvider<AppliedJobBloc>(
+      create: (BuildContext context) => _AppliedJobBloc,
+      child: BlocConsumer<AppliedJobBloc, AppliedJobState>(
+        listener: (BuildContext context, state) {
+          if (state is ShowAppliedJobLoadingState) {
+            if (page == 1) {
+              setState(() {
+                isVisible = true;
+              });
+            }
+          }
+          if (state is ShowAppliedJobLoadedState) {
+            var responseBody = state.response;
+            var appliedJobResponse = FindJobResponse.fromJson(responseBody);
+            // print('${appliedJobResponse.message}');
+            if (appliedJobResponse.code == 200) {
+              setState(() {
+                page = appliedJobResponse.lastPage ?? 0;
+                print('page from code 200: $page');
+                jobs.addAll(appliedJobResponse.data ?? []);
+                isVisible = false;
+                isLoadingMore = false;
+              });
+            }
+          }
+          if (state is ShowApliedJobErrorState) {
+            debugPrint(state.error);
+          }
+        },
+        builder: (BuildContext context, Object? state) {
+          return isVisible
+              ? Flexible(child: CustomWidgetHelper.Loader(context: context))
+              : Flexible(
+                  child: Column(
+                    children: [
+                      appliedJobList(),
+                      Visibility(
+                        visible: isLoadingMore,
+                        child: const CupertinoActivityIndicator(
+                          color: AppColors.kDefaultPurpleColor,
+                          radius: Dimens.pixel_15,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+        },
+      ),
+    );
+  }
+
+  appliedJobList() {
+    return jobs.isEmpty
+        ? Flexible(
+            child: Center(
+              child: Text(
+                Strings.text_no_applied_found,
+                style: kDefaultEmptyFieldTextStyle,
+              ),
+            ),
+          )
+        : Flexible(
             child: ListView.separated(
               controller: scrollController,
               padding: EdgeInsets.symmetric(
@@ -128,30 +159,6 @@ class _AppliedJobState extends State<AppliedJob> {
                 );
               },
             ),
-          ),
-          jobs.isEmpty
-              ? Wrap(
-                  children: const [
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: Dimens.pixel_250,
-                      ),
-                      child: Text(
-                        Strings.text_no_applied_found,
-                        style: kDefaultEmptyFieldTextStyle,
-                      ),
-                    ),
-                  ],
-                )
-              : Visibility(
-                  visible: isVisible,
-                  child: const CupertinoActivityIndicator(
-                    color: AppColors.kDefaultPurpleColor,
-                    radius: Dimens.pixel_15,
-                  ),
-                ),
-        ],
-      ),
-    );
+          );
   }
 }

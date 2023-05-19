@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/base_Screen_working/base_screen.dart';
 import 'package:clg_project/constants.dart';
@@ -15,10 +13,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
+
 import '../../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../../models/candidate_models/find_job_response.dart';
-import '../../../../../resourse/api_urls.dart';
 import '../../../../../resourse/app_colors.dart';
 import '../../../../../resourse/dimens.dart';
 import '../../../../../resourse/shared_prefs.dart';
@@ -41,37 +38,6 @@ class _JobDescriptionState extends BasePageScreenState<JobDescription>
   var uId = PreferencesHelper.getString(PreferencesHelper.KEY_USER_ID);
   var uIdInt = PreferencesHelper.getInt(PreferencesHelper.KEY_USER_ID_INT);
 
-  // // job desc api
-  // Future<void> jobDescriptionApi() async {
-  //   setState(() {
-  //     isVisible = true;
-  //   });
-  //   String url = ApiUrl.jobDescriptionApi(widget.jobId);
-  //   var urlParsed = Uri.parse(url);
-  //   var response = await http.get(urlParsed);
-  //   try {
-  //     setState(() {
-  //       isVisible = true;
-  //     });
-  //     log('DESC:${response.body}');
-  //     if (response.statusCode == 200) {
-  //       var json = jsonDecode(response.body);
-  //       setState(() {
-  //         var joDetailResponse = JobDescriptionResponse.fromJson(json);
-  //         jobDesc = joDetailResponse.data;
-  //       });
-  //     }
-  //   } catch (e) {
-  //     print(e.toString());
-  //     setState(() {
-  //       isVisible = false;
-  //     });
-  //   }
-  //   setState(() {
-  //     isVisible = false;
-  //   });
-  // }
-
   @override
   void initState() {
     super.initState();
@@ -87,33 +53,25 @@ class _JobDescriptionState extends BasePageScreenState<JobDescription>
       child: BlocConsumer<JobDescBloc, JobDescState>(
         listener: (BuildContext context, state) {
           if (state is JobDescLoadingState) {
-            setState(() {
-              isVisible = true;
-            });
+            isVisible = true;
           }
           if (state is JobDescLoadedState) {
             var responseBody = state.response;
             var joDetailResponse =
                 JobDescriptionResponse.fromJson(responseBody);
             if (joDetailResponse.code == 200) {
-              setState(() {
-                jobDesc = joDetailResponse.data;
-                isVisible = false;
-              });
+              jobDesc = joDetailResponse.data;
+              isVisible = false;
             }
           }
           if (state is JobDescErrorState) {
             debugPrint(state.error);
           }
           if (state is ApplyJobLoadingState) {
-            setState(() {
-              isLoading = true;
-            });
+            isLoading = true;
           }
           if (state is ApplyJobLoadedState) {
-            setState(() {
-              isLoading = false;
-            });
+            isLoading = false;
             var responseBody = state.response;
             var basicModel = BasicModel.fromJson(responseBody);
             if (basicModel.code == 200) {
