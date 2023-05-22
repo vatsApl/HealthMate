@@ -1,4 +1,3 @@
-import 'package:clg_project/UI/map_screen.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/base_Screen_working/base_screen.dart';
 import 'package:clg_project/constants.dart';
@@ -52,42 +51,6 @@ class _JobDescriptionMyJobsState
   var endTimeCon;
   var uId = PreferencesHelper.getString(PreferencesHelper.KEY_USER_ID);
   var uIdInt = PreferencesHelper.getInt(PreferencesHelper.KEY_USER_ID_INT);
-
-  // // Edit Timesheet api:
-  // Future<void> editTimesheetApi() async {
-  //   setState(() {
-  //     isVisible = true;
-  //   });
-  //   String url = ApiUrl.editTimesheetApi(timeSheetId);
-  //   var urlParsed = Uri.parse(url);
-  //   var response = await http.get(urlParsed);
-  //   try {
-  //     setState(() {
-  //       isVisible = true;
-  //     });
-  //     log('Edit Timesheet:${response.body}');
-  //     if (response.statusCode == 200) {
-  //       var json = jsonDecode(response.body);
-  //       print(json['message']);
-  //       setState(() {
-  //         Navigator.push(
-  //           context,
-  //           MaterialPageRoute(
-  //             builder: (context) => SignOffPage(timeSheetId: timeSheetId),
-  //           ),
-  //         );
-  //       });
-  //     }
-  //   } catch (e) {
-  //     print(e.toString());
-  //     setState(() {
-  //       isVisible = false;
-  //     });
-  //   }
-  //   setState(() {
-  //     isVisible = false;
-  //   });
-  // }
 
   @override
   void initState() {
@@ -152,8 +115,8 @@ class _JobDescriptionMyJobsState
             if (joDetailResponse.code == 200) {
               jobDesc = joDetailResponse.data;
               jobDate = jobDesc?.jobDate;
-              lat = jobDesc?.cordinates?.latitude;
-              long = jobDesc?.cordinates?.longtitude;
+              // lat = jobDesc?.cordinates?.latitude;
+              // long = jobDesc?.cordinates?.longtitude;
               DateTime currentDate = DateTime.now();
               currentDateFormatted =
                   DateFormat('dd-MM-yyyy').format(currentDate);
@@ -309,15 +272,16 @@ class _JobDescriptionMyJobsState
                                     if (widget.currentIndex == 1)
                                       GestureDetector(
                                         onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => MapScreen(
-                                                lat: lat,
-                                                long: long,
-                                              ),
-                                            ),
-                                          );
+                                          // Map functionality not implemented.
+                                          // Navigator.push(
+                                          //   context,
+                                          //   MaterialPageRoute(
+                                          //     builder: (context) => MapScreen(
+                                          //       lat: lat,
+                                          //       long: long,
+                                          //     ),
+                                          //   ),
+                                          // );
                                         },
                                         child: ClipRRect(
                                           borderRadius: BorderRadius.circular(
@@ -569,6 +533,7 @@ class _JobDescriptionMyJobsState
                                       bgColor: AppColors.kDefaultPurpleColor,
                                       onPressed: isVisibleSignoff == true
                                           ? () {
+                                              // event of Edit Timesheet
                                               _myJobDescBloc
                                                   .add(EditTimesheetEvent(
                                                 timesheetId: timeSheetId,

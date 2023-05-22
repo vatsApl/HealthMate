@@ -1,6 +1,7 @@
 class Dimens {
   static const pixel_0 = 0.0;
   static const pixel_0_point_1 = 0.1;
+  static const pixel_0_point_4 = 0.4;
   static const pixel_half = 0.5;
   static const pixel_0_point_6 = 0.6;
   static const pixel_0_point_8 = 0.8;

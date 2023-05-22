@@ -1,11 +1,11 @@
-class ClientAddressesSingleResponse {
+class ClientSingleAddressResponse {
   String? message;
   int? code;
   Address? address;
 
-  ClientAddressesSingleResponse({this.message, this.code, this.address});
+  ClientSingleAddressResponse({this.message, this.code, this.address});
 
-  ClientAddressesSingleResponse.fromJson(Map<String, dynamic> json) {
+  ClientSingleAddressResponse.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     code = json['code'];
     address =

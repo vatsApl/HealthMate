@@ -10,12 +10,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../../base_Screen_working/base_screen.dart';
 import '../../../../../../constants.dart';
 import '../../../../../../resourse/app_colors.dart';
 import '../../../../../../resourse/dimens.dart';
 import '../../../../../client_side/client_home_page/client_job_description/model/basic_model.dart';
+import '../../../../candidate_home_page/view/candidate_home_page.dart';
+import '../../../../candidate_main_page.dart';
 import '../bloc/sign_off_event.dart';
 
 class SignOffPage extends BasePageScreen {
@@ -46,55 +49,6 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage>
   TextEditingController endTimeController = TextEditingController();
   TextEditingController breakController = TextEditingController();
   TextEditingController unitController = TextEditingController();
-
-  // // UpdateTimesheet Api:
-  // Future<void> updateTimesheetApi() async {
-  //   setState(() {
-  //     isVisible = true;
-  //   });
-  //   String url = ApiUrl.updateTimesheetApi(widget.timeSheetId);
-  //   var response = await http.patch(Uri.parse(url), body: {
-  //     'start_time': startTimeController.text,
-  //     'end_time': endTimeController.text,
-  //     'break_time': breakController.text,
-  //     'units': unit.toString(),
-  //   });
-  //   try {
-  //     setState(() {
-  //       isVisible = true;
-  //     });
-  //     if (response.statusCode == 200) {
-  //       log('Update Timesheet:${response.body}');
-  //       var json = jsonDecode(response.body);
-  //       print(json['message']);
-  //       Fluttertoast.showToast(
-  //         msg: "${json['message']}",
-  //         toastLength: Toast.LENGTH_SHORT,
-  //         gravity: ToastGravity.BOTTOM,
-  //         timeInSecForIosWeb: 1,
-  //         backgroundColor: json['code'] == 200 ? Colors.green : Colors.red,
-  //         textColor: Colors.white,
-  //         fontSize: 16.0,
-  //       );
-  //       setState(() {
-  //         Navigator.push(
-  //           context,
-  //           MaterialPageRoute(
-  //             builder: (context) => BookedJob(),
-  //           ),
-  //         );
-  //       });
-  //     }
-  //   } catch (e) {
-  //     print(e.toString());
-  //     setState(() {
-  //       isVisible = false;
-  //     });
-  //   }
-  //   setState(() {
-  //     isVisible = false;
-  //   });
-  // }
 
   Future<void> selectBreakTimeDialog() async {
     return showDialog<void>(
@@ -171,10 +125,26 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage>
                                     setState(() {
                                       selectedBreakTime = value;
                                       breakController.text = selectedBreakTime!;
-                                      calculateUnitTwo(
-                                        startTimeController.text,
-                                        endTimeController.text,
-                                      );
+                                      if (startTimeController.text == '' &&
+                                          endTimeController.text == '') {
+                                        Fluttertoast.showToast(
+                                          msg:
+                                              "Please select start time & end time first, after re-select break time",
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: Colors.red,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0,
+                                        );
+                                      }
+                                      if (startTimeController.text != '' &&
+                                          endTimeController.text != '') {
+                                        calculateUnitTwo(
+                                          startTimeController.text,
+                                          endTimeController.text,
+                                        );
+                                      }
                                       selectedBreaktimeIndex =
                                           selectBreakTimeList
                                               .indexOf('$selectedBreakTime');
@@ -245,25 +215,19 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage>
                 textColor: Colors.white,
                 fontSize: 16.0,
               );
-              // Navigator.pushReplacement(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) =>
-              //     ChangeNotifierProvider<ValueNotifier<int>>.value(
-              //       value: ValueNotifier<int>(0),
-              //       child: signinResponse.type == 2
-              //           ? CandidateMainPage()
-              //           : ClientMainPage(),
-              //     ),
-              //   ),
-              // );
-              ///todo: working on navigator after sign off
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => BookedJob(),
-              //   ),
-              // );
+
+              CandidateHomePage.tabIndexNotifier.value =
+                  1; // this is for set index 1 of my jobs page
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      ChangeNotifierProvider<ValueNotifier<int>>.value(
+                    value: ValueNotifier<int>(2),
+                    child: CandidateMainPage(),
+                  ),
+                ),
+              );
             } else {
               Fluttertoast.showToast(
                 msg: "${basicModel.message}",
@@ -285,8 +249,8 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage>
             padding: const EdgeInsets.fromLTRB(
               Dimens.pixel_16,
               Dimens.pixel_27_point_67,
-              Dimens.pixel_6,
-              Dimens.pixel_6,
+              Dimens.pixel_16,
+              Dimens.pixel_16,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -470,6 +434,7 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage>
                                   child: TextFormField(
                                     style: const TextStyle(
                                       height: Dimens.pixel_1,
+                                      color: AppColors.klabelColor,
                                     ),
                                     controller: breakController,
                                     keyboardType: TextInputType.number,
@@ -580,8 +545,6 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage>
                   bgColor: AppColors.kDefaultPurpleColor,
                   isLoading: isVisible,
                   onPressed: () {
-                    // update timesheet api call:
-                    // updateTimesheetApi();
                     // todo: add event updateTimesheet
                     var params = {
                       'start_time': startTimeController.text,

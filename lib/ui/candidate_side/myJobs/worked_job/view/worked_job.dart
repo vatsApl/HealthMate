@@ -1,20 +1,22 @@
 import 'dart:convert';
 import 'dart:developer';
+
 import 'package:clg_project/UI/widgets/job_card_home_page.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:focus_detector/focus_detector.dart';
-import '../../UI/job_description_with_Status_candidate.dart';
-import '../../allAPIs/allAPIs.dart';
 import 'package:http/http.dart' as http;
-import '../../constants.dart';
-import '../../models/candidate_models/find_job_response.dart';
-import '../../models/candidate_models/show_amount_status_model_worked_job.dart';
-import '../../resourse/api_urls.dart';
-import '../../resourse/app_colors.dart';
-import '../../resourse/dimens.dart';
-import '../../resourse/shared_prefs.dart';
+
+import '../../../../../UI/job_description_with_Status_candidate.dart';
+import '../../../../../allAPIs/allAPIs.dart';
+import '../../../../../constants.dart';
+import '../../../../../models/candidate_models/find_job_response.dart';
+import '../../../../../models/candidate_models/show_amount_status_model_worked_job.dart';
+import '../../../../../resourse/api_urls.dart';
+import '../../../../../resourse/app_colors.dart';
+import '../../../../../resourse/dimens.dart';
+import '../../../../../resourse/shared_prefs.dart';
 
 class WorkedJob extends StatefulWidget {
   @override
@@ -33,6 +35,7 @@ class _WorkedJobState extends State<WorkedJob> {
   bool isVisibleAmountStatus = true;
   showAmountStatus() {
     Future.delayed(Duration(seconds: 3)).then((value) {
+      // todo: check this run after dispose
       setState(() {
         isVisibleAmountStatus = false;
       });

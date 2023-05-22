@@ -1,12 +1,13 @@
-import 'package:clg_project/ui/candidate_side/candidate_home_page/view/candidate_home_page.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
-import 'package:clg_project/ui/candidate_side/myJobs/applied_job/view/applied_job.dart';
-import 'package:clg_project/bottom_navigation/find_job/booked_job.dart';
-import 'package:clg_project/bottom_navigation/find_job/worked_job.dart';
 import 'package:clg_project/resourse/strings.dart';
+import 'package:clg_project/ui/candidate_side/candidate_home_page/view/candidate_home_page.dart';
+import 'package:clg_project/ui/candidate_side/myJobs/applied_job/view/applied_job.dart';
+import 'package:clg_project/ui/candidate_side/myJobs/booked_job/view/booked_job.dart';
+import 'package:clg_project/ui/candidate_side/myJobs/worked_job/view/worked_job.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+
 import '../../../resourse/app_colors.dart';
 import '../../../resourse/dimens.dart';
 import '../../../resourse/shared_prefs.dart';

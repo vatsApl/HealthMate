@@ -2,11 +2,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
 import '../resourse/app_colors.dart';
 import '../resourse/dimens.dart';
-import '../ui/auth/signin/view/signin_page.dart';
 import '../widgets/bg_images.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'auth/signin/view/signin_page.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override

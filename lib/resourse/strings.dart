@@ -99,6 +99,7 @@ class Strings {
   static const text_sign_off = 'Sign Off';
   static const text_withdraw = 'Withdraw';
   static const text_processing = 'Processing';
+  static const text_worked = 'Worked';
   static const text_paid = 'Paid';
   static const text_dispute = 'Dispute';
   static const text_personal_details = 'Personal details';

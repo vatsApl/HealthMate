@@ -1,4 +1,3 @@
-import 'package:clg_project/constants.dart';
 import 'package:clg_project/models/candidate_models/find_job_response.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/strings.dart';
@@ -139,8 +138,8 @@ class JobCardCandidate extends StatelessWidget {
                                       .text_payment_due //color change with timeSheetstatusType
                               ? AppColors.kYellowColor.withOpacity(0.1)
                               : homePageModel?.workingStatus ==
-                                      Strings.text_processing
-                                  ? AppColors.kYellowColor.withOpacity(0.1)
+                                      Strings.text_worked
+                                  ? AppColors.kTealColor.withOpacity(0.2)
                                   : homePageModel?.workingStatus ==
                                           Strings.text_paid
                                       ? AppColors.kGreenColor.withOpacity(0.1)
@@ -159,8 +158,8 @@ class JobCardCandidate extends StatelessWidget {
                                         .text_payment_due //color change with timeSheetstatusType
                                 ? AppColors.kredColor
                                 : homePageModel?.workingStatus ==
-                                        Strings.text_processing
-                                    ? AppColors.kYellowColor
+                                        Strings.text_worked
+                                    ? AppColors.kDefaultBlackColor
                                     : homePageModel?.workingStatus ==
                                             Strings.text_paid
                                         ? AppColors.kGreenColor

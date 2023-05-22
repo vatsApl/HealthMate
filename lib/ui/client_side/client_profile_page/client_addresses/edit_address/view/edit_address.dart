@@ -1,13 +1,14 @@
 import 'package:clg_project/UI/widgets/custom_textfield.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/constants.dart';
-import 'package:clg_project/models/client_model/single_address_response.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/ui/client_side/client_home_page/client_job_description/model/basic_model.dart';
+import 'package:clg_project/ui/client_side/client_profile_page/client_addresses/edit_address/model/single_address_response.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
 import '../../../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../../../resourse/app_colors.dart';
 import '../../../../../../resourse/dimens.dart';
@@ -64,7 +65,7 @@ class _EditAddressState extends State<EditAddress> {
               });
               var responseBody = state.response;
               clientSingleAddress =
-                  ClientAddressesSingleResponse.fromJson(responseBody);
+                  ClientSingleAddressResponse.fromJson(responseBody);
               if (clientSingleAddress.code == 200) {
                 addressController.text =
                     clientSingleAddress.address?.address ?? '';

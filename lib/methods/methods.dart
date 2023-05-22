@@ -1,29 +1,19 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'package:clg_project/resourse/dimens.dart';
 import 'package:clg_project/resourse/strings.dart';
-import 'package:http/http.dart' as http;
 import 'package:clg_project/ui/candidate_side/candidate_main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import '../UI/widgets/custom_textfield.dart';
-import '../allAPIs/allAPIs.dart';
+
 import '../resourse/app_colors.dart';
 import '../resourse/images.dart';
 import '../resourse/shared_prefs.dart';
-import '../services/api_services.dart';
 import '../ui/auth/signin/view/signin_page.dart';
-import '../ui/candidate_side/candidate_home_page/candidate_job_description/bloc/job_desc_bloc.dart';
-import '../ui/candidate_side/candidate_home_page/candidate_job_description/bloc/job_desc_event.dart';
-import '../ui/candidate_side/candidate_home_page/candidate_job_description/repo/job_desc_repository.dart';
-import '../validations.dart';
 import '../widgets/elevated_button.dart';
 
 class Methods {
   static var timeSheetId;
   static final _formKey = GlobalKey<FormState>();
-  // static final _JobDescBloc = JobDescBloc(JobDescriptionRepository());
 
   //apply job confirmation popup
   static Future<void> showDialogApplyJobConfirmation(
@@ -354,141 +344,131 @@ class Methods {
   }
 
   // timesheet reject reason popup:
-  static Future<void> showDialogTimeSheetRejectReason(
-      {required BuildContext context,
-      TextEditingController? rejectReasonController}) async {
-    return showDialog(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              Dimens.pixel_6,
-            ),
-          ),
-          child: Wrap(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: Dimens.pixel_10,
-                  vertical: Dimens.pixel_25,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          Strings.text_reason,
-                          style: const TextStyle(
-                            color: AppColors.kDefaultBlackColor,
-                            fontWeight: FontWeight.w400,
-                          ).copyWith(
-                            height: Dimens.pixel_1_and_half,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        const Text(
-                          Strings.text_field_required_symbol,
-                          style: TextStyle(
-                            color: AppColors.kredColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: Dimens.pixel_4,
-                    ),
-                    Form(
-                      key: _formKey,
-                      child: CustomTextFormField(
-                        hint: Strings.hint_enter_the_reason,
-                        inputType: TextInputType.multiline,
-                        controller: rejectReasonController,
-                        validator: Validate.validateRejectReason,
-                        autoFocus: true,
-                        maxLines: null,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: Dimens.pixel_27,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: Dimens.pixel_38,
-                          width: Dimens.pixel_120,
-                          child: ElevatedBtn(
-                            btnTitle: Strings.text_send,
-                            bgColor: AppColors.kDefaultPurpleColor,
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                rejectTimeSheetApi(
-                                  rejectReasonController:
-                                      rejectReasonController,
-                                  context: context,
-                                );
-                              }
-                            },
-                          ),
-                        ),
-                        const SizedBox(
-                          width: Dimens.pixel_17,
-                        ),
-                        SizedBox(
-                          height: Dimens.pixel_38,
-                          width: Dimens.pixel_120,
-                          child: ElevatedBtn(
-                            btnTitle: Strings.text_cancel,
-                            textColor: AppColors.klabelColor,
-                            bgColor: const Color(0xffE1E1E1),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
+  // static Future<void> showDialogTimeSheetRejectReason(
+  //     {required BuildContext context,
+  //     TextEditingController? rejectReasonController}) async {
+  //   return showDialog(
+  //     context: context,
+  //     barrierDismissible: false, // user must tap button!
+  //     builder: (BuildContext context) {
+  //       return Dialog(
+  //         shape: RoundedRectangleBorder(
+  //           borderRadius: BorderRadius.circular(
+  //             Dimens.pixel_6,
+  //           ),
+  //         ),
+  //         child: Wrap(
+  //           children: [
+  //             Container(
+  //               padding: const EdgeInsets.symmetric(
+  //                 horizontal: Dimens.pixel_10,
+  //                 vertical: Dimens.pixel_25,
+  //               ),
+  //               child: Column(
+  //                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                 children: [
+  //                   Row(
+  //                     children: [
+  //                       Text(
+  //                         Strings.text_reason,
+  //                         style: const TextStyle(
+  //                           color: AppColors.kDefaultBlackColor,
+  //                           fontWeight: FontWeight.w400,
+  //                         ).copyWith(
+  //                           height: Dimens.pixel_1_and_half,
+  //                         ),
+  //                         textAlign: TextAlign.center,
+  //                       ),
+  //                       const Text(
+  //                         Strings.text_field_required_symbol,
+  //                         style: TextStyle(
+  //                           color: AppColors.kredColor,
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                   const SizedBox(
+  //                     height: Dimens.pixel_4,
+  //                   ),
+  //                   Form(
+  //                     key: _formKey,
+  //                     child: CustomTextFormField(
+  //                       hint: Strings.hint_enter_the_reason,
+  //                       inputType: TextInputType.multiline,
+  //                       controller: rejectReasonController,
+  //                       validator: Validate.validateRejectReason,
+  //                       autoFocus: true,
+  //                       maxLines: null,
+  //                     ),
+  //                   ),
+  //                   const SizedBox(
+  //                     height: Dimens.pixel_27,
+  //                   ),
+  //                   Row(
+  //                     mainAxisAlignment: MainAxisAlignment.center,
+  //                     children: [
+  //                       SizedBox(
+  //                         height: Dimens.pixel_38,
+  //                         width: Dimens.pixel_120,
+  //                         child: ElevatedBtn(
+  //                           btnTitle: Strings.text_send,
+  //                           bgColor: AppColors.kDefaultPurpleColor,
+  //                           onPressed: () {
+  //                             if (_formKey.currentState!.validate()) {
+  //                               rejectTimeSheetApi(
+  //                                 rejectReasonController:
+  //                                     rejectReasonController,
+  //                                 context: context,
+  //                               );
+  //                             }
+  //                           },
+  //                         ),
+  //                       ),
+  //                       const SizedBox(
+  //                         width: Dimens.pixel_17,
+  //                       ),
+  //                       SizedBox(
+  //                         height: Dimens.pixel_38,
+  //                         width: Dimens.pixel_120,
+  //                         child: ElevatedBtn(
+  //                           btnTitle: Strings.text_cancel,
+  //                           textColor: AppColors.klabelColor,
+  //                           bgColor: const Color(0xffE1E1E1),
+  //                           onPressed: () {
+  //                             Navigator.of(context).pop();
+  //                           },
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   // rejectTimeSheetApi:
-  static Future<void> rejectTimeSheetApi(
-      {TextEditingController? rejectReasonController,
-      required BuildContext context}) async {
-    // setState(() {
-    //   isVisible = true;
-    // });
-    var url = Uri.parse('${DataURL.baseUrl}/api/timesheet/reject');
-    var response = await http.post(url, body: {
-      'timesheet_id': timeSheetId.toString(),
-      'reason': rejectReasonController?.text,
-    });
-    try {
-      // setState(() {
-      //   isVisible = true;
-      // });
-      log('DESC approveTimesheet:${response.body}');
-      if (response.statusCode == 200) {
-        Navigator.pop(context);
-      }
-    } catch (e) {
-      print(e.toString());
-      // setState(() {
-      //   isVisible = false;
-      // });
-    }
-    // setState(() {
-    //   isVisible = false;
-    // });
-  }
+
+  // // reject timesheet api
+  // static Future<void> rejectTimeSheetApi(
+  //     {TextEditingController? rejectReasonController,
+  //     required BuildContext context}) async {
+  //   String url = ApiUrl.rejectTimeSheetApi;
+  //   var response = await http.post(Uri.parse(url), body: {
+  //     'timesheet_id': timeSheetId.toString(),
+  //     'reason': rejectReasonController?.text,
+  //   });
+  //   try {
+  //     log('reject timesheet log:${response.body}');
+  //     if (response.statusCode == 200) {
+  //       Navigator.pop(context);
+  //     }
+  //   } catch (e) {
+  //     print(e.toString());
+  //   }
+  // }
 }

@@ -1,11 +1,11 @@
 import 'package:clg_project/UI/widgets/client_card_top.dart';
 import 'package:clg_project/UI/widgets/custom_appbar.dart';
-import 'package:clg_project/models/client_model/client_job_res.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/ui/client_side/client_home_page/bloc/client_home_bloc.dart';
 import 'package:clg_project/ui/client_side/client_home_page/bloc/client_home_state.dart';
+import 'package:clg_project/ui/client_side/client_home_page/model/client_job_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

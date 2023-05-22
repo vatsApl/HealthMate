@@ -1,8 +1,9 @@
-import 'package:clg_project/models/client_model/client_job_res.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/strings.dart';
+import 'package:clg_project/ui/client_side/client_home_page/model/client_job_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import '../../../resourse/app_colors.dart';
 import '../../../resourse/dimens.dart';
 

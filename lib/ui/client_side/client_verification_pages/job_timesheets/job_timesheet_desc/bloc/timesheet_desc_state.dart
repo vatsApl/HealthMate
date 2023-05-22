@@ -25,3 +25,15 @@ class ApproveTimesheetErrorState extends TimesheetDescState {
   final String error;
   ApproveTimesheetErrorState({required this.error});
 }
+
+class RejectTimesheetLoadingState extends TimesheetDescState {}
+
+class RejectTimesheetLoadedState extends TimesheetDescState {
+  dynamic response;
+  RejectTimesheetLoadedState(this.response);
+}
+
+class RejectTimesheetErrorState extends TimesheetDescState {
+  final String error;
+  RejectTimesheetErrorState({required this.error});
+}

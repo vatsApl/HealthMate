@@ -105,4 +105,5 @@ class ApiUrl {
   }
 
   static String updateAddressApi = "${DataURL.baseUrl}/api/address/update";
+  static String rejectTimeSheetApi = "${DataURL.baseUrl}/api/timesheet/reject";
 }

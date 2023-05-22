@@ -242,7 +242,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                     left: Dimens.pixel_26,
                   ),
                   child: Text(
-                    'Select Breaktime',
+                    'Select Break time',
                     style: TextStyle(
                       fontSize: Dimens.pixel_20,
                       color: AppColors.kDefaultBlackColor,
@@ -295,10 +295,26 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                                       selectedBreakTime = value;
                                       breakTimeController.text =
                                           selectedBreakTime!;
-                                      calculateUnitTwo(
-                                        startTimeController.text,
-                                        endTimeController.text,
-                                      );
+                                      if (startTimeController.text == '' &&
+                                          endTimeController.text == '') {
+                                        Fluttertoast.showToast(
+                                          msg:
+                                              "Please select start time & end time first, after re-select break time",
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: Colors.red,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0,
+                                        );
+                                      }
+                                      if (startTimeController.text != '' &&
+                                          endTimeController.text != '') {
+                                        calculateUnitTwo(
+                                          startTimeController.text,
+                                          endTimeController.text,
+                                        );
+                                      }
                                       selectedBreaktimeIndex =
                                           selectBreakTimeList
                                               .indexOf('$selectedBreakTime');
@@ -492,6 +508,19 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
     var minutes = d.inMinutes.remainder(60);
 
     unit = '$hours.$minutes';
+
+    if (startTimeController.text == '' && endTimeController.text == '') {
+      Fluttertoast.showToast(
+        msg: "Please select start time & end time first",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+      // Navigator.pop(context);
+    }
     return unit;
   }
 

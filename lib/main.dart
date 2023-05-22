@@ -1,5 +1,5 @@
-import 'package:clg_project/pages/splash.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
+import 'package:clg_project/ui/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

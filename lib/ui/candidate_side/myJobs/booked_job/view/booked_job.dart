@@ -1,8 +1,8 @@
 import 'package:clg_project/UI/widgets/job_card_home_page.dart';
 import 'package:clg_project/resourse/strings.dart';
-import 'package:clg_project/ui/candidate_side/myJobs/applied_job/bloc/applied_job_bloc.dart';
-import 'package:clg_project/ui/candidate_side/myJobs/applied_job/bloc/applied_job_state.dart';
-import 'package:clg_project/ui/candidate_side/myJobs/applied_job/repo/applied_job_repo.dart';
+import 'package:clg_project/ui/candidate_side/myJobs/booked_job/bloc/booked_job_bloc.dart';
+import 'package:clg_project/ui/candidate_side/myJobs/booked_job/bloc/booked_job_state.dart';
+import 'package:clg_project/ui/candidate_side/myJobs/booked_job/repo/booked_job_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,29 +12,35 @@ import '../../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../../models/candidate_models/find_job_response.dart';
 import '../../../../../resourse/app_colors.dart';
 import '../../../../../resourse/dimens.dart';
-import '../bloc/applied_job_event.dart';
-import '../my_job_desc/view/job_description_my_jobs.dart';
+import '../../../../../resourse/shared_prefs.dart';
+import '../../applied_job/my_job_desc/view/job_description_my_jobs.dart';
+import '../bloc/booked_job_event.dart';
 
-class AppliedJob extends StatefulWidget {
+class BookedJob extends StatefulWidget {
+  BookedJob({
+    super.key,
+    this.currentIndex,
+  });
+  int? currentIndex;
+
   @override
-  State<AppliedJob> createState() => _AppliedJobState();
+  State<BookedJob> createState() => _BookedJobState();
 }
 
-class _AppliedJobState extends State<AppliedJob> {
+class _BookedJobState extends State<BookedJob> {
+  var uId = PreferencesHelper.getString(PreferencesHelper.KEY_USER_ID);
   int page = 1;
-  final scrollController = ScrollController();
   List<JobModel> jobs = [];
   bool isLoadingMore = false;
   bool isVisible = false;
+  final scrollController = ScrollController();
 
   void scrollListener() {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
       if (page != 0) {
-        // event of show applied job
-        _AppliedJobBloc.add(ShowAppliedJobEvent(
-          pageValue: page,
-        ));
+        // event of show booked job 2
+        _bookedJobBloc.add(ShowBookedJobEvent(pageValue: page));
         setState(() {
           isLoadingMore = true;
         });
@@ -49,40 +55,35 @@ class _AppliedJobState extends State<AppliedJob> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      scrollController.addListener(scrollListener);
-      // event of show applied job
-      _AppliedJobBloc.add(ShowAppliedJobEvent(
-        pageValue: page,
-      ));
-    });
+    scrollController.addListener(scrollListener);
+    // event of show booked job 1
+    _bookedJobBloc.add(ShowBookedJobEvent(pageValue: page));
   }
 
-  final _AppliedJobBloc = AppliedJobBloc(AppliedJobRepository());
+  final _bookedJobBloc = BookedJobBloc(BookedJobRepository());
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AppliedJobBloc>(
-      create: (BuildContext context) => _AppliedJobBloc,
-      child: BlocConsumer<AppliedJobBloc, AppliedJobState>(
+    return BlocProvider<BookedJobBloc>(
+      create: (BuildContext context) => _bookedJobBloc,
+      child: BlocConsumer<BookedJobBloc, BookedJobState>(
         listener: (BuildContext context, state) {
-          if (state is ShowAppliedJobLoadingState) {
+          if (state is ShowBookedJobLoadingState) {
             if (page == 1) {
               isVisible = true;
             }
           }
-          if (state is ShowAppliedJobLoadedState) {
-            var responseBody = state.response;
-            var appliedJobResponse = FindJobResponse.fromJson(responseBody);
+          if (state is ShowBookedJobLoadedState) {
             isVisible = false;
-            if (appliedJobResponse.code == 200) {
-              page = appliedJobResponse.lastPage ?? 0;
-              print('page from code 200: $page');
-              jobs.addAll(appliedJobResponse.data ?? []);
+            var responseBody = state.response;
+            var bookedJobResponse = FindJobResponse.fromJson(responseBody);
+            if (bookedJobResponse.code == 200) {
+              page = bookedJobResponse.lastPage ?? 0;
+              jobs.addAll(bookedJobResponse.data ?? []);
               isLoadingMore = false;
             }
           }
-          if (state is ShowApliedJobErrorState) {
+          if (state is ShowBookedJobErrorState) {
             debugPrint(state.error);
           }
         },
@@ -92,7 +93,7 @@ class _AppliedJobState extends State<AppliedJob> {
               : Flexible(
                   child: Column(
                     children: [
-                      appliedJobList(),
+                      bookedJobList(),
                       Visibility(
                         visible: isLoadingMore,
                         child: const CupertinoActivityIndicator(
@@ -108,12 +109,12 @@ class _AppliedJobState extends State<AppliedJob> {
     );
   }
 
-  appliedJobList() {
+  bookedJobList() {
     return jobs.isEmpty
         ? Flexible(
             child: Center(
               child: Text(
-                Strings.text_no_applied_found,
+                Strings.text_no_booked_found,
                 style: kDefaultEmptyFieldTextStyle,
               ),
             ),
@@ -125,8 +126,8 @@ class _AppliedJobState extends State<AppliedJob> {
                 horizontal: Dimens.pixel_16,
                 vertical: Dimens.pixel_18,
               ),
-              shrinkWrap: true,
               physics: const BouncingScrollPhysics(),
+              shrinkWrap: true,
               itemCount: jobs.length,
               itemBuilder: (BuildContext context, int index) {
                 return InkWell(
@@ -139,6 +140,7 @@ class _AppliedJobState extends State<AppliedJob> {
                         builder: (context) => JobDescriptionMyJobs(
                           jobId: jobId,
                           appId: appId,
+                          currentIndex: widget.currentIndex,
                         ),
                       ),
                     );

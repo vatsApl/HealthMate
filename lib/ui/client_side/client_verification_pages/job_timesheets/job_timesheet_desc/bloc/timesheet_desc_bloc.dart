@@ -30,6 +30,17 @@ class TimesheetDescBloc extends Bloc<TimesheetDescEvent, TimesheetDescState> {
           emit(ApproveTimesheetErrorState(error: e.toString()));
         }
       }
+
+      if (event is RejectTimesheetApi) {
+        emit(RejectTimesheetLoadingState());
+        try {
+          var response = await _timesheetDescRepository.rejectTimeSheetApi(
+              params: event.params);
+          emit(RejectTimesheetLoadedState(response));
+        } catch (e) {
+          emit(RejectTimesheetErrorState(error: e.toString()));
+        }
+      }
     });
   }
 }

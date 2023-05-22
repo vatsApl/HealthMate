@@ -1,11 +1,11 @@
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/base_Screen_working/base_screen.dart';
 import 'package:clg_project/constants.dart';
-import 'package:clg_project/models/client_model/client_job_res.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/ui/client_side/client_contract_page/bloc/client_contract_bloc.dart';
 import 'package:clg_project/ui/client_side/client_contract_page/bloc/client_contract_state.dart';
+import 'package:clg_project/ui/client_side/client_home_page/model/client_job_res.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
