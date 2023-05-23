@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:focus_detector/focus_detector.dart';
 import 'package:provider/provider.dart';
+
 import '../UI/widgets/custom_appbar.dart';
 import '../methods/methods.dart';
 import '../resourse/app_colors.dart';
@@ -219,7 +220,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
-                                  vertical: Dimens.pixel_4),
+                                vertical: Dimens.pixel_4,
+                              ),
                               child: ListTile(
                                 leading: SvgPicture.asset(
                                   Images.ic_skills,
@@ -390,6 +392,14 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ),
                         ),
+                        // temp start
+                        ElevatedButton(
+                          onPressed: () {
+                            Methods.showDialogAppliedJob(context);
+                          },
+                          child: Text('Temp'),
+                        ),
+                        // temp end
                       ],
                     )
                   ],

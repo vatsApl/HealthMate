@@ -1,4 +1,12 @@
 // -----------------------------------------------------------------
+// fix size of dialog button: job application
+// height: Dimens.pixel_38,
+// width: Dimens.pixel_120,
+
+// applied job dialog:
+// height: Dimens.pixel_44,
+// width: Dimens.pixel_160,
+
 // Future<void> parkingDialog() async {
 //   return showDialog<void>(
 //     context: context,

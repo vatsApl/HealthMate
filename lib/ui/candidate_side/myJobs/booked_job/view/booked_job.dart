@@ -94,13 +94,14 @@ class _BookedJobState extends State<BookedJob> {
                   child: Column(
                     children: [
                       bookedJobList(),
-                      Visibility(
-                        visible: isLoadingMore,
-                        child: const CupertinoActivityIndicator(
-                          color: AppColors.kDefaultPurpleColor,
-                          radius: Dimens.pixel_15,
+                      if (jobs.isNotEmpty)
+                        Visibility(
+                          visible: isLoadingMore,
+                          child: const CupertinoActivityIndicator(
+                            color: AppColors.kDefaultPurpleColor,
+                            radius: Dimens.pixel_15,
+                          ),
                         ),
-                      ),
                     ],
                   ),
                 );

@@ -106,4 +106,10 @@ class ApiUrl {
 
   static String updateAddressApi = "${DataURL.baseUrl}/api/address/update";
   static String rejectTimeSheetApi = "${DataURL.baseUrl}/api/timesheet/reject";
+  static String updateTimeSheetAfterDisputeApi =
+      "${DataURL.baseUrl}/api/re-update/timesheet";
+
+  static String showAmountStatusWorkedJobApi(String uId) {
+    return "${DataURL.baseUrl}/api/label/count/$uId/candidate";
+  }
 }

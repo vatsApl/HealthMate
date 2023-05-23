@@ -161,7 +161,9 @@ class Strings {
   static const text_confirmation_of_mark_As_paid =
       'Are You Sure You Want To Mark As Paid';
   static const text_no = 'No';
+  static const capital_text_no = 'NO';
   static const text_yes = 'Yes';
+  static const capital_text_yes = 'YES';
   static const text_no_invoices = 'No Invoices';
   static const text_assigned = 'Assigned';
   static const text_pending = 'Pending';
@@ -184,5 +186,7 @@ class Strings {
       'Set this as a default address';
   static const text_edit_address = 'Edit Address';
   static const text_null = 'null';
-  static const text_No_Address_Found = 'No address found';
+  static const text_no_address_found = 'No address found';
+  static const text_confirm_exit = 'Confirm Exit';
+  static const text_confirm_exit_msg = 'Are you sure you want to exit?';
 }

@@ -125,7 +125,7 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage>
                                     setState(() {
                                       selectedBreakTime = value;
                                       breakController.text = selectedBreakTime!;
-                                      if (startTimeController.text == '' &&
+                                      if (startTimeController.text == '' ||
                                           endTimeController.text == '') {
                                         Fluttertoast.showToast(
                                           msg:
@@ -545,7 +545,7 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage>
                   bgColor: AppColors.kDefaultPurpleColor,
                   isLoading: isVisible,
                   onPressed: () {
-                    // todo: add event updateTimesheet
+                    // event updateTimesheet
                     var params = {
                       'start_time': startTimeController.text,
                       'end_time': endTimeController.text,

@@ -75,10 +75,10 @@ class _ClientContractPageState extends BasePageScreenState<ClientContractPage>
           if (state is ClientContractLoadedState) {
             var responseBody = state.response;
             clientJobResponse = ClientJobModel.fromJson(responseBody);
+            isVisible = false;
             if (clientJobResponse.code == 200) {
               isLastPage = clientJobResponse.isLastPage;
               print('contract page isLastpage:$isLastPage');
-              isVisible = false;
               isLoadingMore = false;
               clientJobs.addAll(clientJobResponse.data ?? []);
             }

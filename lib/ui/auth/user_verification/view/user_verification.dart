@@ -1,8 +1,5 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'package:clg_project/UI/widgets/otp_text_form_field.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
-import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/ui/auth/user_verification/bloc/user_verification_bloc.dart';
@@ -12,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
+
 import '../../../../resourse/app_colors.dart';
 import '../../../../resourse/dimens.dart';
 import '../../signin/view/signin_page.dart';
@@ -241,8 +238,7 @@ class _UserVerificationState extends State<UserVerification> {
                       isLoading: isVisible,
                       bgColor: AppColors.kDefaultPurpleColor,
                       onPressed: () {
-                        // signupOtpVerify();
-                        // todo: after signup otp verify event
+                        // after signup otp verify event
                         var params = {
                           'otp1': otp1Controller.text,
                           'otp2': otp2Controller.text,

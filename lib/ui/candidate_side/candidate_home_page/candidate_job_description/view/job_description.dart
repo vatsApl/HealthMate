@@ -391,7 +391,6 @@ class _JobDescriptionState extends BasePageScreenState<JobDescription>
                               ),
                               child: ElevatedBtn(
                                 btnTitle: Strings.text_apply_now,
-                                isLoading: isLoading,
                                 bgColor: AppColors.kDefaultPurpleColor,
                                 onPressed: () {
                                   var params = {
@@ -399,10 +398,6 @@ class _JobDescriptionState extends BasePageScreenState<JobDescription>
                                     'job_id': widget.jobId.toString(),
                                   };
                                   showDialogApplyJobConfirmation(params);
-                                  // Methods.showDialogApplyJobConfirmation(
-                                  //   context,
-                                  //   params,
-                                  // );
                                 },
                               ),
                             ),
@@ -481,37 +476,39 @@ class _JobDescriptionState extends BasePageScreenState<JobDescription>
                     const SizedBox(
                       height: Dimens.pixel_30,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: Dimens.pixel_38,
-                          width: Dimens.pixel_120,
-                          child: ElevatedBtn(
-                            btnTitle: Strings.text_cancel,
-                            textColor: AppColors.klabelColor,
-                            bgColor: const Color(0xffE1E1E1),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: Dimens.pixel_21,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Flexible(
+                            child: ElevatedBtn(
+                              btnTitle: Strings.text_cancel,
+                              textColor: AppColors.klabelColor,
+                              bgColor: const Color(0xffE1E1E1),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          width: Dimens.pixel_17,
-                        ),
-                        SizedBox(
-                          height: Dimens.pixel_38,
-                          width: Dimens.pixel_120,
-                          child: ElevatedBtn(
-                            btnTitle: Strings.text_send,
-                            bgColor: AppColors.kDefaultPurpleColor,
-                            onPressed: () {
-                              // event of apply job
-                              _JobDescBloc.add(ApplyJobEvent(params: params));
-                            },
+                          const SizedBox(
+                            width: Dimens.pixel_17,
                           ),
-                        ),
-                      ],
+                          Flexible(
+                            child: ElevatedBtn(
+                              isLoading: isLoading,
+                              btnTitle: Strings.text_send,
+                              bgColor: AppColors.kDefaultPurpleColor,
+                              onPressed: () {
+                                // event of apply job
+                                _JobDescBloc.add(ApplyJobEvent(params: params));
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

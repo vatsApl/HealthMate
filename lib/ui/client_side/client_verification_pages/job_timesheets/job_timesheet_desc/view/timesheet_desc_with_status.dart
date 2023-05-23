@@ -244,6 +244,9 @@ class _JobDescriptionWithStatusState
             var responseBody = state.response;
             var basicModel = BasicModel.fromJson(responseBody);
             if (basicModel.code == 200) {
+              // event of show timesheet description
+              _timesheetDescBloc
+                  .add(ShowTimesheetDescEvent(jobId: widget.jobId));
               Navigator.pop(context);
             }
           }
@@ -795,8 +798,22 @@ class _JobDescriptionWithStatusState
                               const SizedBox(
                                 height: Dimens.pixel_24,
                               ),
-                              Card(
-                                elevation: Dimens.pixel_1_and_half,
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(Dimens.pixel_6),
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.1),
+                                      spreadRadius: 1,
+                                      blurRadius: 6,
+                                      offset: Offset(
+                                          0, 3), // changes position of shadow
+                                    ),
+                                  ],
+                                ),
                                 child: ListTile(
                                   leading: CachedNetworkImage(
                                     imageUrl:
@@ -842,6 +859,7 @@ class _JobDescriptionWithStatusState
                             ],
                           ),
                         // Code of Assigned status end
+
                         if (timeSheetStatusType ==
                             Strings
                                 .text_dispute) // only visible when status will be DISPUTE.

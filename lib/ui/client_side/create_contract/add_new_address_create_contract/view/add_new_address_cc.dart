@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'package:clg_project/UI/widgets/custom_textfield.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/base_Screen_working/base_screen.dart';
@@ -13,8 +11,7 @@ import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
-import '../../../../../resourse/api_urls.dart';
+
 import '../../../../../resourse/app_colors.dart';
 import '../../../../../resourse/dimens.dart';
 import '../../../../../resourse/shared_prefs.dart';
@@ -228,9 +225,7 @@ class _AddNewAddressTwoState
                                   newAddress =
                                       '${addressController.text}, ${areaController.text}-${postcodeController.text}';
                                   print(newAddress);
-                                  //add new address api call:
-                                  // addNewAddressApi();
-                                  // todo: add event of add new address
+                                  // event of add new address
                                   var params = {
                                     'client_id': uId,
                                     'address': addressController.text,

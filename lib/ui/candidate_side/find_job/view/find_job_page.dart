@@ -78,17 +78,16 @@ class _FindJobPageState extends State<FindJobPage> {
               if (state is FindJobLoadedState) {
                 var responseBody = state.response;
                 var findJobResponse = FindJobResponse.fromJson(responseBody);
+                isVisible = false;
                 if (findJobResponse.code == 200) {
-                  // pagination with url
+                  // previously used pagination with url
                   // var headerPagination = HeaderPagination.fromJson(headerDecoded);
                   // page = headerPagination.nextPage ?? 1;
                   // var headerDecoded =
                   //     jsonDecode(response.headers['x-pagination'].toString());
                   // print('HEADERS: ${response.headers['x-pagination']}');
                   page = findJobResponse.lastPage ?? 0;
-                  // print('find job page 200: $page');
                   jobs.addAll(findJobResponse.data ?? []);
-                  isVisible = false;
                   isLoadingMore = false;
                 }
               }

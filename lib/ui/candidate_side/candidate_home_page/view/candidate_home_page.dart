@@ -62,17 +62,22 @@ class _CandidateHomePageState extends State<CandidateHomePage> {
             barrierDismissible: false,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: Text("Confirm Exit"),
-                content: Text("Are you sure you want to exit?"),
+                title: Text(Strings.text_confirm_exit),
+                content: Text(
+                  Strings.text_confirm_exit_msg,
+                  style: TextStyle(
+                    height: Dimens.pixel_1_point_2,
+                  ),
+                ),
                 actions: <Widget>[
                   TextButton(
-                    child: Text("YES"),
+                    child: Text(Strings.capital_text_yes),
                     onPressed: () {
                       SystemNavigator.pop();
                     },
                   ),
                   TextButton(
-                    child: Text("NO"),
+                    child: Text(Strings.capital_text_no),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },

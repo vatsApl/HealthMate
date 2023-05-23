@@ -13,4 +13,5 @@ class AppColors {
   static const kDisabledColorBtn = Color(0xffD0D0DA);
   static const kTealColor = Colors.tealAccent;
   static const kTextShadowColor = Color(0XFF4F4557);
+  // static const kWhiteColor = Color(0xffffffff);
 }

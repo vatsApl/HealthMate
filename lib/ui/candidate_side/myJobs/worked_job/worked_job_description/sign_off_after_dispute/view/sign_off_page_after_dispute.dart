@@ -1,18 +1,16 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'package:clg_project/UI/widgets/title_text.dart';
-import 'package:clg_project/ui/candidate_side/myJobs/my_job_page.dart';
 import 'package:clg_project/models/candidate_models/find_job_response.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
-import '../allAPIs/allAPIs.dart';
-import '../constants.dart';
-import '../custom_widgets/custom_widget_helper.dart';
-import 'package:http/http.dart' as http;
-import '../resourse/app_colors.dart';
+
+import '../../../../../../../constants.dart';
+import '../../../../../../../custom_widgets/custom_widget_helper.dart';
+import '../../../../../../../resourse/app_colors.dart';
+import '../../../../../../../resourse/dimens.dart';
+import '../../../../../../../resourse/strings.dart';
 
 class SignOffPageAfterDispute extends StatefulWidget {
   int? timeSheetId;
@@ -43,44 +41,44 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
   TextEditingController breakController = TextEditingController();
   TextEditingController unitController = TextEditingController();
 
-  // update timesheet after dispute api:
-  Future<void> updateTimeSheetAfterDisputeApi() async {
-    setState(() {
-      isVisible = true;
-    });
-    var url = Uri.parse('${DataURL.baseUrl}/api/re-update/timesheet');
-    var response = await http.post(url, body: {
-      'timesheet_id': widget.timeSheetId.toString(),
-      'start_time': startTimeController.text,
-      'end_time': endTimeController.text,
-      'break_time': selectedBreakTime,
-      'unit': unit,
-    });
-    try {
-      setState(() {
-        isVisible = true;
-      });
-      log('desc:${response.body}');
-      if (response.statusCode == 200) {
-        var json = jsonDecode(response.body);
-        debugPrint(json['message']);
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MyJobsPage(),
-          ),
-        );
-      }
-    } catch (e) {
-      print(e.toString());
-      setState(() {
-        isVisible = false;
-      });
-    }
-    setState(() {
-      isVisible = false;
-    });
-  }
+  // // update timesheet after dispute api:
+  // Future<void> updateTimeSheetAfterDisputeApi() async {
+  //   setState(() {
+  //     isVisible = true;
+  //   });
+  // String url = ApiUrl.updateTimeSheetAfterDisputeApi;
+  //   var response = await http.post(Uri.parse(url), body: {
+  //     'timesheet_id': widget.timeSheetId.toString(),
+  //     'start_time': startTimeController.text,
+  //     'end_time': endTimeController.text,
+  //     'break_time': selectedBreakTime,
+  //     'unit': unit,
+  //   });
+  //   try {
+  //     setState(() {
+  //       isVisible = true;
+  //     });
+  //     log('desc:${response.body}');
+  //     if (response.statusCode == 200) {
+  //       var json = jsonDecode(response.body);
+  //       debugPrint(json['message']);
+  //       Navigator.push(
+  //         context,
+  //         MaterialPageRoute(
+  //           builder: (context) => MyJobsPage(),
+  //         ),
+  //       );
+  //     }
+  //   } catch (e) {
+  //     print(e.toString());
+  //     setState(() {
+  //       isVisible = false;
+  //     });
+  //   }
+  //   setState(() {
+  //     isVisible = false;
+  //   });
+  // }
 
   @override
   void initState() {
@@ -88,6 +86,7 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
     selectedBreakTime = widget.signOffData?.timesheetBreakTime ?? '';
     startTimeController.text = widget.signOffData?.timesheetStartTime ?? '';
     endTimeController.text = widget.signOffData?.timesheetEndTime ?? '';
+    unit = widget.signOffData?.jobUnit.toString();
   }
 
   @override
@@ -96,15 +95,20 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
       backgroundColor: Colors.white,
       appBar: CustomWidgetHelper.appBar(context: context),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(16.0, 27.67, 16.0, 16.0),
+        padding: const EdgeInsets.fromLTRB(
+          Dimens.pixel_16,
+          Dimens.pixel_27_point_67,
+          Dimens.pixel_16,
+          Dimens.pixel_16,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TitleText(
-              title: 'Sign Off',
+              title: Strings.text_sign_off,
             ),
             const SizedBox(
-              height: 48.0,
+              height: Dimens.pixel_48,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -114,15 +118,17 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Start Time',
+                        Strings.label_start_time,
                         style: kTextFormFieldLabelStyle,
                       ),
                       const SizedBox(
-                        height: 5.0,
+                        height: Dimens.pixel_5,
                       ),
                       TextFormField(
                         textAlignVertical: TextAlignVertical.bottom,
-                        style: const TextStyle(height: 1.0),
+                        style: const TextStyle(
+                          height: Dimens.pixel_1,
+                        ),
                         controller: startTimeController,
                         readOnly: true,
                         onTap: () async {
@@ -153,7 +159,7 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
                           return null;
                         },
                         decoration: const InputDecoration(
-                          hintText: '00:00',
+                          hintText: Strings.hint_time,
                           hintStyle: TextStyle(
                             color: AppColors.klabelColor,
                           ),
@@ -176,22 +182,22 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
                   ),
                 ),
                 const SizedBox(
-                  width: 15.0,
+                  width: Dimens.pixel_15,
                 ),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'End Time',
+                        Strings.label_end_time,
                         style: kTextFormFieldLabelStyle,
                       ),
                       const SizedBox(
-                        height: 5.0,
+                        height: Dimens.pixel_5,
                       ),
                       TextFormField(
                         textAlignVertical: TextAlignVertical.bottom,
-                        style: const TextStyle(height: 1.0),
+                        style: const TextStyle(height: Dimens.pixel_1),
                         keyboardType: TextInputType.number,
                         controller: endTimeController,
                         readOnly: true,
@@ -223,7 +229,7 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
                           return null;
                         },
                         decoration: const InputDecoration(
-                          hintText: '00:00',
+                          hintText: Strings.hint_time,
                           hintStyle: TextStyle(
                             color: AppColors.klabelColor,
                           ),
@@ -248,7 +254,7 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
               ],
             ),
             const SizedBox(
-              height: 30.0,
+              height: Dimens.pixel_30,
             ),
             Row(
               children: [
@@ -257,11 +263,11 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Break',
+                        Strings.label_break,
                         style: kTextFormFieldLabelStyle,
                       ),
                       const SizedBox(
-                        height: 5.0,
+                        height: Dimens.pixel_5,
                       ),
                       Stack(
                         children: [
@@ -272,15 +278,18 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
                                 selectBreakTimeDialog();
                               },
                               child: TextFormField(
+                                style: const TextStyle(
+                                  height: Dimens.pixel_1,
+                                  color: AppColors.kDefaultBlackColor,
+                                ),
                                 controller: breakController,
                                 keyboardType: TextInputType.number,
                                 enabled: false,
                                 textAlignVertical: TextAlignVertical.bottom,
-                                style: const TextStyle(height: 1.0),
                                 decoration: InputDecoration(
                                   hintText: selectedBreakTime,
                                   hintStyle: const TextStyle(
-                                    color: AppColors.klabelColor,
+                                    color: AppColors.kDefaultBlackColor,
                                   ),
                                   labelStyle: const TextStyle(
                                     color: AppColors.klabelColor,
@@ -295,8 +304,7 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
                                   border: const OutlineInputBorder(),
                                   disabledBorder: const OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Colors
-                                          .grey, // Set the border color to grey
+                                      color: Colors.grey,
                                     ),
                                   ),
                                 ),
@@ -307,14 +315,16 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
                             alignment: Alignment.bottomRight,
                             child: Padding(
                               padding: EdgeInsets.only(
-                                top: 22.0,
-                                right: 8.0,
+                                top: Dimens.pixel_22,
+                                right: Dimens.pixel_8,
                               ),
                               child: Padding(
                                 padding: kSuffixIconPadding,
                                 child: Text(
-                                  'Hr',
-                                  style: TextStyle(fontWeight: FontWeight.w400),
+                                  Strings.text_hr,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
                               ),
                             ),
@@ -325,18 +335,18 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
                   ),
                 ),
                 const SizedBox(
-                  width: 15.0,
+                  width: Dimens.pixel_15,
                 ),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Units',
+                        Strings.text_units,
                         style: kTextFormFieldLabelStyle,
                       ),
                       const SizedBox(
-                        height: 5.0,
+                        height: Dimens.pixel_5,
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width,
@@ -349,11 +359,12 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
                             setState(() {});
                           },
                           child: TextFormField(
+                            textAlignVertical: TextAlignVertical.bottom,
                             readOnly: true,
                             decoration: InputDecoration(
                               hintText: '${unit ?? ''}',
                               hintStyle: const TextStyle(
-                                color: AppColors.klabelColor,
+                                color: AppColors.kDefaultBlackColor,
                               ),
                               enabled: false,
                               disabledBorder: const OutlineInputBorder(
@@ -375,13 +386,14 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
               ],
             ),
             const SizedBox(
-              height: 48.0,
+              height: Dimens.pixel_48,
             ),
             ElevatedBtn(
-              btnTitle: 'Submit',
+              btnTitle: Strings.text_submit,
               bgColor: AppColors.kDefaultPurpleColor,
               onPressed: () {
-                updateTimeSheetAfterDisputeApi();
+                // updateTimeSheetAfterDisputeApi(); // api call
+                // todo: add event of update TimeSheet After Dispute
               },
             ),
           ],
@@ -396,76 +408,76 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+              Dimens.pixel_6,
+            ),
+          ),
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: Dimens.pixel_10,
+              vertical: Dimens.pixel_15,
+            ),
             child: Wrap(
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'Select Breaktime',
-                      style: TextStyle(fontSize: 18.0),
+                      Strings.text_select_breaktime,
+                      style: TextStyle(
+                        fontSize: Dimens.pixel_18,
+                      ),
                     ),
                     const SizedBox(
-                      height: 18.0,
+                      height: Dimens.pixel_18,
                     ),
                     ListView.builder(
                       itemCount: selectBreakTimeList.length,
                       physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
-                        return GestureDetector(
-                          // onTap: () {
-                          //   print('pressed');
-                          //   // Navigator.pop(context);
-                          // },
-                          child: Container(
-                            width: double.infinity,
-                            color: Colors.transparent,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: RadioListTile(
-                                        controlAffinity:
-                                            ListTileControlAffinity.trailing,
-                                        title: Text(
-                                          selectBreakTimeList[index],
-                                          style: const TextStyle(
-                                            color: AppColors.kDefaultBlackColor,
-                                            fontSize: 16.0,
-                                          ),
+                        return Container(
+                          width: double.infinity,
+                          color: Colors.transparent,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: RadioListTile(
+                                      controlAffinity:
+                                          ListTileControlAffinity.trailing,
+                                      title: Text(
+                                        selectBreakTimeList[index],
+                                        style: const TextStyle(
+                                          color: AppColors.kDefaultBlackColor,
+                                          fontSize: Dimens.pixel_16,
                                         ),
-                                        activeColor:
-                                            AppColors.kDefaultPurpleColor,
-                                        value: selectBreakTimeList[index],
-                                        groupValue: selectedBreakTime,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedBreakTime = value;
-                                            calculateUnitTwo(
-                                              startTimeController.text,
-                                              endTimeController.text,
-                                            );
-                                          });
-                                          breakController.text =
-                                              selectedBreakTime!;
-                                          // print('CHITTI ROBO:${breakTimeController.text.toString()}');
-                                          Navigator.pop(context);
-                                        },
                                       ),
+                                      activeColor:
+                                          AppColors.kDefaultPurpleColor,
+                                      value: selectBreakTimeList[index],
+                                      groupValue: selectedBreakTime,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          selectedBreakTime = value;
+                                          calculateUnitTwo(
+                                            startTimeController.text,
+                                            endTimeController.text,
+                                          );
+                                        });
+                                        breakController.text =
+                                            selectedBreakTime!;
+                                        Navigator.pop(context);
+                                      },
                                     ),
-                                  ],
-                                ),
-                                kDivider,
-                              ],
-                            ),
+                                  ),
+                                ],
+                              ),
+                              kDivider,
+                            ],
                           ),
                         );
                       },
@@ -481,7 +493,6 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
   }
 
   var unit;
-  double unitDurationInMinutes = 60;
   calculateUnitTwo(String startTime, String endTime) {
     var format = DateFormat("HH:mm");
     var start = format.parse(startTime);

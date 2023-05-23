@@ -492,35 +492,21 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
 
   //calculate unit based on start time and end time:
   var unit;
-  double unitDurationInMinutes = 60;
   calculateUnitTwo(String startTime, String endTime) {
     var format = DateFormat("HH:mm");
     var start = format.parse(startTime);
     var end = format.parse(endTime);
     var selectedBreakUnit = format.parse(selectedBreakTime!);
     Duration diff = end.difference(start);
-    print("unit is ${start.millisecond}");
-    print("unit is ${end.millisecond}");
-    print("diff is $diff");
+    // print("unit is ${start.millisecond}");
+    // print("unit is ${end.millisecond}");
+    // print("diff is $diff");
     var data = (diff.inMinutes - selectedBreakUnit.minute);
     Duration d = Duration(minutes: data);
     var hours = d.inHours;
     var minutes = d.inMinutes.remainder(60);
 
     unit = '$hours.$minutes';
-
-    if (startTimeController.text == '' && endTimeController.text == '') {
-      Fluttertoast.showToast(
-        msg: "Please select start time & end time first",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
-      // Navigator.pop(context);
-    }
     return unit;
   }
 
@@ -591,7 +577,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                 child: address!.isEmpty
                     ? Center(
                         child: Text(
-                          Strings.text_No_Address_Found,
+                          Strings.text_no_address_found,
                           style: kDefaultEmptyFieldTextStyle,
                         ),
                       )

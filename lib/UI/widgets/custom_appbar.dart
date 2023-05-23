@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:clg_project/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import '../../allAPIs/allAPIs.dart';
 import '../../resourse/app_colors.dart';
 import '../../resourse/dimens.dart';
@@ -98,11 +98,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   fontSize: Dimens.pixel_14,
                   fontWeight: FontWeight.w400,
                 ),
-                // const TextStyle(
-                //   color: Color(0xff030837),
-                //   fontSize: 14.0,
-                //   fontWeight: FontWeight.w300,
-                // ),
               ),
             ),
           ],

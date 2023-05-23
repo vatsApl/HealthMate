@@ -93,13 +93,14 @@ class _AppliedJobState extends State<AppliedJob> {
                   child: Column(
                     children: [
                       appliedJobList(),
-                      Visibility(
-                        visible: isLoadingMore,
-                        child: const CupertinoActivityIndicator(
-                          color: AppColors.kDefaultPurpleColor,
-                          radius: Dimens.pixel_15,
+                      if (jobs.isNotEmpty)
+                        Visibility(
+                          visible: isLoadingMore,
+                          child: const CupertinoActivityIndicator(
+                            color: AppColors.kDefaultPurpleColor,
+                            radius: Dimens.pixel_15,
+                          ),
                         ),
-                      ),
                     ],
                   ),
                 );
