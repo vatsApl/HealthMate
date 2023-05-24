@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../repo/client_personal_details_repo.dart';
 import 'client_personal_details_event.dart';
 import 'client_personal_details_state.dart';
@@ -31,7 +32,7 @@ class ClientPersonalDetailsBloc
         }
       }
 
-      if (event is uploadFileToServer) {
+      if (event is UploadFileToServer) {
         emit(UploadFileToServerLoadingState());
         try {
           var response = await _clientPersonalDetailsRepo.uploadFileToServerApi(

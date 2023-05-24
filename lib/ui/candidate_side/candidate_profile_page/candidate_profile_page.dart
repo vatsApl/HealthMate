@@ -1,25 +1,25 @@
 import 'package:clg_project/bottom_navigation/profile/cv_resume.dart';
-import 'package:clg_project/bottom_navigation/profile/personal_details.dart';
-import 'package:clg_project/bottom_navigation/profile/role_skills.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
 import 'package:clg_project/resourse/strings.dart';
+import 'package:clg_project/ui/candidate_side/candidate_profile_page/candidate_personal_details/view/candidate_personal_details.dart';
+import 'package:clg_project/ui/candidate_side/candidate_profile_page/role_and_skills/view/role_skills.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:focus_detector/focus_detector.dart';
 import 'package:provider/provider.dart';
 
-import '../UI/widgets/custom_appbar.dart';
-import '../methods/methods.dart';
-import '../resourse/app_colors.dart';
-import '../resourse/dimens.dart';
+import '../../../UI/widgets/custom_appbar.dart';
+import '../../../methods/methods.dart';
+import '../../../resourse/app_colors.dart';
+import '../../../resourse/dimens.dart';
 
-class ProfilePage extends StatefulWidget {
+class CandidateProfilePage extends StatefulWidget {
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<CandidateProfilePage> createState() => _CandidateProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _CandidateProfilePageState extends State<CandidateProfilePage> {
   bool isVisible = false;
   String? uFirstName;
   String? uRoleName;
@@ -162,7 +162,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => PersonalDetails(),
+                                  builder: (context) =>
+                                      CandidatePersonalDetails(),
                                 ),
                               );
                             },
@@ -214,7 +215,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => RoleSkills(),
+                                  builder: (context) => RoleAndSkills(),
                                 ),
                               );
                             },

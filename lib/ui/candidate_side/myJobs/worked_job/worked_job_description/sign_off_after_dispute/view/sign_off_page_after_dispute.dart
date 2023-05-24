@@ -96,11 +96,8 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
     super.initState();
     selectedBreakTime = widget.signOffData?.timesheetBreakTime ?? '';
     startTimeController.text = widget.signOffData?.timesheetStartTime ?? '';
+    print('start time:${startTimeController.text}');
     endTimeController.text = widget.signOffData?.timesheetEndTime ?? '';
-    unit = widget.signOffData?.jobUnit.toString() != 'null'
-        ? widget.signOffData?.jobUnit.toString()
-        : unit;
-    print(widget.signOffData?.jobUnit.toString());
   }
 
   final _signOffAfterDisputeBloc =
@@ -440,8 +437,8 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
                   btnTitle: Strings.text_submit,
                   bgColor: AppColors.kDefaultPurpleColor,
                   onPressed: () {
-                    // event of update TimeSheet After Dispute
-                    // todo: need to remove AM and PM from backed side it created issue in sign off
+                    // todo: remove AM PM
+                    // event of update timesheet after dispute
                     var params = {
                       'timesheet_id': widget.timeSheetId.toString(),
                       'start_time': startTimeController.text,

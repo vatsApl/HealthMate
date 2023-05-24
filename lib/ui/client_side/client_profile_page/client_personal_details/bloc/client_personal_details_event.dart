@@ -12,10 +12,10 @@ class UpdateClientDetails extends ClientPersonalDetailsEvent {
   UpdateClientDetails({required this.params});
 }
 
-class uploadFileToServer extends ClientPersonalDetailsEvent {
+class UploadFileToServer extends ClientPersonalDetailsEvent {
   String uId;
   File? imageFile;
-  uploadFileToServer({
+  UploadFileToServer({
     required this.uId,
     this.imageFile,
   });

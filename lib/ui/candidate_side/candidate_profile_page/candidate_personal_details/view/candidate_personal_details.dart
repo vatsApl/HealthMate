@@ -10,6 +10,9 @@ import 'package:clg_project/models/personal_details_res.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
 import 'package:clg_project/resourse/strings.dart';
+import 'package:clg_project/ui/candidate_side/candidate_profile_page/candidate_personal_details/bloc/candidate_personal_details_bloc.dart';
+import 'package:clg_project/ui/candidate_side/candidate_profile_page/candidate_personal_details/bloc/candidate_personal_details_state.dart';
+import 'package:clg_project/ui/candidate_side/candidate_profile_page/candidate_personal_details/repo/candidate_personal_details_repo.dart';
 import 'package:clg_project/ui/client_side/client_home_page/client_job_description/model/basic_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,20 +24,17 @@ import '../../../../../allAPIs/allAPIs.dart';
 import '../../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../../resourse/app_colors.dart';
 import '../../../../../resourse/dimens.dart';
-import '../bloc/client_personal_details_bloc.dart';
-import '../bloc/client_personal_details_event.dart';
-import '../bloc/client_personal_details_state.dart';
-import '../repo/client_personal_details_repo.dart';
+import '../bloc/candidate_personal_details_event.dart';
 
-class ClientPersonalDetails extends BasePageScreen {
+class CandidatePersonalDetails extends BasePageScreen {
   @override
-  State<ClientPersonalDetails> createState() => _ClientPersonalDetailsState();
+  State<CandidatePersonalDetails> createState() => _PersonalDetailsState();
 }
 
-class _ClientPersonalDetailsState
-    extends BasePageScreenState<ClientPersonalDetails> with BaseScreen {
+class _PersonalDetailsState
+    extends BasePageScreenState<CandidatePersonalDetails> with BaseScreen {
   bool isVisible = false;
-  bool isProfileLoading = false;
+  bool isUpdateLoading = false;
   File? imageFile;
   final picker = ImagePicker();
   final _formKey = GlobalKey<FormState>();
@@ -42,14 +42,14 @@ class _ClientPersonalDetailsState
 
   Future getImageFromGallary() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
-    setState(() {
-      if (pickedFile != null) {
+    if (pickedFile != null) {
+      setState(() {
         imageFile = File(pickedFile.path);
         actionUpdateProfile();
-      } else {
-        debugPrint('No image selected.');
-      }
-    });
+      });
+    } else {
+      debugPrint('No image selected.');
+    }
   }
 
   Future getImageFromCamera() async {
@@ -64,85 +64,95 @@ class _ClientPersonalDetailsState
     }
   }
 
-  String genderValue = 'M';
+  String? genderValue;
   TextEditingController fnameController = TextEditingController();
+  TextEditingController lnameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passController = TextEditingController();
-
+  TextEditingController confirmPassController = TextEditingController();
+  bool isShowPass = true;
+  bool isShowCpass = true;
   var uId = PreferencesHelper.getString(PreferencesHelper.KEY_USER_ID);
   PersonalDetailsResponse? personalDetailsResponse;
-
-  actionUpdateProfile() {
-    // event of upload file to server
-    _clientPersonalDetailsBloc
-        .add(UploadFileToServer(uId: uId, imageFile: imageFile));
-  }
 
   @override
   void initState() {
     super.initState();
     isSaveButton(true);
-    // event of show personal details
-    _clientPersonalDetailsBloc.add(ShowClientPersonalDetails(uId: uId));
+    // event of show personal details 1
+    _candidatePersonalDetailsBloc.add(ShowCandidatePersonalDetailsEvent());
   }
 
-  final _clientPersonalDetailsBloc =
-      ClientPersonalDetailsBloc(ClientPersonalDetailsRepo());
+  final _candidatePersonalDetailsBloc =
+      CandidatePersonalDetailsBloc(CandidatePersonalDetailsRepository());
+
+  actionUpdateProfile() {
+    // event of upload candidate profile to server
+    _candidatePersonalDetailsBloc
+        .add(CandidateUploadProfile(imageFile: imageFile));
+  }
 
   @override
   void onClickSaveButton() {
-    // event of update details
+    // event of candidate update candidate details
     var params = {
       'id': uId,
-      'practice_name': fnameController.text,
+      'first_name': fnameController.text,
+      'last_name': lnameController.text,
+      'gender': genderValue,
+      'email': emailController.text,
       'phone': phoneController.text,
     };
-    _clientPersonalDetailsBloc.add(UpdateClientDetails(params: params));
-    actionUpdateProfile();
+    _candidatePersonalDetailsBloc.add(UpdateCandidateDetails(params: params));
   }
 
   @override
   Widget body() {
-    return BlocProvider<ClientPersonalDetailsBloc>(
-      create: (BuildContext context) => _clientPersonalDetailsBloc,
-      child:
-          BlocConsumer<ClientPersonalDetailsBloc, ClientPersonalDetialsState>(
+    return BlocProvider<CandidatePersonalDetailsBloc>(
+      create: (BuildContext context) => _candidatePersonalDetailsBloc,
+      child: BlocConsumer<CandidatePersonalDetailsBloc,
+          CandidatePersonalDetailsState>(
         listener: (BuildContext context, state) {
-          if (state is ShowClientPersonalDetailsLoadingState) {
+          if (state is ShowCandidatePersonalDetailsLoadingState) {
             isVisible = true;
           }
-          if (state is ShowClientPersonalDetailsLoadedState) {
+          if (state is ShowCandidatePersonalDetailsLoadedState) {
+            isVisible = false;
             var responseBody = state.response;
             personalDetailsResponse =
                 PersonalDetailsResponse.fromJson(responseBody);
             if (personalDetailsResponse?.code == 200) {
               fnameController.text =
-                  personalDetailsResponse?.data?.practiceName ?? '';
-              phoneController.text = personalDetailsResponse?.data?.phone ?? '';
-              emailController.text = personalDetailsResponse?.data?.email ?? '';
+                  personalDetailsResponse?.data?.firstName.toString() ?? '';
+              lnameController.text =
+                  personalDetailsResponse?.data?.lastName.toString() ?? '';
+              genderValue =
+                  personalDetailsResponse?.data?.gender.toString() ?? '';
+              emailController.text =
+                  personalDetailsResponse?.data?.email.toString() ?? '';
+              phoneController.text =
+                  personalDetailsResponse?.data?.phone.toString() ?? '';
               netImg = personalDetailsResponse?.data?.avatar.toString();
-              isVisible = false;
               PreferencesHelper.setString(
-                  PreferencesHelper.KEY_CLIENT_AVATAR, netImg!);
+                  PreferencesHelper.KEY_AVATAR, netImg ?? '');
             }
           }
-          if (state is ShowClientPersonalDetailsErrorState) {
+          if (state is ShowCandidatePersonalDetailsErrorState) {
             debugPrint(state.error);
           }
-          if (state is UpdateClientDetailsLoadingState) {
-            isVisible = true;
+          if (state is UpdateCandidateDetailsLoadingState) {
+            isUpdateLoading = true;
           }
-          if (state is UpdateClientDetailsLoadedState) {
-            isVisible = false;
+          if (state is UpdateCandidateDetailsLoadedState) {
+            isUpdateLoading = false;
             var responseBody = state.response;
-            var updateDetailsResponse = BasicModel.fromJson(responseBody);
-            if (updateDetailsResponse.code == 200) {
-              print('data updated successfully');
+            var basicModel = BasicModel.fromJson(responseBody);
+            if (basicModel.code == 200) {
               PreferencesHelper.setString(
-                  PreferencesHelper.KEY_CLIENT_NAME, fnameController.text);
+                  PreferencesHelper.KEY_FIRST_NAME, fnameController.text);
               Fluttertoast.showToast(
-                msg: "${updateDetailsResponse.message}",
+                msg: "${basicModel.message}",
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.BOTTOM,
                 timeInSecForIosWeb: 1,
@@ -152,15 +162,16 @@ class _ClientPersonalDetailsState
               );
               Navigator.pop(context);
             }
+            //
           }
-          if (state is UpdateClientDetailsErrorState) {
+          if (state is UpdateCandidateDetailsErrorState) {
             debugPrint(state.error);
           }
-          if (state is UploadFileToServerLoadingState) {
-            isProfileLoading = true;
+          if (state is CandidateUploadProfileLoadingState) {
+            isUpdateLoading = true;
           }
-          if (state is UploadFileToServerLoadedState) {
-            isProfileLoading = false;
+          if (state is CandidateUploadProfileLoadedState) {
+            isUpdateLoading = false;
             var responseBody = state.response;
             var uploadProfileResponse = BasicModel.fromJson(responseBody);
             if (uploadProfileResponse.code == 200) {
@@ -174,27 +185,26 @@ class _ClientPersonalDetailsState
                 fontSize: 16.0,
               );
               PreferencesHelper.setString(
-                  PreferencesHelper.KEY_CLIENT_AVATAR, netImg ?? '');
+                  PreferencesHelper.KEY_AVATAR, netImg ?? '');
               try {
-                // event of show personal details
-                _clientPersonalDetailsBloc
-                    .add(ShowClientPersonalDetails(uId: uId));
-                print(responseBody);
+                // event of show personal details 2
+                _candidatePersonalDetailsBloc
+                    .add(ShowCandidatePersonalDetailsEvent());
               } catch (e) {
                 debugPrint(e.toString());
               }
             }
           }
-          if (state is UploadFileToServerErrorState) {
+          if (state is CandidateUploadProfileErrorState) {
             debugPrint(state.error);
           }
         },
         builder: (BuildContext context, Object? state) {
-          return isVisible
-              ? CustomWidgetHelper.Loader(context: context)
-              : Stack(
-                  children: [
-                    Form(
+          return Stack(
+            children: [
+              isVisible
+                  ? CustomWidgetHelper.Loader(context: context)
+                  : Form(
                       key: _formKey,
                       child: SingleChildScrollView(
                         physics: const BouncingScrollPhysics(),
@@ -270,9 +280,7 @@ class _ClientPersonalDetailsState
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 const BorderRadius.all(
-                                              Radius.circular(
-                                                Dimens.pixel_50,
-                                              ),
+                                              Radius.circular(Dimens.pixel_50),
                                             ),
                                             border: Border.all(
                                               color:
@@ -360,10 +368,10 @@ class _ClientPersonalDetailsState
                                                                 .ic_photos_select,
                                                           ),
                                                           title: const Text(
-                                                              Strings
-                                                                  .text_photos,
-                                                              style:
-                                                                  kSelectDocsTextStyle),
+                                                            Strings.text_photos,
+                                                            style:
+                                                                kSelectDocsTextStyle,
+                                                          ),
                                                         ),
                                                       ],
                                                     ),
@@ -411,6 +419,85 @@ class _ClientPersonalDetailsState
                                 height: Dimens.pixel_26,
                               ),
                               const Text(
+                                Strings.candidate_details_label_last_name,
+                                style: kTextFormFieldLabelStyle,
+                              ),
+                              CustomTextFormField(
+                                hint: Strings.candidate_details_hint_last_name,
+                                svgPrefixIcon: SvgPicture.asset(
+                                  Images.ic_person,
+                                  fit: BoxFit.scaleDown,
+                                ),
+                                controller: lnameController,
+                              ),
+                              const SizedBox(
+                                height: Dimens.pixel_26,
+                              ),
+                              Text(
+                                Strings.candidate_details_label_gender,
+                                style: kTextFormFieldLabelStyle.copyWith(
+                                  fontSize: Dimens.pixel_14,
+                                  color: AppColors.kDefaultBlackColor,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: Dimens.pixel_10,
+                              ),
+                              Row(
+                                children: [
+                                  Radio(
+                                    value: Strings.gender_radio_male_value,
+                                    groupValue: genderValue,
+                                    onChanged: (String? value) {
+                                      setState(() {
+                                        genderValue = value!;
+                                      });
+                                    },
+                                  ),
+                                  const Text(
+                                    Strings.sign_up_gender_label_male,
+                                    style: TextStyle(
+                                      color: AppColors.klabelColor,
+                                    ),
+                                  ),
+                                  Radio(
+                                    value: Strings
+                                        .sign_up_gender_radio_female_value,
+                                    groupValue: genderValue,
+                                    onChanged: (String? value) {
+                                      setState(() {
+                                        genderValue = value!;
+                                      });
+                                    },
+                                  ),
+                                  const Text(
+                                    Strings.sign_up_gender_label_female,
+                                    style: TextStyle(
+                                      color: AppColors.klabelColor,
+                                    ),
+                                  ),
+                                  Radio(
+                                    value: Strings
+                                        .sign_up_gender_radio_other_value,
+                                    groupValue: genderValue,
+                                    onChanged: (String? value) {
+                                      setState(() {
+                                        genderValue = value!;
+                                      });
+                                    },
+                                  ),
+                                  const Text(
+                                    Strings.sign_up_gender_label_other,
+                                    style: TextStyle(
+                                      color: AppColors.klabelColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: Dimens.pixel_26,
+                              ),
+                              const Text(
                                 Strings.label_email,
                                 style: kTextFormFieldLabelStyle,
                               ),
@@ -443,17 +530,56 @@ class _ClientPersonalDetailsState
                               const SizedBox(
                                 height: Dimens.pixel_26,
                               ),
+                              // two fields of password and confirm password need to show in settings/change password:
+                              // const Text(
+                              //   Strings.label_password,
+                              //   style: kTextFormFieldLabelStyle,
+                              // ),
+                              // CustomTextFormField(
+                              //   hint: Strings.hint_password,
+                              //   controller: passController,
+                              //   obscureText: isShowPass ? true : false,
+                              //   maxLines: 1,
+                              //   svgPrefixIcon: SvgPicture.asset(
+                              //     Images.ic_password,
+                              //     fit: BoxFit.scaleDown,
+                              //   ),
+                              //   suffixIcon:
+                              //       isShowPass ? Images.ic_eye : Images.ic_eye_off,
+                              //   obscureTap: () {
+                              //     setState(() {
+                              //       isShowPass = !isShowPass;
+                              //     });
+                              //   },
+                              // ),
+                              // const SizedBox(
+                              //   height: Dimens.pixel_26,
+                              // ),
+                              // const Text(
+                              //   Strings.label_confirm_password,
+                              //   style: kTextFormFieldLabelStyle,
+                              // ),
+                              // CustomTextFormField(
+                              //   hint: Strings.hint_enter_confirm_password,
+                              //   controller: confirmPassController,
+                              //   obscureText: true,
+                              //   maxLines: 1, //obscure text can not be multiline
+                              //   svgPrefixIcon: SvgPicture.asset(
+                              //     Images.ic_password,
+                              //     fit: BoxFit.scaleDown,
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),
                       ),
                     ),
-                    Visibility(
-                      visible: isProfileLoading,
-                      child: CustomWidgetHelper.Loader(context: context),
-                    ),
-                  ],
-                );
+              Visibility(
+                visible: isUpdateLoading,
+                child: CustomWidgetHelper.Loader(context: context),
+              ),
+            ],
+          );
         },
       ),
     );

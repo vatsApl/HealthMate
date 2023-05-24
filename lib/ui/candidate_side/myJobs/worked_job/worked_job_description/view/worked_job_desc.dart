@@ -74,6 +74,7 @@ class _jobDescriptionWithStatusCandidateState
                 JobDescriptionResponse.fromJson(reaponseBody);
             if (joDetailResponse.code == 200) {
               jobDesc = joDetailResponse.data;
+              print(jobDesc?.jobStartTime);
               candidateWorkingStatus = jobDesc?.candidateWorkingStatus;
               jobDate = jobDesc?.jobDate;
               // lat = jobDesc?.cordinates?.latitude;

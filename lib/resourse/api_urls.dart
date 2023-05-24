@@ -112,4 +112,7 @@ class ApiUrl {
   static String showAmountStatusWorkedJobApi(String uId) {
     return "${DataURL.baseUrl}/api/label/count/$uId/candidate";
   }
+
+  static String uploadCandidateProfileApi =
+      "${DataURL.baseUrl}/api/candidate/upload/image";
 }

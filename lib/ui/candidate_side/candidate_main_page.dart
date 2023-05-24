@@ -1,14 +1,15 @@
-import 'package:clg_project/ui/candidate_side/candidate_home_page/view/candidate_home_page.dart';
-import 'package:clg_project/ui/candidate_side/myJobs/my_job_page.dart';
-import 'package:clg_project/bottom_navigation/profile_page.dart';
-import 'package:clg_project/ui/candidate_side/find_job/view/find_job_page.dart';
 import 'package:clg_project/resourse/images.dart';
+import 'package:clg_project/ui/candidate_side/candidate_home_page/view/candidate_home_page.dart';
+import 'package:clg_project/ui/candidate_side/find_job/view/find_job_page.dart';
+import 'package:clg_project/ui/candidate_side/myJobs/my_job_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+
 import '../../resourse/app_colors.dart';
 import '../../resourse/dimens.dart';
 import '../../resourse/strings.dart';
+import 'candidate_profile_page/candidate_profile_page.dart';
 
 class CandidateMainPage extends StatefulWidget {
   @override
@@ -20,7 +21,7 @@ class _CandidateMainPageState extends State<CandidateMainPage> {
     CandidateHomePage(),
     FindJobPage(),
     MyJobsPage(),
-    ProfilePage(),
+    CandidateProfilePage(),
   ];
 
   void onTappedBar(int index) {
