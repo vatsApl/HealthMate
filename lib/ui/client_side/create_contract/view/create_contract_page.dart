@@ -502,9 +502,13 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
     // print("unit is ${end.millisecond}");
     // print("diff is $diff");
     var data = (diff.inMinutes - selectedBreakUnit.minute);
+    // print('data:${data}');
     Duration d = Duration(minutes: data);
+    print(d);
     var hours = d.inHours;
+    print('hours:$hours');
     var minutes = d.inMinutes.remainder(60);
+    print(minutes);
 
     unit = '$hours.$minutes';
     return unit;

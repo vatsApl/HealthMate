@@ -80,29 +80,25 @@ class Methods {
                     ),
                     Align(
                       alignment: Alignment.center,
-                      // todo: solve incorrect use of parent widget
-                      child: Flexible(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: Dimens.pixel_75,
-                          ),
-                          child: ElevatedBtn(
-                            btnTitle: Strings.text_okay,
-                            bgColor: AppColors.kDefaultPurpleColor,
-                            onPressed: () {
-                              //naviate to home page:
-                              Navigator.of(context).pushAndRemoveUntil(
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        ChangeNotifierProvider<
-                                            ValueNotifier<int>>.value(
-                                      value: ValueNotifier<int>(0),
-                                      child: CandidateMainPage(),
-                                    ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: Dimens.pixel_75,
+                        ),
+                        child: ElevatedBtn(
+                          btnTitle: Strings.text_okay,
+                          bgColor: AppColors.kDefaultPurpleColor,
+                          onPressed: () {
+                            //naviate to home page:
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                  builder: (context) => ChangeNotifierProvider<
+                                      ValueNotifier<int>>.value(
+                                    value: ValueNotifier<int>(0),
+                                    child: CandidateMainPage(),
                                   ),
-                                  (route) => false);
-                            },
-                          ),
+                                ),
+                                (route) => false);
+                          },
                         ),
                       ),
                     ),

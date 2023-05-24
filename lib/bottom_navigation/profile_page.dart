@@ -392,14 +392,6 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ),
                         ),
-                        // temp start
-                        ElevatedButton(
-                          onPressed: () {
-                            Methods.showDialogAppliedJob(context);
-                          },
-                          child: Text('Temp'),
-                        ),
-                        // temp end
                       ],
                     )
                   ],

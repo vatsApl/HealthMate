@@ -552,7 +552,22 @@ class _ClientJobDescApprovalsState
                               physics: const NeverScrollableScrollPhysics(),
                               itemCount: jobDesc?.candidates?.length ?? 0,
                               itemBuilder: (BuildContext context, int index) {
-                                return Card(
+                                return Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(Dimens.pixel_6),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.1),
+                                        spreadRadius: 1,
+                                        blurRadius: 6,
+                                        offset: Offset(
+                                            0, 3), // changes position of shadow
+                                      ),
+                                    ],
+                                  ),
                                   child: ListTile(
                                     leading: CachedNetworkImage(
                                       imageUrl:

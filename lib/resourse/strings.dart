@@ -133,7 +133,7 @@ class Strings {
   static const text_no_contracts_available = 'No Contracts available';
   static const text_remove_contract = 'Remove contract';
   static const text_select_category = 'Select Category';
-  static const text_select_breaktime = 'Select Breaktime';
+  static const text_select_breaktime = 'Select Break time';
   static const text_not_available = 'Not Available';
   static const text_available = 'Available';
   static const text_choose_availability = 'Choose availability';
