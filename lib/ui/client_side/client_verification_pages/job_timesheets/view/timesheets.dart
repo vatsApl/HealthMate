@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../constants.dart';
 import '../../../../../custom_widgets/custom_widget_helper.dart';
-import '../../../../../models/candidate_models/find_job_response.dart';
 import '../../../../../resourse/dimens.dart';
+import '../../../../candidate_side/find_job/model/find_job_response.dart';
 import '../../../job_cards/job_card_with_status.dart';
 import '../bloc/timesheet_bloc.dart';
 import '../bloc/timesheet_event.dart';
@@ -62,17 +62,17 @@ class _TimeSheetsState extends State<TimeSheets> {
         listener: (BuildContext context, state) {
           if (state is TimesheetLoadingState) {
             if (page == 1) {
-                isVisible = true;
+              isVisible = true;
             }
           }
           if (state is TimesheetLoadedState) {
             var responseBody = state.response;
             var timesheetJobResponse = FindJobResponse.fromJson(responseBody);
             if (timesheetJobResponse.code == 200) {
-                page = timesheetJobResponse.lastPage!;
-                jobs.addAll(timesheetJobResponse.data ?? []);
-                isLoadingMore = false;
-                isVisible = false;
+              page = timesheetJobResponse.lastPage!;
+              jobs.addAll(timesheetJobResponse.data ?? []);
+              isLoadingMore = false;
+              isVisible = false;
             }
           }
           if (state is TimesheetErrorState) {

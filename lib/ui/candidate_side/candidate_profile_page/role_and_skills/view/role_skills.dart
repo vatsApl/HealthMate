@@ -1,26 +1,22 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/base_Screen_working/base_screen.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/custom_widgets/custom_widget_helper.dart';
-import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/ui/candidate_side/candidate_profile_page/role_and_skills/bloc/role_skills_state.dart';
 import 'package:clg_project/ui/candidate_side/candidate_profile_page/role_and_skills/repo/role_skills_repository.dart';
+import 'package:clg_project/ui/client_side/client_home_page/client_job_description/model/basic_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
 
-import '../../../../../models/onchange_skills_res.dart';
-import '../../../../../models/roles_skills_res.dart';
 import '../../../../../resourse/app_colors.dart';
 import '../../../../../resourse/dimens.dart';
 import '../../../../../resourse/shared_prefs.dart';
 import '../../../../../resourse/strings.dart';
 import '../bloc/role_skills_bloc.dart';
 import '../bloc/role_skills_event.dart';
+import '../model/onchange_skills_res.dart';
+import '../model/roles_skills_res.dart';
 
 class RoleAndSkills extends BasePageScreen {
   @override
@@ -30,6 +26,7 @@ class RoleAndSkills extends BasePageScreen {
 class _RoleSkillsState extends BasePageScreenState<RoleAndSkills>
     with BaseScreen {
   bool isVisible = false;
+  bool isUpdateLoading = false;
   String? selectedRoleItem = Strings.default_selected_role_item;
   int selectedRoleIndex = 0;
   int? selectedRoleIndexOnchangeSkills;
@@ -39,67 +36,6 @@ class _RoleSkillsState extends BasePageScreenState<RoleAndSkills>
   List<String> skill = [];
   var roleAndSkillsResponse;
 
-  // // candidate role & skills api:
-  Future<void> roleAndSkillsApi() async {
-    try {
-      setState(() {
-        isVisible = true;
-      });
-      String url = ApiUrl.roleAndSkillsApi(uId);
-      var response = await http.get(Uri.parse(url));
-      // log('role & skills:${response.body}');
-      if (response.statusCode == 200) {
-        var json = jsonDecode(response.body);
-        roleAndSkillsResponse = RoleAndSkillsResponse.fromJson(json);
-        print('this:${roleAndSkillsResponse.allRole}');
-        setState(() {
-          allRole = roleAndSkillsResponse.allRole;
-          skill = roleAndSkillsResponse.data;
-          selectedRoleItem = roleAndSkillsResponse.role;
-          selectedRoleIndex = allRole.indexOf(selectedRoleItem ?? '');
-        });
-      }
-    } catch (e) {
-      print(e.toString());
-      setState(() {
-        isVisible = false;
-      });
-    }
-    setState(() {
-      isVisible = false;
-    });
-  }
-
-  // onchange skills api:
-  Future<void> onchangeSkillsApi() async {
-    final url = ApiUrl.onchangeSkillsApi(selectedRoleIndexOnchangeSkills);
-    try {
-      setState(() {
-        isVisible = true;
-      });
-      var response = await http.get(Uri.parse(url));
-      log('ONCHANGE skills:${response.body}');
-      if (response.statusCode == 200) {
-        var json = jsonDecode(response.body);
-        var onchangeSkillsResponse = OnchangeSkillResponse.fromJson(json);
-        print('onchange Skills:${onchangeSkillsResponse.data}');
-        setState(() {
-          skill = onchangeSkillsResponse.data ?? [];
-          // selectedRoleItem = roleAndSkillsResponse.role;
-        });
-      }
-    } catch (e) {
-      print(e.toString());
-      setState(() {
-        isVisible = false;
-      });
-    }
-    setState(() {
-      isVisible = false;
-    });
-  }
-
-  // select role dropdown:
   Future<void> dropdownDialog() async {
     return showDialog<void>(
       context: context,
@@ -177,8 +113,13 @@ class _RoleSkillsState extends BasePageScreenState<RoleAndSkills>
                                       selectedRoleIndexOnchangeSkills =
                                           selectedRoleIndex + 1;
                                       print(selectedRoleIndexOnchangeSkills);
-                                      // onchange skill api call:
-                                      onchangeSkillsApi();
+                                      // onchangeSkillsApi(); // onchange skill api call
+                                      /// event of onchange skill
+                                      _roleAndSkillsBloc
+                                          .add(OnChangeSkillsEvent(
+                                        selectedRoleIndexOnchangeSkills:
+                                            selectedRoleIndexOnchangeSkills,
+                                      ));
                                     });
                                     Navigator.pop(context);
                                   },
@@ -204,51 +145,12 @@ class _RoleSkillsState extends BasePageScreenState<RoleAndSkills>
     );
   }
 
-  //update role api:
-  Future<void> updateRoleApi() async {
-    final url = ApiUrl.updateRoleApi(uId);
-    try {
-      setState(() {
-        isVisible = true;
-      });
-      var response = await http.post(Uri.parse(url), body: {
-        'role': selectedRoleIndexOnchangeSkills.toString(),
-      });
-      log('update Role:${response.body}');
-      if (response.statusCode == 200) {
-        setState(() {
-          PreferencesHelper.setString(
-              PreferencesHelper.KEY_ROLE_NAME, selectedRoleItem.toString());
-        });
-        var json = jsonDecode(response.body);
-        Fluttertoast.showToast(
-          msg: "${json['message']}",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: json['code'] == 200 ? Colors.green : Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0,
-        );
-        Navigator.pop(context);
-      }
-    } catch (e) {
-      print(e.toString());
-      setState(() {
-        isVisible = false;
-      });
-    }
-    setState(() {
-      isVisible = false;
-    });
-  }
-
   @override
   void initState() {
     super.initState();
     isSaveButton(true);
-    // roleAndSkillsApi(); // previous methods of api calling
-    // event of show role and skill
+
+    /// event of show role and skill
     _roleAndSkillsBloc.add(ShowRoleAndSkillsEvent());
   }
 
@@ -281,8 +183,11 @@ class _RoleSkillsState extends BasePageScreenState<RoleAndSkills>
 
   @override
   void onClickSaveButton() {
-    // updateRole api call:
-    updateRoleApi();
+    /// event of update role
+    var params = {
+      'role': selectedRoleIndexOnchangeSkills.toString(),
+    };
+    _roleAndSkillsBloc.add(UpdateRoleEvent(params: params));
   }
 
   @override
@@ -299,107 +204,152 @@ class _RoleSkillsState extends BasePageScreenState<RoleAndSkills>
             var responseBody = state.response;
             roleAndSkillsResponse =
                 RoleAndSkillsResponse.fromJson(responseBody);
-            // print('code needed:${roleAndSkillsResponse.code}');
             if (roleAndSkillsResponse.code == 200) {
               setState(() {
-                // print('this:${roleAndSkillsResponse.allRole}');
                 allRole = roleAndSkillsResponse.allRole;
                 skill = roleAndSkillsResponse.data;
                 selectedRoleItem = roleAndSkillsResponse.role;
                 selectedRoleIndex = allRole.indexOf(selectedRoleItem ?? '');
               });
             }
-            //
           }
           if (state is ShowRoleAndSkillsErrorState) {
+            debugPrint(state.error);
+          }
+          if (state is UpdateRoleLoadingState) {
+            isUpdateLoading = true;
+          }
+          if (state is UpdateRoleLoadedState) {
+            isUpdateLoading = false;
+            var responseBody = state.response;
+            var basicModel = BasicModel.fromJson(responseBody);
+            if (basicModel.code == 200) {
+              // setState(() {
+              PreferencesHelper.setString(
+                  PreferencesHelper.KEY_ROLE_NAME, selectedRoleItem.toString());
+              // });
+              Fluttertoast.showToast(
+                msg: "${basicModel.message}",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.green,
+                textColor: Colors.white,
+                fontSize: 16.0,
+              );
+              Navigator.pop(context);
+            }
+          }
+          if (state is UpdateRoleErrorState) {
+            debugPrint(state.error);
+          }
+          if (state is OnChangeSkillsLoadingState) {
+            isUpdateLoading = true;
+          }
+          if (state is OnChangeSkillsLoadedState) {
+            isUpdateLoading = false;
+            var responseBody = state.response;
+            var onchangeSkillsResponse =
+                OnchangeSkillResponse.fromJson(responseBody);
+            if (onchangeSkillsResponse.code == 200) {
+              print('onchange Skills:${onchangeSkillsResponse.data}');
+              setState(() {
+                skill = onchangeSkillsResponse.data ?? [];
+                // selectedRoleItem = roleAndSkillsResponse.role;
+              });
+            }
+          }
+          if (state is OnChangeSkillsErrorState) {
             debugPrint(state.error);
           }
         },
         child: Stack(
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(
-                Dimens.pixel_16,
-                Dimens.pixel_0,
-                Dimens.pixel_16,
-                Dimens.pixel_16,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: Dimens.pixel_23,
-                  ),
-                  TitleText(
-                    title: Strings.text_role_and_skills,
-                  ),
-                  const SizedBox(
-                    height: Dimens.pixel_48,
-                  ),
-                  const Text(
-                    Strings.text_role,
-                    style: TextStyle(
-                      color: AppColors.kDefaultBlackColor,
-                      fontWeight: FontWeight.w500,
+            isVisible
+                ? CustomWidgetHelper.Loader(context: context)
+                : Padding(
+                    padding: const EdgeInsets.fromLTRB(
+                      Dimens.pixel_16,
+                      Dimens.pixel_0,
+                      Dimens.pixel_16,
+                      Dimens.pixel_16,
                     ),
-                  ),
-                  const SizedBox(
-                    height: Dimens.pixel_15_and_half,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      dropdownDialog();
-                    },
-                    child: TextFormField(
-                      textAlignVertical: TextAlignVertical.bottom,
-                      enabled: false,
-                      decoration: InputDecoration(
-                        hintText: selectedRoleItem == Strings.text_null
-                            ? Strings.text_select_role
-                            : selectedRoleItem,
-                        hintStyle: const TextStyle(
-                          color: AppColors.klabelColor,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: Dimens.pixel_23,
                         ),
-                        labelStyle: const TextStyle(
-                          color: AppColors.klabelColor,
+                        TitleText(
+                          title: Strings.text_role_and_skills,
                         ),
-                        suffixIcon: const Padding(
-                          padding: kSuffixIconPadding,
-                          child: Icon(Icons.keyboard_arrow_down_outlined),
+                        const SizedBox(
+                          height: Dimens.pixel_48,
                         ),
-                        disabledBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.grey,
+                        const Text(
+                          Strings.text_role,
+                          style: TextStyle(
+                            color: AppColors.kDefaultBlackColor,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
-                      ),
+                        const SizedBox(
+                          height: Dimens.pixel_15_and_half,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            dropdownDialog();
+                          },
+                          child: TextFormField(
+                            textAlignVertical: TextAlignVertical.bottom,
+                            enabled: false,
+                            decoration: InputDecoration(
+                              hintText: selectedRoleItem == Strings.text_null
+                                  ? Strings.text_select_role
+                                  : selectedRoleItem,
+                              hintStyle: const TextStyle(
+                                color: AppColors.klabelColor,
+                              ),
+                              labelStyle: const TextStyle(
+                                color: AppColors.klabelColor,
+                              ),
+                              suffixIcon: const Padding(
+                                padding: kSuffixIconPadding,
+                                child: Icon(Icons.keyboard_arrow_down_outlined),
+                              ),
+                              disabledBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: Dimens.pixel_50,
+                        ),
+                        const Text(
+                          Strings.text_skills,
+                          style: TextStyle(
+                            color: AppColors.kDefaultBlackColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: Dimens.pixel_24,
+                        ),
+                        SingleChildScrollView(
+                          child: Wrap(
+                            alignment: WrapAlignment.start,
+                            direction: Axis.horizontal,
+                            children: returnListOfSkills(),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(
-                    height: Dimens.pixel_50,
-                  ),
-                  const Text(
-                    Strings.text_skills,
-                    style: TextStyle(
-                      color: AppColors.kDefaultBlackColor,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: Dimens.pixel_24,
-                  ),
-                  SingleChildScrollView(
-                    child: Wrap(
-                      alignment: WrapAlignment.start,
-                      direction: Axis.horizontal,
-                      children: returnListOfSkills(),
-                    ),
-                  ),
-                ],
-              ),
-            ),
             Visibility(
-              visible: isVisible,
+              visible: isUpdateLoading,
               child: CustomWidgetHelper.Loader(context: context),
             ),
           ],

@@ -6,7 +6,6 @@ import 'package:clg_project/UI/widgets/custom_textfield.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/base_Screen_working/base_screen.dart';
 import 'package:clg_project/constants.dart';
-import 'package:clg_project/models/personal_details_res.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
 import 'package:clg_project/resourse/strings.dart';
@@ -14,6 +13,7 @@ import 'package:clg_project/ui/candidate_side/candidate_profile_page/candidate_p
 import 'package:clg_project/ui/candidate_side/candidate_profile_page/candidate_personal_details/bloc/candidate_personal_details_state.dart';
 import 'package:clg_project/ui/candidate_side/candidate_profile_page/candidate_personal_details/repo/candidate_personal_details_repo.dart';
 import 'package:clg_project/ui/client_side/client_home_page/client_job_description/model/basic_model.dart';
+import 'package:clg_project/ui/client_side/client_profile_page/client_personal_details/model/personal_details_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';

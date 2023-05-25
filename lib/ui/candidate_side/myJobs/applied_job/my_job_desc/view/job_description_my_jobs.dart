@@ -16,12 +16,12 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../custom_widgets/custom_widget_helper.dart';
-import '../../../../../../models/candidate_models/find_job_response.dart';
-import '../../../../../../models/candidate_models/job_description_res.dart';
 import '../../../../../../resourse/app_colors.dart';
 import '../../../../../../resourse/dimens.dart';
 import '../../../../../../resourse/shared_prefs.dart';
+import '../../../../candidate_home_page/candidate_job_description/model/job_description_res.dart';
 import '../../../../candidate_main_page.dart';
+import '../../../../find_job/model/find_job_response.dart';
 import '../../../booked_job/sign_off_page/view/sign_off_page.dart';
 import '../bloc/my_job_desc_event.dart';
 

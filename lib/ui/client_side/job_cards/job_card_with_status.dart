@@ -1,6 +1,5 @@
-import 'package:clg_project/constants.dart';
-import 'package:clg_project/models/candidate_models/find_job_response.dart';
 import 'package:clg_project/resourse/images.dart';
+import 'package:clg_project/ui/candidate_side/find_job/model/find_job_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

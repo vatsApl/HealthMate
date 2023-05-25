@@ -1,10 +1,10 @@
-import 'package:clg_project/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import '../resourse/app_colors.dart';
-import '../resourse/images.dart';
-import '../resourse/strings.dart';
+
+import '../../../../../../resourse/app_colors.dart';
+import '../../../../../../resourse/images.dart';
+import '../../../../../../resourse/strings.dart';
 
 class MapScreen extends StatefulWidget {
   MapScreen({this.lat, this.long});

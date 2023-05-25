@@ -2,11 +2,11 @@ import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/base_Screen_working/base_screen.dart';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/methods/methods.dart';
-import 'package:clg_project/models/candidate_models/job_description_res.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/ui/candidate_side/candidate_home_page/candidate_job_description/bloc/job_desc_bloc.dart';
 import 'package:clg_project/ui/candidate_side/candidate_home_page/candidate_job_description/bloc/job_desc_event.dart';
 import 'package:clg_project/ui/candidate_side/candidate_home_page/candidate_job_description/bloc/job_desc_state.dart';
+import 'package:clg_project/ui/candidate_side/candidate_home_page/candidate_job_description/model/job_description_res.dart';
 import 'package:clg_project/ui/client_side/client_home_page/client_job_description/model/basic_model.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
@@ -15,11 +15,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../../../custom_widgets/custom_widget_helper.dart';
-import '../../../../../models/candidate_models/find_job_response.dart';
 import '../../../../../resourse/app_colors.dart';
 import '../../../../../resourse/dimens.dart';
 import '../../../../../resourse/shared_prefs.dart';
 import '../../../../../resourse/strings.dart';
+import '../../../find_job/model/find_job_response.dart';
 import '../repo/job_desc_repository.dart';
 
 class JobDescription extends BasePageScreen {

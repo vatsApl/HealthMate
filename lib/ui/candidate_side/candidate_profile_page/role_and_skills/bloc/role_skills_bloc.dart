@@ -17,6 +17,29 @@ class RoleAndSkillsBloc extends Bloc<RoleAndSkillsEvent, RoleAndSkillsState> {
           emit(ShowRoleAndSkillsErrorState(error: e.toString()));
         }
       }
+
+      if (event is UpdateRoleEvent) {
+        emit(UpdateRoleLoadingState());
+        try {
+          var response = await _roleAndSkillsRepository.updateRoleApi(
+              params: event.params);
+          emit(UpdateRoleLoadedState(response));
+        } catch (e) {
+          emit(UpdateRoleErrorState(error: e.toString()));
+        }
+      }
+
+      if (event is OnChangeSkillsEvent) {
+        emit(OnChangeSkillsLoadingState());
+        try {
+          var response = await _roleAndSkillsRepository.onchangeSkillsApi(
+              selectedRoleIndexOnchangeSkills:
+                  event.selectedRoleIndexOnchangeSkills);
+          emit(OnChangeSkillsLoadedState(response));
+        } catch (e) {
+          emit(OnChangeSkillsErrorState(error: e.toString()));
+        }
+      }
     });
   }
 }

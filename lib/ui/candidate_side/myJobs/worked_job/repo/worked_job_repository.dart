@@ -29,6 +29,7 @@ class WorkedJobRepository {
     String url = ApiUrl.showAmountStatusWorkedJobApi(uId);
     var response = await http.get(Uri.parse(url));
     log('amount status log:${response.body}');
+    // print('amount status print:${response.body}');
     var json = jsonDecode(response.body);
     return json;
   }

@@ -8,12 +8,12 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../../../constants.dart';
 import '../../../../../custom_widgets/custom_widget_helper.dart';
-import '../../../../../models/candidate_models/find_job_response.dart';
 import '../../../../../resourse/app_colors.dart';
 import '../../../../../resourse/dimens.dart';
 import '../../../../../resourse/images.dart';
 import '../../../../../resourse/shared_prefs.dart';
 import '../../../../../widgets/elevated_button.dart';
+import '../../../../candidate_side/find_job/model/find_job_response.dart';
 import '../bloc/invoice_bloc.dart';
 import '../bloc/invoice_event.dart';
 import '../repo/invoice_repository.dart';
@@ -110,9 +110,7 @@ class _InvoicesState extends State<Invoices> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(
-                          height: Dimens.pixel_38,
-                          width: Dimens.pixel_120,
+                        Flexible(
                           child: ElevatedBtn(
                             btnTitle: Strings.text_no,
                             textColor: AppColors.klabelColor,
@@ -125,9 +123,7 @@ class _InvoicesState extends State<Invoices> {
                         const SizedBox(
                           width: Dimens.pixel_17,
                         ),
-                        SizedBox(
-                          height: Dimens.pixel_38,
-                          width: Dimens.pixel_120,
+                        Flexible(
                           child: ElevatedBtn(
                             isLoading: markAsPaidLoading,
                             btnTitle: Strings.text_yes,
@@ -193,6 +189,9 @@ class _InvoicesState extends State<Invoices> {
           if (state is MarkAsPaidLoadedState) {
             markAsPaidLoading = false;
             var responseBody = state.response;
+
+            // event  of show invoices
+            _invoiceBloc.add(ShowInvoiceEvent(pageValue: page, status: '3'));
             Navigator.pop(context);
           }
           if (state is MarkAsPaidErrorState) {

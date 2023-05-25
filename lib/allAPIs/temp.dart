@@ -7,6 +7,14 @@
 // height: Dimens.pixel_44,
 // width: Dimens.pixel_160,
 
+// logout dialog
+// width: Dimens.pixel_110, //cancel button
+// height: Dimens.pixel_44,
+
+// mark as paid dialog
+// height: Dimens.pixel_38,
+// width: Dimens.pixel_120,
+
 // Future<void> parkingDialog() async {
 //   return showDialog<void>(
 //     context: context,

@@ -9,9 +9,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../constants.dart';
 import '../../../../../custom_widgets/custom_widget_helper.dart';
-import '../../../../../models/candidate_models/find_job_response.dart';
 import '../../../../../resourse/app_colors.dart';
 import '../../../../../resourse/dimens.dart';
+import '../../../find_job/model/find_job_response.dart';
 import '../bloc/applied_job_event.dart';
 import '../my_job_desc/view/job_description_my_jobs.dart';
 

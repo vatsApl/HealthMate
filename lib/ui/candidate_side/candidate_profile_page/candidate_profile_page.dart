@@ -1,8 +1,8 @@
-import 'package:clg_project/bottom_navigation/profile/cv_resume.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/ui/candidate_side/candidate_profile_page/candidate_personal_details/view/candidate_personal_details.dart';
+import 'package:clg_project/ui/candidate_side/candidate_profile_page/cv_and_resume/view/cv_resume.dart';
 import 'package:clg_project/ui/candidate_side/candidate_profile_page/role_and_skills/view/role_skills.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

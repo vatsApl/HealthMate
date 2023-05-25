@@ -176,9 +176,7 @@ class Methods {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(
-                            width: Dimens.pixel_110,
-                            height: Dimens.pixel_44,
+                          Flexible(
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColors.kredColor,
@@ -192,11 +190,16 @@ class Methods {
                                     ),
                                     (route) => false);
                               },
-                              child: const Text(
-                                Strings.text_log_out,
-                                style: TextStyle(
-                                  fontSize: Dimens.pixel_16,
-                                  fontWeight: FontWeight.w500,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10.0,
+                                ),
+                                child: const Text(
+                                  Strings.text_log_out,
+                                  style: TextStyle(
+                                    fontSize: Dimens.pixel_16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
                             ),
@@ -204,9 +207,7 @@ class Methods {
                           const SizedBox(
                             width: Dimens.pixel_17,
                           ),
-                          SizedBox(
-                            width: Dimens.pixel_110,
-                            height: Dimens.pixel_44,
+                          Flexible(
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColors.klightColor,
@@ -214,11 +215,16 @@ class Methods {
                               onPressed: () {
                                 Navigator.pop(context);
                               },
-                              child: const Text(
-                                Strings.text_cancel,
-                                style: TextStyle(
-                                  fontSize: Dimens.pixel_16,
-                                  fontWeight: FontWeight.w500,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10.0,
+                                ),
+                                child: const Text(
+                                  Strings.text_cancel,
+                                  style: TextStyle(
+                                    fontSize: Dimens.pixel_16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
                             ),

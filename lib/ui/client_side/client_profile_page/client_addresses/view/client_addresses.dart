@@ -1,4 +1,3 @@
-import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/base_Screen_working/base_screen.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/ui/client_side/client_home_page/client_job_description/model/basic_model.dart';
@@ -8,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:focus_detector/focus_detector.dart';
 
+import '../../../../../UI/widgets/title_text.dart';
 import '../../../../../resourse/app_colors.dart';
 import '../../../../../resourse/dimens.dart';
 import '../../../../../resourse/images.dart';
@@ -132,49 +132,56 @@ class _ClientAddressesState extends BasePageScreenState<ClientAddresses>
                   ),
                 )
               : Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    Dimens.pixel_16,
-                    Dimens.pixel_40,
-                    Dimens.pixel_16,
-                    Dimens.pixel_0,
+                  padding: const EdgeInsets.only(
+                    // Dimens.pixel_16,
+                    top: Dimens.pixel_40,
+                    // Dimens.pixel_16,
+                    // Dimens.pixel_0,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          TitleText(title: Strings.text_addresses),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => AddNewAddress(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: Dimens.pixel_16,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TitleText(title: Strings.text_addresses),
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AddNewAddress(),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.circular(Dimens.pixel_50),
+                                  border: Border.all(
+                                    width: Dimens.pixel_2,
+                                    color: AppColors.kDefaultPurpleColor,
+                                  ),
                                 ),
-                              );
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.circular(Dimens.pixel_50),
-                                border: Border.all(
-                                  width: Dimens.pixel_2,
-                                  color: AppColors.kDefaultPurpleColor,
+                                child: SvgPicture.asset(
+                                  Images.ic_plus,
+                                  height: Dimens.pixel_28,
                                 ),
-                              ),
-                              child: SvgPicture.asset(
-                                Images.ic_plus,
-                                height: Dimens.pixel_28,
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       Expanded(
                         child: ListView.separated(
-                          padding: const EdgeInsets.only(
-                            top: Dimens.pixel_48,
+                          padding: const EdgeInsets.symmetric(
+                            // top: Dimens.pixel_48,
+                            horizontal: Dimens.pixel_16,
+                            vertical: Dimens.pixel_48,
                           ),
                           physics: const BouncingScrollPhysics(),
                           itemCount: address?.length ?? 0,
@@ -183,7 +190,22 @@ class _ClientAddressesState extends BasePageScreenState<ClientAddresses>
                               padding: const EdgeInsets.only(
                                 top: Dimens.pixel_12,
                               ),
-                              child: Card(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(Dimens.pixel_6),
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.1),
+                                      spreadRadius: 1,
+                                      blurRadius: 6,
+                                      offset: Offset(
+                                          0, 3), // changes position of shadow
+                                    ),
+                                  ],
+                                ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(
                                     Dimens.pixel_14,
@@ -279,7 +301,7 @@ class _ClientAddressesState extends BasePageScreenState<ClientAddresses>
                           },
                           separatorBuilder: (BuildContext context, int index) {
                             return const SizedBox(
-                              height: Dimens.pixel_4,
+                              height: Dimens.pixel_20,
                             );
                           },
                         ),

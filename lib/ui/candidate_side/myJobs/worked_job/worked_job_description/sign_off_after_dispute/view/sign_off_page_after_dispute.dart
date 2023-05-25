@@ -1,6 +1,6 @@
 import 'package:clg_project/UI/widgets/title_text.dart';
-import 'package:clg_project/models/candidate_models/find_job_response.dart';
 import 'package:clg_project/resourse/images.dart';
+import 'package:clg_project/ui/candidate_side/find_job/model/find_job_response.dart';
 import 'package:clg_project/ui/candidate_side/myJobs/worked_job/worked_job_description/sign_off_after_dispute/bloc/sign_off_after_dispute_bloc.dart';
 import 'package:clg_project/ui/candidate_side/myJobs/worked_job/worked_job_description/sign_off_after_dispute/bloc/sign_off_after_dispute_state.dart';
 import 'package:clg_project/ui/candidate_side/myJobs/worked_job/worked_job_description/sign_off_after_dispute/repo/sign_off_after_dispute_repo.dart';

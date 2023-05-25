@@ -9,13 +9,13 @@ import 'package:focus_detector/focus_detector.dart';
 
 import '../../../../../constants.dart';
 import '../../../../../custom_widgets/custom_widget_helper.dart';
-import '../../../../../models/candidate_models/find_job_response.dart';
-import '../../../../../models/candidate_models/show_amount_status_model_worked_job.dart';
 import '../../../../../resourse/app_colors.dart';
 import '../../../../../resourse/dimens.dart';
 import '../../../../../resourse/shared_prefs.dart';
+import '../../../find_job/model/find_job_response.dart';
 import '../bloc/worked_job_bloc.dart';
 import '../bloc/worked_job_event.dart';
+import '../model/show_amount_status_model_worked_job.dart';
 import '../worked_job_description/view/worked_job_desc.dart';
 
 class WorkedJob extends StatefulWidget {
@@ -58,7 +58,7 @@ class _WorkedJobState extends State<WorkedJob> {
     }
   }
 
-  // // show amount status api
+  // // // show amount status api
   // Future<void> showAmountStatusWorkedJobApi() async {
   //   try {
   //     setState(() {
@@ -89,15 +89,15 @@ class _WorkedJobState extends State<WorkedJob> {
     scrollController.addListener(scrollListener);
     // event of show worked job 1
     _workedJobBloc.add(ShowWorkedJobEvent(pageValue: page));
-    // event of show amount status
+
+    /// event of show amount status
     _workedJobBloc.add(showAmountStatusEvent());
   }
 
   final _workedJobBloc = WorkedJobBloc(WorkedJobRepository());
 
-  @override
-  Widget build(BuildContext context) {
-    final snackBarAmountStatus = SnackBar(
+  showSnackbar() {
+    return SnackBar(
       backgroundColor: amountStatusMsg == Strings.text_total_paid
           ? AppColors.kGreenColor
           : amountStatusMsg == Strings.text_payment_due
@@ -121,6 +121,34 @@ class _WorkedJobState extends State<WorkedJob> {
         ],
       ),
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // final snackBarAmountStatus = SnackBar(
+    //   backgroundColor: amountStatusMsg == Strings.text_total_paid
+    //       ? AppColors.kGreenColor
+    //       : amountStatusMsg == Strings.text_payment_due
+    //           ? AppColors.kredColor
+    //           : Colors.grey,
+    //   content: Row(
+    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //     children: [
+    //       Text(
+    //         amountStatusMsg ?? Strings.text_payment_status,
+    //         style: TextStyle(
+    //           fontWeight: FontWeight.w500,
+    //           color: Color(0xffffffff),
+    //         ),
+    //       ),
+    //       Text(
+    //         '${Strings.amount_symbol_rupee} ${amount ?? ''}',
+    //         style: TextStyle(
+    //             fontWeight: FontWeight.w500, color: Color(0xffffffff)),
+    //       ),
+    //     ],
+    //   ),
+    // );
 
     return BlocProvider<WorkedJobBloc>(
       create: (BuildContext context) => _workedJobBloc,
@@ -180,7 +208,8 @@ class _WorkedJobState extends State<WorkedJob> {
                           onFocusGained: () {
                             showAmountStatus();
                             ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBarAmountStatus);
+                                // .showSnackBar(snackBarAmountStatus);
+                                .showSnackBar(showSnackbar());
                           },
                           child: Visibility(
                             visible: isVisibleAmountStatus,

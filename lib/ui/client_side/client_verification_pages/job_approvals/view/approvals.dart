@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../custom_widgets/custom_widget_helper.dart';
-import '../../../../../models/candidate_models/find_job_response.dart';
 import '../../../../../resourse/dimens.dart';
 import '../../../../../resourse/shared_prefs.dart';
+import '../../../../candidate_side/find_job/model/find_job_response.dart';
 import '../../../job_cards/job_card_verifications.dart';
 import '../bloc/approvals_event.dart';
 import '../job_approvals_desc/view/job_desc_approvals.dart';

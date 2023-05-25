@@ -1,4 +1,4 @@
-import 'package:clg_project/models/candidate_models/find_job_response.dart';
+import 'package:clg_project/ui/candidate_side/find_job/model/find_job_response.dart';
 
 class JobDescriptionResponse {
   String? message;
