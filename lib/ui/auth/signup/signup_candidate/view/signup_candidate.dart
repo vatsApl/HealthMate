@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
 import '../../../../../resourse/app_colors.dart';
 import '../../../../../resourse/dimens.dart';
 import '../../../../../resourse/shared_prefs.dart';
@@ -49,8 +50,6 @@ class SignupCandidatePageState extends State<SignupCandidatePage> {
   int? userType;
   String? firstName;
   String? lastName;
-  // static const KEYCandidateFirstName = 'candidate_fname';
-  // static const KEYCandidateLastName = 'candidate_fname';
   bool isVisible = false;
 
   bool? isFnameVerified;
@@ -483,6 +482,8 @@ class SignupCandidatePageState extends State<SignupCandidatePage> {
               GestureDetector(
                 onTap: () {
                   dropdownDialog();
+                  FocusManager.instance.primaryFocus
+                      ?.unfocus(); // hide keyboard
                 },
                 child: TextFormField(
                   enabled: false,
@@ -517,6 +518,7 @@ class SignupCandidatePageState extends State<SignupCandidatePage> {
               ),
               TextFormField(
                 textAlignVertical: TextAlignVertical.bottom,
+                textCapitalization: TextCapitalization.sentences,
                 controller: emailController,
                 keyboardType: TextInputType.emailAddress,
                 focusNode: emailFocusNode,
@@ -713,14 +715,14 @@ class SignupCandidatePageState extends State<SignupCandidatePage> {
                           ? Padding(
                               padding: kSuffixIconPadding,
                               child: SvgPicture.asset(
-                                Images.ic_eye,
+                                Images.ic_eye_off,
                                 fit: BoxFit.scaleDown,
                               ),
                             )
                           : Padding(
                               padding: kSuffixIconPadding,
                               child: SvgPicture.asset(
-                                Images.ic_eye_off,
+                                Images.ic_eye,
                                 fit: BoxFit.scaleDown,
                               ),
                             ),
@@ -802,14 +804,14 @@ class SignupCandidatePageState extends State<SignupCandidatePage> {
                           ? Padding(
                               padding: kSuffixIconPadding,
                               child: SvgPicture.asset(
-                                Images.ic_eye,
+                                Images.ic_eye_off,
                                 fit: BoxFit.scaleDown,
                               ),
                             )
                           : Padding(
                               padding: kSuffixIconPadding,
                               child: SvgPicture.asset(
-                                Images.ic_eye_off,
+                                Images.ic_eye,
                                 fit: BoxFit.scaleDown,
                               ),
                             ),

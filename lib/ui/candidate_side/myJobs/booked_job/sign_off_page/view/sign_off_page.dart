@@ -37,7 +37,7 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage>
     '00:30',
     '00:40',
     '00:50',
-    '00:60',
+    '00:60', // todo: error: issue occured when selected break time greater then 1 hour
     '01:10',
     '01:20',
     '01:30',

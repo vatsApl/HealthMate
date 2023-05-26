@@ -1,4 +1,5 @@
 import 'package:clg_project/resourse/strings.dart';
+import 'package:clg_project/ui/client_side/client_home_page/client_job_description/model/basic_model.dart';
 import 'package:clg_project/ui/client_side/client_verification_pages/job_invoices/bloc/invoice_state.dart';
 import 'package:clg_project/ui/client_side/job_cards/job_card_with_status.dart';
 import 'package:flutter/cupertino.dart';
@@ -40,7 +41,6 @@ class _InvoicesState extends State<Invoices> {
         // event show invoices
         _invoiceBloc.add(ShowInvoiceEvent(
           pageValue: page,
-          status: '3',
         ));
         isLoadingMore = true;
       }
@@ -111,28 +111,43 @@ class _InvoicesState extends State<Invoices> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Flexible(
-                          child: ElevatedBtn(
-                            btnTitle: Strings.text_no,
-                            textColor: AppColors.klabelColor,
-                            bgColor: const Color(0xffE1E1E1),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              left: Dimens.pixel_7,
+                            ),
+                            child: ElevatedBtn(
+                              btnTitle: Strings.text_no,
+                              textColor: AppColors.klabelColor,
+                              bgColor: const Color(0xffE1E1E1),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
                           ),
                         ),
                         const SizedBox(
                           width: Dimens.pixel_17,
                         ),
                         Flexible(
-                          child: ElevatedBtn(
-                            isLoading: markAsPaidLoading,
-                            btnTitle: Strings.text_yes,
-                            bgColor: AppColors.kDefaultPurpleColor,
-                            onPressed: () {
-                              // event of mark as paid api
-                              _invoiceBloc
-                                  .add(MarkAsPaidEvent(invoiceId: invoiceId));
-                            },
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              right: Dimens.pixel_7,
+                            ),
+                            child: ElevatedBtn(
+                              isLoading: markAsPaidLoading,
+                              btnTitle: Strings.text_yes,
+                              bgColor: AppColors.kDefaultPurpleColor,
+                              onPressed: () {
+                                Navigator.pop(context);
+                                Future.delayed(
+                                    const Duration(milliseconds: 100), () {
+                                  /// event of mark as paid api
+                                  _invoiceBloc.add(
+                                    MarkAsPaidEvent(invoiceId: invoiceId),
+                                  );
+                                });
+                              },
+                            ),
                           ),
                         ),
                       ],
@@ -153,7 +168,6 @@ class _InvoicesState extends State<Invoices> {
     // event of show invoices
     _invoiceBloc.add(ShowInvoiceEvent(
       pageValue: page,
-      status: '3',
     ));
   }
 
@@ -189,10 +203,27 @@ class _InvoicesState extends State<Invoices> {
           if (state is MarkAsPaidLoadedState) {
             markAsPaidLoading = false;
             var responseBody = state.response;
+            var basicModel = BasicModel.fromJson(responseBody);
+            if (basicModel.code == 200) {
+              setState(() {
+                jobs.clear();
+                page = 1;
+                _invoiceBloc.add(ShowInvoiceEvent(
+                  pageValue: page,
+                ));
+              });
 
-            // event  of show invoices
-            _invoiceBloc.add(ShowInvoiceEvent(pageValue: page, status: '3'));
-            Navigator.pop(context);
+              // Navigator.pushReplacement(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) =>
+              //         ChangeNotifierProvider<ValueNotifier<int>>.value(
+              //       value: ValueNotifier<int>(2),
+              //       child: ClientMainPage(),
+              //     ),
+              //   ),
+              // );
+            }
           }
           if (state is MarkAsPaidErrorState) {
             debugPrint(state.error);

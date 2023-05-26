@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+
 import '../../../../UI/widgets/title_text.dart';
-import '../../../candidate_side/candidate_main_page.dart';
 import '../../../../constants.dart';
 import '../../../../resourse/app_colors.dart';
 import '../../../../resourse/dimens.dart';
@@ -14,8 +14,9 @@ import '../../../../resourse/shared_prefs.dart';
 import '../../../../resourse/strings.dart';
 import '../../../../validations.dart';
 import '../../../../widgets/elevated_button.dart';
-import '../../../client_side/client_main_page.dart';
 import '../../../auth/signup/signup_page.dart';
+import '../../../candidate_side/candidate_main_page.dart';
+import '../../../client_side/client_main_page.dart';
 import '../../forgot_password/view/forgot_password.dart';
 import '../bloc/signin_bloc.dart';
 import '../bloc/signin_event.dart';
@@ -245,6 +246,7 @@ class _SigninPageState extends BasePageScreenState<SigninPage> with BaseScreen {
                         ),
                       ),
                       child: TextFormField(
+                        textCapitalization: TextCapitalization.sentences,
                         textAlignVertical: TextAlignVertical.bottom,
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
@@ -374,14 +376,14 @@ class _SigninPageState extends BasePageScreenState<SigninPage> with BaseScreen {
                                 ? Padding(
                                     padding: kSuffixIconPadding,
                                     child: SvgPicture.asset(
-                                      Images.ic_eye,
+                                      Images.ic_eye_off,
                                       fit: BoxFit.scaleDown,
                                     ),
                                   )
                                 : Padding(
                                     padding: kSuffixIconPadding,
                                     child: SvgPicture.asset(
-                                      Images.ic_eye_off,
+                                      Images.ic_eye,
                                       fit: BoxFit.scaleDown,
                                     ),
                                   ),

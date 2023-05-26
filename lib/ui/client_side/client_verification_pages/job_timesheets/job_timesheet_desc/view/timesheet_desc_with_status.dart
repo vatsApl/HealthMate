@@ -8,7 +8,6 @@ import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/ui/candidate_side/candidate_home_page/candidate_job_description/model/job_description_res.dart';
 import 'package:clg_project/ui/client_side/client_home_page/client_job_description/model/basic_model.dart';
-import 'package:clg_project/ui/client_side/client_main_page.dart';
 import 'package:clg_project/ui/client_side/client_verification_pages/job_timesheets/job_timesheet_desc/bloc/timesheet_desc_bloc.dart';
 import 'package:clg_project/ui/client_side/client_verification_pages/job_timesheets/job_timesheet_desc/bloc/timesheet_desc_event.dart';
 import 'package:clg_project/ui/client_side/client_verification_pages/job_timesheets/job_timesheet_desc/bloc/timesheet_desc_state.dart';
@@ -27,6 +26,7 @@ import '../../../../../../resourse/shared_prefs.dart';
 import '../../../../../../validations.dart';
 import '../../../../../candidate_side/find_job/model/find_job_response.dart';
 import '../../../../client_home_page/view/client_home_page.dart';
+import '../../../../client_main_page.dart';
 
 class JobDescriptionWithStatus extends BasePageScreen {
   int? jobId;
@@ -204,20 +204,27 @@ class _JobDescriptionWithStatusState
                 const SnackBar(
                   content: Text('TimeSheet Accepted!'),
                   padding: EdgeInsets.symmetric(
-                    horizontal: 17.0,
-                    vertical: 12.0,
+                    horizontal: Dimens.pixel_17,
+                    vertical: Dimens.pixel_12,
                   ),
-                  margin:
-                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 21.0),
+                  margin: EdgeInsets.symmetric(
+                    horizontal: Dimens.pixel_16,
+                    vertical: Dimens.pixel_21,
+                  ),
                   behavior: SnackBarBehavior.floating,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(6.0),
-                      bottomRight: Radius.circular(6.0),
+                      bottomLeft: Radius.circular(
+                        Dimens.pixel_6,
+                      ),
+                      bottomRight: Radius.circular(
+                        Dimens.pixel_6,
+                      ),
                     ),
                   ),
                 ),
               );
+              Navigator.pop(context);
               // navigate to timesheet page
               ClientHomePage.tabIndexNotifier.value =
                   1; // this is for set index 1 of my client verification page
@@ -730,9 +737,7 @@ class _JobDescriptionWithStatusState
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
-                                                SizedBox(
-                                                  height: Dimens.pixel_38,
-                                                  width: Dimens.pixel_140,
+                                                Flexible(
                                                   child: ElevatedBtn(
                                                     btnTitle:
                                                         Strings.text_accept,
@@ -741,27 +746,26 @@ class _JobDescriptionWithStatusState
                                                     isLoading:
                                                         isLoadingApproveTimesheet,
                                                     onPressed: () {
-                                                      // event of approve timesheet
+                                                      /// event of approve timesheet
                                                       _timesheetDescBloc.add(
                                                           ApproveTimesheetEvent(
                                                         timesheetId:
                                                             timeSheetId,
                                                       ));
-                                                      debugPrint(
-                                                          'button pressed');
                                                     },
                                                   ),
                                                 ),
                                                 SizedBox(
-                                                  height: Dimens.pixel_38,
-                                                  width: Dimens.pixel_140,
+                                                  width: Dimens.pixel_19,
+                                                ),
+                                                Flexible(
                                                   child: ElevatedBtn(
                                                     btnTitle:
                                                         Strings.text_reject,
                                                     textColor:
                                                         AppColors.klabelColor,
                                                     bgColor:
-                                                        const Color(0xffE1E1E1),
+                                                        AppColors.kLightNeutral,
                                                     onPressed: () {
                                                       // dialog of reject timesheet reason
                                                       showDialogTimeSheetRejectReason();

@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/base_Screen_working/base_screen.dart';
 import 'package:clg_project/constants.dart';
@@ -12,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
 import '../../../../resourse/app_colors.dart';
 import '../../../../resourse/dimens.dart';
 import '../../../../resourse/strings.dart';
@@ -40,53 +39,6 @@ class _NewPasswordState extends BasePageScreenState<NewPassword>
   bool isShowCpass = true;
   bool isVisible = false;
   final _formKey = GlobalKey<FormState>();
-
-  //reset password api
-  // Future<void> resetPasswordApi() async {
-  //   String url = ApiUrl.resetPassword;
-  //   try {
-  //     setState(() {
-  //       isVisible = true;
-  //     });
-  //     var response = await http.post(Uri.parse(url), body: {
-  //       'password': newPassController.text,
-  //       'confirm_password': confirmPassController.text,
-  //       'id': widget.userId.toString(),
-  //       'type': widget.userType.toString(),
-  //     });
-  //     var json = jsonDecode(response.body);
-  //     print('this: ${json['code']}');
-  //     Fluttertoast.showToast(
-  //         msg: "${json['message']}",
-  //         toastLength: Toast.LENGTH_SHORT,
-  //         gravity: ToastGravity.BOTTOM,
-  //         timeInSecForIosWeb: 1,
-  //         backgroundColor: json['code'] == 200 ? Colors.green : Colors.red,
-  //         textColor: Colors.white,
-  //         fontSize: 16.0);
-  //     log('HP: ${response.body}');
-  //     if (json['code'] == 200) {
-  //       setState(() {
-  //         isVisible = false;
-  //       });
-  //       Navigator.push(
-  //         context,
-  //         MaterialPageRoute(
-  //           builder: (context) => SigninPage(),
-  //         ),
-  //       );
-  //     }
-  //   } catch (e) {
-  //     print('HP: $e');
-  //     setState(() {
-  //       isVisible = false;
-  //     });
-  //   }
-  //   setState(() {
-  //     isVisible = false;
-  //   });
-  // }
-
   final _newPasswordBloc = NewPasswordBloc(NewPasswordRepository());
 
   @override
@@ -163,7 +115,7 @@ class _NewPasswordState extends BasePageScreenState<NewPassword>
                         style: const TextStyle(
                           height: Dimens.pixel_1,
                         ),
-                        textCapitalization: TextCapitalization.words,
+                        textCapitalization: TextCapitalization.sentences,
                         obscureText: isShowPass ? true : false,
                         controller: newPassController,
                         focusNode: newPassFocusNode,
@@ -210,14 +162,14 @@ class _NewPasswordState extends BasePageScreenState<NewPassword>
                               ? Padding(
                                   padding: kSuffixIconPadding,
                                   child: SvgPicture.asset(
-                                    Images.ic_eye,
+                                    Images.ic_eye_off,
                                     fit: BoxFit.scaleDown,
                                   ),
                                 )
                               : Padding(
                                   padding: kSuffixIconPadding,
                                   child: SvgPicture.asset(
-                                    Images.ic_eye_off,
+                                    Images.ic_eye,
                                     fit: BoxFit.scaleDown,
                                   ),
                                 ),
@@ -238,6 +190,7 @@ class _NewPasswordState extends BasePageScreenState<NewPassword>
                   Stack(
                     children: [
                       TextFormField(
+                        textCapitalization: TextCapitalization.sentences,
                         textAlignVertical: TextAlignVertical.bottom,
                         controller: confirmPassController,
                         style: const TextStyle(
@@ -268,14 +221,14 @@ class _NewPasswordState extends BasePageScreenState<NewPassword>
                               ? Padding(
                                   padding: kSuffixIconPadding,
                                   child: SvgPicture.asset(
-                                    Images.ic_eye,
+                                    Images.ic_eye_off,
                                     fit: BoxFit.scaleDown,
                                   ),
                                 )
                               : Padding(
                                   padding: kSuffixIconPadding,
                                   child: SvgPicture.asset(
-                                    Images.ic_eye_off,
+                                    Images.ic_eye,
                                     fit: BoxFit.scaleDown,
                                   ),
                                 ),

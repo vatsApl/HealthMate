@@ -753,6 +753,8 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                       GestureDetector(
                         onTap: () {
                           createContractDropdownDialog();
+                          FocusManager.instance.primaryFocus
+                              ?.unfocus(); // hide keyboard
                         },
                         child: TextFormField(
                           style: const TextStyle(height: Dimens.pixel_1),
@@ -789,6 +791,7 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                         height: Dimens.pixel_12,
                       ),
                       TextFormField(
+                        textCapitalization: TextCapitalization.sentences,
                         maxLines: null,
                         controller: jobDescriptionController,
                         validator: (value) {
@@ -813,8 +816,11 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                       ),
                       GestureDetector(
                         onTap: () {
+                          FocusManager.instance.primaryFocus
+                              ?.unfocus(); // hide keyboard
                           _showAddresses(context);
-                          // event of show addresses
+
+                          /// event of show addresses
                           _createContractBloc.add(ShowAllAddressesApi(uId));
                         },
                         child: TextFormField(
@@ -1045,6 +1051,8 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                           GestureDetector(
                             onTap: () {
                               selectBreakTimeDialog();
+                              FocusManager.instance.primaryFocus
+                                  ?.unfocus(); // hide keyboard
                             },
                             child: TextFormField(
                               style: const TextStyle(
@@ -1183,6 +1191,8 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                       GestureDetector(
                         onTap: () {
                           parkingDialog();
+                          FocusManager.instance.primaryFocus
+                              ?.unfocus(); // hide keyboard
                         },
                         child: CustomTextFormField(
                           hint: selectedParkingItem == Strings.text_null

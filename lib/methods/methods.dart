@@ -13,7 +13,6 @@ import '../widgets/elevated_button.dart';
 
 class Methods {
   static var timeSheetId;
-  static final _formKey = GlobalKey<FormState>();
 
   //apply job pop up:
   static Future<void> showDialogAppliedJob(BuildContext context) async {
@@ -192,7 +191,8 @@ class Methods {
                               },
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
-                                  horizontal: 10.0,
+                                  horizontal: Dimens.pixel_15,
+                                  vertical: Dimens.pixel_11,
                                 ),
                                 child: const Text(
                                   Strings.text_log_out,
@@ -210,18 +210,20 @@ class Methods {
                           Flexible(
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.klightColor,
+                                backgroundColor: AppColors.kLightNeutral,
                               ),
                               onPressed: () {
                                 Navigator.pop(context);
                               },
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
-                                  horizontal: 10.0,
+                                  horizontal: Dimens.pixel_15,
+                                  vertical: Dimens.pixel_11,
                                 ),
                                 child: const Text(
                                   Strings.text_cancel,
                                   style: TextStyle(
+                                    color: AppColors.klabelColor,
                                     fontSize: Dimens.pixel_16,
                                     fontWeight: FontWeight.w500,
                                   ),

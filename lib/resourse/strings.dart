@@ -82,7 +82,7 @@ class Strings {
   static const text_applied_job_message =
       'Your Job Application is Successfully Done!';
   static const text_okay = 'Okay !';
-  static const text_log_out = 'Log Out';
+  static const text_log_out = 'Logout';
   static const text_log_out_confirmation = 'Are You Sure You Want To Log Out?';
   static const text_reason = 'Reason';
   static const text_field_required_symbol = '*';

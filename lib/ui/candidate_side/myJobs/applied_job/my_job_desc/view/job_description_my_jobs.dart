@@ -541,22 +541,16 @@ class _JobDescriptionMyJobsState
                                             }
                                           : null,
                                     )
-                                  : Padding(
-                                      padding: const EdgeInsets.only(
-                                        bottom: Dimens.pixel_40,
-                                        top: Dimens.pixel_30,
-                                      ),
-                                      child: ElevatedBtn(
-                                        btnTitle: Strings.text_withdraw,
-                                        bgColor: AppColors.kDefaultPurpleColor,
-                                        isLoading: isWithdrawLoading,
-                                        onPressed: () {
-                                          // event of withdraw job
-                                          _myJobDescBloc.add(WithdrawJobEvent(
-                                            appId: widget.appId,
-                                          ));
-                                        },
-                                      ),
+                                  : ElevatedBtn(
+                                      btnTitle: Strings.text_withdraw,
+                                      bgColor: AppColors.kDefaultPurpleColor,
+                                      isLoading: isWithdrawLoading,
+                                      onPressed: () {
+                                        // event of withdraw job
+                                        _myJobDescBloc.add(WithdrawJobEvent(
+                                          appId: widget.appId,
+                                        ));
+                                      },
                                     ),
                             ),
                           ],

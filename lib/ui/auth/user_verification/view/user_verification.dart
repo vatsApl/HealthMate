@@ -1,5 +1,4 @@
 import 'package:clg_project/UI/widgets/otp_text_form_field.dart';
-import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/ui/auth/user_verification/bloc/user_verification_bloc.dart';
@@ -10,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../../UI/widgets/title_text.dart';
 import '../../../../resourse/app_colors.dart';
 import '../../../../resourse/dimens.dart';
 import '../../signin/view/signin_page.dart';
@@ -31,6 +31,8 @@ class _UserVerificationState extends State<UserVerification> {
   TextEditingController otp2Controller = TextEditingController();
   TextEditingController otp3Controller = TextEditingController();
   TextEditingController otp4Controller = TextEditingController();
+
+  FocusNode otp1FocusNode = FocusNode();
 
   bool isVisible = false;
 
@@ -164,6 +166,7 @@ class _UserVerificationState extends State<UserVerification> {
                     children: [
                       OtpTextFormField(
                         otpController: otp1Controller,
+                        focusNode: otp1FocusNode,
                         first: true,
                         last: false,
                       ),
@@ -211,13 +214,20 @@ class _UserVerificationState extends State<UserVerification> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          //Resend otp api event
+                          /// Event of Resend otp
                           var params = {
                             'id': widget.userId.toString(),
                             'type': widget.userType.toString(),
                           };
                           _userVerificationBloc
                               .add(UserVerificationResendOtp(params));
+                          // clear textfields when resend otp pressed
+                          otp1Controller.clear();
+                          otp2Controller.clear();
+                          otp3Controller.clear();
+                          otp4Controller.clear();
+                          // set focus on first textfield
+                          FocusScope.of(context).requestFocus(otp1FocusNode);
                         },
                         child: const Text(
                           Strings.text_resend,

@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'package:clg_project/constants.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/ui/auth/signup/model/signup_model.dart';
@@ -11,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
 import '../../../../../resourse/app_colors.dart';
 import '../../../../../resourse/dimens.dart';
 import '../../../../../resourse/strings.dart';
@@ -198,6 +197,7 @@ class _SignupClientState extends State<SignupClient> {
                 ),
                 TextFormField(
                   textAlignVertical: TextAlignVertical.bottom,
+                  textCapitalization: TextCapitalization.sentences,
                   style: TextStyle(
                     height: Dimens.pixel_1,
                     color: isEmailVerified == null
@@ -338,6 +338,7 @@ class _SignupClientState extends State<SignupClient> {
                 ),
                 TextFormField(
                   textAlignVertical: TextAlignVertical.bottom,
+                  textCapitalization: TextCapitalization.sentences,
                   style: TextStyle(
                     height: Dimens.pixel_1,
                     color: isAddressVerified == null
@@ -346,7 +347,6 @@ class _SignupClientState extends State<SignupClient> {
                             ? Colors.green
                             : Colors.red,
                   ),
-                  textCapitalization: TextCapitalization.words,
                   controller: addressController,
                   focusNode: addressFocusNode,
                   // onChanged: (val) {
@@ -412,6 +412,7 @@ class _SignupClientState extends State<SignupClient> {
                 ),
                 TextFormField(
                   textAlignVertical: TextAlignVertical.bottom,
+                  textCapitalization: TextCapitalization.sentences,
                   style: TextStyle(
                     height: Dimens.pixel_1,
                     color: isAreaVerified == null
@@ -420,7 +421,6 @@ class _SignupClientState extends State<SignupClient> {
                             ? Colors.green
                             : Colors.red,
                   ),
-                  textCapitalization: TextCapitalization.words,
                   controller: areaController,
                   focusNode: areaFocusNode,
                   // onChanged: (val) {
@@ -622,14 +622,14 @@ class _SignupClientState extends State<SignupClient> {
                             ? Padding(
                                 padding: kSuffixIconPadding,
                                 child: SvgPicture.asset(
-                                  Images.ic_eye,
+                                  Images.ic_eye_off,
                                   fit: BoxFit.scaleDown,
                                 ),
                               )
                             : Padding(
                                 padding: kSuffixIconPadding,
                                 child: SvgPicture.asset(
-                                  Images.ic_eye_off,
+                                  Images.ic_eye,
                                   fit: BoxFit.scaleDown,
                                 ),
                               ),
@@ -702,14 +702,16 @@ class _SignupClientState extends State<SignupClient> {
                             ? Padding(
                                 padding: kSuffixIconPadding,
                                 child: SvgPicture.asset(
-                                  Images.ic_eye,
+                                  Images.ic_eye_off,
                                   fit: BoxFit.scaleDown,
                                 ),
                               )
                             : Padding(
                                 padding: kSuffixIconPadding,
-                                child: SvgPicture.asset(Images.ic_eye_off,
-                                    fit: BoxFit.scaleDown),
+                                child: SvgPicture.asset(
+                                  Images.ic_eye,
+                                  fit: BoxFit.scaleDown,
+                                ),
                               ),
                       ),
                     ),

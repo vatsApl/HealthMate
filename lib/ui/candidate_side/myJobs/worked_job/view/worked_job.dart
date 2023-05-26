@@ -114,7 +114,7 @@ class _WorkedJobState extends State<WorkedJob> {
             ),
           ),
           Text(
-            '${Strings.amount_symbol_rupee} ${amount ?? ''}',
+            '${Strings.amount_symbol_rupee}${amount ?? ''}',
             style: TextStyle(
                 fontWeight: FontWeight.w500, color: Color(0xffffffff)),
           ),

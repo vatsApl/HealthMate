@@ -2,17 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class OtpTextFormField extends StatelessWidget {
-  OtpTextFormField(
-      {super.key, required this.otpController, this.first, this.last});
+  OtpTextFormField({
+    super.key,
+    required this.otpController,
+    this.first,
+    this.last,
+    this.focusNode,
+  });
 
   TextEditingController otpController;
   bool? first, last;
+  FocusNode? focusNode;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 52.0,
       width: 40.0,
       child: TextFormField(
+        focusNode: focusNode,
         controller: otpController,
         autofocus: true,
         showCursor: false,

@@ -1,4 +1,3 @@
-import 'package:clg_project/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -74,15 +73,17 @@ class CardTopCandidate extends StatelessWidget {
                               fontWeight: FontWeight.w400,
                             ),
                           ),
-                        Text(
-                          '$number',
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.start,
-                          maxLines: 1,
-                          style: const TextStyle(
-                            fontSize: Dimens.pixel_16,
-                            color: AppColors.kDefaultBlackColor,
-                            fontWeight: FontWeight.w500,
+                        Flexible(
+                          child: Text(
+                            '$number',
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.start,
+                            maxLines: 1,
+                            style: const TextStyle(
+                              fontSize: Dimens.pixel_16,
+                              color: AppColors.kDefaultBlackColor,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
                       ],

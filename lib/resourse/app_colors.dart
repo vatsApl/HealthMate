@@ -14,4 +14,5 @@ class AppColors {
   static const kTealColor = Colors.tealAccent;
   static const kTextShadowColor = Color(0XFF4F4557);
   // static const kWhiteColor = Color(0xffffffff);
+  static const kLightNeutral = Color(0xffE1E1E1);
 }

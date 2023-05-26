@@ -3,6 +3,10 @@
 // height: Dimens.pixel_38,
 // width: Dimens.pixel_120,
 
+// timesheet accept/reject button
+// height: Dimens.pixel_38,
+// width: Dimens.pixel_140,
+
 // applied job dialog:
 // height: Dimens.pixel_44,
 // width: Dimens.pixel_160,
