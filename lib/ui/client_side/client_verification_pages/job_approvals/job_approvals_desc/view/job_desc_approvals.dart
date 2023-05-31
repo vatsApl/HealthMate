@@ -146,7 +146,7 @@ class _ClientJobDescApprovalsState
                               backgroundColor: AppColors.kDefaultPurpleColor,
                             ),
                             onPressed: () {
-                              // event of approve application & generate timesheet
+                              /// event of approve application & generate timesheet
                               _jobApprovalsDescBloc.add(ApproveApplicationEvent(
                                 candidateId: candidateId,
                                 jobId: widget.jobId,
@@ -176,6 +176,12 @@ class _ClientJobDescApprovalsState
 
   final _jobApprovalsDescBloc =
       JobApprovalsDescBloc(JobApprovalsDescRepository());
+
+  @override
+  void dispose() {
+    _jobApprovalsDescBloc.close();
+    super.dispose();
+  }
 
   @override
   Widget body() {
@@ -215,6 +221,7 @@ class _ClientJobDescApprovalsState
                 textColor: Colors.white,
                 fontSize: 16.0,
               );
+              // Navifate to approvals page after approve the application
               Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
                     builder: (context) =>
@@ -615,6 +622,7 @@ class _ClientJobDescApprovalsState
                                             'this is appID:${jobDesc?.candidates?[index].applicationId}');
                                         appId =
                                             '${jobDesc?.candidates?[index].applicationId}';
+                                        // Approve candidate dialog
                                         showDialogApproveCandidate(context);
                                       },
                                       child: SvgPicture.asset(

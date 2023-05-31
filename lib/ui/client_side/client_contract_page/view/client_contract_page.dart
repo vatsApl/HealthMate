@@ -62,6 +62,12 @@ class _ClientContractPageState extends BasePageScreenState<ClientContractPage>
   final _clientContractBloc = ClientContractBloc(ClientContractRepository());
 
   @override
+  void dispose() {
+    _clientContractBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget body() {
     return BlocProvider<ClientContractBloc>(
       create: (BuildContext context) => _clientContractBloc,

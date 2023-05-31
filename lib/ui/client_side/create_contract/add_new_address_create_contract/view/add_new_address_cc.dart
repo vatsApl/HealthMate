@@ -82,6 +82,12 @@ class _AddNewAddressTwoState
       AddNewAddressCreateContractBloc(AddNewAddressCCRepository());
 
   @override
+  void dispose() {
+    _addNewAddressCCBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget body() {
     return BlocProvider<AddNewAddressCreateContractBloc>(
       create: (BuildContext context) => _addNewAddressCCBloc,

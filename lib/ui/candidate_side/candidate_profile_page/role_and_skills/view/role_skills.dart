@@ -191,6 +191,12 @@ class _RoleSkillsState extends BasePageScreenState<RoleAndSkills>
   }
 
   @override
+  void dispose() {
+    _roleAndSkillsBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget body() {
     return BlocProvider<RoleAndSkillsBloc>(
       create: (BuildContext context) => _roleAndSkillsBloc,

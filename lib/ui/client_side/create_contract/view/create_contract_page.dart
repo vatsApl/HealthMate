@@ -641,6 +641,12 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
   final _createContractBloc = CreateContractBloc(CreateContractRepository());
 
   @override
+  void dispose() {
+    _createContractBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget body() {
     return BlocProvider<CreateContractBloc>(
       create: (BuildContext context) => _createContractBloc,

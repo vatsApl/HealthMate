@@ -44,6 +44,12 @@ class _ClientAddressesState extends BasePageScreenState<ClientAddresses>
   final _clientAddressBloc = ClientAddressBloc(ClientAddressRepository());
 
   @override
+  void dispose() {
+    _clientAddressBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget body() {
     return BlocProvider<ClientAddressBloc>(
       create: (BuildContext context) => _clientAddressBloc,

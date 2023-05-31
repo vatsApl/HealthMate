@@ -7,6 +7,7 @@ import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
 import '../../../../../../resourse/app_colors.dart';
 import '../../../../../../resourse/dimens.dart';
 import '../../../../../../resourse/shared_prefs.dart';
@@ -33,6 +34,12 @@ class _AddNewAddressState extends BasePageScreenState<AddNewAddress>
   TextEditingController postcodeController = TextEditingController();
 
   final _AddNewAddressBloc = AddNewAddressBloc(AddNewAddressRepository());
+
+  @override
+  void dispose() {
+    _AddNewAddressBloc.close();
+    super.dispose();
+  }
 
   @override
   Widget body() {

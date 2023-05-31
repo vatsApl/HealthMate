@@ -103,6 +103,12 @@ class _ClientPersonalDetailsState
   }
 
   @override
+  void dispose() {
+    _clientPersonalDetailsBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget body() {
     return BlocProvider<ClientPersonalDetailsBloc>(
       create: (BuildContext context) => _clientPersonalDetailsBloc,

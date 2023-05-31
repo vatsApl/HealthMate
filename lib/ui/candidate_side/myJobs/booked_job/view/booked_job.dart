@@ -63,6 +63,12 @@ class _BookedJobState extends State<BookedJob> {
   final _bookedJobBloc = BookedJobBloc(BookedJobRepository());
 
   @override
+  void dispose() {
+    _bookedJobBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider<BookedJobBloc>(
       create: (BuildContext context) => _bookedJobBloc,

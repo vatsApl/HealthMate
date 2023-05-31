@@ -45,6 +45,12 @@ class _ClientJobDescriptionState
   final _clientJobDescBloc = ClientJobDescBloc(ClientJobDescRepository());
 
   @override
+  void dispose() {
+    _clientJobDescBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget body() {
     return BlocProvider<ClientJobDescBloc>(
       create: (BuildContext context) => _clientJobDescBloc,

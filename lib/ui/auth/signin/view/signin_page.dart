@@ -60,6 +60,12 @@ class _SigninPageState extends BasePageScreenState<SigninPage> with BaseScreen {
   }
 
   @override
+  void dispose() {
+    _signinBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget body() {
     return BlocProvider<SigninBloc>(
       create: (BuildContext context) => _signinBloc,

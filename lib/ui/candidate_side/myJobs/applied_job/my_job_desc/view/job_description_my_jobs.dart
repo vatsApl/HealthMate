@@ -95,6 +95,12 @@ class _JobDescriptionMyJobsState
   }
 
   @override
+  void dispose() {
+    _myJobDescBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget body() {
     return BlocProvider<MyJobDescBloc>(
       create: (BuildContext context) => _myJobDescBloc,

@@ -193,6 +193,12 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage>
   }
 
   @override
+  void dispose() {
+    _signoffBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget body() {
     return BlocProvider<SignOffBloc>(
       create: (BuildContext context) => _signoffBloc,

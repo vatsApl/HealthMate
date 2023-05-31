@@ -60,6 +60,12 @@ class _ApprovalsState extends State<Approvals> {
   final _approvalsBloc = ApprovalsBloc(JobApprovalsRepository());
 
   @override
+  void dispose() {
+    _approvalsBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider<ApprovalsBloc>(
       create: (BuildContext context) => _approvalsBloc,

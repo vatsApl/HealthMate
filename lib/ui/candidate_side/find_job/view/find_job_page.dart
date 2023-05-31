@@ -53,6 +53,12 @@ class _FindJobPageState extends State<FindJobPage> {
   final _findJobBloc = FindJobBloc(FindJobRepository());
 
   @override
+  void dispose() {
+    _findJobBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {

@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
 import '../../../../base_Screen_working/base_screen.dart';
 import '../../../../resourse/app_colors.dart';
 import '../../../../resourse/dimens.dart';
@@ -34,6 +35,12 @@ class _ForgotPasswordState extends BasePageScreenState<ForgotPassword>
   bool isVisible = false;
 
   final _forgotPasswordBloc = ForgotPasswordBloc(ForgotPasswordRepository());
+
+  @override
+  void dispose() {
+    _forgotPasswordBloc.close();
+    super.dispose();
+  }
 
   @override
   Widget body() {

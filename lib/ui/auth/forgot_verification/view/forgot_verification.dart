@@ -1,14 +1,11 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'package:clg_project/UI/widgets/otp_text_form_field.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
-import 'package:clg_project/resourse/api_urls.dart';
 import 'package:clg_project/ui/auth/forgot_verification/bloc/forgot_verification_state.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
+
 import '../../../../base_Screen_working/base_screen.dart';
 import '../../../../resourse/app_colors.dart';
 import '../../../../resourse/dimens.dart';
@@ -36,35 +33,15 @@ class _ForgotVerificationState extends BasePageScreenState<ForgotVerification>
   TextEditingController otp4Controller = TextEditingController();
   bool isVisible = false;
 
-  // Future<void> forgotPasswordResendOtpApi() async {
-  //   String url = ApiUrl.forgotPasswordResendOtp;
-  //   try {
-  //     var response = await http.post(Uri.parse(url), body: {
-  //       'id': widget.userId.toString(),
-  //       'type': widget.userType.toString(),
-  //     });
-  //     print('USERID: ${widget.userId}');
-  //     print('USERID: ${widget.userType}');
-  //     if (response.statusCode == 200) {
-  //       var json = jsonDecode(response.body);
-  //       print('this: ${json['code']}');
-  //       Fluttertoast.showToast(
-  //         msg: "${json['message']}",
-  //         toastLength: Toast.LENGTH_SHORT,
-  //         gravity: ToastGravity.BOTTOM,
-  //         timeInSecForIosWeb: 1,
-  //         backgroundColor: json['code'] == 200 ? Colors.green : Colors.red,
-  //         textColor: Colors.white,
-  //         fontSize: 16.0,
-  //       );
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
-
   final _forgotVerificationBloc =
       ForgotVerificationBloc(ForgotVerificationRepository());
+
+  @override
+  void dispose() {
+    _forgotVerificationBloc.close();
+    super.dispose();
+  }
+
   @override
   Widget body() {
     return BlocProvider<ForgotVerificationBloc>(

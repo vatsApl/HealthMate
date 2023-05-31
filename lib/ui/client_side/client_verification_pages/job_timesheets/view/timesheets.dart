@@ -55,6 +55,12 @@ class _TimeSheetsState extends State<TimeSheets> {
   final _timesheetBloc = TimesheetBloc(TimesheetRepository());
 
   @override
+  void dispose() {
+    _timesheetBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider<TimesheetBloc>(
       create: (BuildContext context) => _timesheetBloc,

@@ -40,6 +40,12 @@ class _UserVerificationState extends State<UserVerification> {
       UserVerificationBloc(UserVerificationRepository());
 
   @override
+  void dispose() {
+    _userVerificationBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider<UserVerificationBloc>(
       create: (BuildContext context) => _userVerificationBloc,

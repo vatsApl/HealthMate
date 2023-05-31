@@ -104,6 +104,12 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
       SignOffAfterDisputeBloc(SignOffAfterDisputeRepository());
 
   @override
+  void dispose() {
+    _signOffAfterDisputeBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,

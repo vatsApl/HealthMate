@@ -169,6 +169,12 @@ class _JobDescriptionWithStatusState
   final _timesheetDescBloc = TimesheetDescBloc(TimesheetDescRepository());
 
   @override
+  void dispose() {
+    _timesheetDescBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget body() {
     return BlocProvider<TimesheetDescBloc>(
       create: (BuildContext context) => _timesheetDescBloc,
@@ -202,7 +208,7 @@ class _JobDescriptionWithStatusState
             if (basicModelResponse.code == 200) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text('TimeSheet Accepted!'),
+                  content: Text(Strings.text_timesheet_accepted),
                   padding: EdgeInsets.symmetric(
                     horizontal: Dimens.pixel_17,
                     vertical: Dimens.pixel_12,

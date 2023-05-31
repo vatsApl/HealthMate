@@ -46,6 +46,13 @@ class _JobDescriptionState extends BasePageScreenState<JobDescription>
   }
 
   final _JobDescBloc = JobDescBloc(JobDescriptionRepository());
+
+  @override
+  void dispose() {
+    _JobDescBloc.close();
+    super.dispose();
+  }
+
   @override
   Widget body() {
     return BlocProvider<JobDescBloc>(
@@ -487,7 +494,7 @@ class _JobDescriptionState extends BasePageScreenState<JobDescription>
                             child: ElevatedBtn(
                               btnTitle: Strings.text_cancel,
                               textColor: AppColors.klabelColor,
-                              bgColor: const Color(0xffE1E1E1),
+                              bgColor: AppColors.kLightNeutral,
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },

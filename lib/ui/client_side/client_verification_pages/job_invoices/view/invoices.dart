@@ -174,6 +174,12 @@ class _InvoicesState extends State<Invoices> {
   final _invoiceBloc = InvoiceBloc(InvoiceRepository());
 
   @override
+  void dispose() {
+    _invoiceBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider<InvoiceBloc>(
       create: (BuildContext context) => _invoiceBloc,
@@ -212,17 +218,6 @@ class _InvoicesState extends State<Invoices> {
                   pageValue: page,
                 ));
               });
-
-              // Navigator.pushReplacement(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) =>
-              //         ChangeNotifierProvider<ValueNotifier<int>>.value(
-              //       value: ValueNotifier<int>(2),
-              //       child: ClientMainPage(),
-              //     ),
-              //   ),
-              // );
             }
           }
           if (state is MarkAsPaidErrorState) {

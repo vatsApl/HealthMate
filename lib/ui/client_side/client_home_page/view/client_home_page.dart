@@ -51,6 +51,12 @@ class _ClientHomePageState extends State<ClientHomePage> {
   }
 
   @override
+  void dispose() {
+    _clientHomeBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {

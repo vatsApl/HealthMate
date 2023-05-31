@@ -127,6 +127,7 @@ class Strings {
   static const client_bottom_text_profile = 'Profile';
   static const text_contracts = 'Contracts';
   static const text_timesheets = 'Timesheets';
+  static const text_timesheet_accepted = 'TimeSheet Accepted!';
   static const text_approvals = 'Approvals';
   static const text_invoices = 'Invoices';
   static const text_create_contract = 'Create Contract';

@@ -61,6 +61,12 @@ class _AppliedJobState extends State<AppliedJob> {
   final _AppliedJobBloc = AppliedJobBloc(AppliedJobRepository());
 
   @override
+  void dispose() {
+    _AppliedJobBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider<AppliedJobBloc>(
       create: (BuildContext context) => _AppliedJobBloc,

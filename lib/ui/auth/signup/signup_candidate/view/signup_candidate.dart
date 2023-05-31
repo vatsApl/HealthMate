@@ -200,6 +200,12 @@ class SignupCandidatePageState extends State<SignupCandidatePage> {
   }
 
   @override
+  void dispose() {
+    _signupCandidateBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider<SignupCandidateBloc>(
       create: (BuildContext context) => _signupCandidateBloc,

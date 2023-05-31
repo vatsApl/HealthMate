@@ -42,6 +42,12 @@ class _NewPasswordState extends BasePageScreenState<NewPassword>
   final _newPasswordBloc = NewPasswordBloc(NewPasswordRepository());
 
   @override
+  void dispose() {
+    _newPasswordBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget body() {
     return BlocProvider<NewPasswordBloc>(
       create: (BuildContext context) => _newPasswordBloc,

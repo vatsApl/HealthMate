@@ -70,6 +70,12 @@ class _CvResumeState extends BasePageScreenState<CvResume> with BaseScreen {
   final _cvResumeBloc = CvResumeBloc(CvResumeRepository());
 
   @override
+  void dispose() {
+    _cvResumeBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget body() {
     return BlocProvider<CvResumeBloc>(
       create: (BuildContext context) => _cvResumeBloc,

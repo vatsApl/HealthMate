@@ -46,6 +46,12 @@ class _EditAddressState extends State<EditAddress> {
   final _editAddressBloc = EditAddressBloc(EditAddressRepository());
 
   @override
+  void dispose() {
+    _editAddressBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,

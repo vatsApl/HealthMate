@@ -54,6 +54,12 @@ class _CandidateHomePageState extends State<CandidateHomePage> {
   final _candidateHomePageBloc = CandidateHomePageBloc(CandidateHomePageRepo());
 
   @override
+  void dispose() {
+    _candidateHomePageBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {

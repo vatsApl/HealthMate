@@ -61,6 +61,12 @@ class _SignupClientState extends State<SignupClient> {
   final _signupClientBloc = SignupClientBloc(SignupClientRepository());
 
   @override
+  void dispose() {
+    _signupClientBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider<SignupClientBloc>(
       create: (BuildContext context) => _signupClientBloc,

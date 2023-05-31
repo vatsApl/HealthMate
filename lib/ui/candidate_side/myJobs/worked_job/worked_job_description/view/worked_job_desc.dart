@@ -59,6 +59,12 @@ class _jobDescriptionWithStatusCandidateState
   final _workedJobDescBloc = WorkedJobDescBloc(WorkedJobDescRepository());
 
   @override
+  void dispose() {
+    _workedJobDescBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget body() {
     return BlocProvider<WorkedJobDescBloc>(
       create: (BuildContext context) => _workedJobDescBloc,

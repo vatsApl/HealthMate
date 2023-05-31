@@ -124,32 +124,13 @@ class _WorkedJobState extends State<WorkedJob> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    // final snackBarAmountStatus = SnackBar(
-    //   backgroundColor: amountStatusMsg == Strings.text_total_paid
-    //       ? AppColors.kGreenColor
-    //       : amountStatusMsg == Strings.text_payment_due
-    //           ? AppColors.kredColor
-    //           : Colors.grey,
-    //   content: Row(
-    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //     children: [
-    //       Text(
-    //         amountStatusMsg ?? Strings.text_payment_status,
-    //         style: TextStyle(
-    //           fontWeight: FontWeight.w500,
-    //           color: Color(0xffffffff),
-    //         ),
-    //       ),
-    //       Text(
-    //         '${Strings.amount_symbol_rupee} ${amount ?? ''}',
-    //         style: TextStyle(
-    //             fontWeight: FontWeight.w500, color: Color(0xffffffff)),
-    //       ),
-    //     ],
-    //   ),
-    // );
+  void dispose() {
+    _workedJobBloc.close();
+    super.dispose();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return BlocProvider<WorkedJobBloc>(
       create: (BuildContext context) => _workedJobBloc,
       child: BlocConsumer<WorkedJobBloc, WorkedJobState>(
