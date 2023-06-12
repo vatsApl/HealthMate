@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SubmitBtn extends StatelessWidget {
-  SubmitBtn({super.key, required this.name, required this.onPressed});
+  SubmitBtn({required this.name, required this.onPressed});
 
   String name;
   Function? onPressed;

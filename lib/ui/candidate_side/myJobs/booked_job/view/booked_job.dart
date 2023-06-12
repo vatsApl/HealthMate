@@ -18,7 +18,6 @@ import '../bloc/booked_job_event.dart';
 
 class BookedJob extends StatefulWidget {
   BookedJob({
-    super.key,
     this.currentIndex,
   });
   int? currentIndex;

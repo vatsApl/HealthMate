@@ -292,7 +292,8 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
                                   groupValue: selectedBreakTime,
                                   onChanged: (value) {
                                     setState(() {
-                                      selectedBreakTime = value;
+                                      selectedBreakTime = value
+                                          .toString(); // before don't toString
                                       breakTimeController.text =
                                           selectedBreakTime!;
                                       if (startTimeController.text == '' &&

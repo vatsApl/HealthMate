@@ -1,3 +1,5 @@
+// part of 'find_job_bloc.dart';
+
 abstract class FindJobEvent {}
 
 class ShowFindJobEvent extends FindJobEvent {

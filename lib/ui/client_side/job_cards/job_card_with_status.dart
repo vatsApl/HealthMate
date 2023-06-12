@@ -9,7 +9,7 @@ import '../../../resourse/strings.dart';
 
 class JobCardWithStatus extends StatefulWidget {
   JobModel? jobModel;
-  JobCardWithStatus({super.key, this.jobModel});
+  JobCardWithStatus({this.jobModel});
 
   @override
   State<JobCardWithStatus> createState() => _JobCardWithStatusState();

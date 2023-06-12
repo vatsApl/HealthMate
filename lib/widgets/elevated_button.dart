@@ -5,8 +5,7 @@ import '../resourse/dimens.dart';
 
 class ElevatedBtn extends StatelessWidget {
   ElevatedBtn(
-      {super.key,
-      this.isLoading = false,
+      {this.isLoading = false,
       required this.btnTitle,
       required this.onPressed,
       this.bgColor,

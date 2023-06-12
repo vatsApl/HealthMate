@@ -10,7 +10,7 @@ import '../../resourse/dimens.dart';
 class JobCardCandidate extends StatelessWidget {
   JobModel? homePageModel;
   int? currentIndex;
-  JobCardCandidate({super.key, this.homePageModel, this.currentIndex});
+  JobCardCandidate({this.homePageModel, this.currentIndex});
 
   @override
   Widget build(BuildContext context) {

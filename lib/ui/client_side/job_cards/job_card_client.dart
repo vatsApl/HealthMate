@@ -9,7 +9,7 @@ import '../../../resourse/dimens.dart';
 
 class JobCardClient extends StatelessWidget {
   JobModel? clientJobModel;
-  JobCardClient({super.key, this.clientJobModel});
+  JobCardClient({this.clientJobModel});
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomLoader extends StatefulWidget {
-  CustomLoader({super.key, required this.isVisible, this.setColor});
+  CustomLoader({required this.isVisible, this.setColor});
 
   bool isVisible = false;
   Color? setColor;

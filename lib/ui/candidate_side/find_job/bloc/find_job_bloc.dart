@@ -3,6 +3,9 @@ import 'package:clg_project/ui/candidate_side/find_job/bloc/find_job_state.dart'
 import 'package:clg_project/ui/candidate_side/find_job/repo/find_job_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// part 'find_job_event.dart';
+// part 'find_job_state.dart';
+
 class FindJobBloc extends Bloc<FindJobEvent, FindJobState> {
   final FindJobRepository _findJobRepository;
   FindJobBloc(this._findJobRepository) : super(FindJobInitialState()) {

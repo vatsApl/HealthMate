@@ -7,7 +7,7 @@ import '../../resourse/strings.dart';
 
 class CardTopCandidate extends StatelessWidget {
   CardTopCandidate({
-    super.key,
+    // super.key,
     required this.icon,
     required this.number,
     required this.label,

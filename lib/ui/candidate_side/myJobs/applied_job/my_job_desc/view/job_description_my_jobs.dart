@@ -250,8 +250,8 @@ class _JobDescriptionMyJobsState
                                 top: Dimens.pixel_33,
                               ),
                               child: SvgPicture.asset(
-                                alignment: Alignment.topCenter,
                                 Images.ic_location_circle,
+                                alignment: Alignment.topCenter,
                                 fit: BoxFit.scaleDown,
                               ),
                             ),

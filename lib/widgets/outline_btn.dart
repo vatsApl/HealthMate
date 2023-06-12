@@ -7,8 +7,7 @@ import '../resourse/dimens.dart';
 
 class OutlinedBtn extends StatelessWidget {
   OutlinedBtn(
-      {super.key,
-      this.isLoading = false,
+      {this.isLoading = false,
       required this.btnTitle,
       required this.onPressed,
       this.bgColor,

@@ -538,7 +538,8 @@ class _SignOffPageAfterDisputeState extends State<SignOffPageAfterDispute> {
                                   groupValue: selectedBreakTime,
                                   onChanged: (value) {
                                     setState(() {
-                                      selectedBreakTime = value;
+                                      selectedBreakTime = value
+                                          .toString(); //before don't have toString
                                       if (startTimeController.text == '' ||
                                           endTimeController.text == '') {
                                         Fluttertoast.showToast(

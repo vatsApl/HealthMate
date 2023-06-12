@@ -28,7 +28,6 @@ class CustomTextFormField extends StatefulWidget {
   final bool autoFocus;
 
   const CustomTextFormField({
-    super.key,
     this.hint,
     this.controller,
     this.baseColor,

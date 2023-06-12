@@ -123,7 +123,8 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage>
                                   groupValue: selectedBreakTime,
                                   onChanged: (value) {
                                     setState(() {
-                                      selectedBreakTime = value;
+                                      selectedBreakTime = value
+                                          .toString(); // before dont't have to String
                                       breakController.text = selectedBreakTime!;
                                       if (startTimeController.text == '' ||
                                           endTimeController.text == '') {

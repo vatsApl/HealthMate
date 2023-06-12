@@ -7,7 +7,7 @@ import '../../resourse/strings.dart';
 
 class CardTopClient extends StatelessWidget {
   CardTopClient({
-    super.key,
+    // super.key,
     required this.icon,
     required this.number,
     required this.label,

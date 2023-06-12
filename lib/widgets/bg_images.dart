@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BGImages extends StatelessWidget {
-  BGImages({super.key, 
+  BGImages({
     this.imagePath,
     this.text1,
   });

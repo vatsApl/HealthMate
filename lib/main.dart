@@ -1,3 +1,4 @@
+// //@dart=2.9
 import 'package:clg_project/resourse/shared_prefs.dart';
 import 'package:clg_project/ui/splash.dart';
 import 'package:flutter/material.dart';

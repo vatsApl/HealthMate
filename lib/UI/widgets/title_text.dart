@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../resourse/app_colors.dart';
 
 class TitleText extends StatelessWidget {
-  TitleText({super.key, required this.title});
+  TitleText({required this.title});
 
   String title;
   @override

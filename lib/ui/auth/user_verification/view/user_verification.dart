@@ -18,7 +18,7 @@ import '../model/user_verification_model.dart';
 import '../repo/user_verification_repository.dart';
 
 class UserVerification extends StatefulWidget {
-  UserVerification({super.key, this.userId, this.userType});
+  UserVerification({this.userId, this.userType});
   int? userId;
   int? userType;
 
