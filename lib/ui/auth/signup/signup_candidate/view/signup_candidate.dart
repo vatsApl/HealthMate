@@ -4,11 +4,13 @@ import 'package:clg_project/ui/auth/signup/signup_candidate/bloc/signup_candidat
 import 'package:clg_project/ui/auth/signup/signup_candidate/repo/signup_candidate_repository.dart';
 import 'package:clg_project/validations.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../../../MyFirebaseService.dart';
 import '../../../../../resourse/app_colors.dart';
 import '../../../../../resourse/dimens.dart';
 import '../../../../../resourse/shared_prefs.dart';
@@ -210,7 +212,7 @@ class SignupCandidatePageState extends State<SignupCandidatePage> {
     return BlocProvider<SignupCandidateBloc>(
       create: (BuildContext context) => _signupCandidateBloc,
       child: BlocListener<SignupCandidateBloc, SignupCandidateState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is SignupCandidateLoadingState) {
             setState(() {
               isVisible = true;
@@ -235,7 +237,6 @@ class SignupCandidatePageState extends State<SignupCandidatePage> {
                 gravity: ToastGravity.BOTTOM,
                 timeInSecForIosWeb: 1,
                 backgroundColor: Colors.green,
-                // signupResponse.code == 200 ? Colors.green : Colors.red,
                 textColor: Colors.white,
                 fontSize: 16.0,
               );
@@ -248,6 +249,16 @@ class SignupCandidatePageState extends State<SignupCandidatePage> {
                   ),
                 ),
               );
+
+              /// google analytics sign_up event created manually
+              await MyFirebaseService.analytics
+                  .logEvent(name: 'sign_up', parameters: {
+                'user_type': 'candidate',
+              });
+
+              /// google analytics inbuilt log event
+              // await MyFirebaseService.analytics
+              //     .logSignUp(signUpMethod: 'sign_up_inbuilt');
             } else {
               Fluttertoast.showToast(
                 msg: "${signupResponse.message}",

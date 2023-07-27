@@ -48,7 +48,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               )
             : CachedNetworkImage(
-                imageUrl: '${DataURL.baseUrl}/$netImg',
+                imageUrl: '${DataURL.baseUrl}/${netImg}',
                 imageBuilder: (context, imageProvider) => Container(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,

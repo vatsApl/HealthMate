@@ -1,11 +1,19 @@
 // //@dart=2.9
+import 'package:clg_project/MyFirebaseService.dart';
+import 'package:clg_project/remote_config_service.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
 import 'package:clg_project/ui/splash.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await MyFirebaseService.registerNotification();
+  await MyFirebaseService.logCheckout();
+  await RemoteConfigService.initializeRemoteConfig();
+
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -30,6 +38,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'HealthMate',
         debugShowCheckedModeBanner: false,
+        key: NavigationService.navigatorKey,
         theme: ThemeData(
           pageTransitionsTheme: const PageTransitionsTheme(builders: {
             TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),

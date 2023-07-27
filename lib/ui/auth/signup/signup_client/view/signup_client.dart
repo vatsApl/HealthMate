@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../../../MyFirebaseService.dart';
 import '../../../../../resourse/app_colors.dart';
 import '../../../../../resourse/dimens.dart';
 import '../../../../../resourse/strings.dart';
@@ -71,7 +72,7 @@ class _SignupClientState extends State<SignupClient> {
     return BlocProvider<SignupClientBloc>(
       create: (BuildContext context) => _signupClientBloc,
       child: BlocListener<SignupClientBloc, SignupClientState>(
-        listener: (BuildContext context, state) {
+        listener: (BuildContext context, state) async {
           if (state is SignupClientLoadingState) {
             setState(() {
               isVisible = true;
@@ -105,6 +106,16 @@ class _SignupClientState extends State<SignupClient> {
                   ),
                 ),
               );
+
+              /// google analytics sign_up event created manually
+              await MyFirebaseService.analytics
+                  .logEvent(name: 'sign_up', parameters: {
+                'user_type': 'client',
+              });
+
+              /// google analytics inbuilt logEvent
+              // await MyFirebaseService.analytics
+              //     .logSignUp(signUpMethod: 'sign_up_inbuilt');
             } else {
               Fluttertoast.showToast(
                 msg: "${signupResponse.message}",

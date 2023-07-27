@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../MyFirebaseService.dart';
 import '../../../../UI/widgets/title_text.dart';
 import '../../../../constants.dart';
 import '../../../../resourse/app_colors.dart';
@@ -70,7 +71,7 @@ class _SigninPageState extends BasePageScreenState<SigninPage> with BaseScreen {
     return BlocProvider<SigninBloc>(
       create: (BuildContext context) => _signinBloc,
       child: BlocListener<SigninBloc, SigninState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is SigninLoadingState) {
             setState(() {
               isVisible = true;
@@ -134,6 +135,30 @@ class _SigninPageState extends BasePageScreenState<SigninPage> with BaseScreen {
                         : ClientMainPage(),
                   ),
                 ),
+              );
+
+              /// google analytics login event
+              await MyFirebaseService.analytics.logEvent(
+                name: 'login',
+                parameters: {
+                  'user_type':
+                      signinResponse.type == 1 ? 'client' : 'candidate',
+                  'gender': signinResponse.data?[0].gender == 'M'
+                      ? 'Male'
+                      : signinResponse.data?[0].gender == 'F'
+                          ? 'Female'
+                          : signinResponse.data?[0].gender == 'O'
+                              ? 'Other'
+                              : '',
+                  'role_name': signinResponse.data?[0].roleName ?? '',
+                },
+              );
+
+              /// set user property
+              await MyFirebaseService.analytics.setUserProperty(
+                name: 'user_detail',
+                value:
+                    'user is ${signinResponse.type == 1 ? 'client' : 'candidate'}',
               );
             } else {
               Fluttertoast.showToast(

@@ -367,7 +367,8 @@ class _CandidateProfilePageState extends State<CandidateProfilePage> {
                           ),
                           child: InkWell(
                             onTap: () {
-                              Methods.showDialogLogOut(context);
+                              Methods.showDialogLogOut(
+                                  context: context, isClient: false);
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(

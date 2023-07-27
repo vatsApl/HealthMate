@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../MyFirebaseService.dart';
 import '../../../../constants.dart';
 import '../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../custom_widgets/index_notifier.dart';
@@ -228,7 +229,13 @@ class _ClientHomePageState extends State<ClientHomePage> {
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: InkWell(
-                                  onTap: () {
+                                  onTap: () async {
+                                    await MyFirebaseService.analytics.logEvent(
+                                      name: 'create_contract_button_pressed',
+                                      parameters: {
+                                        'content_type': 'button',
+                                      },
+                                    );
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(

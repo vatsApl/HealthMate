@@ -226,7 +226,8 @@ class _ClientProfilePageState extends State<ClientProfilePage> {
                       ),
                       child: InkWell(
                         onTap: () {
-                          Methods.showDialogLogOut(context);
+                          Methods.showDialogLogOut(
+                              context: context, isClient: true);
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(

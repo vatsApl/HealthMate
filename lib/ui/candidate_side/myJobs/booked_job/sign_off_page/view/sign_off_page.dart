@@ -173,7 +173,6 @@ class _SignOffPageState extends BasePageScreenState<SignOffPage>
   final _signoffBloc = SignOffBloc(SignOffRepository());
 
   var unit;
-  double unitDurationInMinutes = 60;
   calculateUnitTwo(String startTime, String endTime) {
     var format = DateFormat("HH:mm");
     var start = format.parse(startTime);

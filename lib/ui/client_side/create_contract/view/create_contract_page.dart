@@ -10,6 +10,7 @@ import 'package:clg_project/ui/client_side/create_contract/bloc/create_contract_
 import 'package:clg_project/ui/client_side/create_contract/repo/create_contract_repository.dart';
 import 'package:clg_project/validations.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,6 +18,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../MyFirebaseService.dart';
 import '../../../../resourse/app_colors.dart';
 import '../../../../resourse/dimens.dart';
 import '../../../../resourse/strings.dart';
@@ -520,12 +522,16 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
 
   @override
   void initState() {
-    super.initState();
+    /// google analytics set current screen
+    MyFirebaseService.analytics
+        .setCurrentScreen(screenName: 'create contract screen');
+
     // event of show addresses
     _createContractBloc.add(ShowAllAddressesApi(uId));
 
     addressController.text = widget.newAddress ?? '';
     print('user id:$uId');
+    super.initState();
   }
 
   void _showAddresses(BuildContext context) {

@@ -1,3 +1,4 @@
+import 'package:clg_project/MyFirebaseService.dart';
 import 'package:clg_project/resourse/dimens.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
@@ -112,7 +113,8 @@ class Methods {
   }
 
   // log out pop up:
-  static Future<dynamic> showDialogLogOut(BuildContext context) {
+  static Future<dynamic> showDialogLogOut(
+      {required BuildContext context, required bool isClient}) {
     return showDialog(
       context: context,
       barrierDismissible: false,
@@ -188,6 +190,13 @@ class Methods {
                                       builder: (context) => SigninPage(),
                                     ),
                                     (route) => false);
+
+                                /// google analytics logout event
+                                await MyFirebaseService.analytics
+                                    .logEvent(name: 'logout', parameters: {
+                                  'user_type':
+                                      isClient ? 'client' : 'candidate',
+                                });
                               },
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(

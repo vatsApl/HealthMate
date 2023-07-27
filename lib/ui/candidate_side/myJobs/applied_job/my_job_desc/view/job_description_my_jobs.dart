@@ -1,3 +1,4 @@
+import 'package:clg_project/MyFirebaseService.dart';
 import 'package:clg_project/UI/widgets/title_text.dart';
 import 'package:clg_project/base_Screen_working/base_screen.dart';
 import 'package:clg_project/constants.dart';
@@ -105,7 +106,7 @@ class _JobDescriptionMyJobsState
     return BlocProvider<MyJobDescBloc>(
       create: (BuildContext context) => _myJobDescBloc,
       child: BlocConsumer<MyJobDescBloc, MyJobDescState>(
-        listener: (BuildContext context, state) {
+        listener: (BuildContext context, state) async {
           if (state is ShowMyJobDescLoadingState) {
             setState(() {
               isVisible = true;
@@ -163,6 +164,7 @@ class _JobDescriptionMyJobsState
                     ),
                   ),
                   (route) => false);
+              await MyFirebaseService.analytics.logEvent(name: 'withdraw_job');
             }
           }
           if (state is WithdrawJobErrorState) {

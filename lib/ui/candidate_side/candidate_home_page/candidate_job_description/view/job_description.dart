@@ -14,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../../../MyFirebaseService.dart';
 import '../../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../../resourse/app_colors.dart';
 import '../../../../../resourse/dimens.dart';
@@ -58,7 +59,7 @@ class _JobDescriptionState extends BasePageScreenState<JobDescription>
     return BlocProvider<JobDescBloc>(
       create: (BuildContext context) => _JobDescBloc,
       child: BlocConsumer<JobDescBloc, JobDescState>(
-        listener: (BuildContext context, state) {
+        listener: (BuildContext context, state) async {
           if (state is JobDescLoadingState) {
             isVisible = true;
           }
@@ -82,6 +83,9 @@ class _JobDescriptionState extends BasePageScreenState<JobDescription>
             var responseBody = state.response;
             var basicModel = BasicModel.fromJson(responseBody);
             if (basicModel.code == 200) {
+              await MyFirebaseService.analytics.logEvent(
+                name: 'apply_job',
+              );
               Methods.showDialogAppliedJob(context);
             } else {
               Fluttertoast.showToast(
