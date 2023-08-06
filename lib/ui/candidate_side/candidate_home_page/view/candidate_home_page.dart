@@ -13,6 +13,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../MyFirebaseService.dart';
 import '../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../custom_widgets/index_notifier.dart';
 import '../../../../resourse/dimens.dart';
@@ -43,12 +44,19 @@ class _CandidateHomePageState extends State<CandidateHomePage> {
   var uRoleName = PreferencesHelper.getString(PreferencesHelper.KEY_ROLE_NAME);
   String? netImg = PreferencesHelper.getString(PreferencesHelper.KEY_AVATAR);
 
+  getAnalytics() async {
+    // google analytics
+    await MyFirebaseService.logScreen('candidate home screen');
+  }
+
   @override
   void initState() {
     super.initState();
     // event of show home page data
     _candidateHomePageBloc.add(ShowCandidateHomePageData());
     print('current:$uId');
+
+    getAnalytics();
   }
 
   final _candidateHomePageBloc = CandidateHomePageBloc(CandidateHomePageRepo());

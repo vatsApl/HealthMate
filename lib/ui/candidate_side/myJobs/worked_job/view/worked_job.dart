@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:focus_detector/focus_detector.dart';
 
+import '../../../../../MyFirebaseService.dart';
 import '../../../../../constants.dart';
 import '../../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../../resourse/app_colors.dart';
@@ -58,30 +59,10 @@ class _WorkedJobState extends State<WorkedJob> {
     }
   }
 
-  // // // show amount status api
-  // Future<void> showAmountStatusWorkedJobApi() async {
-  //   try {
-  //     setState(() {
-  //       isVisible = true;
-  //     });
-  //     String url = ApiUrl.showAmountStatusWorkedJobApi(uId);
-  //     var response = await http.get(Uri.parse(url));
-  //     log('show amount status log:${response.body}');
-  //     if (response.statusCode == 200) {
-  //       var json = jsonDecode(response.body);
-  //       var showAmountStatusWorkedJobResponse =
-  //           ShowAmountStatusRes.fromJson(json);
-  //       print('${json['message']}');
-  //       amountStatusMsg = showAmountStatusWorkedJobResponse.message;
-  //       amount = showAmountStatusWorkedJobResponse.data;
-  //       setState(() {
-  //         isVisible = false;
-  //       });
-  //     }
-  //   } catch (e) {
-  //     throw Exception(e.toString());
-  //   }
-  // }
+  getAnalytics() async {
+    // google analytics
+    await MyFirebaseService.logScreen('candidate worked job screen');
+  }
 
   @override
   void initState() {
@@ -92,6 +73,7 @@ class _WorkedJobState extends State<WorkedJob> {
 
     /// event of show amount status
     _workedJobBloc.add(showAmountStatusEvent());
+    getAnalytics();
   }
 
   final _workedJobBloc = WorkedJobBloc(WorkedJobRepository());

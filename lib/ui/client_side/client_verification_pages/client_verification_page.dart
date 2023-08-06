@@ -4,6 +4,7 @@ import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import '../../../MyFirebaseService.dart';
 import '../../../resourse/app_colors.dart';
 import '../../../resourse/dimens.dart';
 import '../client_home_page/view/client_home_page.dart';
@@ -20,11 +21,17 @@ class _ClientVerificationPageState
     extends BasePageScreenState<ClientVerificationPage> with BaseScreen {
   int currentIndex = 0;
 
+  getAnalytics() async {
+    // google analytics
+    await MyFirebaseService.logScreen('client verification screen');
+  }
+
   @override
   void initState() {
     super.initState();
     isBackButton(false);
     currentIndex = ClientHomePage.tabIndexNotifier.value;
+    getAnalytics();
   }
 
   @override

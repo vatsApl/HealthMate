@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../../../MyFirebaseService.dart';
 import '../../../../../resourse/app_colors.dart';
 import '../../../../../resourse/dimens.dart';
 import '../../../../../resourse/shared_prefs.dart';
@@ -145,6 +146,11 @@ class _RoleSkillsState extends BasePageScreenState<RoleAndSkills>
     );
   }
 
+  getAnalytics() async {
+    // google analytics
+    await MyFirebaseService.logScreen('candidate role & skills screen');
+  }
+
   @override
   void initState() {
     super.initState();
@@ -152,6 +158,7 @@ class _RoleSkillsState extends BasePageScreenState<RoleAndSkills>
 
     /// event of show role and skill
     _roleAndSkillsBloc.add(ShowRoleAndSkillsEvent());
+    getAnalytics();
   }
 
   final _roleAndSkillsBloc = RoleAndSkillsBloc(RoleAndSkillsRepository());

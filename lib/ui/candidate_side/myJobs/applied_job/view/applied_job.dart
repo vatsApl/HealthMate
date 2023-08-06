@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../MyFirebaseService.dart';
 import '../../../../../constants.dart';
 import '../../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../../resourse/app_colors.dart';
@@ -46,6 +47,11 @@ class _AppliedJobState extends State<AppliedJob> {
     }
   }
 
+  getAnalytics() async {
+    // google analytics
+    await MyFirebaseService.logScreen('candidate applied job screen');
+  }
+
   @override
   void initState() {
     super.initState();
@@ -56,6 +62,8 @@ class _AppliedJobState extends State<AppliedJob> {
         pageValue: page,
       ));
     });
+
+    getAnalytics();
   }
 
   final _AppliedJobBloc = AppliedJobBloc(AppliedJobRepository());

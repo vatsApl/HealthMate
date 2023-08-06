@@ -39,11 +39,17 @@ class _JobDescriptionState extends BasePageScreenState<JobDescription>
   var uId = PreferencesHelper.getString(PreferencesHelper.KEY_USER_ID);
   var uIdInt = PreferencesHelper.getInt(PreferencesHelper.KEY_USER_ID_INT);
 
+  getAnalytics() async {
+    // google analytics
+    await MyFirebaseService.logScreen('job description screen');
+  }
+
   @override
   void initState() {
     super.initState();
     // event of show job desc
     _JobDescBloc.add(ShowJobDescEvent(jobId: widget.jobId));
+    getAnalytics();
   }
 
   final _JobDescBloc = JobDescBloc(JobDescriptionRepository());

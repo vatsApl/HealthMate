@@ -13,6 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../../../MyFirebaseService.dart';
 import '../../../../../resourse/app_colors.dart';
 import '../../../../../resourse/dimens.dart';
 import '../../../../../resourse/shared_prefs.dart';
@@ -54,11 +55,17 @@ class _CvResumeState extends BasePageScreenState<CvResume> with BaseScreen {
     }
   }
 
+  getAnalytics() async {
+    // google analytics
+    await MyFirebaseService.logScreen('candidate cv-resume screen');
+  }
+
   @override
   void initState() {
     super.initState();
     isSaveButton(true);
     getData();
+    getAnalytics();
   }
 
   @override

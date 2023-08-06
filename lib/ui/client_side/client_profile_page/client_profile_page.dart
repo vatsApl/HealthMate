@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:focus_detector/focus_detector.dart';
 import 'package:provider/provider.dart';
+import '../../../MyFirebaseService.dart';
 import '../../../methods/methods.dart';
 import '../../../resourse/app_colors.dart';
 import '../../../resourse/dimens.dart';
@@ -29,10 +30,16 @@ class _ClientProfilePageState extends State<ClientProfilePage> {
     });
   }
 
+  getAnalytics() async {
+    // google analytics
+    await MyFirebaseService.logScreen('client profile screen');
+  }
+
   @override
   void initState() {
     super.initState();
     getData();
+    getAnalytics();
   }
 
   @override

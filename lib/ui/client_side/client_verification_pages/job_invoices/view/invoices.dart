@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../../../MyFirebaseService.dart';
 import '../../../../../constants.dart';
 import '../../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../../resourse/app_colors.dart';
@@ -162,6 +163,11 @@ class _InvoicesState extends State<Invoices> {
     );
   }
 
+  getAnalytics() async {
+    // google analytics
+    await MyFirebaseService.logScreen('client invoice screen');
+  }
+
   @override
   void initState() {
     super.initState();
@@ -169,6 +175,8 @@ class _InvoicesState extends State<Invoices> {
     _invoiceBloc.add(ShowInvoiceEvent(
       pageValue: page,
     ));
+
+    getAnalytics();
   }
 
   final _invoiceBloc = InvoiceBloc(InvoiceRepository());

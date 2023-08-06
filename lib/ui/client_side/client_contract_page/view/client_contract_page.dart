@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../MyFirebaseService.dart';
 import '../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../resourse/app_colors.dart';
 import '../../../../resourse/dimens.dart';
@@ -50,6 +51,11 @@ class _ClientContractPageState extends BasePageScreenState<ClientContractPage>
     }
   }
 
+  getAnalytics() async {
+    // google analytics
+    await MyFirebaseService.logScreen('Client contract screen');
+  }
+
   @override
   void initState() {
     super.initState();
@@ -57,6 +63,7 @@ class _ClientContractPageState extends BasePageScreenState<ClientContractPage>
     scrollController.addListener(scrollListener);
     // event of load contract api
     _clientContractBloc.add(ClientContractLoadEvent(page));
+    getAnalytics();
   }
 
   final _clientContractBloc = ClientContractBloc(ClientContractRepository());

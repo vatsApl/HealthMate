@@ -19,6 +19,10 @@ class MyFirebaseService {
         coupon: '10PERCENTOFF');
   }
 
+  static Future<void> logScreen(String name) async {
+    await analytics.setCurrentScreen(screenName: name,);
+  }
+
   /// notification register
   static registerNotification() async {
     final messaging = FirebaseMessaging.instance;

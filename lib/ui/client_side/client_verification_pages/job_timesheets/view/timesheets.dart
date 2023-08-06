@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../MyFirebaseService.dart';
 import '../../../../../constants.dart';
 import '../../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../../resourse/dimens.dart';
@@ -42,6 +43,11 @@ class _TimeSheetsState extends State<TimeSheets> {
     }
   }
 
+  getAnalytics() async {
+    // google analytics
+    await MyFirebaseService.logScreen('client timesheets screen');
+  }
+
   @override
   void initState() {
     super.initState();
@@ -50,6 +56,7 @@ class _TimeSheetsState extends State<TimeSheets> {
       pageValue: page,
       status: '2',
     ));
+    getAnalytics();
   }
 
   final _timesheetBloc = TimesheetBloc(TimesheetRepository());

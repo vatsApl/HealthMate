@@ -45,10 +45,16 @@ class _ClientHomePageState extends State<ClientHomePage> {
 
   final _clientHomeBloc = ClientHomeBloc(ClientHomeRepository());
 
+  getAnalytics() async {
+    // google analytics
+    await MyFirebaseService.logScreen('client home screen');
+  }
+
   @override
   void initState() {
     super.initState();
     _clientHomeBloc.add(ClientHomeLoadDataEvent(uId));
+    getAnalytics();
   }
 
   @override

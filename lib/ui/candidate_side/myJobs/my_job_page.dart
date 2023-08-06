@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
+import '../../../MyFirebaseService.dart';
 import '../../../resourse/app_colors.dart';
 import '../../../resourse/dimens.dart';
 import '../../../resourse/shared_prefs.dart';
@@ -23,6 +24,11 @@ class _MyJobsPageState extends State<MyJobsPage> {
   var uId = PreferencesHelper.getString(PreferencesHelper.KEY_USER_ID);
   String? amountStatusMsg;
   int? amount;
+
+  getAnalytics() async {
+    // google analytics
+    await MyFirebaseService.logScreen('candidate my job screen');
+  }
 
   @override
   void initState() {

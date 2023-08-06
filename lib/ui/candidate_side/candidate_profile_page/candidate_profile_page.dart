@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
 import 'package:clg_project/resourse/strings.dart';
@@ -9,6 +11,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:focus_detector/focus_detector.dart';
 import 'package:provider/provider.dart';
 
+import '../../../MyFirebaseService.dart';
 import '../../../UI/widgets/custom_appbar.dart';
 import '../../../methods/methods.dart';
 import '../../../resourse/app_colors.dart';
@@ -34,10 +37,16 @@ class _CandidateProfilePageState extends State<CandidateProfilePage> {
     });
   }
 
+  getAnalytics() async {
+    // google analytics
+    await MyFirebaseService.logScreen('candidate profile screen');
+  }
+
   @override
   void initState() {
     super.initState();
     getData();
+    getAnalytics();
   }
 
   @override

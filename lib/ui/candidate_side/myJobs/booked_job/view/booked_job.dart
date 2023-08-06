@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../MyFirebaseService.dart';
 import '../../../../../constants.dart';
 import '../../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../../resourse/app_colors.dart';
@@ -51,12 +52,18 @@ class _BookedJobState extends State<BookedJob> {
     }
   }
 
+  getAnalytics() async {
+    // google analytics
+    await MyFirebaseService.logScreen('candidate booked job screen');
+  }
+
   @override
   void initState() {
     super.initState();
     scrollController.addListener(scrollListener);
     // event of show booked job 1
     _bookedJobBloc.add(ShowBookedJobEvent(pageValue: page));
+    getAnalytics();
   }
 
   final _bookedJobBloc = BookedJobBloc(BookedJobRepository());

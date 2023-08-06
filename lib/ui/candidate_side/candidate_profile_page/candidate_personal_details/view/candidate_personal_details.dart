@@ -20,6 +20,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../../MyFirebaseService.dart';
 import '../../../../../allAPIs/allAPIs.dart';
 import '../../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../../resourse/app_colors.dart';
@@ -76,12 +77,19 @@ class _PersonalDetailsState
   var uId = PreferencesHelper.getString(PreferencesHelper.KEY_USER_ID);
   PersonalDetailsResponse? personalDetailsResponse;
 
+  getAnalytics() async {
+    // google analytics
+    await MyFirebaseService.logScreen('candidate personal details screen');
+  }
+
   @override
   void initState() {
     super.initState();
     isSaveButton(true);
     // event of show personal details 1
     _candidatePersonalDetailsBloc.add(ShowCandidatePersonalDetailsEvent());
+
+    getAnalytics();
   }
 
   final _candidatePersonalDetailsBloc =

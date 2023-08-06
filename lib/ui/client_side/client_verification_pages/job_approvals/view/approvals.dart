@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../MyFirebaseService.dart';
 import '../../../../../custom_widgets/custom_widget_helper.dart';
 import '../../../../../resourse/dimens.dart';
 import '../../../../../resourse/shared_prefs.dart';
@@ -45,6 +46,11 @@ class _ApprovalsState extends State<Approvals> {
     }
   }
 
+  getAnalytics() async {
+    // google analytics
+    await MyFirebaseService.logScreen('client approvals screen');
+  }
+
   @override
   void initState() {
     super.initState();
@@ -55,6 +61,8 @@ class _ApprovalsState extends State<Approvals> {
       status: '1',
     ));
     scrollController.addListener(scrollListener);
+
+    getAnalytics();
   }
 
   final _approvalsBloc = ApprovalsBloc(JobApprovalsRepository());

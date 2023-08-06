@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../MyFirebaseService.dart';
 import '../../../../UI/widgets/job_card_home_page.dart';
 import '../../../../constants.dart';
 import '../../../../custom_widgets/custom_widget_helper.dart';
@@ -42,12 +43,19 @@ class _FindJobPageState extends State<FindJobPage> {
     }
   }
 
+  getAnalytics() async {
+    // google analytics
+    await MyFirebaseService.logScreen('candidate find job screen',);
+  }
+
   @override
   void initState() {
     super.initState();
     scrollController.addListener(scrollListener);
     // event of show find jobs
     _findJobBloc.add(ShowFindJobEvent(pageValue: page));
+
+    getAnalytics();
   }
 
   final _findJobBloc = FindJobBloc(FindJobRepository());
