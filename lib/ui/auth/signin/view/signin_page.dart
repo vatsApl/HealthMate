@@ -1,6 +1,8 @@
 import 'package:clg_project/base_Screen_working/base_screen.dart';
+import 'package:clg_project/helper/socket_io_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_observer/Observable.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
@@ -53,10 +55,13 @@ class _SigninPageState extends BasePageScreenState<SigninPage> with BaseScreen {
   bool isVisible = false;
 
   final _signinBloc = SigninBloc(SigninRepository());
+  // final socketUtils = SocketUtils();
+  var loginUserObj = {};
 
   @override
   void initState() {
     isSystemPop(true);
+    SocketUtilsClient.instance.initSocket();
     super.initState();
   }
 
@@ -68,6 +73,7 @@ class _SigninPageState extends BasePageScreenState<SigninPage> with BaseScreen {
 
   @override
   Widget body() {
+    // SocketUtilsClient.instance.initSocket();
     return BlocProvider<SigninBloc>(
       create: (BuildContext context) => _signinBloc,
       child: BlocListener<SigninBloc, SigninState>(
@@ -84,6 +90,20 @@ class _SigninPageState extends BasePageScreenState<SigninPage> with BaseScreen {
             var responseBody = state.response;
             var signinResponse = SigninModel.fromJson(responseBody);
             if (signinResponse.code == 200) {
+              /// socket establish
+              loginUserObj = {
+                'user_id': signinResponse.data?[0].id,
+                'socket_id': SocketUtilsClient.instance.socket?.id,
+                'user_name': signinResponse.type == 1
+                    ? '${signinResponse.data?[0].practiceName}'
+                    : '${signinResponse.data?[0].firstName}'
+                        '${signinResponse.data?[0].lastName}',
+                'user_email': signinResponse.data?[0].email,
+                'user_type': signinResponse.type == 1 ? 'client' : 'candidate',
+              };
+              SocketUtilsClient.instance.socket
+                  ?.emit('user_connected', loginUserObj);
+
               var userId = signinResponse
                   .data?[0].id; //pref id which pass into URL of home page card
               // var userIdInt = signinResponse.data?[0].id;
@@ -109,6 +129,9 @@ class _SigninPageState extends BasePageScreenState<SigninPage> with BaseScreen {
                   PreferencesHelper.KEY_FIRST_NAME, firstName.toString());
               PreferencesHelper.setString(
                   PreferencesHelper.KEY_ROLE_NAME, roleName.toString());
+              PreferencesHelper.setString(
+                  PreferencesHelper.KEY_EMAIL, email.toString());
+              // PreferencesHelper.setInt(PreferencesHelper.KEY_ROLE_NAME, value);
 
               Fluttertoast.showToast(
                 msg: "${signinResponse.message}",
@@ -513,5 +536,11 @@ class _SigninPageState extends BasePageScreenState<SigninPage> with BaseScreen {
         ),
       ),
     );
+  }
+
+  @override
+  update(Observable observable, String? notifyName, Map? map) {
+    // TODO: implement update
+    throw UnimplementedError();
   }
 }

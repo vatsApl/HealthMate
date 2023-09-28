@@ -4,6 +4,7 @@ import 'package:clg_project/ui/auth/forgot_verification/bloc/forgot_verification
 import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_observer/Observable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../../base_Screen_working/base_screen.dart';
@@ -254,5 +255,11 @@ class _ForgotVerificationState extends BasePageScreenState<ForgotVerification>
         ),
       ),
     );
+  }
+
+  @override
+  update(Observable observable, String? notifyName, Map? map) {
+    // TODO: implement update
+    throw UnimplementedError();
   }
 }

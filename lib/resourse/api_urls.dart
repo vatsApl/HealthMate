@@ -115,4 +115,6 @@ class ApiUrl {
 
   static String uploadCandidateProfileApi =
       "${DataURL.baseUrl}/api/candidate/upload/image";
+
+  static String showMessageListApi = "${DataURL.baseUrl}/api/all/user/listing";
 }

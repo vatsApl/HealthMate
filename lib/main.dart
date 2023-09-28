@@ -1,8 +1,10 @@
 // //@dart=2.9
 import 'package:clg_project/MyFirebaseService.dart';
+import 'package:clg_project/helper/socket_io_client.dart';
 import 'package:clg_project/remote_config_service.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
 import 'package:clg_project/ui/splash.dart';
+import 'package:clg_project/user_detail_shared_pref/user_detail_shared_pref.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,11 +22,54 @@ void main() async {
   await PreferencesHelper.init();
   SystemChannels.textInput
       .invokeMethod('TextInput.hide'); // Hide keyboard on hot restart
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    // if (SocketUtilsClient.instance?.socket == null) {
+    //   SocketUtilsClient.instance.initSocket();
+    // }
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      SocketUtilsClient.instance.initSocket();
+      SocketUtilsClient.instance.socket
+          ?.emit('user_connected', SocketUtilsClient.loginUserObj);
+      print(
+          'UserDetails from resumed state: ${SocketUtilsClient.loginUserObj}');
+      // user returned to our app
+      debugPrint('this App in $state');
+    } else if (state == AppLifecycleState.inactive) {
+      // app is inactive
+      debugPrint('this App in $state');
+    } else if (state == AppLifecycleState.paused) {
+      // user is about quit our app temporally
+      /// SocketUtilsClient.instance.disposeSocket();
+      debugPrint('this App in $state');
+    } else if (state == AppLifecycleState.detached) {
+      SocketUtilsClient.instance.disposeSocket();
+      // app suspended (not used in iOS)
+      debugPrint('this App in $state');
+    }
+    super.didChangeAppLifecycleState(state);
+  }
 
   @override
   Widget build(BuildContext context) {

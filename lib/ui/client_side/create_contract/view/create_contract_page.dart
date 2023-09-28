@@ -13,6 +13,7 @@ import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_observer/Observable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
@@ -1272,5 +1273,11 @@ class _CreateContractState extends BasePageScreenState<CreateContract>
         },
       ),
     );
+  }
+
+  @override
+  update(Observable observable, String? notifyName, Map? map) {
+    // TODO: implement update
+    throw UnimplementedError();
   }
 }

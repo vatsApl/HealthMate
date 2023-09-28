@@ -1,5 +1,6 @@
 import 'package:clg_project/UI/widgets/client_card_top.dart';
 import 'package:clg_project/UI/widgets/custom_appbar.dart';
+import 'package:clg_project/helper/socket_io_client.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
 import 'package:clg_project/resourse/strings.dart';
@@ -50,11 +51,17 @@ class _ClientHomePageState extends State<ClientHomePage> {
     await MyFirebaseService.logScreen('client home screen');
   }
 
+  int? userType = PreferencesHelper.getInt(PreferencesHelper.KEY_USER_TYPE);
+
   @override
   void initState() {
+    // if (SocketUtilsClient.instance?.socket == null) {
+    //   SocketUtilsClient.instance.initSocket();
+    // }
     super.initState();
     _clientHomeBloc.add(ClientHomeLoadDataEvent(uId));
     getAnalytics();
+    debugPrint('This is the user type: $userType');
   }
 
   @override

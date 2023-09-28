@@ -10,6 +10,8 @@ class Strings {
   static const text_submit = 'Submit';
   static const text_dont_have_an_account = 'Don\'t Have An Account?';
   static const text_sign_up = 'SIGN UP';
+  static const Zero = "0";
+  static const you = "You:";
   static const text_title_forgot_password = 'Forgot Password';
   static const text_notice_forgot_password =
       'We Will Sent You An Email With Verification Code To Reset Your Password';
@@ -63,8 +65,10 @@ class Strings {
   static const candidate_bottom_text_home = 'Home';
   static const candidate_bottom_text_find_job = 'Find Job';
   static const candidate_bottom_text_my_jobs = 'My Jobs';
+  static const candidate_bottom_text_message = 'Message';
   static const candidate_bottom_text_profile = 'Profile';
   static const text_job_description = 'Job Description';
+  static const lbl_search = 'Search';
   static const text_location = 'Location';
   static const text_date = 'Date';
   static const text_time = 'Time';
@@ -190,4 +194,7 @@ class Strings {
   static const text_no_address_found = 'No address found';
   static const text_confirm_exit = 'Confirm Exit';
   static const text_confirm_exit_msg = 'Are you sure you want to exit?';
+
+  // chat list
+  static const lbl_type_something = 'Type something...';
 }

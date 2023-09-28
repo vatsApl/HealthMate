@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../resourse/app_colors.dart';
+import '../../resourse/dimens.dart';
 
 class CustomTextFormField extends StatefulWidget {
   final String? hint;
@@ -110,6 +111,84 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             borderSide: BorderSide(color: widget.borderColor),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class SearchCustomEditText extends StatefulWidget {
+  SearchCustomEditText({
+    this.hintText,
+    this.textInputType,
+    this.isDone,
+    this.onTap,
+    this.onSuffixIconTap,
+    this.onTextChanged,
+    this.textEditingController,
+  });
+
+  String? hintText;
+  TextInputType? textInputType;
+  bool? isDone = false;
+  VoidCallback? onTap;
+  VoidCallback? onSuffixIconTap;
+  TextEditingController? textEditingController;
+  Function? onTextChanged;
+
+  @override
+  State<SearchCustomEditText> createState() => _SearchCustomEditTextState();
+}
+
+class _SearchCustomEditTextState extends State<SearchCustomEditText> {
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      onChanged: (text) {
+        if (widget.onTextChanged != null) {
+          setState(() {
+            widget.onTextChanged!(text);
+          });
+        }
+      },
+      controller: widget.textEditingController,
+      style: kEdittextTextStyle,
+      cursorColor: AppColors.darkGrey,
+      cursorWidth: Dimens.cursorWidth,
+      keyboardType: TextInputType.text,
+      textInputAction: TextInputAction.done,
+      decoration: InputDecoration(
+        fillColor: Colors.white,
+        filled: true,
+        contentPadding: EdgeInsets.all(Dimens.pixel_12),
+        hintText: '${widget.hintText}',
+        hintStyle: kEdittextHintTextStyle,
+        // prefixIcon: SvgLoader.load(Images.ic_black_search),
+        prefixIcon: Icon(Icons.search_outlined),
+        suffixIcon: widget.textEditingController?.text.isNotEmpty == true
+            ? Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  customBorder: CircleBorder(),
+                  onTap: widget.onSuffixIconTap,
+                  // child: SvgLoader.load(
+                  //   Images.ic_search_cancel,
+                  // ),
+                  child: Icon(Icons.cancel_outlined),
+                ),
+              )
+            : null,
+        disabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(Dimens.pixel_6),
+            borderSide: BorderSide(
+                color: AppColors.colorSilver, width: Dimens.pixel_1)),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(Dimens.pixel_6),
+            borderSide:
+                BorderSide(color: AppColors.themeColor, width: Dimens.pixel_1)),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(Dimens.pixel_6),
+            borderSide: BorderSide(
+                color: AppColors.colorSilver, width: Dimens.pixel_1)),
       ),
     );
   }

@@ -10,6 +10,7 @@ import 'package:clg_project/ui/client_side/client_home_page/client_job_descripti
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_observer/Observable.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -215,5 +216,11 @@ class _CvResumeState extends BasePageScreenState<CvResume> with BaseScreen {
         ),
       ),
     );
+  }
+
+  @override
+  update(Observable observable, String? notifyName, Map? map) {
+    // TODO: implement update
+    throw UnimplementedError();
   }
 }

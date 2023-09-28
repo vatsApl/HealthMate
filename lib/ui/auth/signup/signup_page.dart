@@ -3,6 +3,7 @@ import 'package:clg_project/base_Screen_working/base_screen.dart';
 import 'package:clg_project/ui/auth/signup/signup_candidate/view/signup_candidate.dart';
 import 'package:clg_project/ui/auth/signup/signup_client/view/signup_client.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_observer/Observable.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../../../resourse/app_colors.dart';
 import '../../../resourse/dimens.dart';
@@ -116,5 +117,11 @@ class _SignUpPageState extends BasePageScreenState<SignupPage>
         ),
       ),
     );
+  }
+
+  @override
+  update(Observable observable, String? notifyName, Map? map) {
+    // TODO: implement update
+    throw UnimplementedError();
   }
 }

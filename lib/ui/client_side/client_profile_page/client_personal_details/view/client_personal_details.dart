@@ -13,6 +13,7 @@ import 'package:clg_project/ui/client_side/client_home_page/client_job_descripti
 import 'package:clg_project/ui/client_side/client_profile_page/client_personal_details/model/personal_details_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_observer/Observable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
@@ -463,5 +464,11 @@ class _ClientPersonalDetailsState
         },
       ),
     );
+  }
+
+  @override
+  update(Observable observable, String? notifyName, Map? map) {
+    // TODO: implement update
+    throw UnimplementedError();
   }
 }

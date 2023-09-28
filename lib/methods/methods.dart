@@ -1,4 +1,5 @@
 import 'package:clg_project/MyFirebaseService.dart';
+import 'package:clg_project/helper/socket_io_client.dart';
 import 'package:clg_project/resourse/dimens.dart';
 import 'package:clg_project/resourse/strings.dart';
 import 'package:flutter/material.dart';
@@ -185,6 +186,10 @@ class Methods {
                               onPressed: () async {
                                 PreferencesHelper.setBool(
                                     PreferencesHelper.KEY_USER_LOGIN, false);
+
+                                // socket disconnect on logout
+                                SocketUtilsClient.instance.disposeSocket();
+
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(
                                       builder: (context) => SigninPage(),

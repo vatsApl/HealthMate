@@ -1,4 +1,5 @@
 class Dimens {
+  static const cursorWidth = 1.0;
   static const pixel_0 = 0.0;
   static const pixel_0_point_1 = 0.1;
   static const pixel_0_point_4 = 0.4;

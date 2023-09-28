@@ -1,3 +1,5 @@
+import 'package:clg_project/UI/message/view/message_list_page.dart';
+import 'package:clg_project/helper/socket_io_client.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/ui/candidate_side/candidate_home_page/view/candidate_home_page.dart';
 import 'package:clg_project/ui/candidate_side/find_job/view/find_job_page.dart';
@@ -21,12 +23,19 @@ class _CandidateMainPageState extends State<CandidateMainPage> {
     CandidateHomePage(),
     FindJobPage(),
     MyJobsPage(),
+    MessageListPage(),
     CandidateProfilePage(),
   ];
 
   void onTappedBar(int index) {
     Provider.of<ValueNotifier<int>>(context, listen: false).value = index;
     CandidateHomePage.tabIndexNotifier.value = 0;
+  }
+
+  @override
+  void initState() {
+    SocketUtilsClient.instance.initSocket();
+    super.initState();
   }
 
   @override
@@ -106,10 +115,34 @@ class _CandidateMainPageState extends State<CandidateMainPage> {
                 padding: const EdgeInsets.only(
                   bottom: Dimens.pixel_6,
                 ),
+
+                /// commented because don't have svg for message uncomment when available the svg
+                // child: SvgPicture.asset(
+                //   Images.ic_search,
+                //   fit: BoxFit.scaleDown,
+                //   color: currentIndex == 1
+                //       ? AppColors.kDefaultPurpleColor
+                //       : AppColors.kdisabledColor,
+                // ),
+                child: Icon(
+                  Icons.message_outlined,
+                  size: 25,
+                  color: currentIndex == 3
+                      ? AppColors.kDefaultPurpleColor
+                      : AppColors.kdisabledColor,
+                ),
+              ),
+              label: Strings.candidate_bottom_text_message,
+            ),
+            BottomNavigationBarItem(
+              icon: Padding(
+                padding: const EdgeInsets.only(
+                  bottom: Dimens.pixel_6,
+                ),
                 child: SvgPicture.asset(
                   Images.ic_personal_details,
                   fit: BoxFit.scaleDown,
-                  color: currentIndex == 3
+                  color: currentIndex == 4
                       ? AppColors.kDefaultPurpleColor
                       : AppColors.kdisabledColor,
                 ),

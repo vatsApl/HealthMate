@@ -2,6 +2,7 @@ import 'package:clg_project/UI/widgets/candidate_card_top.dart';
 import 'package:clg_project/UI/widgets/custom_appbar.dart';
 import 'package:clg_project/UI/widgets/job_card_home_page.dart';
 import 'package:clg_project/constants.dart';
+import 'package:clg_project/helper/socket_io_client.dart';
 import 'package:clg_project/resourse/images.dart';
 import 'package:clg_project/resourse/shared_prefs.dart';
 import 'package:clg_project/ui/candidate_side/candidate_home_page/bloc/candidate_home_page_state.dart';
@@ -49,13 +50,18 @@ class _CandidateHomePageState extends State<CandidateHomePage> {
     await MyFirebaseService.logScreen('candidate home screen');
   }
 
+  int? userType = PreferencesHelper.getInt(PreferencesHelper.KEY_USER_TYPE);
+
   @override
   void initState() {
+    // if (SocketUtilsClient.instance?.socket == null) {
+    //   SocketUtilsClient.instance.initSocket();
+    // }
     super.initState();
     // event of show home page data
     _candidateHomePageBloc.add(ShowCandidateHomePageData());
     print('current:$uId');
-
+    debugPrint('This is the user type: $userType');
     getAnalytics();
   }
 

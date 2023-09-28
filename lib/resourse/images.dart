@@ -56,4 +56,5 @@ class Images {
   static const ic_timesheet_rounded = "images/timesheet_rounded.svg";
   static const ic_approvals_rounded = "images/approvals_rounded.svg";
   static const ic_health_mate = "images/HealthMate.svg";
+  static const profile = "images/profile.svg";
 }

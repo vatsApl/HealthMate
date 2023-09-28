@@ -6,6 +6,7 @@ import 'package:clg_project/resourse/strings.dart';
 import 'package:clg_project/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_observer/Observable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../../../../resourse/app_colors.dart';
@@ -218,5 +219,11 @@ class _AddNewAddressState extends BasePageScreenState<AddNewAddress>
         },
       ),
     );
+  }
+
+  @override
+  update(Observable observable, String? notifyName, Map? map) {
+    // TODO: implement update
+    throw UnimplementedError();
   }
 }

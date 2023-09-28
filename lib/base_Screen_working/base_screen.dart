@@ -1,12 +1,14 @@
+import 'package:clg_project/helper/socket_io_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_observer/Observer.dart';
 import 'package:flutter_svg/svg.dart';
 import '../resourse/images.dart';
 
 abstract class BasePageScreen extends StatefulWidget {}
 
 abstract class BasePageScreenState<Page extends BasePageScreen>
-    extends State<Page> {
+    extends State<Page> with Observer, WidgetsBindingObserver {
   bool _isBack = true;
   bool _isSave = false;
   bool _isAppBar = true;
@@ -38,6 +40,55 @@ abstract class BasePageScreenState<Page extends BasePageScreen>
 }
 
 mixin BaseScreen<Page extends BasePageScreen> on BasePageScreenState<Page> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+
+    SocketUtilsClient.instance.connectToSocket();
+    // SocketUtils.instance.setConnectListener(onConnect);
+    SocketUtilsClient.instance.setConnectingListener(onConnecting);
+    SocketUtilsClient.instance.setOnDisconnectListener(onDisconnect);
+    SocketUtilsClient.instance.reconnectAttempt(onReConnect);
+    SocketUtilsClient.instance.setOnErrorListener(onError);
+    SocketUtilsClient.instance.setOnConnectionErrorListener(onConnectError);
+    SocketUtilsClient.instance.setOnPingListener(onConnectAgain);
+    super.initState();
+  }
+
+  onConnecting(data) {
+    print('Connecteing $data');
+  }
+
+  onDisconnect(data) {
+    print('onDisconnect $data');
+  }
+
+  onReConnect(data) {
+    print("onReConnect$data");
+    SocketUtilsClient.instance.connectToSocket();
+  }
+
+  onError(data) async {
+    print('onError $data');
+    if (data == "errorrr:{message: Not Authorised}") {
+      await SocketUtilsClient.instance.initSocket();
+    }
+  }
+
+  onConnectError(data) {
+    print('onConnectError $data');
+  }
+
+  onConnectAgain() {
+    SocketUtilsClient.instance.connectToSocket();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
